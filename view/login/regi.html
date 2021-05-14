@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>완벽한 자취생활, 완자 - 회원가입</title>
+    <script src="../../js/includeHTML.js"></script>
+</head>
+
+<body>
+    <header include-html="../commons/header.html"></header>
+
+    <div class="container" style="height: 1000px;width: 700px;">
+        <div class="row">
+            <div class="col" style="text-align: center;margin-top: 30px;"><img src="../../assets/img/완자logo2.png" width="280px"></div>
+        </div>
+        <div class="row" style="margin-bottom: -10px;">
+            <div class="col" style="padding-left: 15px;text-align: center;margin: 0px;margin-top: 11px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 140px;margin-left: -145px;"><strong>이메일</strong></label>
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input type="text" style="width: 157px;height: 40px;margin-top: 0px;" placeholder=" 이메일"><span>@</span><select style="width: 160px;height: 40px;" placeholder="선택해주세요">
+                        <option value="naver.com" selected="">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="daum.net">daum.net</option>
+                    </select></div>
+            </div>
+        </div>
+        <div class="row" style="min-width: auto;text-align: left;font-family: 'Noto Sans KR', sans-serif;margin-bottom: -10px;">
+            <div class="col" style="text-align: center;padding: 0px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 127px;margin-left: -145px;"><strong>비밀번호</strong></label>
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input type="password" style="width: 330px;height: 40px;" placeholder=" 비밀번호 영문, 숫자 또는 혼합 6~20자"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center;padding: 0px;height: 91px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 93px;margin-left: -145px;"><strong>비밀번호 확인</strong></label>
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input type="password" style="width: 330px;height: 40px;" placeholder=" 비밀번호 확인"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center;width: 700px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 140px;margin-left: -145px;"><strong>닉네임</strong></label>
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input type="text" style="width: 330px;height: 40px;margin-top: 0px;" placeholder=" 닉네임"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center;height: 90px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 110px;margin-left: -145px;"><strong>휴대폰 번호</strong></label>
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input type="text" style="width: 330px;height: 40px;margin-top: 0px;" placeholder=" 휴대폰 번호"></div>
+            </div>
+        </div>
+        <div class="row" style="text-align: center;">
+            <div class="col"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 123px;margin-left: -145px;"><strong>약관 동의</strong></label>
+                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;padding: 0px;"><input type="checkbox" style="margin-right: 10px;">서비스 이용약관 동의<a href="#" style="margin-left: 8px;">보기</a></h5>
+                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;padding: 0px;margin-bottom: 11px;margin-right: 0px;margin-left: 10px;"><input type="checkbox" style="margin-right: 10px;">개인정보취급방침&nbsp;동의<a href="#" style="margin-left: 8px;">보기</a></h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center;"><button class="btn btn-lg" type="button" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 330px;font-size: 18px;margin-top: 12px;">회원가입</button></div>
+        </div>
+    </div>
+
+
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <footer include-html="../commons/footer.html"></footer>
+
+<script>
+
+    includeHTML();
+
+    $(document).ready(function () {
+
+        // 실시간 검색어 슬라이드
+        function tick() {
+            $('#_realTime li:first').slideUp(function () {
+                $(this).appendTo($('#_realTime')).slideDown();
+            }
+            )
+        };
+
+        // 실시간 검색어 2초마다 변경
+        setInterval(function () { tick() }, 2000);
+    });
+
+
+    // 상단 배너 X 클릭 삭제
+    $(document).on('click', '#closeBanner', function () {
+        $('#_card').hide();
+    })
+
+    // 로고 클릭 -> 메인화면 이동
+    $(document).on('click', '#_logo', function () {
+        location.href = '../../index.html';
+    })
+
+
+</script>
+
+
+</body>
+
+</html>

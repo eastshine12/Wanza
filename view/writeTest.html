@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- BootStrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<form id="upload_frm">
+	<table class="table table-bordered">
+		
+		<tr>
+			<th>아이디</th>
+			<td style="text-align: left;">
+				<input type="text" id="_memberSeq" name="memberSeq" size="50">
+			</td>
+		</tr>
+		
+		<tr>
+			<th>제목</th>
+			<td style="text-align: left;">
+				<input type="text" id="_cardTitle" name="cardTitle" size="50">
+			</td>
+		</tr>
+		<tr>
+			<th>파일 업로드</th>
+			<td style="text-align: left;">
+				<input type="file" class="btn btn-info" name='cardFile' style="width: 400px">
+			</td>
+		</tr>
+		<tr>
+			<th>내용</th>
+			<td>
+				<textarea rows="10" cols="50" id="_cardContent" name="cardContent"></textarea>
+			</td>
+		</tr> 
+		<tr>
+			<td colspan="2" style="height: 50px; text-align: center;">
+				<button type="button" id="btn" class="btn btn-primary">작성</button>
+			</td>
+		</tr>
+	</table>
+</form>
+
+
+<script>
+
+let sessionId = sessionStorage.getItem("login");
+$('#_id').val(sessionId);
+
+
+$(document).ready(function() {
+	
+	$('#btn').click(function() {
+		
+		$.ajax({
+			url:"http://localhost:3000/cardWrite",
+			type:"post",
+			data: new FormData($('#upload_frm')[0]),
+			enctype:"multipart/form-data",
+			processData:false,
+			contentType:false,
+			cache:false,
+			success:function(data){
+				if(data == "suc") {
+					alert("작성 완료");
+				
+				}
+				else {
+					alert("작성 실패");
+				}  
+			},
+			error:function(){
+				alert('error');
+			}
+		});
+	});
+	
+});
+
+
+
+</script>
+
+</body>
+</html>

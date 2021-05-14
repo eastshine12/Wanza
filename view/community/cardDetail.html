@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>완벽한 자취생활, 완자</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+        a:link {text-decoration:none; color:black;}
+        a:visited {text-decoration:none; color:black;}
+        a:active {text-decoration:none;}
+        a:hover {text-decoration:none;}
+
+        /* 사진 리스트 */
+        .project_wrap{
+            text-align: center;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .project_wrap a{ /* 사진 링크 */
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        /* 사진 이미지 */
+        .project_item{
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 100%;
+            background-color: #f5f5f5;
+            border-radius: 10px; 
+        }
+        .project_item > img {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100%;
+            transform: translate(-50%,-50%);
+            transition: transform .2s;
+        }
+
+<!-- 
+        .project_wrap a:hover+.project_item img{
+            transform: scale(1.1) translate(-45%,-45%);
+            transition: transform .5s;
+        }
+ -->
+
+        #marker {
+            transform: scale(1);
+            -webkit-transform: scale(1);
+            -moz-transform: scale(1);
+            -ms-transform: scale(1);
+            -o-transform: scale(1);
+            transition: all 0.1s ease-in-out;
+        }
+
+        #marker:hover {
+            transform: scale(1.1);
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            -o-transform: scale(1.1);
+        }
+
+        #marker:hover #markerMessage{
+            display:block;
+            transform-origin: 100% 0%;
+            -webkit-animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        #marker #markerMessage{
+            display: none;
+            text-align: left;
+            background-color: #fff5e2a1;
+            padding: 8px;
+            padding-top: 15px;
+            width: 300px;
+            position: absolute;
+            border-radius: 10px;
+            box-shadow: 1px 1px 1px rgba(248, 139, 14, 0.418);
+            right: -120px;
+            top: 50px;
+            color: rgb(197, 99, 99);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        #marker #markerMessage:before{
+            position: absolute;
+            content: '';
+            width:0;
+            height: 0;
+            border:6px solid transparent;
+            border-bottom-color:#F4744C;
+            right:134px;
+            top:-12px;
+        }
+
+        #marker #markerMessage:after{
+            width:100%;
+            height:40px;
+            content:'';
+            position: absolute;
+            top:-40px;
+            left:0;
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% { 
+                opacity:0; 
+                transform: scale(0.6);
+            }
+            100% {
+                opacity:100%;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity:0; }
+            100% { opacity:100%; }
+        }​ 
+    </style>
+</head>
+
+<body style="font-family: 'Noto Sans KR', sans-serif;">
+    <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3">
+                <div class="row" style="height: 150px;"></div>
+                <div class="row">
+                    <div class="col" style="margin-bottom: 10px;">
+                        <h4 style="font-size: 19px;"><strong>nickname</strong></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>원룸&nbsp;· 앤틱&nbsp;·&nbsp;<i class="fa fa-circle" style="font-size: 20px;color: var(--orange);"></i><br></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col"><span style="color: rgb(244, 116, 76);">조회 15,010&nbsp;&nbsp;</span><span>·&nbsp;댓글 3</span></div>
+                </div>
+                <div class="row" style="margin-top: 45px;">
+                    <div class="col"><span>조명으로 포근한 밤&nbsp; 🌙<br></span></div>
+                </div>
+                <div class="row" style="margin-top: 80px;margin-bottom: 25px;">
+                    <div class="col"><button class="btn" type="button" style="width: 150px;height: 45px;background: rgb(244, 116, 76);color: rgb(255,255,255);"><i class="fa fa-heart" style="color: var(--light);"></i>&nbsp; 23</button></div>
+                </div>
+                <div class="row" style="margin-top: 5px;width: 350px;margin-right: 10px;margin-left: -5px;margin-bottom: 0px;padding-right: 5px;">  
+                    
+                    <!-- 메인 이외의 업로드 사진 리스트 -->
+
+                    <div style="width: 150px;margin-right: 5px;">
+                        <article article class="project_wrap">
+                        <a href="#"></a>
+                        <div class="project_item">
+                            <span></span>
+                            <img src="../../assets/img/2222.jpg" width="150px" style="margin: 3px;">
+                        </div>
+                        </article> 
+                    </div>
+
+                    <div style="width: 150px;margin-right: 5px;">
+                        <article article class="project_wrap">
+                        <a href="#"></a>
+                        <div class="project_item">
+                            <span></span>
+                            <img src="../../assets/img/2222.jpg" width="150px" style="margin: 3px;">
+                        </div>
+                        </article> 
+                    </div>
+
+                    <div style="width: 150px;margin-right: 5px;">
+                        <article article class="project_wrap">
+                        <a href="#"></a>
+                        <div class="project_item">
+                            <span></span>
+                            <img src="../../assets/img/2222.jpg" width="150px" style="margin: 3px;">
+                        </div>
+                        </article> 
+                    </div>
+
+                    <div style="width: 150px;margin-right: 5px;">
+                        <article article class="project_wrap">
+                        <a href="#"></a>
+                        <div class="project_item">
+                            <span></span>
+                            <img src="../../assets/img/2222.jpg" width="150px" style="margin: 3px;">
+                        </div>
+                        </article> 
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <div class="col">
+                <h3 style="text-align: center;margin-top: 65px;margin-bottom: 25px;"><strong>단점을 장점으로~ 트렌드한 내추럴 하우스</strong></h3>
+
+                
+                <div class="row" style="text-align: center;">
+                    <div class="col">
+
+                        <!-- 메인 사진 마커 -->
+
+                        <div style="position: absolute;">
+                            <div id="marker" style="position: relative; top: 42px;left: 255px;">
+                                <img src="../../assets/img/marker.png" style="width: 40px;">
+                                <div id="markerMessage">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                                        </div>
+                                        <div class="col" style="margin-left: -40px;margin-right: -10px;">
+                                            <p>인테리어 그림 액자 포스터</p>
+                                            <p style="font-size: 15px;"><b>48,900원</b></p>
+                                        </div>
+                                        <div class="col" style="margin-top: 25px;margin-right: -70px;">
+                                            <p style="font-size: 25px;"><b>＞</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="position: absolute;">
+                            <div id="marker" style="position: relative; top: 300px;left: 700px;">
+                                <img src="../../assets/img/marker.png" style="width: 40px;">
+                                <div id="markerMessage">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                                        </div>
+                                        <div class="col" style="margin-left: -40px;margin-right: -10px;">
+                                            <p>인테리어 그림 액자 포스터</p>
+                                            <p style="font-size: 15px;"><b>48,900원</b></p>
+                                        </div>
+                                        <div class="col" style="margin-top: 25px;margin-right: -70px;">
+                                            <p style="font-size: 25px;"><b>＞</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div style="position: absolute;">
+                            <div id="marker" style="position: relative; top: 400px;left: 270px;">
+                                <img src="../../assets/img/marker.png" style="width: 40px;">
+                                <div id="markerMessage">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                                        </div>
+                                        <div class="col" style="margin-left: -40px;margin-right: -10px;">
+                                            <p>인테리어 그림 액자 포스터</p>
+                                            <p style="font-size: 15px;"><b>48,900원</b></p>
+                                        </div>
+                                        <div class="col" style="margin-top: 25px;margin-right: -70px;">
+                                            <p style="font-size: 25px;"><b>＞</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+
+                        <img style="border-radius: 10px;" src="../../assets/img/KakaoTalk_20210506_155958419.jpg">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 60px;">
+        <div class="row">
+            <div class="col-xl-8 offset-xl-0">
+                <div class="row" style="margin-bottom: 10px;">
+                    <div class="col">
+                        <h6 style="font-size: 17px;"><strong>댓글 3</strong></h6>
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom: 15px;">
+                    <div class="col"><input type="text" placeholder="내용을 입력해주세요." style="width: 600px;height: 35px;"><button class="btn" type="button" style="margin-left: 15px;background: rgb(244, 116, 76);color: rgb(255,255,255);width: 65px;height: 37px;margin-bottom: 5px;">작성</button></div>
+                </div>
+
+                <!-- 댓글 리스트 -->
+
+                <div class="row" style="margin-bottom: 15px;">
+                    <div class="col-xl-1" style="padding-right: 15px;margin-right: -8px;">
+                        <a href="#"><i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i></a>
+                    </div>
+                    <div class="col">
+                        <div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>nickname1</strong></a><span style="margin-right: 15px;font-size: 14px;">3시간 전</span><a href="" style="margin-right: 20px;color: rgb(99,99,99);font-size: 15px;">신고</a></div>
+                        <div><span>침대 어디껀가요????</span></div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-bottom: 15px;">
+                    <div class="col-xl-1" style="padding-right: 15px;margin-right: -8px;">
+                        <a href="#"><i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i></a>
+                    </div>
+                    <div class="col">
+                        <div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>nickname1</strong></a><span style="margin-right: 15px;font-size: 14px;">3시간 전</span><a href="" style="margin-right: 20px;color: rgb(99,99,99);font-size: 15px;">신고</a></div>
+                        <div><span>침대 어디껀가요????</span></div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-bottom: 15px;">
+                    <div class="col-xl-1" style="padding-right: 15px;margin-right: -8px;">
+                        <a href="#"><i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i></a>
+                    </div>
+                    <div class="col">
+                        <div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>nickname1</strong></a><span style="margin-right: 15px;font-size: 14px;">3시간 전</span><a href="" style="margin-right: 20px;color: rgb(99,99,99);font-size: 15px;">신고</a></div>
+                        <div><span>침대 어디껀가요????</span></div>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col offset-xl-3">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="row">
+                    <div class="col">
+                        <h6 style="font-size: 17px;margin-bottom: 20px;"><strong>인테리어 아이템</strong></h6>
+                    </div>
+                </div>
+                <div class="row" style="width: 340px;margin-left: 10px;">
+                    
+                    <!-- 메인 사진 아이템 리스트 --> 
+                    
+                    <div style="width: 90px;margin-right: 7px;">
+                        <article article class="project_wrap">
+                            <a href="#"></a>
+                            <div class="project_item">
+                                <span></span>
+                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                            </div>
+                        </article>
+                    </div>
+
+
+                    <div style="width: 90px;margin-right: 7px;">
+                        <article article class="project_wrap">
+                            <a href="#"></a>
+                            <div class="project_item">
+                                <span></span>
+                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                            </div>
+                        </article>
+                    </div>
+
+
+                    <div style="width: 90px;margin-right: 7px;">
+                        <article article class="project_wrap">
+                            <a href="#"></a>
+                            <div class="project_item">
+                                <span></span>
+                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                            </div>
+                        </article>
+                    </div>
+
+
+                    <div style="width: 90px;margin-right: 7px;">
+                        <article article class="project_wrap">
+                            <a href="#"></a>
+                            <div class="project_item">
+                                <span></span>
+                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                            </div>
+                        </article>
+                    </div>
+
+
+                    <div style="width: 90px;margin-right: 7px;">
+                        <article article class="project_wrap">
+                            <a href="#"></a>
+                            <div class="project_item">
+                                <span></span>
+                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                            </div>
+                        </article>
+                    </div>
+
+
+                    <div style="width: 90px;margin-right: 7px;">
+                        <article article class="project_wrap">
+                            <a href="#"></a>
+                            <div class="project_item">
+                                <span></span>
+                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                            </div>
+                        </article>
+                    </div>
+
+                </div>
+                <div class="row" style="width: 340px;">
+                    <div class="col" style="text-align: center;">
+                        <h6>(페이징 버튼)</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top: 70px;">
+        <div class="row">
+            <div class="col">
+                <h3><strong>비슷한 인테리어 추천</strong></h3>
+            </div>
+        </div>
+        <div class="row"></div>
+    </div>
+
+    <footer include-html="../commons/footer.html"></footer>
+
+
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../js/includeHTML.js"></script>
+    <script src="../../js/header.js"></script>
+</body>
+
+</html>

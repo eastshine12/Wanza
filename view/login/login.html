@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>완벽한 자취생활, 완자 - 로그인</title>
+    <script src="../../js/includeHTML.js"></script>
+    <!-- 네이버 로그인 API -->
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+    <!-- 카카오 로그인 API -->
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <header include-html="../commons/header.html"></header>
+
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v10.0&appId=515109966350431&autoLogAppEvents=1"
+        nonce="dKR1K2rh"></script>
+
+    <div class="fb-login-button" data-width="330px" data-size="large" data-button-type="login_with" data-layout="default"
+        data-auto-logout-link="false" data-use-continue-as="false"></div>
+        
+
+
+    <div class="container" style="height: 1000px;width: 700px;">
+        <div class="row">
+            <div class="col" style="text-align: center;margin-top: 30px;"><img src="../../assets/img/완자logo2.png" width="280px"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h6 style="text-align: center;font-family: 'Noto Sans KR', sans-serif;font-size: 13px;color: rgb(101,101,101);margin-top: 8px;">SNS 간편 로그인 회원가입</h6>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: -10px;">
+            <div class="col" class="fb-login-button" style="text-align: center;padding-left: 15px;">
+                <button id="facebookLogin" class="btn btn-lg" onclick="document.getElementById('u_0_0_an').click()" type="button" style="width: 330px;height: 57px;color: #ffffff;background: #3b5998;border-radius: 0px;font-family: 'Noto Sans KR', sans-serif;font-size: 17px;margin: 10px;">
+                    <i class="fa fa-facebook-square" style="margin: 0px;margin-right: 0px;text-align: left;padding-right: 0px;margin-left: -46px;font-size: 21px;"></i>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;페이스북 계정 로그인
+                </button>
+            </div>
+            <fb:login-button id="facebookLoginBtn" onlogin="checkLoginState();">
+            </fb:login-button>
+            <div class="fb-login-button" data-show-faces="false" data-width="600" data-onlogin="afterLoginCallback()"
+                login_text="Your Text"></div>
+        </div>
+        <div class="row" style="min-width: auto;text-align: left;font-family: 'Noto Sans KR', sans-serif;margin-bottom: -10px;">
+            <div class="col" style="text-align: center;padding: 0px;"><button class="btn btn-lg" type="button" style="width: 330px;height: 57px;color: #000000;background: #fef01b;border-radius: 0px;font-family: 'Noto Sans KR', sans-serif;font-size: 17px;margin: 10px;margin-left: 10px;"><img class="my-auto" src="../../assets/img/kakaotalk_black_logo_icon_147117.png" width="23px" style="margin-top: -5px;margin-right: 0px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;margin-left: -47px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 카카오톡 계정 로그인</button></div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center;padding: 0px;">
+                <button id="naverLogin" class="btn btn-lg" onclick="document.getElementById('naver_id_login_anchor').click()" type="button" style="width: 330px;height: 57px;color: #ffffff;background: #2db400;border-radius: 0px;font-family: 'Noto Sans KR', sans-serif;font-size: 17px;margin: 10px;padding-top: 12px;">&nbsp; 
+                    <img class="my-auto" src="../../assets/img/naver-icon-file3.png" width="30px" style="margin-left: -56px;margin-top: 0px;padding-top: 0px;">
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;네이버 계정 로그인
+            </button>
+            <div id="naver_id_login" style="display: none;"></div>
+        </div>
+        </div>
+        <div class="row" style="text-align: center;">
+            <div class="col">
+                <h5 style="color: rgb(101,101,101);font-size: 13px;font-family: 'Noto Sans KR', sans-serif;margin-top: 12px;">OR</h5>
+                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;">완자 계정이 있다면</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center;width: 700px;"><input type="text" placeholder="  아이디 6~20자" style="width: 330px;height: 45px;margin: 10px;margin-top: 20px;font-family: 'Noto Sans KR', sans-serif;font-size: 15px;color: rgb(101,101,101);border-radius: 5px;border-width: 1px;border-color: rgb(201,201,201);border-bottom-width: 1px;opacity: 1;filter: saturate(100%);"></div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center;"><input type="password" placeholder="  비밀번호 영문, 숫자 또는 혼합 6~20자" style="width: 330px;height: 45px;margin: 10px;font-family: 'Noto Sans KR', sans-serif;font-size: 15px;border-radius: 5px;border-width: 1px;border-color: rgb(203,203,203);"></div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center;"><button class="btn btn-lg" type="button" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 330px;font-size: 18px;margin-top: 12px;">로그인</button></div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center;margin-top: 19px;"><a href="#" style="margin-right: 10px;color: #646464;font-family: 'Noto Sans KR', sans-serif;font-size: 14px;">아이디 찾기</a><span style="color: #000000;font-family: 'Noto Sans KR', sans-serif;font-size: 14px;">│</span><a href="#" style="margin-right: 10px;color: #646464;font-family: 'Noto Sans KR', sans-serif;font-size: 14px;margin-left: 10px;">비밀번호 재설정</a><span style="color: #000000;font-family: 'Noto Sans KR', sans-serif;font-size: 14px;">│</span><a href="regi.html" style="margin-right: 10px;color: #646464;font-family: 'Noto Sans KR', sans-serif;font-size: 14px;margin-left: 10px;">회원가입</a></div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <footer include-html="../commons/footer.html"></footer>
+
+<script>
+
+    includeHTML();
+
+    $(document).ready(function () {
+
+        // 실시간 검색어 슬라이드
+        function tick() {
+            $('#_realTime li:first').slideUp(function () {
+                $(this).appendTo($('#_realTime')).slideDown();
+            }
+            )
+        };
+
+        // 실시간 검색어 2초마다 변경
+        setInterval(function () { tick() }, 2000);
+
+    });
+
+
+    // 상단 배너 X 클릭 삭제
+    $(document).on('click', '#closeBanner', function () {
+        $('#_card').hide();
+    })
+
+    // 로고 클릭 -> 메인화면 이동
+    $(document).on('click', '#_logo', function () {
+        location.href = '../../index.html';
+    })
+
+
+    $(document).on('click','#facebookLogin', function() {
+        $('#_4z_f fwb').trigger('click');
+    })
+
+
+    // 페이스북 로그인 API
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '515109966350431',
+            cookie: true,
+            xfbml: true,
+            version: 'v10.0'
+        });
+
+        FB.AppEvents.logPageView();
+
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        });
+    }
+
+
+    // 카카오 로그인 API
+
+
+    // 네이버 로그인 API
+    var naver_id_login = new naver_id_login("dSA9KIZOunKpoBfOJdB9", "http://localhost:8090/collback.html");
+    var state = naver_id_login.getUniqState();
+    naver_id_login.setButton("green", 3, 70);
+    naver_id_login.setDomain("http://localhost:8090/index.html");
+    naver_id_login.setState(state);
+    naver_id_login.setPopup();
+    naver_id_login.init_naver_id_login();
+
+
+
+
+
+</script>
+
+
+</body>
+
+</html>
