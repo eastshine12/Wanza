@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.decolab.wanza.dto.CardDTO;
+import com.decolab.wanza.dto.CardReviewDTO;
 import com.decolab.wanza.service.CardService;
 
 import util.NewFileName;
@@ -57,7 +58,7 @@ public class CardController {
 		dto.setCardFileName(newFilename);
 
 		
-		System.out.println("dto 들어오나 : "+dto.toString());
+		System.out.println(dto.toString());
 		
 		
 		try {
@@ -72,6 +73,77 @@ public class CardController {
 		
 		return service.cardWrite(dto)>0?"suc":"err";
 	}
+	
+	
+	@RequestMapping(value = "/addCardReadCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public String addCardReadCount(CardDTO dto) {		
+		System.out.println("CardController addCardReadCount() " + new Date());
+		return service.addCardReadCount(dto)>0?"suc":"err";
+	}
+	
+	
+	@RequestMapping(value = "/getCardLikeCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public int getCardLikeCount(CardDTO dto) {
+		
+		System.out.println("CardController getCardLikeCount() " + new Date());
+		System.out.println(dto.toString());
+		return service.getLikeCount(dto);
+	}
+	
+	@RequestMapping(value = "/getBoolLike", method = {RequestMethod.GET,RequestMethod.POST})
+	public String getBoolLike(CardDTO dto) {
+		
+		System.out.println("CardController getBoolLike() " + new Date());
+		System.out.println(dto.toString());
+		return service.boolLike(dto)>0?"exist":"";
+	}
+	
+	@RequestMapping(value = "/addCardLikeCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public String addCardLikeCount(CardDTO dto) {
+		
+		System.out.println("CardController addCardLikeCount() " + new Date());
+		System.out.println(dto.toString());
+		return service.addCardLikeCount(dto)>0?"suc":"err";
+	}
+	
+	@RequestMapping(value = "/deleteCardLikeCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public String deleteCardLikeCount(CardDTO dto) {
+		
+		System.out.println("CardController deleteCardLikeCount() " + new Date());
+		System.out.println(dto.toString());
+		return service.deleteCardLikeCount(dto)>0?"suc":"err";
+	}
+	
+	@RequestMapping(value = "/getCardReviewList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<CardReviewDTO> getCardReviewList(CardReviewDTO dto) {
+		
+		System.out.println("CardController getCardReviewList() " + new Date());
+		System.out.println(dto.toString());
+		return service.getCardReviewList(dto);
+	}
+	
+	@RequestMapping(value = "/getCardReviewCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public int getCardReviewCount(CardReviewDTO dto) {
+		
+		System.out.println("CardController getCardReviewCount() " + new Date());
+		System.out.println(dto.toString());
+		return service.getCardReviewCount(dto);
+	}
+	
+
+	@RequestMapping(value = "/cardReviewWrite", method = {RequestMethod.GET,RequestMethod.POST})
+	public String cardReviewWrite(CardReviewDTO dto) {
+		
+		System.out.println("CardController cardReviewWrite() " + new Date());
+		System.out.println(dto.toString());
+		return service.cardReviewWrite(dto)>0?"suc":"err";
+	}
+	
+	
+	
+	
+	
+	
 	
 
 }
