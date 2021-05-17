@@ -1,0 +1,18 @@
+package com.decolab.wanza.dto;
+
+import java.io.Serializable;
+
+public class UserDTO implements Serializable {
+	
+	private int userSeq;
+	private String email;
+	private String pwd;
+	private String nickname;
+	private String profileName;
+	private String phone;
+	private int auth;
+	private int mileage;
+	private int defaultAddress;
+	
+
+}

@@ -67,52 +67,72 @@
             </div>
         </div>
         <div class="row">
-            <div class="col" style="text-align: center;width: 700px;"><input type="text" placeholder="  아이디 6~20자" style="width: 330px;height: 45px;margin: 10px;margin-top: 20px;font-family: 'Noto Sans KR', sans-serif;font-size: 15px;color: rgb(101,101,101);border-radius: 5px;border-width: 1px;border-color: rgb(201,201,201);border-bottom-width: 1px;opacity: 1;filter: saturate(100%);"></div>
+            <div class="col" style="text-align: center;width: 700px;"><input id="email" onkeyup="enterKey()" type="text" placeholder="  이메일" style="width: 330px;height: 45px;margin: 10px;margin-top: 20px;font-family: 'Noto Sans KR', sans-serif;font-size: 15px;color: rgb(101,101,101);border-radius: 5px;border-width: 1px;border-color: rgb(201,201,201);border-bottom-width: 1px;opacity: 1;filter: saturate(100%);"></div>
         </div>
         <div class="row">
-            <div class="col" style="text-align: center;"><input type="password" placeholder="  비밀번호 영문, 숫자 또는 혼합 6~20자" style="width: 330px;height: 45px;margin: 10px;font-family: 'Noto Sans KR', sans-serif;font-size: 15px;border-radius: 5px;border-width: 1px;border-color: rgb(203,203,203);"></div>
+            <div class="col" style="text-align: center;"><input id="pwd" onkeyup="enterKey()" type="password" placeholder="  비밀번호 영문, 숫자 또는 혼합 6~20자" style="width: 330px;height: 45px;margin: 10px;font-family: 'Noto Sans KR', sans-serif;font-size: 15px;border-radius: 5px;border-width: 1px;border-color: rgb(203,203,203);"></div>
         </div>
         <div class="row">
-            <div class="col" style="text-align: center;"><button class="btn btn-lg" type="button" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 330px;font-size: 18px;margin-top: 12px;">로그인</button></div>
+            <div class="col" style="text-align: center;"><button id="loginBtn" class="btn btn-lg" type="button" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 330px;font-size: 18px;margin-top: 12px;">로그인</button></div>
         </div>
         <div class="row">
             <div class="col" style="text-align: center;margin-top: 19px;"><a href="#" style="margin-right: 10px;color: #646464;font-family: 'Noto Sans KR', sans-serif;font-size: 14px;">아이디 찾기</a><span style="color: #000000;font-family: 'Noto Sans KR', sans-serif;font-size: 14px;">│</span><a href="#" style="margin-right: 10px;color: #646464;font-family: 'Noto Sans KR', sans-serif;font-size: 14px;margin-left: 10px;">비밀번호 재설정</a><span style="color: #000000;font-family: 'Noto Sans KR', sans-serif;font-size: 14px;">│</span><a href="regi.html" style="margin-right: 10px;color: #646464;font-family: 'Noto Sans KR', sans-serif;font-size: 14px;margin-left: 10px;">회원가입</a></div>
         </div>
     </div>
 
+    <footer include-html="../commons/footer.html"></footer>
+    
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
-    <footer include-html="../commons/footer.html"></footer>
+    <script src="../../js/header.js"></script>
 
 <script>
 
-    includeHTML();
+    // Enter키 로그인
+    function enterKey() {
+        if (window.event.keyCode == 13) {
+            $('#loginBtn').click();
+        } 
+    }
 
-    $(document).ready(function () {
 
-        // 실시간 검색어 슬라이드
-        function tick() {
-            $('#_realTime li:first').slideUp(function () {
-                $(this).appendTo($('#_realTime')).slideDown();
+    $('#loginBtn').click(function () {
+
+        let email = $('#email').val();
+        let pwd = $('#pwd').val();
+        
+        if(email == '') {
+            alert('이메일을 입력해주세요.')
+            return;
+        }
+        if(pwd == '') {
+            alert('비밀번호를 입력해주세요.')
+            return;
+        }
+
+
+        $.ajax({
+            url: "http://192.168.0.231:3000/login",
+            type: "post",
+            data: {
+                email: email,
+                pwd: pwd
+            },
+            success: function (id) {
+                //console.log(id);
+                if(id.email != null && id.email != '') {
+                    sessionStorage.setItem("login", JSON.stringify(id));
+                    location.href = "../../index.html";
+                } else {
+                    alert('가입한 아이디가 없거나 비밀번호가 맞지 않습니다.')
+                }
+                
+            },
+            error: function () {
+                alert('ajax error');
             }
-            )
-        };
-
-        // 실시간 검색어 2초마다 변경
-        setInterval(function () { tick() }, 2000);
-
+        });
     });
-
-
-    // 상단 배너 X 클릭 삭제
-    $(document).on('click', '#closeBanner', function () {
-        $('#_card').hide();
-    })
-
-    // 로고 클릭 -> 메인화면 이동
-    $(document).on('click', '#_logo', function () {
-        location.href = '../../index.html';
-    })
 
 
     $(document).on('click','#facebookLogin', function() {
@@ -159,6 +179,7 @@
     naver_id_login.setState(state);
     naver_id_login.setPopup();
     naver_id_login.init_naver_id_login();
+
 
 
 

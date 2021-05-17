@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.io.Serializable"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
+    <fullyQualifiedTypeName name="com.decolab.wanza.dao.UserDAO"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.decolab.wanza.service.UserService"/>
+    <fullyQualifiedTypeName name="com.decolab.wanza.dto.UserDTO"/>
+    <fullyQualifiedTypeName name="com.decolab.wanza.dto.CardReviewDTO"/>
+    <fullyQualifiedTypeName name="com.decolab.wanza.dto.CardDTO"/>
+</qualifiedTypeNameHistroy>

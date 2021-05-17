@@ -3,17 +3,14 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>wanza</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/styles.min.css">
+    <title>완벽한 자취생활, 완자 - 회원가입</title>
 </head>
 
 <body>
+    <header include-html="../commons/header.html"></header>
+
     <div class="container" style="text-align: left;margin: 0px auto;height: 943px;width: 382px;font-family: 'Noto Sans KR', sans-serif;">
         <div class="row">
             <div class="col" style="margin-top: 30px;">
@@ -28,14 +25,28 @@
             <h1 style="font-size: 13px;margin: 0px;margin-left: 90px;margin-bottom: 20px;">마이페이지에서 확인하실 수 있습니다.</h1>
         </div>
         <div class="row">
-            <div class="col" style="text-align: center;"><img src="assets/img/190124_tour_coupon_10000.png" style="text-align: center;margin-left: -20px;margin-top: 10px;" width="400px"></div>
+            <div class="col" style="text-align: center;"><img src="../../assets/img/190124_tour_coupon_10000.png" style="text-align: center;margin-left: -20px;margin-top: 10px;" width="400px"></div>
         </div>
         <div class="row">
-            <div class="col" style="text-align: center;"><button class="btn btn-sm" type="button" style="border-color: rgb(244,116,76);color: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;font-size: 13px;padding-top: 4px;margin-top: 5px;">홈으로 가기</button></div>
+            <div class="col" style="text-align: center;"><button id="goHome" class="btn btn-sm" type="button" style="border-color: rgb(244,116,76);color: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;font-size: 13px;padding-top: 4px;margin-top: 5px;">홈으로 가기</button></div>
         </div>
     </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <footer include-html="../commons/footer.html"></footer>
+
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../js/includeHTML.js"></script>
+    <script src="../../js/header.js"></script>
+
+    <script>
+        $('#goHome').click(function() {
+            
+            location.href = "../../index.html";
+
+        });
+
+    </script>
+
 </body>
 
 </html>

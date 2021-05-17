@@ -1,0 +1,22 @@
+package com.decolab.wanza.dto;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class CardReviewDTO implements Serializable {
+
+	private int cardRevSeq;
+	private int cardSeq;
+	private String nickName;
+	private String cardRevContent;
+	private Date cardRevDate;
+	private int cardRevDel;
+	private int cardRevPageNum;
+
+	public CardReviewDTO() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	
+}

@@ -44,6 +44,13 @@ $(document).on('attr', '#headerSearch', function () {
 
 $(document).ready(function() {
 
+    // 세션 아이디 정보 가져오기
+    let sessionId = sessionStorage.getItem("login");
+    if (sessionId != null) {
+        $('#goLogin').html('<b>내 정보</b>')
+    }
+
+
     // 실시간 검색어 슬라이드
     function tick() {
         $('#_realTime li:first').slideUp(function () {

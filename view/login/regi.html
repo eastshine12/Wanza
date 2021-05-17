@@ -15,79 +15,229 @@
         <div class="row">
             <div class="col" style="text-align: center;margin-top: 30px;"><img src="../../assets/img/완자logo2.png" width="280px"></div>
         </div>
-        <div class="row" style="margin-bottom: -10px;">
+        <div class="row" style="margin-bottom: -20px;">
             <div class="col" style="padding-left: 15px;text-align: center;margin: 0px;margin-top: 11px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 140px;margin-left: -145px;"><strong>이메일</strong></label>
-                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input type="text" style="width: 157px;height: 40px;margin-top: 0px;" placeholder=" 이메일"><span>@</span><select style="width: 160px;height: 40px;" placeholder="선택해주세요">
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input id="email1" type="text" style="width: 157px;height: 40px;margin-top: 0px;" placeholder=" 이메일"><span>@</span><select id="email2" style="width: 160px;height: 40px;" placeholder="선택해주세요">
                         <option value="naver.com" selected="">naver.com</option>
                         <option value="gmail.com">gmail.com</option>
                         <option value="daum.net">daum.net</option>
                     </select></div>
             </div>
         </div>
-        <div class="row" style="min-width: auto;text-align: left;font-family: 'Noto Sans KR', sans-serif;margin-bottom: -10px;">
+
+        <div class="row">
+            <div class="col" style="text-align: center;">
+                <p id="emailCheck" style="font-size: 12px; margin-right: 150px;"></p>
+            </div>
+        </div>
+
+
+        <div class="row" style="min-width: auto;text-align: left;font-family: 'Noto Sans KR', sans-serif;margin-bottom: -15px;">
             <div class="col" style="text-align: center;padding: 0px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 127px;margin-left: -145px;"><strong>비밀번호</strong></label>
-                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input type="password" style="width: 330px;height: 40px;" placeholder=" 비밀번호 영문, 숫자 또는 혼합 6~20자"></div>
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input id="pwd" type="password" style="width: 330px;height: 40px;" placeholder=" 비밀번호 영문, 숫자 또는 혼합 6~20자"></div>
             </div>
         </div>
         <div class="row">
+            <div class="col" style="text-align: center;">
+                <p id="pwd1Check" style="font-size: 12px; margin-right: 150px;"></p>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: -15px;">
             <div class="col" style="text-align: center;padding: 0px;height: 91px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 93px;margin-left: -145px;"><strong>비밀번호 확인</strong></label>
-                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input type="password" style="width: 330px;height: 40px;" placeholder=" 비밀번호 확인"></div>
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input id="pwd2" type="password" style="width: 330px;height: 40px;" placeholder=" 비밀번호 확인"></div>
             </div>
         </div>
         <div class="row">
+            <div class="col" style="text-align: center;">
+                <p id="pwd2Check" style="font-size: 12px; margin-right: 150px;"></p>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: -15px;">
             <div class="col" style="text-align: center;width: 700px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 140px;margin-left: -145px;"><strong>닉네임</strong></label>
-                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input type="text" style="width: 330px;height: 40px;margin-top: 0px;" placeholder=" 닉네임"></div>
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input id="nickname" type="text" style="width: 330px;height: 40px;margin-top: 0px;" placeholder=" 한글, 숫자 또는 영어 대소문자"></div>
             </div>
         </div>
         <div class="row">
-            <div class="col" style="text-align: center;height: 90px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 110px;margin-left: -145px;"><strong>휴대폰 번호</strong></label>
-                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input type="text" style="width: 330px;height: 40px;margin-top: 0px;" placeholder=" 휴대폰 번호"></div>
+            <div class="col" style="text-align: center;">
+                <p id="nicknameCheck" style="font-size: 12px; margin-right: 150px;"></p>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col" style="text-align: center;height: 80px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 110px;margin-left: -145px;"><strong>휴대폰 번호</strong></label>
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input id="phone" type="text" style="width: 330px;height: 40px;margin-top: 0px;" placeholder=" 휴대폰 번호 ex) 010-1234-5678"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center;">
+                <p id="phoneCheck" style="font-size: 12px; margin-right: 100px;"></p>
+            </div>
+        </div>
+
         <div class="row" style="text-align: center;">
             <div class="col"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 123px;margin-left: -145px;"><strong>약관 동의</strong></label>
-                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;padding: 0px;"><input type="checkbox" style="margin-right: 10px;">서비스 이용약관 동의<a href="#" style="margin-left: 8px;">보기</a></h5>
-                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;padding: 0px;margin-bottom: 11px;margin-right: 0px;margin-left: 10px;"><input type="checkbox" style="margin-right: 10px;">개인정보취급방침&nbsp;동의<a href="#" style="margin-left: 8px;">보기</a></h5>
+                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;padding: 0px;"><input id="agree1" type="checkbox" style="margin-right: 10px;">서비스 이용약관 동의<a href="#" style="margin-left: 8px;">보기</a></h5>
+                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;padding: 0px;margin-bottom: 11px;margin-right: 0px;margin-left: 10px;"><input id="agree2" type="checkbox" style="margin-right: 10px;">개인정보취급방침&nbsp;동의<a href="#" style="margin-left: 8px;">보기</a></h5>
             </div>
         </div>
         <div class="row">
-            <div class="col" style="text-align: center;"><button class="btn btn-lg" type="button" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 330px;font-size: 18px;margin-top: 12px;">회원가입</button></div>
+            <div class="col" style="text-align: center;"><button id="regiBtn" class="btn btn-lg" type="button" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 330px;font-size: 18px;margin-top: 12px;">회원가입</button></div>
         </div>
     </div>
 
+    <footer include-html="../commons/footer.html"></footer>
 
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
-    <footer include-html="../commons/footer.html"></footer>
+    <script src="../../js/header.js"></script>
 
 <script>
 
-    includeHTML();
 
-    $(document).ready(function () {
 
-        // 실시간 검색어 슬라이드
-        function tick() {
-            $('#_realTime li:first').slideUp(function () {
-                $(this).appendTo($('#_realTime')).slideDown();
+    
+
+
+    /* 이메일 형식 체크 */
+    $(function () {
+        let filter = /^([0-9a-zA-Z_\.-]+)$/;
+        $('#email1').keyup(function () {
+
+            if (!filter.test($('#email1').val())) {
+                $("#emailCheck").css("color", "#ff0000");
+                $("#emailCheck").html('이메일 형식이 올바르지 않습니다.');
             }
-            )
-        };
+            else {
+                $("#emailCheck").html('');
+            }
+        })
+    });
 
-        // 실시간 검색어 2초마다 변경
-        setInterval(function () { tick() }, 2000);
+    /* 비밀번호 형식 체크 6~20자 비밀번호 (영대소문자, 최소1개의 숫자 혹은 특수문자 포함) */
+    $(function () {
+        let filter = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+
+        $('#pwd').keyup(function () {
+
+            if (!filter.test($('#pwd').val())) {
+                $("#pwd1Check").css("color", "#ff0000");
+                $("#pwd1Check").html('비밀번호 형식이 올바르지 않습니다.');
+            }
+            else {
+                $("#pwd1Check").html('');
+            }
+        })
+    });
+
+    /* 닉네임 형식 체크 (한글, 영문, 숫자만 가능) */
+    $(function () {
+        let filter = /^[가-힣a-zA-Z0-9]+$/;
+
+        $('#nickname').keyup(function () {
+
+            if (!filter.test($('#nickname').val())) {
+                $("#nicknameCheck").css("color", "#ff0000");
+                $("#nicknameCheck").html('닉네임 형식이 올바르지 않습니다.');
+            }
+            else {
+                $("#nicknameCheck").html('');
+            }
+        })
     });
 
 
-    // 상단 배너 X 클릭 삭제
-    $(document).on('click', '#closeBanner', function () {
-        $('#_card').hide();
-    })
+    /* 휴대폰 번호 형식 체크 */
+    $(function () {
+        let filter = /(\d{3}).*(\d{3}).*(\d{4})/;
 
-    // 로고 클릭 -> 메인화면 이동
-    $(document).on('click', '#_logo', function () {
-        location.href = '../../index.html';
-    })
+        $('#phone').keyup(function () {
+
+            if (!filter.test($('#phone').val())) {
+                $("#phoneCheck").css("color", "#ff0000");
+                $("#phoneCheck").html('휴대폰 번호 형식이 올바르지 않습니다.');
+            }
+            else {
+                $("#phoneCheck").html('');
+            }
+        })
+    });
+
+        
+    /* 비밀번호 2번 맞게 썼는지 확인 */
+    $(function () {
+        $('#pwd2').change(function () {
+            if ($('#pwd').val() != $('#pwd2').val()) {
+                if ($('#pwd2').val() != '') {
+                    $("#pwd2Check").css("color", "#ff0000");
+                    $("#pwd2Check").html('비밀번호가 일치하지 않습니다.');
+                    $('#pwd2').val('');
+                    $('#pwd2').focus();
+                }
+            }
+            else {
+                $("#pwd2Check").html('');
+            }
+        })
+    });
+
+    // 회원가입 버튼
+    $(document).on('click', '#regiBtn', function(){
+
+        if($('#email1').val() == '') {
+            alert('이메일을 입력해주세요.');
+            return;
+        }
+
+        if($('#pwd').val() == '' || $('#pwd2').val() == '') {
+            alert('비밀번호를 입력해주세요.');
+            return;
+        }
+
+        if ($('#nickname').val() == '') {
+            alert('닉네임을 입력해주세요.');
+            return;
+        }
+
+        if ($('#phone').val() == '') {
+            alert('휴대폰 번호를 입력해주세요.');
+            return;
+        }
+
+        if($('#agree1').is(":checked") == false || $('#agree2').is(":checked") == false) {
+            alert('약관에 동의해주세요.');
+            return;
+        }
+
+        let _email = $('#email1').val() +'@'+ $('#email2').val();
+        let _pwd = $('#pwd').val();
+        let _nickname = $('#nickname').val();
+        // 휴대폰 번호 '-' 없애고 저장
+        let _phone = $('#phone').val().replace(/-/gi, "");
+
+
+        
+        $.ajax({
+            url: "http://192.168.0.231:3000/regi",
+            type: "post",
+            data: {
+                "email": _email,
+                "pwd": _pwd,
+                "nickname": _nickname,
+                "phone": _phone
+            },
+            success: function (data) {
+                if (data == "suc") {
+                    location.href = "regiAf.html";
+                } else {
+                    alert("회원가입 실패");
+                }
+            },
+            error: function () {
+                alert("가입에러");
+            }
+        });
+    });
+
 
 
 </script>

@@ -156,7 +156,7 @@
                     <div class="col"><span>조명으로 포근한 밤&nbsp; 🌙<br></span></div>
                 </div>
                 <div class="row" style="margin-top: 80px;margin-bottom: 25px;">
-                    <div class="col"><button class="btn" type="button" style="width: 150px;height: 45px;background: rgb(244, 116, 76);color: rgb(255,255,255);"><i class="fa fa-heart" style="color: var(--light);"></i>&nbsp; 23</button></div>
+                    <div class="col"><button id="likeBtn" class="btn" type="button" style="width: 150px;height: 45px;background: rgb(244, 116, 76);color: rgb(255,255,255);"></button></div>
                 </div>
                 <div class="row" style="margin-top: 5px;width: 350px;margin-right: 10px;margin-left: -5px;margin-bottom: 0px;padding-right: 5px;">  
                     
@@ -219,18 +219,18 @@
                                 <img src="../../assets/img/marker.png" style="width: 40px;">
                                 <div id="markerMessage">
                                     <div class="row">
-                                        <div class="col">
-                                            <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                                            <div class="col">
+                                                <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                                            </div>
+                                            <div class="col" style="margin-left: -40px;margin-right: -10px;">
+                                                <p><b>인테리어 그림 액자 포스터</b></p>
+                                                <p style="font-size: 15px;"><b>48,900원</b></p>
+                                            </div>
+                                            <div class="col" style="margin-top: 25px;margin-right: -70px;">
+                                                <p style="font-size: 25px;"><b>＞</b></p>
+                                            </div>
                                         </div>
-                                        <div class="col" style="margin-left: -40px;margin-right: -10px;">
-                                            <p>인테리어 그림 액자 포스터</p>
-                                            <p style="font-size: 15px;"><b>48,900원</b></p>
-                                        </div>
-                                        <div class="col" style="margin-top: 25px;margin-right: -70px;">
-                                            <p style="font-size: 25px;"><b>＞</b></p>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </div>   
                             </div>
                         </div>
 
@@ -243,7 +243,7 @@
                                             <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
                                         </div>
                                         <div class="col" style="margin-left: -40px;margin-right: -10px;">
-                                            <p>인테리어 그림 액자 포스터</p>
+                                            <p><b>인테리어 그림 액자 포스터</b></p>
                                             <p style="font-size: 15px;"><b>48,900원</b></p>
                                         </div>
                                         <div class="col" style="margin-top: 25px;margin-right: -70px;">
@@ -264,7 +264,7 @@
                                             <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
                                         </div>
                                         <div class="col" style="margin-left: -40px;margin-right: -10px;">
-                                            <p>인테리어 그림 액자 포스터</p>
+                                            <p><b>인테리어 그림 액자 포스터</b></p>
                                             <p style="font-size: 15px;"><b>48,900원</b></p>
                                         </div>
                                         <div class="col" style="margin-top: 25px;margin-right: -70px;">
@@ -289,60 +289,29 @@
             <div class="col-xl-8 offset-xl-0">
                 <div class="row" style="margin-bottom: 10px;">
                     <div class="col">
-                        <h6 style="font-size: 17px;"><strong>댓글 3</strong></h6>
+                        <h6 style="font-size: 17px;"><strong id="showReviewCount"></strong></h6>
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 15px;">
-                    <div class="col"><input type="text" placeholder="내용을 입력해주세요." style="width: 600px;height: 35px;"><button class="btn" type="button" style="margin-left: 15px;background: rgb(244, 116, 76);color: rgb(255,255,255);width: 65px;height: 37px;margin-bottom: 5px;">작성</button></div>
+                    <div class="col"><input id="reviewContent" type="text" placeholder="내용을 입력해주세요." style="width: 600px;height: 35px;"><button id="reviewBtn" class="btn" type="button" style="margin-left: 15px;background: rgb(244, 116, 76);color: rgb(255,255,255);width: 65px;height: 37px;margin-bottom: 5px;">작성</button></div>
                 </div>
 
-                <!-- 댓글 리스트 -->
+                <div class="cardReview">
 
-                <div class="row" style="margin-bottom: 15px;">
-                    <div class="col-xl-1" style="padding-right: 15px;margin-right: -8px;">
-                        <a href="#"><i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i></a>
-                    </div>
-                    <div class="col">
-                        <div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>nickname1</strong></a><span style="margin-right: 15px;font-size: 14px;">3시간 전</span><a href="" style="margin-right: 20px;color: rgb(99,99,99);font-size: 15px;">신고</a></div>
-                        <div><span>침대 어디껀가요????</span></div>
-                    </div>
+                    <!-- 댓글 리스트 -->
+
                 </div>
 
-                <div class="row" style="margin-bottom: 15px;">
-                    <div class="col-xl-1" style="padding-right: 15px;margin-right: -8px;">
-                        <a href="#"><i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i></a>
-                    </div>
-                    <div class="col">
-                        <div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>nickname1</strong></a><span style="margin-right: 15px;font-size: 14px;">3시간 전</span><a href="" style="margin-right: 20px;color: rgb(99,99,99);font-size: 15px;">신고</a></div>
-                        <div><span>침대 어디껀가요????</span></div>
-                    </div>
-                </div>
-
-                <div class="row" style="margin-bottom: 15px;">
-                    <div class="col-xl-1" style="padding-right: 15px;margin-right: -8px;">
-                        <a href="#"><i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i></a>
-                    </div>
-                    <div class="col">
-                        <div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>nickname1</strong></a><span style="margin-right: 15px;font-size: 14px;">3시간 전</span><a href="" style="margin-right: 20px;color: rgb(99,99,99);font-size: 15px;">신고</a></div>
-                        <div><span>침대 어디껀가요????</span></div>
-                    </div>
-                </div>
-
-                <div class="row" style="margin-top: 20px;">
+                <!-- Pagination -->
+                <div class="row" style="margin-top: 20px;" style="justify-content:center;">
                     <div class="col offset-xl-3">
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                            </ul>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination" id="pagination"></ul>
                         </nav>
                     </div>
                 </div>
+
+
             </div>
             <div class="col-xl-3">
                 <div class="row">
@@ -444,6 +413,352 @@
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../js/includeHTML.js"></script>
     <script src="../../js/header.js"></script>
+    <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
+
+    <script>
+
+
+    //파라미터값 가져오도록 하는 함수
+    function getParameter(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    let seq = getParameter("seq");
+
+    
+    //로그인한 계정 닉네임 가져오기
+    let sessionId = JSON.parse(sessionStorage.getItem("login"));
+
+
+    let existLike = "";
+
+    $(document).ready(function() {
+
+        // 좋아요 총 개수 가져오기
+        getCardLikeCount()
+        function getCardLikeCount() {
+            $.ajax({
+                url: "http://192.168.0.231:3000/getCardLikeCount",
+                type: "get",
+                data: {
+                    "cardSeq": seq
+                },
+                async: false,
+                success: function (likeCount) {
+                    console.log(likeCount);
+                    $('#likeBtn').html('<i class="fa fa-heart" style="color: var(--light);"></i> &nbsp; ' + likeCount);
+                },
+                error: function () {
+                    alert('getCardLikeCount() error');
+                }
+            });
+        };
+
+
+        // 해당 게시물 좋아요 눌렀는지 여부 조회
+        getBoolLike()
+        function getBoolLike() {
+            $.ajax({
+                url: "http://192.168.0.231:3000/getBoolLike",
+                type: "get",
+                data: {
+                    "cardSeq": seq,
+                    "userSeq": sessionId.userSeq
+                },
+                async: false,
+                success: function (data) {
+                    console.log(data);
+                    existLike = data;
+                    if (data == "exist") {
+                        $('#likeBtn i').attr('style', "color: red; font-size: 18px;");
+                    }
+                    else {
+
+                    }
+                },
+                error: function () {
+                    alert('getCardLikeCount() error');
+                }
+            });
+        };
+
+
+        // 좋아요 버튼 클릭
+        $('#likeBtn').click(function() {
+            // 좋아요가 눌려있지 않았다면 좋아요 +1
+            if (existLike != "exist") {
+                $.ajax({
+                    url: "http://192.168.0.231:3000/addCardLikeCount",
+                    type: "get",
+                    data: {
+                        "cardSeq": seq,
+                        "userSeq": sessionId.userSeq
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data == "suc") {
+                            getCardLikeCount();
+                            getBoolLike();
+                        }
+                        else {
+                            alert('에러')
+                        }
+                    },
+                    error: function () {
+                        alert('getCardLikeCount() error');
+                    }
+                });
+            }
+            else {  //좋아요가 눌려있었다면 좋아요 -1 
+                $.ajax({
+                    url: "http://192.168.0.231:3000/deleteCardLikeCount",
+                    type: "get",
+                    data: {
+                        "cardSeq": seq,
+                        "userSeq": sessionId.userSeq
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data == "suc") {
+                            getCardLikeCount();
+                            getBoolLike();
+                        }
+                        else {
+                            alert('에러')
+                        }
+                    },
+                    error: function () {
+                        alert('deleteCardLikeCount() error');
+                    }
+                });
+            }
+        });
+
+
+        // 조회수 1 증가
+        addCardReadCount()
+        function addCardReadCount() {
+            $.ajax({
+                url: "http://192.168.0.231:3000/addCardReadCount",
+                type: "get",
+                data: {
+                    "cardSeq": seq
+                },
+                success: function (data) {
+                    if (data == "suc") {
+                        console.log('조회수 1 증가');
+                    }
+                },
+                error: function () {
+                    alert('addCardReadCount() error');
+                }
+            });
+        };
+
+
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //댓글 달기
+    $(function () {
+        $('#reviewBtn').click(function () {
+            $.ajax({
+                url: "http://192.168.0.231:3000/cardReviewWrite",
+                type: "post",
+                data: {
+                    "cardSeq": seq,
+                    "nickName": sessionId.nickname,
+                    "cardRevContent": $('#reviewContent').val()
+                },
+                success: function (data) {
+                    if (data == "suc") {
+                        getCardReviewList(0);
+                        getCardReviewCount();
+                        $('#reviewContent').val('');
+
+                    }
+                    else {
+                        alert("작성 실패");
+                    }
+
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+
+        });
+
+    });
+
+
+        
+    // 댓글 가져오기
+    getCardReviewList(0);
+    function getCardReviewList(pageNum) {
+        $.ajax({
+            url: "http://192.168.0.231:3000/getCardReviewList",
+            type: "get",
+            data: {
+                "cardSeq":seq,
+                "cardRevPageNum":pageNum
+            },
+            success: function (list) {
+
+                $('.reviews').remove();
+
+                console.log(list);
+
+                let app = ""
+                if (Object.keys(list).length == 0) {
+
+                    app += '<div class="reviews" style="width: 320px; margin-right: 50px;">'
+                        + '<h3 style="font-size: 15px; margin-top: 10px;"><b>댓글이 없습니다.</b></h3>'
+                        + "</div>";
+
+                    $(".cardReview").append(app);
+
+                } else {
+
+                    $.each(list, function (i, val) {
+
+                        app +='<div class="reviews">' 
+                            +  '<div class="row" style="margin-bottom: 15px;">'
+                            +    '<div class="col-xl-1" style = "padding-right: 15px;margin-right: -8px;" >'
+                            +      '<a href="#"><i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i></a>'
+                            +    '</div>'
+                            +    '<div class="col">'
+                            +      '<div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>'+val.nickName+'</strong></a><span style="margin-right: 15px;font-size: 14px;">'+timeForToday(val.cardRevDate)+'</span><a href="#" style="margin-right: 20px;color: rgb(99,99,99);font-size: 15px;">신고</a></div>'
+                            +      '<div><span>'+val.cardRevContent+'</span></div>'
+                            +    '</div>'
+                            +  '</div>'
+                            +'</div>'
+                    });
+                    $(".cardReview").append(app);
+                }
+
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    };
+
+
+    // 댓글 총 수 가져오기
+    getCardReviewCount()
+    function getCardReviewCount() {
+
+        $.ajax({
+            url: "http://192.168.0.231:3000/getCardReviewCount",
+            type: "get",
+            data: {
+                "cardSeq": seq
+            },
+            success: function (totalCount) {
+                console.log(totalCount);
+                $('#showReviewCount').text('댓글 ' + totalCount);
+                loadPage(totalCount);
+            },
+            error: function () {
+                alert('getCardReviewCount() error');
+            }
+        });
+
+    };
+
+
+    // 댓글 페이징 처리
+    function loadPage(totalCount) {
+
+        let pageSize = 4;
+        let nowPage = 1;
+        let _totalPages = Math.floor(totalCount / pageSize);
+        if (totalCount % pageSize > 0) {
+            _totalPages++;
+        }
+
+        $("#pagination").twbsPagination('destroy');	// 데이터가 갱신되면 페이징 갱신
+
+
+        $("#pagination").twbsPagination({
+            //	startPage: 1,
+            totalPages: _totalPages,
+            visiblePages: 10,
+            first: '<span aria-hidden="true">«</span>',
+            prev: false,
+            next: false,
+            last: '<span aria-hidden="true">»</span>',
+            initiateStartPageClick: false,		// onPageClick 자동 실행되지 않도록 한다
+            onPageClick: function (event, page) {
+                nowPage = page;
+                getCardReviewList(page-1);
+            },
+        });
+
+        //$("#pagination").twbsPagination('changeTotalPages', _totalPages, nowPage);
+
+    };
+
+
+    // 댓글 시간 나타내기
+    function timeForToday(value) {
+        const today = new Date();
+        const timeValue = new Date(value);
+
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+        if (betweenTime < 1) return '방금 전';
+        if (betweenTime < 60) {
+            return `${betweenTime}분 전`;
+        }
+
+        const betweenTimeHour = Math.floor(betweenTime / 60);
+        if (betweenTimeHour < 24) {
+            return `${betweenTimeHour}시간 전`;
+        }
+
+        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+        if (betweenTimeDay < 365) {
+            return `${betweenTimeDay}일 전`;
+        }
+
+        return `${Math.floor(betweenTimeDay / 365)}년 전`;
+    }
+
+
+
+
+
+
+    </script>
+
+
 </body>
 
 </html>

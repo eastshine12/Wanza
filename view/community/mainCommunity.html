@@ -179,7 +179,11 @@
 
 <script>
 
+    //로그인한 계정 닉네임 가져오기
+    let sessionId = JSON.parse(sessionStorage.getItem("login"));
+    console.log(sessionId);
 
+    
     // '인기 인테리어 사진' 리스트
     getCardList();
     function getCardList() {
