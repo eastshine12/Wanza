@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>완벽한 자취생활, 완자</title>
+
+<link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon"> <!-- 브라우저 탭 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
+<link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css"> <!-- 부트스트랩 -->
+<link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통 -->
+
+<style>
+.payment_wrap{
+    margin: 10px;
+    position: sticky;
+    top: 20px;
+}
+.payment_box{
+    border: 0.6px solid #dbdbdb;
+    border-radius: 4px;
+    padding: 10px;
+}
+.payment1{
+    border-bottom: solid #dbdbdb;
+}
+.payment1_0{
+    margin: 20px 10px;
+    justify-content: space-between;
+}
+.pay_terms{
+    padding: 30px 0;
+    font-size: 11pt;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    line-height: 20px;
+}
+.pay_terms input{
+    margin: 0 10px;
+    height: 20px;
+    width: 20px;
+}
+.pay_terms input[type='checkbox']:focus,
+.pay_terms input[type='checkbox']:active{
+    background-color: #f4744c;
+}
+.pay_terms a{
+    color: black;
+    font-weight: bold;
+    text-decoration: underline;
+    margin: 0 10px;
+    height: 20px;
+}
+.payment_btn{
+    width: 100%;
+    height: 50px;
+    margin: 10px 0;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: #f4744c;
+    font: 1.2em bold;
+}
+.payment_btn:hover{
+    color: #f4744c;
+    background-color: white;
+    border: 0.5px solid #f4744c;
+}
+
+</style>
+
+</head>
+<body>
+    <!-- <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav> -->
+    
+    <div class="container" style="border: solid; height: 1000px;">
+        <div class="row" style="height: 100%;">
+            
+            <div class="col-md-8" style="background-color: burlywood; height: 100%;">
+            </div>
+            
+            <div class="col-md-4 p-1" style="height: 100%;">
+                <div class="payment_wrap">
+                    
+                    <div class="payment_box">
+                        <div class="payment1">
+                            <div class="row payment1_0"><span>총 상품금액</span><span>38,900원</span></div>
+                            <div class="row payment1_0"><span>배송비</span><span>2,500원</span></div>
+                            <div class="row payment1_0"><span>포인트 사용</span><span>0원</span></div>
+                        </div>
+
+                        <div class="payment1">
+                            <div class="row payment1_0 pa_bo"><span><h4>결제금액</h4></span><span><h4>41,400원</h4></span></div>
+                            <div class="row payment1_0"><span>적립포인트</span><span>386p</span></div>                        
+                        </div>
+
+                        <span class="pay_terms"><input type="checkbox">[필수] 주문 및 결제 관련 약관 동의<a href="#none"> 보기</a></span>
+
+                    </div>
+
+                    <button class="payment_btn" type="button" >4,1400원 결제하기</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- <footer include-html="../commons/footer.html"></footer> -->
+</body>
+
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
+
+<script>
+
+
+</script>
+
+</html>
