@@ -1,0 +1,345 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>완벽한 자취생활, 완자</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/question.css">
+
+    <style>
+    .questions-item-link:hover {
+      text-decoration: none;
+      
+    }
+    .questions-item-link:hover .questions-block{
+      text-decoration: underline black;
+    }
+    
+    </style>
+
+
+</head>
+
+
+
+
+<body>
+    <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav>
+
+    <!-- <h1> questions.html 페이지입니다.</h1> -->
+
+    <!-- <div id='questions-header'>
+        <div>
+            <div id='questions-header-title'>
+                <h1 class='text-heading-1 text-black bold'>질문과 답변</h1>
+                <p class="text-caption-1">완자의 전문가들에게 질문하고 조언을 받아보세요</p>
+            </div>
+        </div>
+    </div> -->
+
+    <div id="questions-index-page" style="font-family: 'Noto Sans KR', sans-serif">
+        <div id="questions-header">
+
+          <div class="container">
+            <div class="questions-header__title">
+              <h1 class="text-heading-1 text-black bold">
+                질문과 답변
+              </h1>
+              <p class="text-caption-1">
+                완자의 전문가들에게 질문하고 조언을 받아보세요.
+              </p>
+            </div>
+
+            <form id="questions-headerform" class="sticky-top" action="/questions" accept-charset="UTF-8" method="get">
+              <input name="utf8" type="hidden" value="&#x2713;" />
+                  <div class="sticky-content">
+                    <div class="questions-header__form__wrap row">
+                      <div class="questions-header__form__search col">
+                        
+                        <span class="icon icon-etc-find-sm-gray-dark search" aria-hidden="true">
+                          <img src="../image/dbg.png" style="width: 22px; height: 22px; margin-left: 5px;">
+                        </span>
+                        <input type="text" name="query" id="questions-header__form__search" value="" class="form-control" placeholder="궁금한 것을 검색해보세요." autocomplete="off" style="color: coral;"/>
+                      </div>
+                    </div>
+                  </div>
+            </form>
+
+          </div>
+        </div>
+
+
+
+        <div style="background-color: coral; height: 0.1px; margin-top: 30px;">
+
+          <section id="questions-filter" class="sticky-top">
+            <div class="questions-filter__float sticky-content">
+              <div class="questions-filter__content container">
+                <div class="questions-filter__filters">
+                  <div class="filter-select" id='questions-filter-sort' data-modal-id="questions-filter-sort-modal">
+                    <dl class="filter-select__header" role="button">
+                      <dt class="filter-select__header__name">
+                        정렬<span class="icon icon-pointer-angle-down-dark-sm"></span>
+                      </dt>
+                      <dd class="filter-select__header__value">최신순</dd>
+                    </dl>
+                    <ul class="filter-select__list">
+                        <li class="filter-select__list__entry ">
+                          <a href="/questions?order=popular&amp;page=1">인기순</a>
+                        </li>
+                        <li class="filter-select__list__entry active">
+                          <a href="/questions?order=recent&amp;page=1">최신순</a>
+                        </li>
+                        <li class="filter-select__list__entry ">
+                          <a href="/questions?order=recent_comments&amp;page=1">최근 답변순</a>
+                        </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="questions-filter__actions">
+                    <a class="set-reply btn btn-normal btn-sm" href="/questions?page=1&amp;reply=not_yet">
+                      답변을 기다리는 질문
+      </a>            <a class="questions-filter__actions__new-question btn btn-priority btn-sm" href="/questions/new">질문하기</a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+
+
+        </div>
+        
+        <div id="questions-notice-list" class="container" style="margin-top: 30px;margin-bottom: 30px; font-family: 'Noto Sans KR', sans-serif">
+          <ul class="questions-notice-list" style="margin:-5px 0; list-style: none; ">
+              <li class="questions-notice-list-list" style="margin: 5px 0; padding:  10px 20px 10px 54px; background-color: #ffcb9d; border-radius: 10px; font-size: larger;">
+                <a href="#" style="color: black;">
+                  <span class=""><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
+                  <span class="title ">완자의 인테리어 멘토를 만나보세요🏆</span>
+                </a>        
+              </li>
+              <li class="questions-notice-list-list" style="margin: 5px 0; padding:  10px 20px 10px 54px; background-color: #ffcb9d; border-radius: 10px; font-size: larger;">
+                <a href="#" style="color: black;">
+                  <span class=""><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
+                  <span class="title text-body-1">답변 이벤트 안내 및 활동 주의사항 📢</span>
+                </a>        
+              </li>
+              <li class="questions-notice-list-list" style="margin: 5px 0; padding:  10px 20px 10px 54px; background-color: #ffcb9d; border-radius: 10px; font-size: larger;">
+                <a href="#" style="color: black;">
+                  <span class=""><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
+                  <span class="title text-body-1">빠르고 정확한 인테리어 답변을 받는 방법은?</span>
+                </a>        
+              </li>
+          </ul>
+        </div>
+
+      <!-- <div id="questions-body">
+        <table style="width: 85%; border:  1cm;">
+            <colgroup>
+                <col style="width: 70;">
+                <col style="width: auto;">
+                <col style="width: 100;">
+                <col style="width: 80;">
+            </colgroup>
+            <tr>
+                <th>번호</th><th>제목</th><th>작성자</th><th>조회수</th>
+            </tr>
+            <tr>
+              <td>test</td><td>test</td><td>test</td><td>test</td>
+            </tr>
+        </table>
+      </div> -->
+
+      
+      <div class="questions-list-container" >
+
+          <!-- 테스트글1 -->
+            
+              <div class="questions-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
+              <a class="questions-item-link" href="questionDetail.html" style="" >
+                <div class="questions-block">
+
+                <div class="questions-head-img" style="float: right; ">
+                  <img src="../image/ddda.gif" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
+                </div>
+                <div class="questions-head" style="text-align: center;">
+                  <h2 class="questions-title" style="color: black; " >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
+                  <p class="questions-content" style="color: black; text-align: start; font-size: 22.5px;">붙박이장 어케 할까요?</p> <!-- 질문내용 -->
+                </div>
+              </div>
+            </a>
+                <footer class="questions-item-footer" style="font-size: 15;">
+                    <span class="questions-item-footer-author">
+                        <span class="questions-item-footer-writer-image">
+                            <img src="../image/wdg.gif" style="width: 22px; height: 22px; border-radius: 70%"
+                            onerror="this.src='https://bucketplace-v2-development.s3.amazonaws.com/uploads/default_images/avatar.png'"><!-- 프로필사진 -->
+                        </span>
+                        <span class="questions-item-footer-writer" style="color: coral;">현성이배통통</span>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="questions-item-footer-meta ">
+                      <time datetime="2021-05-17T19:49:16+09:00" class="questions-item-footer-date text-gray">
+                        방금
+                      </time>
+                      ·
+                      <span class="questions-item-footer-comments text-gray">
+                        댓글
+                        <span class="questions-item-footer-comments-content active">5</span>
+                      </span>
+                      ·
+                      <span class="questions-item-footer-views text-gray">
+                        조회
+                      <span class="questions-item-footer-views-content">7</span>
+                      </span>
+                    </span>
+
+                    
+                    <ul class="questions-item-footer-tags keyword-list" style="float: right; ">
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                      style="margin-top: 3px; margin-bottom: 10px;padding-left: 10px; padding-right: 10px;">셀프인테리어</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">자취</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">돈낭비</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">존망</li>
+                    </ul>
+                    
+                    
+                </footer>
+              
+              </div>
+            
+            
+            <!-- 테스트글2 -->
+            
+            <div class="questions-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
+              <a class="questions-item-link" href="questionDetail.html" style="" >
+                <div class="questions-block">
+
+                <div class="questions-head-img" style="float: right; ">
+                  <img src="../image/wdg.gif" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
+                </div>
+                <div class="questions-head" style="text-align: center;">
+                  <h2 class="questions-title" style="color: black; " >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
+                  <p class="questions-content" style="color: black; text-align: start; font-size: 22.5px;">붙박이장 어케 할까요?</p> <!-- 질문내용 -->
+                </div>
+              </div>
+            </a>
+                <footer class="questions-item-footer" style="font-size: 15;">
+                    <span class="questions-item-footer-author">
+                        <span class="questions-item-footer-writer-image">
+                            <img src="../image/wdg.gif" style="width: 22px; height: 22px; border-radius: 70%"
+                            onerror="this.src='https://bucketplace-v2-development.s3.amazonaws.com/uploads/default_images/avatar.png'"><!-- 프로필사진 -->
+                        </span>
+                        <span class="questions-item-footer-writer" style="color: coral;">현성이배통통</span>
+                    </span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="questions-item-footer-meta ">
+                      <time datetime="2021-05-17T19:49:16+09:00" class="questions-item-footer-date text-gray">
+                        방금
+                      </time>
+                      ·
+                      <span class="questions-item-footer-comments text-gray">
+                        댓글
+                        <span class="questions-item-footer-comments-content active">5</span>
+                      </span>
+                      ·
+                      <span class="questions-item-footer-views text-gray">
+                        조회
+                      <span class="questions-item-footer-views-content">7</span>
+                      </span>
+                    </span>
+
+                    
+                    <ul class="questions-item-footer-tags keyword-list" style="float: right; ">
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                      style="margin-top: 3px; margin-bottom: 10px;padding-left: 10px; padding-right: 10px;">셀프인테리어</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">자취</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">돈낭비</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">존망</li>
+                    </ul>
+                    
+                    
+                </footer>
+              
+              </div>
+
+              <!-- 테스트글3 -->
+            
+              <div class="questions-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
+                <a class="questions-item-link" href="questionDetail.html" style="" >
+                  <div class="questions-block">
+  
+                  <div class="questions-head-img" style="float: right; ">
+                    <img src="../image/drsd.gif" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
+                  </div>
+                  <div class="questions-head" style="text-align: center;">
+                    <h2 class="questions-title" style="color: black; " >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
+                    <p class="questions-content" style="color: black; text-align: start; font-size: 22.5px;">붙박이장 어케 할까요?</p> <!-- 질문내용 -->
+                  </div>
+                </div>
+              </a>
+                  <footer class="questions-item-footer" style="font-size: 15;">
+                      <span class="questions-item-footer-author">
+                          <span class="questions-item-footer-writer-image">
+                              <img src="../image/wdg.gif" style="width: 22px; height: 22px; border-radius: 70%"
+                              onerror="this.src='https://bucketplace-v2-development.s3.amazonaws.com/uploads/default_images/avatar.png'"><!-- 프로필사진 -->
+                          </span>
+                          <span class="questions-item-footer-writer" style="color: coral;">현성이배통통</span>
+                      </span>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <span class="questions-item-footer-meta ">
+                        <time datetime="2021-05-17T19:49:16+09:00" class="questions-item-footer-date text-gray">
+                          방금
+                        </time>
+                        ·
+                        <span class="questions-item-footer-comments text-gray">
+                          댓글
+                          <span class="questions-item-footer-comments-content active">5</span>
+                        </span>
+                        ·
+                        <span class="questions-item-footer-views text-gray">
+                          조회
+                        <span class="questions-item-footer-views-content">7</span>
+                        </span>
+                      </span>
+  
+                      
+                      <ul class="questions-item-footer-tags keyword-list" style="float: right; ">
+                        <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                        style="margin-top: 3px; margin-bottom: 10px;padding-left: 10px; padding-right: 10px;">셀프인테리어</li>
+                        <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                        style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">자취</li>
+                        <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                        style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">돈낭비</li>
+                        <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                        style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">존망</li>
+                      </ul>
+                      
+                      
+                  </footer>
+                
+                </div>
+
+      </div>
+
+    </div>
+
+    <footer include-html="../commons/footer.html"></footer>
+
+</body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
+
+</html>
