@@ -141,7 +141,7 @@
                 <div class="row" style="height: 150px;"></div>
                 <div class="row">
                     <div class="col" style="margin-bottom: 10px;">
-                        <h4 style="font-size: 19px;"><strong>nickname</strong></h4>
+                        <h4 id="cardNickName" style="font-size: 19px;"><strong>nickname</strong></h4>
                     </div>
                 </div>
                 <div class="row">
@@ -150,12 +150,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col"><span style="color: rgb(244, 116, 76);">조회 15,010&nbsp;&nbsp;</span><span>·&nbsp;댓글 3</span></div>
+                    <div class="col"><span style="color: rgb(244, 116, 76);">조회 </span><span id="readCount" style="color: rgb(244, 116, 76);"></span><span>&nbsp;&nbsp;·&nbsp;댓글 </span><span id="reviewCount"></span></div>
                 </div>
-                <div class="row" style="margin-top: 45px;">
-                    <div class="col"><span>조명으로 포근한 밤&nbsp; 🌙<br></span></div>
+                <div class="row" style="margin-top: 45px; height: 95px;">
+                    <div class="col"><span id="cardContent"></span></div>
                 </div>
-                <div class="row" style="margin-top: 80px;margin-bottom: 25px;">
+                <div class="row" style="margin-top: 10px;margin-bottom: 25px;">
                     <div class="col"><button id="likeBtn" class="btn" type="button" style="width: 150px;height: 45px;background: rgb(244, 116, 76);color: rgb(255,255,255);"></button></div>
                 </div>
                 <div class="row" style="margin-top: 5px;width: 350px;margin-right: 10px;margin-left: -5px;margin-bottom: 0px;padding-right: 5px;">  
@@ -206,7 +206,7 @@
                 </div>
             </div>
             <div class="col">
-                <h3 style="text-align: center;margin-top: 65px;margin-bottom: 25px;"><strong>단점을 장점으로~ 트렌드한 내추럴 하우스</strong></h3>
+                <h3 id="title" style="text-align: center;margin-top: 65px;margin-bottom: 25px;"></h3>
 
                 
                 <div class="row" style="text-align: center;">
@@ -235,7 +235,7 @@
                         </div>
 
                         <div style="position: absolute;">
-                            <div id="marker" style="position: relative; top: 300px;left: 700px;">
+                            <div id="marker" style="position: relative; top: 300px;left: 660px;">
                                 <img src="../../assets/img/marker.png" style="width: 40px;">
                                 <div id="markerMessage">
                                     <div class="row">
@@ -277,7 +277,7 @@
                         
 
 
-                        <img style="border-radius: 10px;" src="../../assets/img/KakaoTalk_20210506_155958419.jpg">
+                        <img id="mainImg" style="border-radius: 10px; width: 720px; height: 660px;">
                     </div>
                 </div>
 
@@ -430,11 +430,60 @@
     
     //로그인한 계정 닉네임 가져오기
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
+    if(sessionId == null) {
+        sessionId = '';
+    };
 
 
     let existLike = "";
 
     $(document).ready(function() {
+
+        // 디테일 정보 가져오기
+        getCardDetail()
+        function getCardDetail() {
+            $.ajax({
+                url: "http://192.168.0.231:3000/getCardDetail",
+                type: "get",
+                data: {
+                    "cardSeq": seq
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('#title').html('<strong>'+data.cardTitle+'</strong>');
+                    $('#readCount').text(data.cardReadCount);
+                    $('#mainImg').attr('src', 'http://192.168.0.231:3000/upload/'+data.cardFileName);
+                    $('#cardNickName').html('<strong>' + data.nickName + '</strong>');
+                    $('#cardContent').text(data.cardContent);
+                },
+                error: function () {
+                    alert('getCardDetail() error');
+                }
+            });
+        };
+
+
+
+
+        // 조회수 1 증가
+        addCardReadCount()
+        function addCardReadCount() {
+            $.ajax({
+                url: "http://192.168.0.231:3000/addCardReadCount",
+                type: "get",
+                data: {
+                    "cardSeq": seq
+                },
+                success: function (data) {
+                    if (data == "suc") {
+                        console.log('조회수 1 증가');
+                    }
+                },
+                error: function () {
+                    alert('addCardReadCount() error');
+                }
+            });
+        };
 
         // 좋아요 총 개수 가져오기
         getCardLikeCount()
@@ -537,25 +586,7 @@
         });
 
 
-        // 조회수 1 증가
-        addCardReadCount()
-        function addCardReadCount() {
-            $.ajax({
-                url: "http://192.168.0.231:3000/addCardReadCount",
-                type: "get",
-                data: {
-                    "cardSeq": seq
-                },
-                success: function (data) {
-                    if (data == "suc") {
-                        console.log('조회수 1 증가');
-                    }
-                },
-                error: function () {
-                    alert('addCardReadCount() error');
-                }
-            });
-        };
+        
 
 
 
@@ -604,12 +635,12 @@
 
                     }
                     else {
-                        alert("작성 실패");
+                        alert("로그인 이후 작성 가능합니다.");
                     }
 
                 },
                 error: function () {
-                    alert("error");
+                    alert("로그인 이후 작성 가능합니다.");
                 }
             });
 
@@ -622,6 +653,7 @@
     // 댓글 가져오기
     getCardReviewList(0);
     function getCardReviewList(pageNum) {
+        
         $.ajax({
             url: "http://192.168.0.231:3000/getCardReviewList",
             type: "get",
@@ -630,7 +662,7 @@
                 "cardRevPageNum":pageNum
             },
             success: function (list) {
-
+                
                 $('.reviews').remove();
 
                 console.log(list);
@@ -654,11 +686,19 @@
                             +      '<a href="#"><i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i></a>'
                             +    '</div>'
                             +    '<div class="col">'
-                            +      '<div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>'+val.nickName+'</strong></a><span style="margin-right: 15px;font-size: 14px;">'+timeForToday(val.cardRevDate)+'</span><a href="#" style="margin-right: 20px;color: rgb(99,99,99);font-size: 15px;">신고</a></div>'
-                            +      '<div><span>'+val.cardRevContent+'</span></div>'
+                            +      '<div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>'+val.nickName+'</strong></a><span style="margin-right: 15px;font-size: 14px;">'
+                            +           timeForToday(val.cardRevDate)+'</span>'
+                            +       '<a href="#" style="margin-right: 10px;color: rgb(99,99,99);font-size: 15px;">신고</a>';
+                            
+                            if(sessionId.nickname == val.nickName) {
+                                app += '<a href="javascript:deleteCardReview('+val.cardRevSeq+');" style="color: #F15F5F;font-size: 15px;">삭제</a>';
+                            };
+
+                        app += '</div>'
+                            +  '<div><span>'+val.cardRevContent+'</span></>'
                             +    '</div>'
                             +  '</div>'
-                            +'</div>'
+                            +'</div>';
                     });
                     $(".cardReview").append(app);
                 }
@@ -684,6 +724,7 @@
             success: function (totalCount) {
                 console.log(totalCount);
                 $('#showReviewCount').text('댓글 ' + totalCount);
+                $('#reviewCount').text(totalCount);
                 loadPage(totalCount);
             },
             error: function () {
@@ -752,6 +793,33 @@
     }
 
 
+    
+    // 자기 댓글 삭제하기
+    function deleteCardReview(cardRevSeq) {
+                
+        $.ajax({
+            url: "http://192.168.0.231:3000/cardReviewDelete",
+            type: "post",
+            data: {
+                "cardRevSeq": cardRevSeq
+            },
+            success: function (data) {
+                if (data == "suc") {
+                    getCardReviewList(0);
+                    getCardReviewCount();
+                }
+                else {
+                    alert("삭제 실패");
+                }
+
+            },
+            error: function () {
+                alert("deleteCardReview() error");
+            }
+        });
+
+        
+    }
 
 
 

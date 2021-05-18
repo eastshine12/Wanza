@@ -138,17 +138,20 @@
             </div>
         </div>
     </div>
-    <div class="container" style="width: 1200px;height: 300px;">
-        <h1 style="font-size: 30px;margin-bottom: 15px;"><strong>오늘의 인기상품</strong></h1>
+    <div class="container" style="width: 1200px;">
+        <h1 style="font-size: 30px;margin-bottom: 50px;"><strong>오늘의 인기상품</strong></h1>
+        <div id="hotProductList" class="row">
         
+            <!-- 인기 상품 리스트 생성되는 곳 -->
 
+        </div>
     </div>
 
 
 
 
     <div class="container" style="width: 1200px;">
-        <h1 style="font-size: 30px;margin-bottom: 15px;"><strong>이번주 인기 인테리어 사진</strong></h1>
+        <h1 style="font-size: 30px;margin-top: 30px; margin-bottom: 15px;"><strong>이번주 인기 인테리어 사진</strong></h1>
         <div style="margin-top: 50px;">
             <div id="hotCardList" class="row">
 
@@ -183,6 +186,78 @@
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
     console.log(sessionId);
 
+
+    // 금액 콤마 삽입 정규식
+    function makeComma(str) {
+
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    };
+
+
+    //할인 퍼센테이지 계산
+    function discountRate(price, discount) {
+        return Math.ceil(discount/price*100);
+    };
+
+
+    // '인기 상품' 리스트
+    getProductList();
+    function getProductList() {
+        $.ajax({
+            url: "http://192.168.0.231:3000/getProductList",
+            type: "get",
+            success: function (list) {
+
+                console.log(list);
+
+                let app = ""
+                if (Object.keys(list).length == 0) {	// JSON형식의 길이
+
+                    app += '<div style="width: 320px; margin-right: 50px;">'
+                        + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                        + "</div>";
+
+                    $("#hotProductList").append(app);
+
+                } else {
+
+                    $.each(list, function (i, val) {
+
+                        app += '<div style="width: 350px; height: 400px;">'
+                            +  '<article article class="project2_wrap" >'
+                            +  '<a href="./productDetail.html?seq=' + val.productSeq + '"></a>'
+                            +  '<div class="project2_item">'
+                            +  '<span></span>'
+                            +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
+                            +  '</div>'
+                            +  '<h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; margin-top: 15px; margin-bottom: -5px; height: 32px;">' + val.productName + '</h3>';
+
+                        
+                                console.log(val.productDiscount);
+                        if(val.productDiscount != 0) {
+                            app += '<span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productDiscount)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b>&nbsp;&nbsp;</span>'
+                                + '<span style="font-family: \'Noto Sans KR\';font-size: 18px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span>';
+                        } else {
+                            app += '<span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span>';
+                        }
+
+                        app += '<div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 5px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰</b> </div>'
+                            +  '</article>'
+                            +  '</div >';
+
+                    });
+                    $("#hotProductList").append(app);
+                }
+
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    };
+
+
     
     // '인기 인테리어 사진' 리스트
     getCardList();
@@ -215,8 +290,8 @@
                             +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
                             +     '</div>'
                             +     '<h3 style="font-family: \'Noto Sans KR\'; font-size: 16px; margin-top: 15px; height: 32px;"><b>'+val.cardTitle+'</b></h3>'
-                            +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.cardContent+'</b></span>'
-                            +    '<div style="font-family: \'Noto Sans KR\'; font-size: 13px;margin-top: 5px;"><i class="fa fa-heart" style="font-size: 13px;color: rgb(244,116,76);margin-left: 2px;"></i> 28&ensp;│&ensp;<b>조회</b> 2,338</div>'
+                            +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.nickName+'</b></span>'
+                            +    '<div style="font-family: \'Noto Sans KR\'; font-size: 13px;margin-top: 5px;"><i class="fa fa-heart" style="font-size: 13px;color: rgb(244,116,76);margin-left: 2px;"></i> '+val.likeCount+'&ensp;│&ensp;<b>조회</b> '+val.cardReadCount+'</div>'
                             +   '</article>'
                             +  '</div >'
 
