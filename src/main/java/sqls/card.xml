@@ -10,15 +10,25 @@
 
 <!-- 스토리 글 목록 가져오기 -->
 <select id="getCardList" resultType="com.decolab.wanza.dto.CardDTO">
-	SELECT CARDSEQ, CARDTITLE, CARDCONTENT, USERSEQ, CARDREADCOUNT, CARDDATE, CARDFILENAME, CARDDEL
-	FROM CARD_COLLECTIONS
+	SELECT C.CARDSEQ, C.CARDTITLE, C.CARDCONTENT, U.USERSEQ, C.CARDREADCOUNT, C.CARDDATE, CARDFILENAME, CARDDEL, U.NICKNAME, F.LIKECOUNT  
+	FROM USERS U, CARD_COLLECTIONS C, (SELECT CARDSEQ, NVL(COUNT(*), 0) LIKECOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ) F
+	WHERE U.USERSEQ=C.USERSEQ AND C.CARDSEQ=F.CARDSEQ(+)
 </select>
+
   
 <!-- 스토리 글 작성 -->
 <insert id="cardWrite" parameterType="com.decolab.wanza.dto.CardDTO">
 	INSERT INTO CARD_COLLECTIONS
 	VALUES (SEQ_CARD.NEXTVAL, #{cardTitle}, #{cardContent}, #{userSeq}, 0, SYSDATE, #{cardFileName}, 0)
 </insert>
+  
+<!-- 스토리 디테일 가져오기 -->
+<select id="getCardDetail" parameterType="com.decolab.wanza.dto.CardDTO" resultType="com.decolab.wanza.dto.CardDTO">
+	SELECT CARDSEQ, CARDTITLE, CARDCONTENT, U.USERSEQ, CARDREADCOUNT, CARDDATE, CARDFILENAME, CARDDEL, U.NICKNAME
+	FROM USERS U, CARD_COLLECTIONS C
+	WHERE U.USERSEQ = C.USERSEQ AND CARDSEQ=#{cardSeq}
+</select>
+  
   
   
 <!-- 조회수 1 증가 -->  
@@ -64,7 +74,7 @@
 <!-- 댓글 가져온다 -->
 <select id="getCardReviewList" parameterType="com.decolab.wanza.dto.CardReviewDTO" resultType="com.decolab.wanza.dto.CardReviewDTO">
 	SELECT CARDREVSEQ, CARDSEQ, NICKNAME, CARDREVCONTENT, CARDREVDATE, CARDREVDEL
-	FROM (SELECT ROW_NUMBER()OVER(ORDER BY CARDREVSEQ DESC) AS RNUM, CARDREVSEQ, CARDSEQ, NICKNAME, CARDREVCONTENT, CARDREVDATE, CARDREVDEL FROM CARD_REVIEW WHERE CARDSEQ=#{cardSeq})	
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY CARDREVSEQ DESC) AS RNUM, CARDREVSEQ, CARDSEQ, NICKNAME, CARDREVCONTENT, CARDREVDATE, CARDREVDEL FROM CARD_REVIEW WHERE CARDSEQ=#{cardSeq} AND CARDREVDEL=0)	
 	WHERE RNUM&gt;=1+4*#{cardRevPageNum} AND RNUM&lt;=4+4*#{cardRevPageNum}
 </select>  
 
@@ -80,6 +90,13 @@
 	INSERT INTO CARD_REVIEW
 	VALUES (SEQ_REVIEW_CARD.NEXTVAL, #{cardSeq}, #{nickName}, #{cardRevContent}, SYSDATE, 0)
 </insert>
+
+<!-- 댓글 삭제 -->
+<update id="cardReviewDelete" parameterType="com.decolab.wanza.dto.CardReviewDTO">
+	UPDATE CARD_REVIEW
+	SET CARDREVDEL=1
+	WHERE CARDREVSEQ=#{cardRevSeq}
+</update>
 
 
   

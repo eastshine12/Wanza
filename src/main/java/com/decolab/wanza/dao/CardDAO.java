@@ -14,6 +14,8 @@ public interface CardDAO {
 
 	public List<CardDTO> getCardList();
 	
+	public CardDTO getCardDetail(CardDTO dto);
+	
 	public int cardWrite(CardDTO dto);
 	
 	public int addCardReadCount(CardDTO dto);
@@ -28,5 +30,7 @@ public interface CardDAO {
 	public int getCardReviewCount(CardReviewDTO dto);
 	
 	public int cardReviewWrite(CardReviewDTO dto);
+	
+	public int cardReviewDelete(CardReviewDTO dto);
 	
 }
