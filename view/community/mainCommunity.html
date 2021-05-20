@@ -226,17 +226,15 @@
 
                         app += '<div style="width: 350px; height: 400px;">'
                             +  '<article article class="project2_wrap" >'
-                            +  '<a href="./productDetail.html?seq=' + val.productSeq + '"></a>'
+                            +  '<a href="./storeDetail.html?seq=' + val.productSeq + '"></a>'
                             +  '<div class="project2_item">'
                             +  '<span></span>'
                             +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
                             +  '</div>'
                             +  '<h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; margin-top: 15px; margin-bottom: -5px; height: 32px;">' + val.productName + '</h3>';
 
-                        
-                                console.log(val.productDiscount);
                         if(val.productDiscount != 0) {
-                            app += '<span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productDiscount)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b>&nbsp;&nbsp;</span>'
+                            app += '<span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
                                 + '<span style="font-family: \'Noto Sans KR\';font-size: 18px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span>';
                         } else {
                             app += '<span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span>';
