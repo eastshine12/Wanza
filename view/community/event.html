@@ -16,31 +16,32 @@
     .boxbox {
       width: 48%;
       height: 250px; 
-      margin: 1%;    
+      margin-right: 2%;    
       float: left;     
       overflow: hidden;
       
       }
-      /* .boxbox a:hover img{
-      transform: scale(1.2);
-      transition: transform .3s;
-      border-radius: 10px;
-      } */
-      
+      .hoverimg a:hover img{
+      transform: scale(1.05);
+      transition: transform .3s;      
+      } 
+     
      .profile {
         width: 100%;
-        height: 80%;
-        object-fit: fill;
-        border-radius: 10px;
-        
+        height: 180px;
+        object-fit: fill;      
       } 
+
+    .hoverimg{
+        overflow: hidden;
+        border-radius: 10px;
+    }
       
     .eprogress{
     margin: 1%;
     color: #F18260;
     font-weight: bold;
     }
-    
 
     .eprogress2{
         margin: 1%;
@@ -51,89 +52,91 @@
         margin: 1%;
         color: #757575;
     }
-
-    /* .divimg{
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-        border-radius: 10px;
-        
-    } */
-
-
-      
 </style>
 <body>
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
 
-    <div class="row" style="margin-top: 100px; margin-bottom: 100px;">
+    <div class="row" style="margin-top: 50px; margin-bottom: 100px;">
 
         <div class="col-xl-2"></div>
         
         <div class="col-xl-8">
             <!-- 이벤트 썸네일 div -->
             <div  class="boxbox">
-                <a href="./eventDetail.html?seq=">     
-                    <!-- <div class='divimg'> -->
+                <div class='hoverimg'>
+                    <a href="./eventDetail.html?seq=">                         
                         <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 162559.jpg">
-                   <!--  </div>  -->
-                    <div>
-                        <p style="float: left;" class="eprogress">진행중</p>
-                        <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>
-                    </div>
-                </a>                         
+                    </a>
+                </div> 
+                <div>
+                    <p style="float: left;" class="eprogress">진행중</p>
+                    <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>
+                </div>                         
             </div>  
 
-            <div  class="boxbox">                
-                 <a href="./eventDetail.html?seq=">                          
-                    <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 162617.jpg">
+            <div  class="boxbox">
+                <div class='hoverimg'>                
+                    <a href="./eventDetail.html?seq=">                          
+                        <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 162617.jpg">
+                    </a>
+                </div>
+                <div>
                     <p style="float: left;" class="eprogress">진행중</p>
-                    <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>                         
-                 </a>                                       
+                    <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>
+                </div>                                                             
             </div>    
 
             <div  class="boxbox">
-                <a href="./eventDetail.html?seq=">      
-                    <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 125202.jpg">
+                <div class='hoverimg'>
+                    <a href="./eventDetail.html?seq=">      
+                        <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 125202.jpg">
+                    </a>
+                </div>
+                <div>
                     <p style="float: left;" class="eprogress">진행중</p>
                     <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>
-                </a>                         
+                </div>                           
             </div>                
         
 
             <div  class="boxbox"> 
-                <a href="./eventDetail.html?seq=">            
-                    <img class="profile"  src="../../assets/img/화면 캡처 2021-05-14 125105.jpg"> 
+                <div class='hoverimg'>
+                    <a href="./eventDetail.html?seq=">            
+                        <img class="profile"  src="../../assets/img/화면 캡처 2021-05-14 125105.jpg">
+                    </a>
+                 </div> 
+                 <div>
                     <p style="float: left;" class="eprogress">진행중</p>
                     <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>
-                </a>    
+                </div>    
             </div>       
 
         
             <div  class="boxbox">   
-                <a href="./eventDetail.html?seq=">          
-                    <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 125123.jpg"> 
+                <div class='hoverimg'>
+                    <a href="./eventDetail.html?seq=">          
+                        <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 125123.jpg"> 
+                    </a>
+                </div>
+                <div>
                     <p style="float: left;" class="eprogress">진행중</p>
                     <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>
-                </a>      
+                </div>
             </div>       
 
         
-            <div  class="boxbox">      
-                <a href="./eventDetail.html?seq=">         
-                    <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 125147.jpg"> 
+            <div  class="boxbox">
+                <div class='hoverimg'>      
+                    <a href="./eventDetail.html?seq=">         
+                        <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 125147.jpg"> 
+                    </a>
+                </div>
+                <div>
                     <p style="float: left;" class="eprogress2">종료</p>
                     <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>               
-                </a>
-            </div>  
-            
-           
-            
-          
-           
-
-            
+                </div>
+            </div>            
         </div>     
         <div class="col-xl-2"></div>
     </div>
