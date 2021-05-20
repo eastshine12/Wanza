@@ -7,9 +7,235 @@
 <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon"> <!-- 브라우저 탭 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
 <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css"> <!-- 부트스트랩 -->
-<link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통 -->
+<link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통-->
 
 <style>
+/* 왼쪽 주문정보 창 */
+#order{
+    font-size: 12pt;
+}
+.order_title_head{
+    margin: 20px 0 50px 0;
+}
+.order_title{
+    margin: 20px 0;
+    padding: 20px 20px 20px 0;
+    border-bottom: solid #dbdbdb;
+    font-weight: bold;
+    font-size: 17pt;
+}
+.order_content_wrap{
+    height: 40px;
+    align-items: center;
+    margin: 20px 0;
+}
+.order_subtitle{
+    width: 100px;
+    height: 100%;
+    display: inherit;
+    align-items: center;
+}
+.order_content{
+    height: 100%;
+}
+.order_content label{
+    margin: 0;
+    width: 300px;
+    height: 100%;
+    border: solid 0.5px #dbdbdb;
+    border-radius: 4px;
+    align-items: center;
+    vertical-align: middle;
+}
+/* 셀렉 인풋 폼 */
+.order_content select,
+.order_content input{
+    border: none;
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    padding: 0 10px;
+}
+.order_content select:focus,
+.order_content input:focus{
+    outline: none;
+    box-shadow: 0 0 2px 0.3px #f4744c;
+}
+/* 폰 */
+.order_phone1 label{
+    width: 80px;
+}
+.order_phone2 label{
+    width: 210px;
+}
+/* 셀렉박스 기본 기호 지우기 */
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+select::-ms-expand{
+    display: none;
+}
+.order_phone1 i{
+    position: relative;
+    top: 3px; left: -20px;
+    z-index: -1;
+}
+
+/* 이메일 */
+.order_email1 label{
+    width: 150px;
+    margin-right: 5px;
+}
+.order_email2 label{
+    width: 125px;
+    margin-left: 5px;
+}
+.order_email2 i{
+    position: relative;
+    top: 3px; left: -18px;
+    z-index: -1;
+}
+
+
+/* 배송지 탭 */
+.nav-tabs .nav-link{
+    border: none;
+    margin-bottom: 0;
+}
+.nav-link.active+.nav-line,
+.nav-link.active{
+    font-weight: bold;
+    color: #212529;
+    border-bottom: solid #f4744c;
+    width: 100%;
+    margin-bottom: -2px;
+}
+.nav-tabs a{
+    color: #212529;
+}
+/* 배송지 */
+.order_dlvy_name label{
+    width: 150px;
+}
+.order_dlvy_name i{
+    position: relative;
+    top: 3px; left: -18px;
+    z-index: -1;
+}
+.dlvy{height: 88px;}
+.dlvy1>div:first-of-type,
+.dlvy div:first-of-type{
+    align-items: flex-start;
+    padding-top: 8px;
+}
+.dlvy1 label{height: 39.5px;}
+.dlvy1 select,
+.dlvy1 input{
+    height: 39px;
+}
+.dlvy_req,
+.dlvy_address{
+    display: inherit;
+    flex-direction: column;
+}
+
+.dlvy_address label:first-of-type{
+    margin-bottom: 8px;
+}
+/* 요청사항 */
+#_dlvy_req3{margin-bottom: 10px;}
+.dlvy1{
+    margin-bottom: 100px;
+}
+.dlvy_req label{
+    width: 300px;
+}
+.dlvy_req1{
+    display: flex;
+}
+.dlvy_req1 select{
+    margin-right: -10px;
+}
+.dlvy_req i{
+    position: relative;
+    top: 0px; left: -10px;
+    z-index: -1;
+}
+.textlimit{
+    position: relative;
+    color: #dbdbdb;
+    left: 263px;
+    bottom: 30px;
+    height: 0;
+}
+
+/* 배송지 저장버튼 */
+.dlvy_btn{
+    width: 40%;
+    height: 50px;
+    margin: 10px 30%;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: #f4744c;
+    font: 1.2em bold;
+}
+.dlvy_btn:hover{
+    color: #f4744c;
+    background-color: white;
+    border: 0.5px solid #f4744c;
+}
+
+/* 포인트 */
+#point .point{
+    color: #f4744c;
+    font-size: 14pt;
+    font-weight: bold;
+}
+#point .point_box label{
+    width: 200px;
+}
+.point_btn{
+    width: 90px;
+    height: 39px;
+    margin: 10px;
+    border-radius: 5px;
+    color: #f4744c;
+    border: 0.5px solid #f4744c;
+    background-color: transparent;
+    font: 1em bold;
+}
+.point_btn:hover{
+    background-color: #fdf2f0;
+}
+.point_btn.active{
+    color: white;
+    border: none;
+    background-color: #f4744c;
+}
+
+/* 결제수단 */
+.pay_use_wrap{
+    display: flex;
+    color: #f4744c;
+}
+.pay_use{
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+}
+.pay_use:hover{
+    /* text-shadow: none;
+    color: #f4744c; */
+}
+
+
+/* 오른쪽 결제 창 */
 .payment_wrap{
     margin: 10px;
     position: sticky;
@@ -27,6 +253,9 @@
     margin: 20px 10px;
     justify-content: space-between;
 }
+.pa_bo h4{ /*글씨 굵게*/
+    font-weight: 900;
+}
 .pay_terms{
     padding: 30px 0;
     font-size: 11pt;
@@ -35,22 +264,43 @@
     align-items: center;
     line-height: 20px;
 }
-.pay_terms input{
-    margin: 0 10px;
-    height: 20px;
-    width: 20px;
+
+/* 망할 체크박스 색 바꾸기 */
+.custom-checkbox{
+    margin-left: 30px;
 }
-.pay_terms input[type='checkbox']:focus,
-.pay_terms input[type='checkbox']:active{
+.custom-control-label::before,
+.custom-control-label::after{
+    top: 0rem; left: -1.8rem;
+    width: 1.3rem; height: 1.3rem;
+}
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #f4744c;
     background-color: #f4744c;
 }
+.custom-control-input:focus~.custom-control-label::before {
+    box-shadow: none;   /* 0 0 0 .2rem rgba(0,123,255,.25) */
+}
+.custom-control-input:focus:not(:checked)~.custom-control-label::before {
+    border-color: #adb5bd
+}
+.custom-control-input:not(:disabled):active~.custom-control-label::before {
+    color: #fff;
+    background-color: #ffe4db;
+    border-color: #ffe4db;
+}
+
+/* 약관 보기 */
 .pay_terms a{
     color: black;
     font-weight: bold;
     text-decoration: underline;
     margin: 0 10px;
     height: 20px;
+    min-width: 30px;
 }
+/* 결제 버튼 */
 .payment_btn{
     width: 100%;
     height: 50px;
@@ -74,13 +324,168 @@
     <!-- <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav> -->
     
-    <div class="container" style="border: solid; height: 1000px;">
+    <div class="container mt-5">
         <div class="row" style="height: 100%;">
             
-            <div class="col-md-8" style="background-color: burlywood; height: 100%;">
+            <div class="col-md-8" id="order">
+                <div class="order_title_head"><h1>주문결제</h1></div>
+
+                <div class="mb-5">
+                    <div class="order_title"><span>주문자</span></div>
+                    <div>
+                        <div class="row order_content_wrap">
+                            <div class="order_subtitle">이름</div>
+                            <div class="order_content"><label for="_name"><input type="text" id="_name" value=""></label></div>
+                        </div>
+                        <div class="row order_content_wrap">
+                            <div class="order_subtitle">연락처</div>
+                            <div class="order_content order_phone1"><label for="_phone1">
+                                <select name="" id="_phone1">
+                                    <option value="010">010</option>
+                                    <option value="011">011</option>
+                                    <option value="016">016</option>
+                                    <option value="018">018</option>
+                                    <option value="070">070</option>
+                                </select></label><i class="fas fa-sort"></i></div>
+                            <div class="order_content order_phone2"><label for="_phone2"><input type="text" id="_phone2" value=""></label></div>
+                        </div>
+                        <div class="row order_content_wrap">
+                            <div class="order_subtitle">이메일</div>
+                            <div class="order_content order_email1"><label for="_email1"><input type="text" name="email1" id="_email1" value=""></label></div>
+                            <span>@</span>
+                            <div class="order_content order_email2"><label for="_email2">
+                                <select name="email2" id="_email2">
+                                    <option value="naver">naver.com</option>
+                                    <option value="daum">daum.com</option>
+                                </select></label><i class="fas fa-sort"></i></label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <div class="order_title"><span>배송지</span></div>
+                    <!-- 탭 -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#dlvy_select">배송지선택</a>
+                            <div class="nav-line"></div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#dlvy_new">신규배송지</a>
+                            <div class="nav-line"></div>
+                        </li>
+                    </ul>
+                    <!-- 탭내용 -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="dlvy_select">
+                            <div class="row order_content_wrap">
+                                <div class="order_subtitle">배송지 이름</div>
+                                <div class="order_content order_dlvy_name"><label for="_dlvy_name">
+                                    <select name="dlvy_name" id="_dlvy_name">
+                                        <option value="0">집</option>
+                                        <option value="1">회사</option>
+                                    </select></label><i class="fas fa-sort"></i>
+                                </div>
+                            </div>
+                            <div class="row order_content_wrap dlvy">
+                                <div class="order_subtitle">주소</div>
+                                <div class="order_content dlvy_address">
+                                    <label for="_dlvy_address1"><input type="text" id="_dlvy_address1" value=""></label>
+                                    <label for="_dlvy_address2"><input type="text" id="_dlvy_address2" value=""></label>
+                                </div>
+                            </div>
+                            <div class="row order_content_wrap">
+                                <div class="order_subtitle">받는사람</div>
+                                <div class="order_content"><label for="_name"><input type="text" id="_name" value=""></label></div>
+                            </div>
+                            <div class="row order_content_wrap">
+                                <div class="order_subtitle">연락처</div>
+                                <div class="order_content"><label for="_name"><input type="text" id="_name" value=""></label></div>
+                            </div>
+                            <div class="row order_content_wrap dlvy1">
+                                <div class="order_subtitle">요청사항</div>
+                                <div class="order_content dlvy_req">
+                                    <div id="_dlvy_req3">
+                                        <label for="_dlvy_req2">
+                                        <input type="text" id="_dlvy_req2" placeholder="배송요청사항을 입력해주세요" value="">
+                                        <div class="textlimit">0<span>/50</span></div></label>
+                                    </div>
+                                    <label class="dlvy_req1" for="_dlvy_req1"><select name="dlvy_req" id="_dlvy_req1">
+                                        <option value="0">배송시 요청사항을 선택해주세요</option>
+                                        <option value="1">부재시 문앞에 놓아두세요</option>
+                                        <option value="2">배송전에 미리 연락주세요</option>
+                                        <option value="3">부재시 경비실에 맡겨주세요</option>
+                                        <option value="4">직접입력</option>
+                                    </select><i class="fas fa-sort"></i></label>
+                                    
+                                </div>
+                            </div>
+                        </div> <!--배송지 선택 끝-->
+                        <!-- 신규배송지 -->
+                        <div class="tab-pane" id="dlvy_new">
+                            <div class="row order_content_wrap">
+                                <div class="order_subtitle">배송지 이름</div>
+                                <div class="order_content"><label for="_name"><input type="text" id="_name" value=""></label></div>
+                            </div>
+                            <div class="row order_content_wrap dlvy">
+                                <div class="order_subtitle">주소</div>
+                                <div class="order_content dlvy_address">
+                                    <label for="_dlvy_address1"><input type="text" id="_dlvy_address1" value=""></label>
+                                    <label for="_dlvy_address2"><input type="text" id="_dlvy_address2" value=""></label>
+                                </div>
+                            </div>
+                            <div class="row order_content_wrap">
+                                <div class="order_subtitle">받는사람</div>
+                                <div class="order_content"><label for="_name"><input type="text" id="_name" value=""></label></div>
+                            </div>
+                            <div class="row order_content_wrap">
+                                <div class="order_subtitle">연락처</div>
+                                <div class="order_content"><label for="_name"><input type="text" id="_name" value=""></label></div>
+                            </div>
+                            <button class="dlvy_btn" type="button">저 장</button>
+                        </div>
+                    </div> <!--탭 컨탠츠 끝-->
+                </div>
+
+                <div class="mb-5">
+                    <div class="order_title"><span>주문상품</span></div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+
+                <div class="mb-5" id="point" >
+                    <div class="order_title"><span>포인트</span></div>
+                    <div class="row order_content_wrap">
+                        <div class="order_content point_box"><label for="_point"><input type="text" id="_point" value=""></label></div>
+                        <div><button class="point_btn" type="button">전액사용</button></div>
+                    </div>
+                    <div class="row order_content_wrap">
+                        <div class="order_subtitle">보유포인트</div>
+                        <div class="order_subtitle point">4,000<span>p</span></div>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <div class="order_title"><span>결제수단</span></div>
+                    <div>
+                        <div class="row order_content_wrap">
+                            <div class="order_subtitle">결제</div>
+                            <div class="order_content"><label for="_name"><input type="text" id="_name" value=""></label></div>
+                        </div>
+                        <div class="pay_use_wrap">
+                            <div class="pay_use"><i class="far fa-credit-card fa-5x"></i></div>
+                            <div class="pay_use"><i class="fas fa-won-sign fa-5x"></i></div>
+                            <div class="pay_use"><i class="fas fa-mobile-alt fa-5x"></i></div>
+                        </div>
+                    </div>
+                </div>
+            
+            
             </div>
             
-            <div class="col-md-4 p-1" style="height: 100%;">
+            <div class="col-md-4 p-1" id="payment">
                 <div class="payment_wrap">
                     
                     <div class="payment_box">
@@ -91,11 +496,13 @@
                         </div>
 
                         <div class="payment1">
-                            <div class="row payment1_0 pa_bo"><span><h4>결제금액</h4></span><span><h4>41,400원</h4></span></div>
+                            <div class="row payment1_0 pa_bo"><span><h4>총 결제금액</h4></span><span><h4>41,400원</h4></span></div>
                             <div class="row payment1_0"><span>적립포인트</span><span>386p</span></div>                        
                         </div>
 
-                        <span class="pay_terms"><input type="checkbox">[필수] 주문 및 결제 관련 약관 동의<a href="#none"> 보기</a></span>
+                        <span class="pay_terms"><div class="custom-checkbox "><input type="checkbox" id="cb" class="custom-control-input">
+                            <label for="cb" class="custom-control-label"></label></div>
+                            [필수] 주문 및 결제 관련 약관 동의<a href="#none"> 보기</a></span>
 
                     </div>
 
@@ -107,15 +514,45 @@
         </div>
     </div>
 
-
     <!-- <footer include-html="../commons/footer.html"></footer> -->
+
 </body>
 
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
 
 <script>
+let element = document.getElementById('order');
+let h = element.clientHeight;
+console.log("높이 : "+h)
 
+let element1 = document.getElementById('payment');
+element.clientHeight = h;
+
+$(document).ready(function() {
+    $('#_dlvy_req3').hide();
+    $("#_dlvy_req1").change(function(){
+        let s = $('#_dlvy_req1 option:selected').val();
+        if(s==4){
+            $('#_dlvy_req3').show();
+            $('#_dlvy_req3 input').focus();
+        }else{
+            $('#_dlvy_req3').hide();
+        }
+    });
+    
+    
+    
+
+    
+    
+
+    $('.point_btn').click( function() {
+        $(this).toggleClass('active');
+    });
+});
 
 </script>
 
