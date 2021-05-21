@@ -16,4 +16,6 @@ public interface ProductDAO {
 
 	public List<ProductDTO> getProductList();
 	
+	public ProductDTO getProductDetail(ProductDTO dto);
+	
 }

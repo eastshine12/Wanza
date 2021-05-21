@@ -14,5 +14,13 @@
 	ORDER BY PRODUCTSEQ DESC
 </select>
 
+<!-- 상품글 디테일 가져오기 -->
+<select id="getProductDetail" parameterType="com.decolab.wanza.dto.ProductDTO" resultType="com.decolab.wanza.dto.ProductDTO">
+	SELECT PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING
+	FROM PRODUCTIONS
+	WHERE PRODUCTSEQ=#{productSeq}
+</select>
+
+
   
 </mapper>

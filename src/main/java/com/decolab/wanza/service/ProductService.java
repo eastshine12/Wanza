@@ -22,5 +22,8 @@ public class ProductService {
 		return dao.getProductList();
 	}
 
+	public ProductDTO getProductDetail(ProductDTO dto) {
+		return dao.getProductDetail(dto);
+	}
 	
 }

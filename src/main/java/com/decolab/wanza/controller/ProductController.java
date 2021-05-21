@@ -30,6 +30,12 @@ public class ProductController {
 		return service.getProductList();
 	}
 	
+	@RequestMapping(value = "/getProductDetail", method = {RequestMethod.GET,RequestMethod.POST})
+	public ProductDTO getProductDetail(ProductDTO dto) {
+		System.out.println("ProductController getProductDetail() " + new Date());
+		return service.getProductDetail(dto);
+	}
+	
 	
 	
 }
