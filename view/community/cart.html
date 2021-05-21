@@ -1,0 +1,159 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>완벽한 자취생활, 완자</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/question.css">
+    
+    <style>
+      .button {
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      float: middle;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .w3-button {
+        color: white;
+        background-color: coral;
+        border: none;
+        padding: 16px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 16px;
+    }
+
+    .w3-button {
+      background-color: coral; 
+      color: black; 
+    }
+
+    .w3-button:hover {
+      background-color: powderblue;
+      color: coral;
+    }
+
+
+    </style>
+
+</head>
+
+<body>
+    <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav>
+
+    <div class='row' style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="col-xl-3"></div>
+        
+        <div class="col-xl-6">
+
+            <div class="cart-body-top" style="text-align: center;">
+                <h1>장바구니/Cart</h1>
+            </div>
+
+            <div id="cart-body-middle">
+                <input type="checkbox" id="checkbox-item-all" value="">전체선택
+                <div style="background-color: gray; height: 1.5px; margin: auto; padding-top: 1px; padding-bottom: 1px;"></div>
+                <div id="cart-body-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
+                    <div id="cart-body-item-top">
+                        <div id="cart-body-item-list">
+                            <div style="">
+                                <input type="checkbox" id="checkbox-item-items" style="float: left; margin-top: 6%">
+                            </div>
+                            <div class="cart-item-img" style="float: left; ">
+                                <img src="../../assets/img/wanza.png" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
+                            </div>
+                            <div class="cart-item-title" style="float: left; ">
+                                
+                                <h6>리샘가구</h6>
+                                <h3>OFFICY 서랍장 4.1단</h3>
+                            </div>
+                            <br><br><br>
+                            <div class="cart-item-option" style="float: left;">
+                                <h6>색상 : 월넛</h6><input type="button" value="옵션변경">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br><br>
+                <div id="cart-body-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
+                    <div id="cart-body-item-top">
+                        <div id="cart-body-item-list">
+                            <div style="">
+                                <input type="checkbox" id="checkbox-item-items" style="float: left; margin-top: 6%">
+                            </div>
+                            <div class="cart-item-img" style="float: left; ">
+                                <img src="../../assets/img/wanza.png" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
+                            </div>
+                            <div class="cart-item-title" style="float: left; ">
+                                
+                                <h6>리샘가구</h6>
+                                <h3>OFFICY 서랍장 4.1단</h3>
+                            </div>
+                            <br><br><br>
+                            <div class="cart-item-option" style="float: left;">
+                                <h6>색상 : 월넛</h6><input type="button" value="옵션변경">
+                            </div>
+                            <div class="cart-body-counting">
+                                <input type="number" value="1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br><br><br><br>
+
+                <div style="background-color: gray; height: 1.5px; padding-top: 1px; padding-bottom: 1px;"></div>
+                <div class="cart-item-footer" style="background-color: #EAEAEC; margin: auto;padding-top: 25px;padding-bottom: 25px; text-align: right;">
+                    <div class="cart-item-footer-body">
+                        상품금액 38,900원 + 배송비 2,500원 = <b>주문금액 41,400원</b>
+                    </div>
+                </div>
+
+                <div style="background-color: gray; height: 1.5px; padding-top: 1px; padding-bottom: 1px;"></div>
+
+                <br><br>
+
+                <div style="text-align: center;">
+                    <button class="w3-button" >n개 상품 구매하기</button>
+                    <!-- <input type="button" value="n개상품 구매하기"> -->
+                </div>
+
+            </div>
+
+            
+
+            
+        </div>
+
+        <div class="col-xl-3"></div>
+    </div> <!-- row끝 -->
+
+    <footer include-html="../commons/footer.html"></footer>
+
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../js/includeHTML.js"></script>
+    <script src="../../js/header.js"></script>
+
+</body>
+
+</html>
