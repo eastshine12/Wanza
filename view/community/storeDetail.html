@@ -60,7 +60,13 @@
         </div>
     </div>
     <div class="row" style="width: 1050px;margin: 0 auto;margin-top: 0px;">
-        <div class="col" style="width: 1118px;"><img id="mainImg" width="630px"></div>
+        <div class="col" style="width: 1118px;">
+            <div style="position: relative;padding-top: 100%; width: 630px; height: 630px; overflow: hidden;">
+                <div style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;transform: translate(50%, 50%);">
+                    <img id="mainImg" style="height: 100%;transform: translate(-50%, -50%);">
+                </div>
+            </div>            
+        </div>
         <div class="col" style="width: 400px;">
             <div class="row">
                 <div class="col"
@@ -81,8 +87,11 @@
                 <div class="col">
                     <div style="border-bottom: 1px solid rgb(99,99,99);height: 70px; margin-left: 20px;font-family: 'Noto Sans KR', sans-serif;text-align: left;">
                         <span style="margin: 10px;font-size: 17px;width: auto;color: rgb(99,99,99);margin-top: 10px;padding: 0px;padding-top: 0px;">
-                        <span id="costPrice" style="text-decoration: line-through;"><!--정가--></span>
-                        <span id="sellPrice" style="margin: 10px;font-size: 27px;margin-left: 17px;color: rgb(0,0,0);margin-top: 10px;padding: 0px;padding-top: 0px;"><strong id="discountPrice"><!--판매가--></strong>원</span></span>
+                            <span id="costPrice" style="text-decoration: line-through;"><!--정가--></span>
+                            <span id="sellPrice" style="margin: 10px;font-size: 27px;margin-left: 17px;color: rgb(0,0,0);margin-top: 10px;padding: 0px;padding-top: 0px;">
+                                <strong id="discountPrice"><!--판매가--></strong>원
+                            </span>
+                        </span>
                         <span style="margin: 10px;font-size: 24px;margin-left: 0px;color: rgb(244,116,76);margin-top: 10px;padding: 0px;padding-top: 0px;">
                         <strong id="discountRate"><!--할인율--></strong></span>
                     </div>
@@ -103,7 +112,8 @@
             </div>
             <div class="row" style="margin-left: 10px;"><span
                     style="margin: 15px;color: rgb(101,101,101);margin-left: 15px;font-family: 'Noto Sans KR', sans-serif;"><strong>색상</strong></span>
-                <div class="col"><select class="shadow-sm custom-select custom-select-sm"
+                <div class="col">
+                    <select id="selectItem" name="selectItem" class="shadow-sm custom-select custom-select-sm"
                         style="margin-top: 12px;width: 135.547px;text-align: left;margin-left: 25px;">
                         <option value="월넛">월넛</option>
                         <option value="13">This is item 2</option>
@@ -113,26 +123,29 @@
             <div class="row"
                 style="margin-left: 10px;border-bottom: 1px solid rgb(99,99,99);padding-bottom: 13px;width: 355px;"><span
                     style="margin: 15px;color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;"><strong>개수</strong></span>
-                <div class="col"><input class="border rounded-0 form-control-sm" type="number" placeholder="1"
-                        style="margin-top: 12px;height: 33px;width: 88px;margin-left: 25px;"></div>
+                <div class="col">
+                    <input id="itemCount" class="border rounded-0 form-control-sm" type="number" min="1" max="10" placeholder="1" style="margin-top: 12px;height: 33px;width: 88px;margin-left: 25px;">
+                </div>
             </div>
             <div class="row" style="margin-top: 26px;">
                 <div class="col" style="margin-top: 16px;margin-left: 17px;margin-bottom: 40px;"><span
                         style="font-size: 20px;font-family: 'Noto Sans KR', sans-serif;margin-left: 20px;"><strong>총
                             상품금액</strong></span><span
-                        style="font-size: 25px;font-family: 'Noto Sans KR', sans-serif;margin-left: 82px;"><strong>41,400원</strong></span>
+                        style="font-size: 25px;font-family: 'Noto Sans KR', sans-serif;margin-left: 82px;"><strong id="totalPrice"><!-- 총액 표시 --></strong></span>
                 </div>
             </div>
             <div class="row">
-                <div class="col" style="margin-top: 23px;"><button class="btn btn-lg" type="button"
-                        style="width: 161.375px;height: 48px;margin-left: 8px;border-color: rgb(244,116,76);border-bottom-color: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(244,116,76);font-size: 18px;">장바구니</button><button
-                        class="btn btn-lg" type="button"
-                        style="width: 161.375px;height: 48px;margin-left: 8px;background: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(255,255,255);font-size: 18px;">바로구매</button>
+                <div class="col" style="margin-top: 23px;">
+                    <button class="btn btn-lg" type="button" data-container="body" data-toggle="popover" data-placement="top" data-content="장바구니에 담았습니다."
+                        style="width: 161.375px;height: 48px;margin-left: 8px;border-color: rgb(244,116,76);border-bottom-color: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(244,116,76);font-size: 18px;">장바구니</button>
+                    <button class="btn btn-lg" type="button"
+                    style="width: 161.375px;height: 48px;margin-left: 8px;background: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(255,255,255);font-size: 18px;">바로구매</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container" style="width: 1200px;">
+
+    <div class="container" style="width: 1200px; margin-top: 50px;">
         <div class="row" style="width: 1200px;">
             <div class="col-md-8" style="position: relative;">
                 <ul id="miniMenu" class="nav nav-tabs" style="margin-bottom: 50px;z-index: 2;">
@@ -438,7 +451,8 @@
             <div id="sidebox" class="col-md-4">
                 <div class="row" style="margin-left: 10px;"><span
                         style="margin: 15px;color: rgb(101,101,101);margin-left: 15px;font-family: 'Noto Sans KR', sans-serif;"><strong>색상</strong></span>
-                    <div class="col"><select class="shadow-sm custom-select custom-select-sm"
+                    <div class="col">
+                        <select id="selectItem_side" name="selectItem" class="shadow-sm custom-select custom-select-sm"
                             style="margin-top: 12px;width: 135.547px;text-align: left;margin-left: 25px;">
                             <option value="월넛">월넛</option>
                             <option value="13">This is item 2</option>
@@ -449,14 +463,15 @@
                     style="margin-left: 10px;border-bottom: 1px solid rgb(99,99,99);padding-bottom: 13px;width: 355px;">
                     <span
                         style="margin: 15px;color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;"><strong>개수</strong></span>
-                    <div class="col"><input class="border rounded-0 form-control-sm" type="number" placeholder="1"
-                            style="margin-top: 12px;height: 33px;width: 88px;margin-left: 25px;"></div>
+                    <div class="col">
+                        <input id="itemCount_side" class="border rounded-0 form-control-sm" type="number" min="1" max="10" placeholder="1" style="margin-top: 12px;height: 33px;width: 88px;margin-left: 25px;">
+                    </div>
                 </div>
                 <div class="row" style="margin-top: 26px;">
                     <div class="col" style="margin-top: 16px;margin-left: 17px;margin-bottom: 40px;"><span
                             style="font-size: 20px;font-family: 'Noto Sans KR', sans-serif;margin-left: 20px;"><strong>총
                                 상품금액</strong></span><span
-                            style="font-size: 25px;font-family: 'Noto Sans KR', sans-serif;margin-left: 82px;"><strong>41,400원</strong></span>
+                            style="font-size: 25px;font-family: 'Noto Sans KR', sans-serif;margin-left: 82px;"><strong id="totalPrice_side"><!-- 총액 표시 --></strong></span>
                     </div>
                 </div>
                 <div class="row" style="width: 382.656px;">
@@ -515,8 +530,48 @@
     function discountRate(price, discount) {
         return Math.ceil(discount / price * 100);
     };
-    
 
+    // 장바구니 버튼 부트스트랩
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+            trigger: 'focus'
+        })
+    })
+
+
+    // 상품 옵션, 개수 사이드바와 연동 (개수 조절 시 총금액 변동)
+    $('#selectItem').change(function () {
+        $('#selectItem_side').val($(this).val()).attr('selected');
+    });
+    $('#selectItem_side').change(function () {
+        $('#selectItem').val($(this).val()).attr('selected');
+    });
+    $('#itemCount').change(function() {
+        if($(this).val() < 1) {
+            $(this).val(1)
+        }
+        else if($(this).val() > 11) {
+            $(this).val(10)
+        }
+        else {
+            $(this).val(Math.floor($(this).val()));
+        };
+        $('#itemCount_side').val($(this).val());
+        $('#totalPrice, #totalPrice_side').text(makeComma($('#discountPrice').text().replace(',', '') * $(this).val()) + '원');
+    });
+    $('#itemCount_side').change(function() {
+        if ($(this).val() < 1) {
+            $(this).val(1)
+        } 
+        else if ($(this).val() > 11) {
+            $(this).val(10)
+        }
+        else {
+            $(this).val(Math.floor($(this).val()));
+        };
+        $('#itemCount').val($(this).val());
+        $('#totalPrice, #totalPrice_side').text(makeComma($('#discountPrice').text().replace(',', '') * $(this).val()) + '원');
+    });
 
 
 
@@ -536,18 +591,24 @@
                     $('#maker').text(data.productMaker);
                     $('#title').text(data.productName);
                     $('#rating').text(data.productRating);
-                    $('#starRating').css('width', data.productRating*20+'%');
+                    $('#starRating').css('width', (data.productRating*20+2)+'%');
+                    $('#totalPrice').text(data.productDiscount);
 
                     if(data.productDiscount != 0) { // 할인상품이라면,
                         $('#costPrice').text(makeComma(data.productPrice)+'원');
                         $('#discountPrice').text(makeComma(data.productDiscount));
                         $('#discountRate').text(discountRate(data.productPrice, data.productDiscount)+'%');
                         $('#point').text(Math.ceil(data.productDiscount*0.01));
+                        $('#totalPrice').text(makeComma(data.productDiscount) + '원');
+                        $('#totalPrice_side').text(makeComma(data.productDiscount) + '원');
+
 
                     } else {
                         $('#discountPrice').text(makeComma(data.productPrice));
                         $('#sellPrice').attr('style', 'margin: 10px;font-size: 27px;margin-left: 180px;color: rgb(0,0,0);margin-top: 10px;padding: 0px;padding-top: 0px;');
                         $('#point').text(Math.ceil(data.productPrice*0.01));
+                        $('#totalPrice').text(makeComma(data.productPrice)+'원');
+                        $('#totalPrice_side').text(makeComma(data.productPrice)+'원');
                     };
 
                     
@@ -585,7 +646,7 @@
     });
 
 
-
+    // 미니 네비게이션 스크롤 이동
     $('#contentBtn').click(function() {
         document.querySelector('#content').scrollIntoView(true);
     })
