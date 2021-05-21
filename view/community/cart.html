@@ -60,22 +60,30 @@
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
 
-    <div class='row' style="margin-top: 50px; margin-bottom: 50px;">
-        <div class="col-xl-3"></div>
+    <div class='row' style="margin-top: 50px; margin-bottom: 50px; font-family: 'Nanum Gothic', sans-serif;">
+        <div class="col-xl-2" style="border: solid 1px black;">
+            <input type="checkbox" id="checkbox-item-all" value="">전체선택
+        </div>
         
-        <div class="col-xl-6">
+        <div class="col-xl-8" style="border: solid 1px black;">
 
             <div class="cart-body-top" style="text-align: center;">
                 <h1>장바구니/Cart</h1>
             </div>
+            <div class="row" style="border: solid 1px black;">
 
+            <div class="col-xl-1" style="border: solid 1px black;">
+                
+            </div>
+            
+            <div class="col-xl-9" style="border: solid 1px black; padding-left: 0; padding-right: 0;">
+                <div class="col-xl-10" style="border: solid 1px blue; float: left;">
             <div id="cart-body-middle">
-                <input type="checkbox" id="checkbox-item-all" value="">전체선택
                 <div style="background-color: gray; height: 1.5px; margin: auto; padding-top: 1px; padding-bottom: 1px;"></div>
                 <div id="cart-body-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
                     <div id="cart-body-item-top">
                         <div id="cart-body-item-list">
-                            <div style="">
+                            <div style="background-color: antiquewhite;">
                                 <input type="checkbox" id="checkbox-item-items" style="float: left; margin-top: 6%">
                             </div>
                             <div class="cart-item-img" style="float: left; ">
@@ -93,6 +101,8 @@
                         </div>
                     </div>
                 </div>
+            
+
                 <br><br><br><br>
                 <div id="cart-body-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
                     <div id="cart-body-item-top">
@@ -109,26 +119,41 @@
                                 <h3>OFFICY 서랍장 4.1단</h3>
                             </div>
                             <br><br><br>
-                            <div class="cart-item-option" style="float: left;">
-                                <h6>색상 : 월넛</h6><input type="button" value="옵션변경">
-                            </div>
-                            <div class="cart-body-counting">
-                                <input type="number" value="1">
-                            </div>
-                        </div>
+                            
+                        </div> 
                     </div>
                 </div>
+            </div> 
+        </div>
+                <div class="col-xl-2" style="border: solid 1px red; float: right;">
+                    <div class="cart-body-counting" style="margin: auto;">
+                        <button>+</button>
+                        <input type="text" value="1" style="width: fit-content;" size="3">
+                        <button>-</button>
+                    </div>
+                </div>
+             </div>    
+                            <!-- <div class="cart-item-option" style="float: left;">
+                                <h6>색상 : 월넛</h6><input type="button" value="옵션변경">
+                            </div>        -->
+        <div class="col-xl-2" style="border: solid 1px black;">
+            <div class="cart-body-counting" style="float: right; margin: auto;">
+                <button>+</button>
+                <input type="number" value="1">
+                <button>-</button>
+            </div>
+        </div>
 
                 <br><br><br><br>
-
-                <div style="background-color: gray; height: 1.5px; padding-top: 1px; padding-bottom: 1px;"></div>
+            </div>
+                <div style="background-color: gray; height: 1.5px; padding-top: 1px; padding-bottom: 2px;"></div>
                 <div class="cart-item-footer" style="background-color: #EAEAEC; margin: auto;padding-top: 25px;padding-bottom: 25px; text-align: right;">
                     <div class="cart-item-footer-body">
-                        상품금액 38,900원 + 배송비 2,500원 = <b>주문금액 41,400원</b>
+                        <h5>상품금액 38,900원 + 배송비 2,500원 = &nbsp; <b style="font-size: larger;">주문금액 41,400원</b></h5>
                     </div>
                 </div>
 
-                <div style="background-color: gray; height: 1.5px; padding-top: 1px; padding-bottom: 1px;"></div>
+                <div style="background-color: gray; height: 1.5px; padding-top: 2px; padding-bottom: 1px;"></div>
 
                 <br><br>
 
@@ -137,14 +162,14 @@
                     <!-- <input type="button" value="n개상품 구매하기"> -->
                 </div>
 
-            </div>
+            
 
             
 
             
         </div>
 
-        <div class="col-xl-3"></div>
+        <div class="col-xl-2" style="border: solid 1px black;"></div>
     </div> <!-- row끝 -->
 
     <footer include-html="../commons/footer.html"></footer>
