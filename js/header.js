@@ -43,26 +43,29 @@ $(document).on('attr', '#headerSearch', function () {
 
 // 검색 아이콘 클릭시
 $(document).on('click', '#fafafa', function () {
+    
     if($("#headerSearch").val()==""){
-
-        document.getElementById("headerSearch").setAttribute()
-
-        $("#headerSearch").attr('value', $("headerSearch").attr('placeholder'))
-        alert($("#headerSearch").val());
-
-
-
-    }else{/* 
-        $.ajax({
-            url:"http://192.168.0.231:3000/searchWrite",
-            type:"get",
-            data:{searchWord:$} */
-            alert($("#headerSearch").val());
-            
-
+        document.getElementById("headerSearch").setAttribute("value",$("#headerSearch").attr('placeholder'))
+       //alert($("#headerSearch").val());
     }
-
+        $.ajax({
+            url:"http://localhost:3000/searchWrite",
+            type:"get",
+            data:{searchWord:$("#headerSearch").val()},
+            success:function(data) {
+                if(data=="suc"){
+                    alert("검색어등록성공");
+                }else{
+                    alert("검색어등록실패");
+                }
+            },
+            error:function(){
+                alert("검색error");
+            }
+        })
 })
+
+
 
 
 
