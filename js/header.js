@@ -41,6 +41,30 @@ $(document).on('attr', '#headerSearch', function () {
     location.href = "../login/login.html"
 })
 
+// 검색 아이콘 클릭시
+$(document).on('click', '#fafafa', function () {
+    if($("#headerSearch").val()==""){
+
+        document.getElementById("headerSearch").setAttribute()
+
+        $("#headerSearch").attr('value', $("headerSearch").attr('placeholder'))
+        alert($("#headerSearch").val());
+
+
+
+    }else{/* 
+        $.ajax({
+            url:"http://192.168.0.231:3000/searchWrite",
+            type:"get",
+            data:{searchWord:$} */
+            alert($("#headerSearch").val());
+            
+
+    }
+
+})
+
+
 
 $(document).ready(function() {
 
