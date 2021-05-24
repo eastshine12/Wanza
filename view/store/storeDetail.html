@@ -111,7 +111,7 @@
                         (5만원 이상 무료)</span></div>
             </div>
             <div class="row" style="margin-left: 10px;"><span
-                    style="margin: 15px;color: rgb(101,101,101);margin-left: 15px;font-family: 'Noto Sans KR', sans-serif;"><strong>색상</strong></span>
+                    style="margin: 15px;color: rgb(101,101,101);margin-left: 15px;font-family: 'Noto Sans KR', sans-serif;"><strong id="selectKey">색상</strong></span>
                 <div class="col">
                     <select id="selectItem" name="selectItem" class="shadow-sm custom-select custom-select-sm"
                         style="margin-top: 12px;width: 135.547px;text-align: left;margin-left: 25px;">
@@ -136,7 +136,7 @@
             </div>
             <div class="row">
                 <div class="col" style="margin-top: 23px;">
-                    <button class="btn btn-lg" type="button" data-container="body" data-toggle="popover" data-placement="top" data-content="장바구니에 담았습니다."
+                    <button id="cartBtn" class="btn btn-lg" onclick="addCart()" type="button" data-container="body" data-toggle="popover" data-placement="top" data-content="장바구니에 담았습니다."
                         style="width: 161.375px;height: 48px;margin-left: 8px;border-color: rgb(244,116,76);border-bottom-color: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(244,116,76);font-size: 18px;">장바구니</button>
                     <button class="btn btn-lg" type="button"
                     style="width: 161.375px;height: 48px;margin-left: 8px;background: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(255,255,255);font-size: 18px;" onclick="directPurchase()">바로구매</button>
@@ -475,7 +475,7 @@
                     </div>
                 </div>
                 <div class="row" style="width: 382.656px;">
-                    <div class="col" style="margin-top: 23px;"><button class="btn btn-lg" type="button"
+                    <div class="col" style="margin-top: 23px;"><button id="sideCartBtn" class="btn btn-lg" onclick="addCart()" type="button"
                             style="width: 161.375px;height: 48px;margin-left: 8px;border-color: rgb(244,116,76);border-bottom-color: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(244,116,76);font-size: 18px;">장바구니</button><button
                             class="btn btn-lg" type="button"
                             style="width: 161.375px;height: 48px;margin-left: 8px;background: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(255,255,255);font-size: 18px;" onclick="directPurchase()">바로구매</button>
@@ -573,17 +573,42 @@
         $('#totalPrice, #totalPrice_side').text(makeComma($('#discountPrice').text().replace(',', '') * $(this).val()) + '원');
     });
 
-    
+    // 바로구매 기능
     function directPurchase() {
 
         let selectItem = $('#selectItem').val();
         let itemCount = $('#itemCount').val();
 
-
         location.href = "order.html?seq="+seq+"&selectItem=" +selectItem+"&itemCount="+itemCount;
     };
     
 
+    // 장바구니 담기
+    function addCart() {
+        $.ajax({
+            url: "http://192.168.0.231:3000/addCart",
+            type: "get",
+            data: {
+                "cartClassify":"CT-"+sessionId.userSeq,
+                "userSeq": sessionId.userSeq,
+                "productSeq":seq,
+                "selectOption":"{\'"+$('#selectKey').text()+"\':\'"+$('#selectItem').val()+"\'}",
+                "quantity":$('#itemCount').val(),
+                "price":$('#sellPrice').text().replace(/[^0-9]/g, '')
+            },
+            success: function (data) {
+                if(data=="suc") {
+                    console.log('장바구니에 담았습니다.');
+                }
+                else {
+                    console.log('장바구니에 담기 실패');
+                }
+            },
+            error: function () {
+                alert('addCart() error');
+            }
+        });
+    };
 
 
     $(document).ready(function () {
@@ -612,7 +637,6 @@
                         $('#point').text(Math.ceil(data.productDiscount*0.01));
                         $('#totalPrice').text(makeComma(data.productDiscount) + '원');
                         $('#totalPrice_side').text(makeComma(data.productDiscount) + '원');
-
 
                     } else {
                         $('#discountPrice').text(makeComma(data.productPrice));
@@ -661,6 +685,7 @@
 
 
 
+
     });
 
 
@@ -678,7 +703,7 @@
         document.querySelector('#delivery').scrollIntoView(true);
     })
 
-
+            
 
 
 

@@ -26,6 +26,74 @@
       cursor: pointer;
     }
 
+    .plus-btn{
+      background-color: coral; 
+      color: black; 
+      border-radius: 3px;
+      /* width: 14px;
+      height: 30px; */
+    }
+
+    .minus-btn{
+      background-color: coral; 
+      color: black; 
+      border-radius: 3px;
+      padding-left: 6px;
+      padding-right: 6px;
+      /* width: 14px;
+      height: 30px; */
+    }
+
+    .plus-btn:hover {
+      background-color: greenyellow;
+      color: coral;
+      border-radius: 3px;
+      /* width: 14px;
+      height: 30px; */
+
+    }
+
+    .minus-btn:hover {
+      background-color: greenyellow;
+      color: coral;
+      border-radius: 3px;
+      padding-left: 6px;
+      padding-right: 6px;
+      /* width: 14px;
+      height: 30px; */
+    }
+
+    .del-btn {
+      background-color: coral; 
+      color: black; 
+      border: 2px solid coral;
+      border-radius: 16px;
+    }
+
+    .del-btn:hover {
+      background-color: greenyellow;
+      color: coral;
+      border: 2px solid seashell;
+      border-radius: 16px;
+    }
+
+    .opt-btn{
+      background-color: gainsboro; 
+      color: black; 
+      border: 2px solid seashell;
+      border-radius: 16px;
+      font-size: 15px;
+      padding: 3px;
+    }
+
+    .opt-btn:hover {
+      background-color: gainsboro;
+      color: black;
+      font-weight: bold;
+      border: 2px solid wheat;
+      border-radius: 16px;
+    }
+
     .w3-button {
         color: white;
         background-color: coral;
@@ -42,126 +110,158 @@
     }
 
     .w3-button {
-      background-color: coral; 
+      background-color: rgb(236, 225, 95); 
       color: black; 
     }
 
     .w3-button:hover {
-      background-color: powderblue;
+      background-color: coral;
       color: coral;
     }
+
+    .w3-button-click{
+      background-color: coral;
+    }
+
+    #body,#body p, #body b,#body h1, #body h3, #body h5,#body h6{
+        font-family: 'Nanum Gothic';
+        font-weight: bold;
+    }
+
 
 
     </style>
 
 </head>
 
-<body>
+<body id="body">
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
 
-    <div class='row' style="margin-top: 50px; margin-bottom: 50px; font-family: 'Nanum Gothic', sans-serif;">
-        <div class="col-xl-2" style="border: solid 1px black;">
-            <input type="checkbox" id="checkbox-item-all" value="">전체선택
+    <div class='row' style="margin-top: 50px; margin-bottom: 50px; margin-left: 0; margin-right: 0; font-family: 'Nanum Gothic', sans-serif;">
+        <div class="col-xl-2" style=""> <!--border: solid 1px salmon;-->
+            
         </div>
         
-        <div class="col-xl-8" style="border: solid 1px black;">
+        <div class="col-xl-8" style=""> <!-- border: solid 1px yellow;-->
 
-            <div class="cart-body-top" style="text-align: center;">
-                <h1>장바구니/Cart</h1>
+            <div class="cart-body-top" style="">
+                <h1 style="text-align: center;">장바구니</h1>
+                <input type="checkbox" id="checkbox-item-all" value="" style="float: left;">
+                <h6 style="text-align: left;">전체선택</h6>
+                <div style="background-color: gray; height: 1.5px; "></div>
             </div>
-            <div class="row" style="border: solid 1px black;">
+            <div class="row" style=" margin: 0;">
 
-            <div class="col-xl-1" style="border: solid 1px black;">
+            <!-- <div class="col-xl-1" style="border: solid 1px darkkhaki;">
                 
-            </div>
+            </div> -->
             
-            <div class="col-xl-9" style="border: solid 1px black; padding-left: 0; padding-right: 0;">
-                <div class="col-xl-10" style="border: solid 1px blue; float: left;">
-            <div id="cart-body-middle">
-                <div style="background-color: gray; height: 1.5px; margin: auto; padding-top: 1px; padding-bottom: 1px;"></div>
-                <div id="cart-body-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
-                    <div id="cart-body-item-top">
-                        <div id="cart-body-item-list">
-                            <div style="background-color: antiquewhite;">
-                                <input type="checkbox" id="checkbox-item-items" style="float: left; margin-top: 6%">
-                            </div>
-                            <div class="cart-item-img" style="float: left; ">
-                                <img src="../../assets/img/wanza.png" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
-                            </div>
-                            <div class="cart-item-title" style="float: left; ">
+            <div class="col-xl-12" style=" padding-left: 0; padding-right: 0;">
+
+                <div class="row" style=" margin: 0;">
+                    
+                    <div style="background-color: gray; height: 1.5px; margin: auto; padding-top: 1px; padding-bottom: 1px;"></div>
+
+                    <!-- 장바구니항목 시작 -->
+                    <div class="col-xl-6" style=" float: left;">
+
+                            <div id="cart-body-middle" class="" style="margin: auto;">
+
                                 
-                                <h6>리샘가구</h6>
-                                <h3>OFFICY 서랍장 4.1단</h3>
+
+                                <div id="cart-body-item" class="" style=" width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
+                                    <div id="cart-body-item-top">
+                                        <div id="cart-body-item-list">
+                                            <div style="align-items: center;">
+                                                <input type="checkbox" id="checkbox-item-items" style="float: left; margin-top: auto">
+                                            </div>
+                                            <div class="cart-item-img" style="float: left; ">
+                                                <img src="../../assets/img/wanza.png" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
+                                            </div>
+                                            <div class="cart-item-title" style="float: left; ">
+                                                
+                                                <h6>리샘가구</h6>
+                                                <h3>OFFICY 서랍장 4.1단</h3>
+                                            </div>
+                                            <br><br><br>
+                                            <div class="cart-item-option" style="float: left;">
+                                                <h6>색상 : 월넛</h6>
+                                                <button class="button opt-btn" onclick="optproduct()">옵션변경</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+    
                             </div>
-                            <br><br><br>
-                            <div class="cart-item-option" style="float: left;">
-                                <h6>색상 : 월넛</h6><input type="button" value="옵션변경">
-                            </div>
+
+                    </div>
+                    <!-- 장바구니항목 끝 -->
+
+                    <div id="cart-body-middle-count" class="col-xl-2" style=" display: flex;">
+                        <div class="cart-body-counting" style="margin: auto; ">
+                            <p style="margin: 0; font-size: 25px;"><b>38,900원</b></p>
                         </div>
                     </div>
-                </div>
-            
 
-                <br><br><br><br>
-                <div id="cart-body-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
-                    <div id="cart-body-item-top">
-                        <div id="cart-body-item-list">
-                            <div style="">
-                                <input type="checkbox" id="checkbox-item-items" style="float: left; margin-top: 6%">
-                            </div>
-                            <div class="cart-item-img" style="float: left; ">
-                                <img src="../../assets/img/wanza.png" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
-                            </div>
-                            <div class="cart-item-title" style="float: left; ">
-                                
-                                <h6>리샘가구</h6>
-                                <h3>OFFICY 서랍장 4.1단</h3>
-                            </div>
-                            <br><br><br>
-                            
-                        </div> 
+                    <div class="col-xl-2" style=" display: flex;">
+                        <div class="cart-body-counting" style="float: right; margin: auto; ">
+                            <button class="minus-btn" ><b style="font-size: 20px;">-</b></button>
+                            <input type="text" value="1" size="2" style="text-align: center; width: 40px; height: 35px;">
+                            <button class="plus-btn"><b style="font-size: 20px;">+</b></button>
+                        </div>
                     </div>
-                </div>
-            </div> 
-        </div>
-                <div class="col-xl-2" style="border: solid 1px red; float: right;">
-                    <div class="cart-body-counting" style="margin: auto;">
-                        <button>+</button>
-                        <input type="text" value="1" style="width: fit-content;" size="3">
-                        <button>-</button>
-                    </div>
-                </div>
-             </div>    
-                            <!-- <div class="cart-item-option" style="float: left;">
-                                <h6>색상 : 월넛</h6><input type="button" value="옵션변경">
-                            </div>        -->
-        <div class="col-xl-2" style="border: solid 1px black;">
-            <div class="cart-body-counting" style="float: right; margin: auto;">
-                <button>+</button>
-                <input type="number" value="1">
-                <button>-</button>
-            </div>
-        </div>
 
-                <br><br><br><br>
-            </div>
-                <div style="background-color: gray; height: 1.5px; padding-top: 1px; padding-bottom: 2px;"></div>
-                <div class="cart-item-footer" style="background-color: #EAEAEC; margin: auto;padding-top: 25px;padding-bottom: 25px; text-align: right;">
+                    <div class="col-xl-2" style=" float: right; display: flex;">
+                        <div class="cart-body-counting" style="margin: auto;">
+                            <button class="button del-btn" onclick="delproduct()">삭제</button>
+                        </div>
+                    </div>
+
+                </div><!-- row끝 -->
+            <div style="background-color: white;  height: 5px; padding-top: 10px; padding-bottom: 10px; margin-top: 15px;"></div>
+
+            <div style="background-color: gray; height: 1.5px; "></div>
+
+            <div class="row" style="background-color: #EAEAEC; margin: 0; font-family: 'Nanum Gothic', sans-serif;">
+                
+                <div class="cart-item-footer" style="background-color: #EAEAEC; margin: auto;padding-top: 25px;padding-bottom: 25px; text-align: right; " >
                     <div class="cart-item-footer-body">
-                        <h5>상품금액 38,900원 + 배송비 2,500원 = &nbsp; <b style="font-size: larger;">주문금액 41,400원</b></h5>
+                        <h5>상품금액 38,900원 &nbsp; + &nbsp; 배송비 2,500원 &nbsp; = &nbsp; <b style="font-size: 25px;">주문금액 41,400원</b></h5>
                     </div>
                 </div>
-
-                <div style="background-color: gray; height: 1.5px; padding-top: 2px; padding-bottom: 1px;"></div>
 
                 <br><br>
+                
+            </div>
 
-                <div style="text-align: center;">
+            <div style="background-color: gray; height: 1.5px; "></div>
+
+            <div class="row" style="align-items: center; margin-top: 15px;">
+                <div class="col-xl-5"></div>
+                <div class="col-xl-2" style="text-align: center;">
                     <button class="w3-button" >n개 상품 구매하기</button>
                     <!-- <input type="button" value="n개상품 구매하기"> -->
                 </div>
+                <div class="col-xl-5"></div>
+            </div>
 
+            
+
+            </div>
+                
+            </div>   <!-- row끝 --> 
+
+        
+
+                
+        </div>
+
+        <div class="col-xl-2" style=""> <!-- border: solid 1px salmon; -->
+            
+        </div>
+                
             
 
             
@@ -169,7 +269,7 @@
             
         </div>
 
-        <div class="col-xl-2" style="border: solid 1px black;"></div>
+        <!-- <div class="col-xl-2" style="border: solid 1px black;"></div> -->
     </div> <!-- row끝 -->
 
     <footer include-html="../commons/footer.html"></footer>
@@ -178,6 +278,47 @@
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../js/includeHTML.js"></script>
     <script src="../../js/header.js"></script>
+
+    <script>
+
+
+    //로그인한 계정 닉네임 가져오기
+    let sessionId = JSON.parse(sessionStorage.getItem("login"));
+    if (sessionId == null) {
+        sessionId = '';
+    };
+
+
+    $(document).ready(function() {
+
+
+        getCartList()
+        function getCartList() {
+            $.ajax({
+                url: "http://192.168.0.231:3000/getCartList",
+                type: "get",
+                data: {
+                    "cartClassify": "CT-" + sessionId.userSeq
+                },
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function () {
+                    alert('getCartList() error');
+                }
+            });
+        }
+
+
+    });
+
+
+
+
+
+
+    </script>
+
 
 </body>
 
