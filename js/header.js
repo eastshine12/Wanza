@@ -20,6 +20,11 @@ $(document).on('click', '#goStore', function () {
     alert('스토어이동');
 })
 
+
+$(document).on('click', '#goCart', function () {
+    location.href = "../store/cart.html";
+})
+
 /*
 $(document).on('mouseover', '#_realTime', function () {
 
