@@ -578,11 +578,9 @@
 
         let selectItem = $('#selectItem').val();
         let itemCount = $('#itemCount').val();
-
         location.href = "order.html?seq="+seq+"&selectItem=" +selectItem+"&itemCount="+itemCount;
     };
     
-
     // 장바구니 담기
     function addCart() {
         $.ajax({
@@ -610,7 +608,6 @@
         });
     };
 
-
     $(document).ready(function () {
 
         // 디테일 정보 가져오기
@@ -637,7 +634,6 @@
                         $('#point').text(Math.ceil(data.productDiscount*0.01));
                         $('#totalPrice').text(makeComma(data.productDiscount) + '원');
                         $('#totalPrice_side').text(makeComma(data.productDiscount) + '원');
-
                     } else {
                         $('#discountPrice').text(makeComma(data.productPrice));
                         $('#sellPrice').attr('style', 'margin: 10px;font-size: 27px;margin-left: 180px;color: rgb(0,0,0);margin-top: 10px;padding: 0px;padding-top: 0px;');
@@ -678,14 +674,6 @@
             };
             */
         });
-
-
-
-
-
-
-
-
     });
 
 
@@ -702,10 +690,6 @@
     $('#deliveryBtn').click(function() {
         document.querySelector('#delivery').scrollIntoView(true);
     })
-
-            
-
-
 
 
     </script>

@@ -1,286 +1,246 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8">
-    <title>완벽한 자취생활, 완자</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../../css/question.css">
+<meta charset="UTF-8">
+<title>완벽한 자취생활, 완자</title>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" type="text/css" href="../../css/style.css">
+<link rel="stylesheet" type="text/css" href="../../css/question.css">
     
-    <style>
-      .button {
-      border: none;
-      color: white;
-      padding: 16px 32px;
-      float: middle;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      transition-duration: 0.4s;
-      cursor: pointer;
-    }
+<style>
+.cart_body_top{
+    margin: 20px 0;
+    text-align: center;
+    padding: 20px 0 10px 0;
+    border-bottom: solid 0.8px;
+}
+.top_select{
+    display: flex;
+    align-items: center;
+    font-size: 12pt;
+}
+.top_select input{
+    margin: 0 5px;
+    width: 18px; height: 18px;
+}
+#cart.cart_body{
+    margin: 40px 0;
+}
+.cart_item_chk{
+    display: inherit;
+    align-items: center;
+}
+.cart_item_chk input{
+    margin: 0 5px;
+    width: 18px; height: 18px;
+}
+.cart_item_img img{
+    width: 120px; height: 120px;
+    border-radius: 30%;
+    margin: 0 10px;
+}
+.cart_item_option{
+    display: flex;
+    align-items: center;
+}
+.cart_body_counting{
+    display: inherit;
+    align-items: center;
+}
+.cart_body_counting input{
+    width: 70px; height: 35px;
+    margin: 0 10px;
+    border: solid 0.5px #EAEAEC;
+    border-radius: 3px;
+    text-align: center;
+}
 
-    .plus-btn{
-      background-color: coral; 
-      color: black; 
-      border-radius: 3px;
-      /* width: 14px;
-      height: 30px; */
-    }
+.button {
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
 
-    .minus-btn{
-      background-color: coral; 
-      color: black; 
-      border-radius: 3px;
-      padding-left: 6px;
-      padding-right: 6px;
-      /* width: 14px;
-      height: 30px; */
-    }
-
-    .plus-btn:hover {
-      background-color: greenyellow;
-      color: coral;
-      border-radius: 3px;
-      /* width: 14px;
-      height: 30px; */
-
-    }
-
-    .minus-btn:hover {
-      background-color: greenyellow;
-      color: coral;
-      border-radius: 3px;
-      padding-left: 6px;
-      padding-right: 6px;
-      /* width: 14px;
-      height: 30px; */
-    }
-
-    .del-btn {
-      background-color: coral; 
-      color: black; 
-      border: 2px solid coral;
-      border-radius: 16px;
-    }
-
-    .del-btn:hover {
-      background-color: greenyellow;
-      color: coral;
-      border: 2px solid seashell;
-      border-radius: 16px;
-    }
-
-    .opt-btn{
-      background-color: gainsboro; 
-      color: black; 
-      border: 2px solid seashell;
-      border-radius: 16px;
-      font-size: 15px;
-      padding: 3px;
-    }
-
-    .opt-btn:hover {
-      background-color: gainsboro;
-      color: black;
-      font-weight: bold;
-      border: 2px solid wheat;
-      border-radius: 16px;
-    }
-
-    .w3-button {
-        color: white;
-        background-color: coral;
-        border: none;
-        padding: 16px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        transition-duration: 0.4s;
-        cursor: pointer;
-        border-radius: 16px;
-    }
-
-    .w3-button {
-      background-color: rgb(236, 225, 95); 
-      color: black; 
-    }
-
-    .w3-button:hover {
-      background-color: coral;
-      color: coral;
-    }
-
-    .w3-button-click{
-      background-color: coral;
-    }
-
-    #body,#body p, #body b,#body h1, #body h3, #body h5,#body h6{
-        font-family: 'Nanum Gothic';
-        font-weight: bold;
-    }
+.minus_plus_btn{
+    width: 30px; height: 30px;
+    background-color: #EAEAEC;
+    border: none;
+    color: black; 
+    border-radius: 3px;
+}
 
 
+.plus_btn:hover {
+    background-color: greenyellow;
+    color: coral;
+    border-radius: 3px;
+}
 
-    </style>
+.minus_btn:hover {
+    background-color: greenyellow;
+    color: coral;
+    border-radius: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.del_btn {
+    width: 60px; height: 35px;
+    padding: 0;
+    background-color: coral;
+    color: white; 
+    border: 2px solid coral;
+    border-radius: 7px;
+}
+
+.del-btn:hover {
+    background-color: greenyellow;
+    color: coral;
+    border: 2px solid seashell;
+    border-radius: 16px;
+}
+
+.opt_btn{
+    margin: 0 20px;
+    background-color: gainsboro; 
+    color: black; 
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 3px;
+}
+
+.opt-btn:hover {
+    background-color: gainsboro;
+    color: black;
+    font-weight: bold;
+    border: 2px solid wheat;
+    border-radius: 16px;
+}
+
+.w3_button {
+    width: 250px; height: 60px;
+    color: white;
+    background-color: coral;
+    border: none;
+    padding: 0;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px 0;
+    transition-duration: 0.4s;
+    border-radius: 8px;
+}
+
+.w3-button:hover {
+    background-color: coral;
+    color: coral;
+}
+
+.w3-button-click{
+    background-color: coral;
+}
+
+#body,#body p, #body b,#body h1, #body h3, #body h5,#body h6{
+    font-family: 'Nanum Gothic';
+    /* font-weight: bold; */
+}
+
+</style>
 
 </head>
 
 <body id="body">
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
-
-    <div class='row' style="margin-top: 50px; margin-bottom: 50px; margin-left: 0; margin-right: 0; font-family: 'Nanum Gothic', sans-serif;">
-        <div class="col-xl-2" style=""> <!--border: solid 1px salmon;-->
-            
+  
+    <div class="container">
+        <div class="cart_body_top">
+            <span><h1>장바구니</h1></span><br>
+            <div class="top_select"><input type="checkbox" id="checkbox-item-all">전체선택</div>
         </div>
-        
-        <div class="col-xl-8" style=""> <!-- border: solid 1px yellow;-->
 
-            <div class="cart-body-top" style="">
-                <h1 style="text-align: center;">장바구니</h1>
-                <input type="checkbox" id="checkbox-item-all" value="" style="float: left;">
-                <h6 style="text-align: left;">전체선택</h6>
-                <div style="background-color: gray; height: 1.5px; "></div>
-            </div>
-            <div class="row" style=" margin: 0;">
-
-            <!-- <div class="col-xl-1" style="border: solid 1px darkkhaki;">
-                
-            </div> -->
-            
-            <div class="col-xl-12" style=" padding-left: 0; padding-right: 0;">
-
-                <div class="row" style=" margin: 0;">
-                    
-                    <div style="background-color: gray; height: 1.5px; margin: auto; padding-top: 1px; padding-bottom: 1px;"></div>
-
-                    <!-- 장바구니항목 시작 -->
-                    <div class="col-xl-6" style=" float: left;">
-
-                            <div id="cart-body-middle" class="" style="margin: auto;">
-
-                                
-
-                                <div id="cart-body-item" class="" style=" width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
-                                    <div id="cart-body-item-top">
-                                        <div id="cart-body-item-list">
-                                            <div style="align-items: center;">
-                                                <input type="checkbox" id="checkbox-item-items" style="float: left; margin-top: auto">
-                                            </div>
-                                            <div class="cart-item-img" style="float: left; ">
-                                                <img src="../../assets/img/wanza.png" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
-                                            </div>
-                                            <div class="cart-item-title" style="float: left; ">
-                                                
-                                                <h6>리샘가구</h6>
-                                                <h3>OFFICY 서랍장 4.1단</h3>
-                                            </div>
-                                            <br><br><br>
-                                            <div class="cart-item-option" style="float: left;">
-                                                <h6>색상 : 월넛</h6>
-                                                <button class="button opt-btn" onclick="optproduct()">옵션변경</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-    
-                            </div>
-
-                    </div>
-                    <!-- 장바구니항목 끝 -->
-
-                    <div id="cart-body-middle-count" class="col-xl-2" style=" display: flex;">
-                        <div class="cart-body-counting" style="margin: auto; ">
-                            <p style="margin: 0; font-size: 25px;"><b>38,900원</b></p>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-2" style=" display: flex;">
-                        <div class="cart-body-counting" style="float: right; margin: auto; ">
-                            <button class="minus-btn" ><b style="font-size: 20px;">-</b></button>
-                            <input type="text" value="1" size="2" style="text-align: center; width: 40px; height: 35px;">
-                            <button class="plus-btn"><b style="font-size: 20px;">+</b></button>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-2" style=" float: right; display: flex;">
-                        <div class="cart-body-counting" style="margin: auto;">
-                            <button class="button del-btn" onclick="delproduct()">삭제</button>
-                        </div>
-                    </div>
-
-                </div><!-- row끝 -->
-            <div style="background-color: white;  height: 5px; padding-top: 10px; padding-bottom: 10px; margin-top: 15px;"></div>
-
-            <div style="background-color: gray; height: 1.5px; "></div>
-
-            <div class="row" style="background-color: #EAEAEC; margin: 0; font-family: 'Nanum Gothic', sans-serif;">
-                
-                <div class="cart-item-footer" style="background-color: #EAEAEC; margin: auto;padding-top: 25px;padding-bottom: 25px; text-align: right; " >
-                    <div class="cart-item-footer-body">
-                        <h5>상품금액 38,900원 &nbsp; + &nbsp; 배송비 2,500원 &nbsp; = &nbsp; <b style="font-size: 25px;">주문금액 41,400원</b></h5>
+        <div class="row cart_body" id="cart">
+            <!-- 장바구니항목 시작 -->
+            <div class="col-xl-6 d-flex">
+                <div class="cart_item_chk"><input type="checkbox" id="checkbox-item-items"></div>
+                <div class="cart_item_img"><img src="../../assets/img/wanza.png"></div>
+                <div class="cart_item_title">
+                    <h6>리샘가구</h6>
+                    <h3>OFFICY 서랍장 4.1단</h3>
+                    <div class="cart_item_option">
+                        <span>색상 : 월넛</span>
+                        <button class="button opt_btn" onclick="optproduct()">옵션변경</button>
                     </div>
                 </div>
+            </div><!-- 장바구니항목 끝 -->
 
-                <br><br>
-                
-            </div>
-
-            <div style="background-color: gray; height: 1.5px; "></div>
-
-            <div class="row" style="align-items: center; margin-top: 15px;">
-                <div class="col-xl-5"></div>
-                <div class="col-xl-2" style="text-align: center;">
-                    <button class="w3-button" >n개 상품 구매하기</button>
-                    <!-- <input type="button" value="n개상품 구매하기"> -->
+            <!-- 가격 -->
+            <div class="col-xl-2" id="cart-body-middle-count"  style=" display: flex;">
+                <div class="cart-body-counting" style="margin: auto; ">
+                    <p style="margin: 0; font-size: 20px;"><b>38,900원</b></p>
                 </div>
-                <div class="col-xl-5"></div>
             </div>
 
-            
-
+            <!-- 수량 -->
+            <div class="col-xl-2 d-flex">
+                <div class="cart_body_counting">
+                    <button class="minus_plus_btn" ><b style="font-size: 20px;">-</b></button>
+                    <input type="text" value="1" size="2" >
+                    <button class="minus_plus_btn"><b style="font-size: 20px;">+</b></button>
+                </div>
             </div>
-                
-            </div>   <!-- row끝 --> 
 
-        
+            <!-- 삭제버튼 -->
+            <div class="col-xl-2" style=" float: right; display: flex;">
+                <div class="cart-body-counting" style="margin: auto;">
+                    <button class="button del_btn" onclick="delproduct()">삭 제</button>
+                </div>
+            </div>
 
+        </div><!-- row끝 -->
+
+        <!-- 금액박스 -->
+        <div class="row" style="background-color: #EAEAEC; margin: 0; font-family: 'Nanum Gothic', sans-serif;">
                 
+            <div class="cart-item-footer" style="background-color: #EAEAEC; margin: auto;padding-top: 25px;padding-bottom: 25px; text-align: right; " >
+                <div class="cart-item-footer-body">
+                    <h5>상품금액 38,900원 &nbsp; + &nbsp; 배송비 2,500원 &nbsp; = &nbsp; <b style="font-size: 25px;">주문금액 41,400원</b></h5>
+                </div>
+            </div>
+
         </div>
 
-        <div class="col-xl-2" style=""> <!-- border: solid 1px salmon; -->
-            
-        </div>
-                
-            
-
-            
-
-            
+        <!-- 구매하기 버튼 -->
+        <div class="row" style="align-items: center; margin-top: 15px;">
+            <div class="col-xl-5"></div>
+            <div class="col-xl-2" style="text-align: center;">
+                <button class="w3_button" >n개 상품 구매하기</button>
+            </div>
+            <div class="col-xl-5"></div>
         </div>
 
-        <!-- <div class="col-xl-2" style="border: solid 1px black;"></div> -->
-    </div> <!-- row끝 -->
+    </div> <!-- 끝 메인컨테이나 -->
 
     <footer include-html="../commons/footer.html"></footer>
 
-    <script src="../../assets/js/jquery.min.js"></script>
-    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../../js/includeHTML.js"></script>
-    <script src="../../js/header.js"></script>
+</body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
 
     <script>
-
 
     //로그인한 계정 닉네임 가져오기
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
@@ -313,13 +273,6 @@
     });
 
 
-
-
-
-
     </script>
-
-
-</body>
 
 </html>
