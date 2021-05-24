@@ -116,15 +116,15 @@
                     <select id="selectItem" name="selectItem" class="shadow-sm custom-select custom-select-sm"
                         style="margin-top: 12px;width: 135.547px;text-align: left;margin-left: 25px;">
                         <option value="월넛">월넛</option>
-                        <option value="13">This is item 2</option>
-                        <option value="14">This is item 3</option>
+                        <option value="오크">오크</option>
+                        <option value="고무나무">고무나무</option>
                     </select></div>
             </div>
             <div class="row"
                 style="margin-left: 10px;border-bottom: 1px solid rgb(99,99,99);padding-bottom: 13px;width: 355px;"><span
                     style="margin: 15px;color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;"><strong>개수</strong></span>
                 <div class="col">
-                    <input id="itemCount" class="border rounded-0 form-control-sm" type="number" min="1" max="10" placeholder="1" style="margin-top: 12px;height: 33px;width: 88px;margin-left: 25px;">
+                    <input id="itemCount" class="border rounded-0 form-control-sm" type="number" min="1" max="10" placeholder="1" value="1" style="margin-top: 12px;height: 33px;width: 88px;margin-left: 25px;">
                 </div>
             </div>
             <div class="row" style="margin-top: 26px;">
@@ -139,7 +139,7 @@
                     <button class="btn btn-lg" type="button" data-container="body" data-toggle="popover" data-placement="top" data-content="장바구니에 담았습니다."
                         style="width: 161.375px;height: 48px;margin-left: 8px;border-color: rgb(244,116,76);border-bottom-color: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(244,116,76);font-size: 18px;">장바구니</button>
                     <button class="btn btn-lg" type="button"
-                    style="width: 161.375px;height: 48px;margin-left: 8px;background: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(255,255,255);font-size: 18px;">바로구매</button>
+                    style="width: 161.375px;height: 48px;margin-left: 8px;background: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(255,255,255);font-size: 18px;" onclick="directPurchase()">바로구매</button>
                 </div>
             </div>
         </div>
@@ -342,7 +342,7 @@
                                     <div class="col-lg-2 col-xl-2 text-center">
                                         <div><a class="btn" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-1"
                                                 href="#collapse-1" role="button"
-                                                style="margin-top: 10px;font-size: 28px;"><strong>∨</strong></a>
+                                                style="margin-top: 10px;font-size: 20px;"><strong>∨</strong></a>
                                         </div>
                                     </div>
                                 </div>
@@ -455,8 +455,8 @@
                         <select id="selectItem_side" name="selectItem" class="shadow-sm custom-select custom-select-sm"
                             style="margin-top: 12px;width: 135.547px;text-align: left;margin-left: 25px;">
                             <option value="월넛">월넛</option>
-                            <option value="13">This is item 2</option>
-                            <option value="14">This is item 3</option>
+                            <option value="오크">오크</option>
+                            <option value="고무나무">고무나무</option>
                         </select></div>
                 </div>
                 <div class="row"
@@ -464,7 +464,7 @@
                     <span
                         style="margin: 15px;color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;"><strong>개수</strong></span>
                     <div class="col">
-                        <input id="itemCount_side" class="border rounded-0 form-control-sm" type="number" min="1" max="10" placeholder="1" style="margin-top: 12px;height: 33px;width: 88px;margin-left: 25px;">
+                        <input id="itemCount_side" class="border rounded-0 form-control-sm" type="number" min="1" max="10" placeholder="1" value="1" style="margin-top: 12px;height: 33px;width: 88px;margin-left: 25px;">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 26px;">
@@ -478,7 +478,7 @@
                     <div class="col" style="margin-top: 23px;"><button class="btn btn-lg" type="button"
                             style="width: 161.375px;height: 48px;margin-left: 8px;border-color: rgb(244,116,76);border-bottom-color: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(244,116,76);font-size: 18px;">장바구니</button><button
                             class="btn btn-lg" type="button"
-                            style="width: 161.375px;height: 48px;margin-left: 8px;background: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(255,255,255);font-size: 18px;">바로구매</button>
+                            style="width: 161.375px;height: 48px;margin-left: 8px;background: rgb(244,116,76);font-family: 'Noto Sans KR', sans-serif;color: rgb(255,255,255);font-size: 18px;" onclick="directPurchase()">바로구매</button>
                     </div>
                 </div>
             </div>
@@ -573,6 +573,17 @@
         $('#totalPrice, #totalPrice_side').text(makeComma($('#discountPrice').text().replace(',', '') * $(this).val()) + '원');
     });
 
+    
+    function directPurchase() {
+
+        let selectItem = $('#selectItem').val();
+        let itemCount = $('#itemCount').val();
+
+
+        location.href = "order.html?seq="+seq+"&selectItem=" +selectItem+"&itemCount="+itemCount;
+    };
+    
+
 
 
     $(document).ready(function () {
@@ -643,6 +654,13 @@
             };
             */
         });
+
+
+
+
+
+
+
     });
 
 

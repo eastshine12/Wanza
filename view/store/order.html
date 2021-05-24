@@ -478,7 +478,38 @@ select::-ms-expand{
                 <div class="mb-5">
                     <div class="order_title"><span>주문상품</span></div>
                     <div>
-                        
+                        <div class="row" style="margin: 20px 0px;padding-bottom: 20px; border-bottom: 1px solid rgb(129, 129, 129); display: flex; align-items:center;">
+                            <div class="col" style="text-align: center;"><img id="itemImg" style="width: 130px; height: 130px;" alt=""></div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col offset-md-1">
+                                        <p id="itemMaker" style="font-size: 12px;">리샘가구</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col offset-md-1">
+                                        <h5 id="itemTitle">OFFICY 서랍장 4.1단</h5>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col offset-md-1" style="font-size: 15px; color: #707070;">
+                                        <span>색상</span><span>&ensp;</span><span id="selectItem">월넛</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <p id="itemCount">개</p>
+                            </div>
+                            <div class="col">
+                                <p id="itemPrice">원</p>
+                            </div>
+                        </div>
+
+                        <div class="row" style="height: 70px; background-color: #cecece; border-bottom: 1px solid rgb(182, 181, 181); display: flex; align-items:center;">
+                            <div style="margin-left: 200px;">
+                                <span>상품금액&ensp;</span><span id="allItemPrice">원</span><span>&ensp;+&ensp;배송비&ensp;</span><span id="deliveryCharge">2,500원</span><span>&ensp;=&ensp;</span><span><b>주문금액&ensp;</b> </span><span id="orderPrice" style="font-size: 21px; font-weight: bold;">41,400원</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -486,12 +517,16 @@ select::-ms-expand{
                 <div class="mb-5" id="point" >
                     <div class="order_title"><span>포인트</span></div>
                     <div class="row order_content_wrap">
-                        <div class="order_content point_box"><label for="_point"><input type="text" id="_point" name="point" value=""></label></div>
+                        <div class="order_content point_box">
+                            <label for="_point">
+                                <input type="text" id="_point" placeholder="0">
+                            </label>
+                        </div>
                         <div><button class="point_btn" type="button">전액사용</button></div>
                     </div>
                     <div class="row order_content_wrap">
                         <div class="order_subtitle">보유포인트</div>
-                        <div class="order_subtitle point">4,000<span>p</span></div>
+                        <div id="myPoint" class="order_subtitle point">4,000<span>p</span></div>
                     </div>
                 </div>
 
@@ -522,14 +557,14 @@ select::-ms-expand{
                     
                     <div class="payment_box">
                         <div class="payment1">
-                            <div class="row payment1_0"><span>총 상품금액</span><span>38,900원</span></div>
-                            <div class="row payment1_0"><span>배송비</span><span>2,500원</span></div>
-                            <div class="row payment1_0"><span>포인트 사용</span><span>0원</span></div>
+                            <div class="row payment1_0"><span>총 상품금액</span><span id="sideTotalPrice">원</span></div>
+                            <div class="row payment1_0"><span>배송비</span><span id="sideDeliveryCharge">원</span></div>
+                            <div class="row payment1_0"><span>포인트 사용</span><span id="sideUsePoint">0 원</span></div>
                         </div>
 
                         <div class="payment1">
-                            <div class="row payment1_0 pa_bo"><span><h4>총 결제금액</h4></span><span><h4>41,400원</h4></span></div>
-                            <div class="row payment1_0"><span>적립포인트</span><span>386p</span></div>                        
+                            <div class="row payment1_0 pa_bo"><span><h4>총 결제금액</h4></span><span><h4 id="sideResultPrice">41,400원</h4></span></div>
+                            <div class="row payment1_0"><span>적립포인트</span><span id="sideGetPoints">p</span></div>                        
                         </div>
 
                         <span class="pay_terms"><div class="custom-checkbox "><input type="checkbox" id="cb" class="custom-control-input">
@@ -538,7 +573,7 @@ select::-ms-expand{
 
                     </div>
 
-                    <button class="payment_btn" type="button" >41,400원 결제하기</button>
+                    <button id="sidePaymentBtn" class="payment_btn" type="button" >41,400원 결제하기</button>
 
                 </div>
             </div>
@@ -558,6 +593,25 @@ select::-ms-expand{
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script>
+
+//파라미터값 가져오도록 하는 함수
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+let seq = getParameter("seq");
+let selectItem = getParameter("selectItem");
+let itemCount = getParameter("itemCount");
+
+// 금액 콤마 삽입 정규식
+function makeComma(str) {
+
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+};
+
 let element = document.getElementById('order'); //왼쪽 창 높이 구하기
 let h = element.clientHeight;
 console.log("높이 : "+h)
@@ -576,6 +630,78 @@ $(document).ready(function() {
             $('#_dlvy_req3').hide();
         }
     });
+
+
+
+    // 구매물품 디테일 정보 가져오기
+    getProductDetail()
+    function getProductDetail() {
+        $.ajax({
+            url: "http://192.168.0.231:3000/getProductDetail",
+            type: "get",
+            data: {
+                "productSeq": seq
+            },
+            success: function (data) {
+                console.log(data);
+                $('#itemCount').text(itemCount+'개');
+                $('#selectItem').text(selectItem);
+                $('#itemTitle').text(data.productName);
+                $('#itemMaker').text(data.productMaker);
+                $('#itemImg').attr('src', 'http://192.168.0.231:3000/upload/' + data.productFileName);
+
+                if (data.productDiscount != 0) { // 할인상품이라면,
+                
+                    $('#itemPrice').text(makeComma(data.productDiscount * itemCount) + '원');
+                    $('#allItemPrice').text(makeComma(data.productDiscount * itemCount) + '원');
+                    $('#sideTotalPrice').text(makeComma(data.productDiscount * itemCount) + '원');
+                    $('#sideGetPoints').text(makeComma(data.productDiscount * itemCount *0.01) + 'p');
+                    //50000원 이상 무료배송
+                    if (data.productDiscount * itemCount >= 50000) {
+                        $('#deliveryCharge').text('무료');
+                        $('#sideDeliveryCharge').text('무료');
+                        $('#orderPrice').text(makeComma(data.productDiscount * itemCount) + '원');
+                        $('#sideResultPrice').text(makeComma(data.productDiscount * itemCount) + '원');
+                        $('#sidePaymentBtn').text(makeComma(data.productDiscount * itemCount) + '원 결제하기');
+                    } else {
+                        $('#deliveryCharge').text('2,500원');
+                        $('#sideDeliveryCharge').text('2,500원');
+                        $('#orderPrice').text(makeComma(data.productDiscount * itemCount + 2500) + '원');
+                        $('#sideResultPrice').text(makeComma(data.productDiscount * itemCount + 2500) + '원');
+                        $('#sidePaymentBtn').text(makeComma(data.productDiscount * itemCount + 2500) + '원 결제하기');
+                    }
+                    
+                } else {
+
+                    $('#itemPrice').text(makeComma(data.productPrice * itemCount) + '원');
+                    $('#allItemPrice').text(makeComma(data.productPrice * itemCount) + '원');
+                    $('#sideTotalPrice').text(makeComma(data.productPrice * itemCount) + '원');
+                    $('#sideGetPoints').text(makeComma(data.productPrice * itemCount * 0.01) + 'p');
+                    //50000원 이상 무료배송
+                    if (data.productDiscount * itemCount >= 50000) {
+                        $('#deliveryCharge').text('무료');
+                        $('#sideDeliveryCharge').text('무료');
+                        $('#orderPrice').text(makeComma(data.productPrice * itemCount) + '원');
+                        $('#sideResultPrice').text(makeComma(data.productPrice * itemCount) + '원');
+                        $('#sidePaymentBtn').text(makeComma(data.productPrice * itemCount) + '원 결제하기');
+                    } else {
+                        $('#deliveryCharge').text('2,500원');
+                        $('#sideDeliveryCharge').text('2,500원');
+                        $('#orderPrice').text(makeComma(data.productPrice * itemCount + 2500) + '원');
+                        $('#sideResultPrice').text(makeComma(data.productPrice * itemCount + 2500) + '원');
+                        $('#sidePaymentBtn').text(makeComma(data.productPrice * itemCount + 2500) + '원 결제하기');
+                    }
+            
+                };
+
+            },
+            error: function () {
+                alert('getProductDetail() error');
+            }
+        });
+    };
+
+
 
     $('.point_btn').click( function() { //포인트 전액사용 토글
         $(this).toggleClass('active');
@@ -618,72 +744,91 @@ $(document).ready(function() {
             requestPay(method,jdata); //아임포트 결제 실행
         }
     })
-    
+
+    // 아임포트 결제
+    function requestPay(method) {
+        var IMP = window.IMP; // 생략가능
+        IMP.init("imp15128186"); // 가맹점 식별코드
+
+        // IMP.request_pay(param, callback) 호출
+        IMP.request_pay({ // param
+            pg: "kakaopay",
+            //pg: "kcp",
+            pay_method: method, 
+            //pay_method: "card", pay_method: "trans",
+            //merchant_uid: "ORD20180131-0000011",
+            //buyer_email: "gildong@gmail.com",
+            //buyer_name: "홍길동",
+            //buyer_tel: "010-5458-8131",
+            //buyer_addr: "서울특별시 강남구 신사동",
+            //buyer_postcode: "01181",
+            name: $('#itemTitle').text(),
+            amount: $('#sideResultPrice').text().replace(/[^0-9]/g, '')
+        }, function (rsp) { // callback
+            console.log(rsp)
+            console.log(rsp.success)
+            console.log(rsp.imp_uid)
+            console.log(rsp.merchant_uid)
+
+            if (rsp.success) {
+                // jQuery로 HTTP 요청
+                jQuery.ajax({
+                    url: "https://www.myservice.com/payments/complete", // 가맹점 서버
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    data: {
+                        imp_uid: rsp.imp_uid, //거래 고유 번호
+                        merchant_uid: rsp.merchant_uid //가맹점에서 관리하는 주문번호
+                    }
+                })
+                /*
+                .done(function (data) {
+                    console.log(data)
+                    console.log(data.status)
+                    
+                    // 가맹점 서버 결제 API 성공시 로직
+                    switch(data.status) {
+                        case "vbankIssued":
+                        // 가상계좌 발급 시 로직
+                            console.log('가상계좌 발급 시 로직')
+                        break;
+                        case "success":
+                        // 결제 성공 시 로직
+                            console.log('결제 성공 시 로직')
+                        break;
+                    }
+                })
+                */
+            } else {
+                alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+            }
+        });
+    }
+
     $('.dlvy_btn').click(function(){ //배송지 저장 버튼
         let new_dlvy = $('#form_new_dlvy').serialize()
         
     });
 });
 
-// 아임포트 결제
-function requestPay(method,data) {
-    console.log(data.name)
-    
-    var IMP = window.IMP; // 생략가능
-    IMP.init("imp15128186"); // 가맹점 식별코드
-
-    // IMP.request_pay(param, callback) 호출
-    IMP.request_pay({ // param
-        pg: "html5_inicis",
-        pay_method: method,
-        //merchant_uid: "ORD20180131-0000011",
-        name: data.name,
-        amount: 100,
-        buyer_email: "gildong@gmail.com",
-        buyer_name: "",
-        buyer_tel: "",
-        buyer_addr: "서울특별시 강남구 신사동",
-        buyer_postcode: "01181"
-    }, function (rsp) { // callback
-        console.log(rsp)
-        console.log(rsp.success)
-        console.log(rsp.imp_uid)
-        console.log(rsp.merchant_uid)
-
-        if (rsp.success) {
-            // jQuery로 HTTP 요청
-            jQuery.ajax({
-                url: "https://www.myservice.com/payments/complete", // 가맹점 서버
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                data: {
-                    imp_uid: rsp.imp_uid, //거래 고유 번호
-                    merchant_uid: rsp.merchant_uid //가맹점에서 관리하는 주문번호
-                }
-            })
-            /*
-            .done(function (data) {
-                console.log(data)
-                console.log(data.status)
-                
-                // 가맹점 서버 결제 API 성공시 로직
-                switch(data.status) {
-                    case "vbankIssued":
-                    // 가상계좌 발급 시 로직
-                        console.log('가상계좌 발급 시 로직')
-                    break;
-                    case "success":
-                    // 결제 성공 시 로직
-                        console.log('결제 성공 시 로직')
-                    break;
-                }
-            })
-            */
+// 포인트 사용 (DB 추가 후 수정 필요)
+$(document).on('blur', '#_point', function () {
+    let chkNum = /^[0-9]+$/;
+    let myPoint = $('#myPoint').text().replace(/[^0-9]/g, '');
+    if(chkNum.test($(this).val())) {
+        if(parseInt($(this).val())> parseInt(myPoint)) {
+            $(this).val('');
         } else {
-            alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+            $('#myPoint').text(makeComma(parseInt(myPoint) - parseInt($(this).val())) + 'p');
         }
-    });
-}
+        
+    }else {
+        $(this).val('');           
+    }
+
+    $('#sideUsePoint').text($('#_point').val() + '원');
+});
+
 
 /*
 app.use(bodyParser.json());
