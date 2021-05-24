@@ -7,7 +7,7 @@
 <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon"> <!-- 브라우저 탭 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
 <!-- <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css"> -->
- <!-- 부트스트랩 -->
+<!-- 부트스트랩 -->
 <link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통-->
 
 <style>
@@ -811,6 +811,7 @@ $(document).ready(function() {
     });
 });
 
+
 // 포인트 사용 (DB 추가 후 수정 필요)
 $(document).on('blur', '#_point', function () {
     let chkNum = /^[0-9]+$/;
@@ -820,14 +821,13 @@ $(document).on('blur', '#_point', function () {
             $(this).val('');
         } else {
             $('#myPoint').text(makeComma(parseInt(myPoint) - parseInt($(this).val())) + 'p');
-        }
-        
+        }        
     }else {
         $(this).val('');           
     }
-
     $('#sideUsePoint').text($('#_point').val() + '원');
 });
+
 
 
 /*

@@ -162,7 +162,7 @@
 <body id="body">
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
-
+  
     <div class="container">
         <div class="cart_body_top">
             <span><h1>장바구니</h1></span><br>
@@ -239,5 +239,40 @@
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
+
+    <script>
+
+    //로그인한 계정 닉네임 가져오기
+    let sessionId = JSON.parse(sessionStorage.getItem("login"));
+    if (sessionId == null) {
+        sessionId = '';
+    };
+
+
+    $(document).ready(function() {
+
+
+        getCartList()
+        function getCartList() {
+            $.ajax({
+                url: "http://192.168.0.231:3000/getCartList",
+                type: "get",
+                data: {
+                    "cartClassify": "CT-" + sessionId.userSeq
+                },
+                success: function (data) {
+                    console.log(data)
+                },
+                error: function () {
+                    alert('getCartList() error');
+                }
+            });
+        }
+
+
+    });
+
+
+    </script>
 
 </html>
