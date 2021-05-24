@@ -1,0 +1,115 @@
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>완벽한 자취생활, 완자</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" type="text/css" href="../../css/style.css">
+        <link rel="stylesheet" type="text/css" href="../../css/question.css">
+    
+        <style>
+        .questions-item-link:hover {
+          text-decoration: none;
+          
+        }
+        .questions-item-link:hover .questions-block{
+          text-decoration: underline black;
+        }
+    
+        .button {
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          float: right;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          transition-duration: 0.4s;
+          cursor: pointer;
+        }
+    
+        
+    
+        .question-btn1 {
+          background-color: white; 
+          color: black; 
+          border: 2px solid coral;
+        }
+    
+        .question-btn1:hover {
+          background-color: coral;
+          color: white;
+        }
+    
+        .question-btn2 {
+          background-color: white; 
+          color: black; 
+          border: 2px solid powderblue;
+        }
+    
+        .question-btn2:hover {
+          background-color: powderblue;
+          color: white;
+        }
+    
+        .w3-dropdown-click{
+          background-color: coral;
+          
+        }
+    
+        #body,#body p, #body b,#body h1, #body h2, #body h3, #body h5,#body h6, #body li{
+            font-family: 'Nanum Gothic';
+            font-weight: bold;
+        }
+        
+    
+        
+        </style>
+    
+    
+    </head>
+
+<body id="body">
+    
+    <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav>
+
+    <div class="row">
+        <div class="col-xl-3"></div>
+
+        <div class="col-xl-6">
+            <div class="row">
+                <div class="question-form-container" style="background-color: antiquewhite; ">
+                    <form id="question-form">
+                        <div id="question-form-header" style="font-size: 20px; text-align: right;">
+                            <h2 style="text-align: center;">질문하기</h2>
+                            <span>"상품구매, 배송관련" 질문은 <a href="">이곳</a>에 문의해주세요</span>
+                        </div>
+                        
+                        <input class="question-title" placeholder="질문의 제목을 적어주세요" style="width: 500px; height: 50px; align-items: center; ">
+                        
+
+                    </form>
+                </div>
+            </div>    
+        </div>
+        
+        <div class="col-xl-3"></div>
+    </div>
+
+    <footer include-html="../commons/footer.html"></footer>
+
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../js/includeHTML.js"></script>
+    <script src="../../js/header.js"></script>
+
+</body>
+
+</html>
