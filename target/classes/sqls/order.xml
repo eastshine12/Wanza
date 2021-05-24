@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+
+  
+<mapper namespace="com.decolab.wanza.dao.OrderDAO">
+
+<!-- 장바구니 추가 -->
+<insert id="addCart" parameterType="com.decolab.wanza.dto.CartDTO">
+	INSERT INTO CART
+	VALUES (#{cartClassify}, #{userSeq}, #{productSeq}, #{selectOption}, #{quantity}, #{price}, SYSDATE, 0)
+</insert>
+
+
+<!-- 유저별 장바구니 리스트 가져오기 -->
+<select id="getCartList" resultType="com.decolab.wanza.dto.CartDTO">
+	SELECT CARTCLASSIFY, C.USERSEQ, C.PRODUCTSEQ, SELECTOPTION, QUANTITY, PRICE, CARTDATE, CARTDEL,
+        P.PRODUCTNAME, P.PRODUCTMAKER, P.PRODUCTFILENAME
+	FROM CART C, PRODUCTIONS P
+	WHERE C.PRODUCTSEQ=P.PRODUCTSEQ AND CARTCLASSIFY=#{cartClassify}
+	ORDER BY CARTDATE ASC
+</select>
+
+
+
+</mapper>
