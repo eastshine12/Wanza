@@ -12,7 +12,7 @@ public class CartDTO implements Serializable {
 	private int quantity;
 	private int price;
 	private Date cartDate;
-	private int cartDel;
+	private int cartStatus;
 	private String productName;
 	private String productMaker;
 	private String productFileName;
@@ -24,7 +24,7 @@ public class CartDTO implements Serializable {
 	
 	
 	public CartDTO(String cartClassify, int userSeq, int productSeq, String selectOption, int quantity, int price,
-			Date cartDate, int cartDel, String productName, String productMaker, String productFileName) {
+			Date cartDate, int cartStatus, String productName, String productMaker, String productFileName) {
 		super();
 		this.cartClassify = cartClassify;
 		this.userSeq = userSeq;
@@ -33,7 +33,7 @@ public class CartDTO implements Serializable {
 		this.quantity = quantity;
 		this.price = price;
 		this.cartDate = cartDate;
-		this.cartDel = cartDel;
+		this.cartStatus = cartStatus;
 		this.productName = productName;
 		this.productMaker = productMaker;
 		this.productFileName = productFileName;
@@ -42,7 +42,7 @@ public class CartDTO implements Serializable {
 
 
 	public CartDTO(String cartClassify, int userSeq, int productSeq, String selectOption, int quantity, int price,
-			Date cartDate, int cartDel) {
+			Date cartDate, int cartStatus) {
 		super();
 		this.cartClassify = cartClassify;
 		this.userSeq = userSeq;
@@ -51,7 +51,7 @@ public class CartDTO implements Serializable {
 		this.quantity = quantity;
 		this.price = price;
 		this.cartDate = cartDate;
-		this.cartDel = cartDel;
+		this.cartStatus = cartStatus;
 	}
 
 	public CartDTO(String cartClassify, int userSeq, int productSeq, String selectOption, int quantity, int price) {
@@ -120,12 +120,12 @@ public class CartDTO implements Serializable {
 		this.cartDate = cartDate;
 	}
 
-	public int getCartDel() {
-		return cartDel;
+	public int getCartStatus() {
+		return cartStatus;
 	}
 
-	public void setCartDel(int cartDel) {
-		this.cartDel = cartDel;
+	public void setCartStatus(int cartStatus) {
+		this.cartStatus = cartStatus;
 	}
 
 	public String getProductName() {
@@ -157,7 +157,7 @@ public class CartDTO implements Serializable {
 	public String toString() {
 		return "CartDTO [cartClassify=" + cartClassify + ", userSeq=" + userSeq + ", productSeq=" + productSeq
 				+ ", selectOption=" + selectOption + ", quantity=" + quantity + ", price=" + price + ", cartDate="
-				+ cartDate + ", cartDel=" + cartDel + ", productName=" + productName + ", productMaker=" + productMaker
+				+ cartDate + ", cartStatus=" + cartStatus + ", productName=" + productName + ", productMaker=" + productMaker
 				+ ", productFileName=" + productFileName + "]";
 	}
 
