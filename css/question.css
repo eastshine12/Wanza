@@ -1060,7 +1060,7 @@
     }
 }
 .questions-item__footer__tags > .keyword-item {
-    position: relative;
+    /* position: relative; */
     font-size: 13px
 }
 @media(min-width: 768px) {

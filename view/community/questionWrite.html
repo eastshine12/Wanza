@@ -84,6 +84,23 @@
           height: 150px;
         }
 
+        .w3_button {
+          width: 250px; height: 60px;
+          color: white;
+          background-color: coral;
+          border: none;
+          padding: 0;
+          font-size: 20px;
+          font-weight: bold;
+          margin: 20px 0;
+          transition-duration: 0.4s;
+          border-radius: 8px;
+        }
+
+        .w3-button:hover {
+            background-color: coral;
+            color: coral;
+        }
         
         
     
@@ -101,21 +118,22 @@
     <div class="row">
         <div class="col-xl-3"></div>
 
-        <div class="col-xl-6" style="background-color: antiquewhite;  ">
+        <div class="col-xl-6" style="">
             
           <div class="question-form-container" >
 
               <form id="question-form" action="#" method="POST" ><!-- 질문작성폼시작 -->
 
                   <div id="question-form-header" style="font-size: 20px; text-align: right; width: auto;">
-                      <h2 style="text-align: center;">질문하기</h2>
-                      <span>"상품구매, 배송관련" 질문은 <a href="">이곳</a>에 문의해주세요</span>
+                      <h1 style="text-align: center; margin-top: 30px; margin-bottom: 15px; font-weight: 800;">질문하기</h1>
+                      <span style="font-weight: 800;">"상품구매, 배송관련" 질문은 <a href="" style="color: coral;">이곳에 문의하러 가기</a></span>
                   </div>
                   
-                  <input class="question-title" type="text" placeholder="질문의 제목을 적어주세요" style="width: 500px; height: 50px; align-items: center; margin: 0 auto; ">
+                  <input class="question-title" type="text" placeholder="질문의 제목을 적어주세요" 
+                  style="width: 500px; height: 50px; align-items: center; margin: 0 auto; margin-top: 30px; border-radius: 20px; font-size: 20px; font-weight: bold; ">
                   <br>
 
-                  <textarea id="summernote" class="summernote1" name="editordata"></textarea>
+                  <textarea id="summernote" class="summernote" name="editordata" ></textarea>
 
                   <!-- <div class="question-content" contenteditable="true" style="background-color: white; height: 500px; text-align: left;" tabindex="0" aria-placeholder="내용을 작성해 주세요">
                     <p>
@@ -123,7 +141,7 @@
                     </p>
                   </div> -->
 
-                  <div style="background-color: grey; height: 15px;"></div>
+                  <!-- <div style="background-color: grey; height: 15px;"></div>
 
                   <div style="background-color: aquamarine; height: 150px; padding-left: 30px; padding-right: 30px;">
                   <div id="question-content-photo" class="question-content-photo" style="float: left;">
@@ -147,7 +165,7 @@
                   </div>
                   </div>
 
-                  <div style="background-color: grey; height: 15px;"></div>
+                  <div style="background-color: grey; height: 15px;"></div> -->
 
                   <!-- <textarea cols="80" rows="30" class="question-content" type="textarea" placeholder="" style="align-items: center; margin: 0 auto;">
                     <input type="image" value="t-image" src="../image/drsd.gif">
@@ -160,6 +178,14 @@
         </div>
         
         <div class="col-xl-3"></div>
+    </div><!-- row끝 -->
+
+    <div class="row" style="align-items: center; ">
+      <div class="col-xl-5"></div>
+      <div class="col-xl-2" style="text-align: center;">
+          <button class="w3_button" >질문하기</button>
+      </div>
+      <div class="col-xl-5"></div>
     </div>
 
     <footer include-html="../commons/footer.html"></footer>
@@ -173,22 +199,40 @@
     <script src="../../css/summernote/summernote-ko-KR.js"></script>
     <script>
     $(document).ready(function() {
-      $('#summernote').summernote('enable');
     //여기 아래 부분
       $('#summernote').summernote({
-          height: 600,                 // 에디터 높이
-          minHeight: null,             // 최소 높이
+          height: 400,                 // 에디터 높이
+          minHeight: 150,             // 최소 높이
           maxHeight: null,             // 최대 높이
           focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
           lang: "ko-KR",					// 한글 설정
-          placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+          placeholder: '내용을 적어주세요 참고가 되는 사진을 첨부해주시면 더 좋은 답변을 얻을 수 있습니다.',	//placeholder 설정
+          toolbar: [   
+          //툴바설정
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline','strikethrough']],
+			    ['insert',['picture']],
+			    ['view', [ 'help']]
+			    ],
+          
+
+	  });
               
-      });
+    
     });
+
+
+
+    // $('#summernote').summernote('fontName', 'Nanum Gothic');
+    // @param {String} url
+    // @param {String|Function} filename - optional
+    // $('#summernote').summernote('insertImage', url, filename);
+    
     </script>
     <!-- 써머노트 스크립트 끝 -->
 
-    <!-- // 서머노트에 text 쓰기
+    <!-- // 서머노트 간단 함수 모음
+    // 서머노트에 text 쓰기
     $('#summernote').summernote('insertText', 써머노트에 쓸 텍스트);
     // 서머노트 쓰기 비활성화
     $('#summernote').summernote('disable');
