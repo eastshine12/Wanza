@@ -17,13 +17,14 @@ public class SearchController {
 	@Autowired
 	SearchService service;
 	
+	// 7일간 검색어 상위 10개
 	@RequestMapping(value = "/getSearchWord",method = {RequestMethod.GET,RequestMethod.POST})
 	public List<SearchDTO> getSearchWord(){
 		System.out.println("SearchController getSearchList() " + new Date());
 		
 		return service.getSearchWord();
 	}
-	
+	// 검색어 등록
 	@RequestMapping(value = "/searchWrite",method = {RequestMethod.GET,RequestMethod.POST})
 	public String searchWrite(SearchDTO dto) {
 		System.out.println("SearchController searchWrite() " + new Date());	
