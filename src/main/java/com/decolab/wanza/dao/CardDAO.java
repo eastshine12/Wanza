@@ -13,7 +13,7 @@ import com.decolab.wanza.dto.CardReviewDTO;
 public interface CardDAO {
 
 	public List<CardDTO> getCardList();
-	
+
 	public CardDTO getCardDetail(CardDTO dto);
 	
 	public int cardWrite(CardDTO dto);

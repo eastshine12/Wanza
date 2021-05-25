@@ -19,8 +19,7 @@ public class CardDTO implements Serializable {
 	public CardDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 
 	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
 			String cardFileName, int cardDel, String nickName, int likeCount) {
@@ -52,8 +51,6 @@ public class CardDTO implements Serializable {
 		this.cardDel = cardDel;
 		this.nickName = nickName;
 	}
-
-
 
 	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
 			String cardFileName, int cardDel) {
@@ -138,8 +135,7 @@ public class CardDTO implements Serializable {
 
 	public void setCardDel(int cardDel) {
 		this.cardDel = cardDel;
-	}
-	
+	}	
 
 	public String getNickName() {
 		return nickName;
@@ -158,7 +154,6 @@ public class CardDTO implements Serializable {
 		this.likeCount = likeCount;
 	}
 
-
 	@Override
 	public String toString() {
 		return "CardDTO [cardSeq=" + cardSeq + ", cardTitle=" + cardTitle + ", cardContent=" + cardContent
@@ -166,7 +161,5 @@ public class CardDTO implements Serializable {
 				+ ", cardFileName=" + cardFileName + ", cardDel=" + cardDel + ", nickName=" + nickName + ", likeCount="
 				+ likeCount + "]";
 	}
-
-
 
 }

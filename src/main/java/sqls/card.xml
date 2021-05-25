@@ -7,7 +7,6 @@
   
 <mapper namespace="com.decolab.wanza.dao.CardDAO">
 
-
 <!-- 스토리 글 목록 가져오기 -->
 <select id="getCardList" resultType="com.decolab.wanza.dto.CardDTO">
 	SELECT C.CARDSEQ, C.CARDTITLE, C.CARDCONTENT, U.USERSEQ, C.CARDREADCOUNT, C.CARDDATE, CARDFILENAME, CARDDEL, U.NICKNAME, F.LIKECOUNT  
@@ -16,12 +15,12 @@
 	ORDER BY F.LIKECOUNT DESC NULLS LAST
 </select>
 
-  
 <!-- 스토리 글 작성 -->
 <insert id="cardWrite" parameterType="com.decolab.wanza.dto.CardDTO">
 	INSERT INTO CARD_COLLECTIONS
 	VALUES (SEQ_CARD.NEXTVAL, #{cardTitle}, #{cardContent}, #{userSeq}, 0, SYSDATE, #{cardFileName}, 0)
 </insert>
+  
   
 <!-- 스토리 디테일 가져오기 -->
 <select id="getCardDetail" parameterType="com.decolab.wanza.dto.CardDTO" resultType="com.decolab.wanza.dto.CardDTO">
@@ -99,9 +98,5 @@
 	WHERE CARDREVSEQ=#{cardRevSeq}
 </update>
 
-
-  
-  
-  
   
 </mapper>

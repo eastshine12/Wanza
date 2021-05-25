@@ -1,5 +1,12 @@
+<<<<<<< HEAD
+.metadata/
+.mvn/
+target/
+.settings/
+=======
 .mvn/
 .settings/
 target/
+>>>>>>> 93ba3b8bc0901566504f55a0e0377f31c7bd8d08
 .classpath
 .project

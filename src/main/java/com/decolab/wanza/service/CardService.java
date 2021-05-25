@@ -24,11 +24,11 @@ public class CardService {
 	public CardDTO getCardDetail(CardDTO dto) {
 		return dao.getCardDetail(dto);
 	}
-	
+
 	public int cardWrite(CardDTO dto) {
 		return dao.cardWrite(dto);
 	}
-	
+
 	public int addCardReadCount(CardDTO dto) {
 		return dao.addCardReadCount(dto);
 	}
@@ -64,5 +64,5 @@ public class CardService {
 	public int cardReviewDelete(CardReviewDTO dto) {
 		return dao.cardReviewDelete(dto);
 	}
-	
+
 }

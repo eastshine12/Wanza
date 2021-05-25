@@ -44,7 +44,6 @@ public class CardController {
 		return service.getCardDetail(dto);
 	}
 	
-	
 	@RequestMapping(value = "/cardWrite", method = {RequestMethod.GET,RequestMethod.POST})
 	public String cardWrite(@RequestParam("cardFile")MultipartFile cardFile, CardDTO dto, HttpServletRequest req) {
 		
@@ -62,8 +61,7 @@ public class CardController {
 		System.out.println("filepath :" + filepath);
 		dto.setCardFileName(newFilename);
 
-		
-		System.out.println(dto.toString());
+		System.out.println("dto 들어오나 : "+dto.toString());
 		
 		
 		try {
@@ -78,7 +76,6 @@ public class CardController {
 		
 		return service.cardWrite(dto)>0?"suc":"err";
 	}
-	
 	
 	@RequestMapping(value = "/addCardReadCount", method = {RequestMethod.GET,RequestMethod.POST})
 	public String addCardReadCount(CardDTO dto) {		
@@ -151,7 +148,5 @@ public class CardController {
 		System.out.println(dto.toString());
 		return service.cardReviewDelete(dto)>0?"suc":"err";
 	}
-	
-
 
 }
