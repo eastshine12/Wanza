@@ -13,10 +13,47 @@ public class CardDTO implements Serializable {
 	private Date cardDate;
 	private String cardFileName;
 	private int cardDel;
+	private String nickName;
+	private int likeCount;
 	
 	public CardDTO() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
+			String cardFileName, int cardDel, String nickName, int likeCount) {
+		super();
+		this.cardSeq = cardSeq;
+		this.cardTitle = cardTitle;
+		this.cardContent = cardContent;
+		this.userSeq = userSeq;
+		this.cardReadCount = cardReadCount;
+		this.cardDate = cardDate;
+		this.cardFileName = cardFileName;
+		this.cardDel = cardDel;
+		this.nickName = nickName;
+		this.likeCount = likeCount;
+	}
+
+
+
+	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
+			String cardFileName, int cardDel, String nickName) {
+		super();
+		this.cardSeq = cardSeq;
+		this.cardTitle = cardTitle;
+		this.cardContent = cardContent;
+		this.userSeq = userSeq;
+		this.cardReadCount = cardReadCount;
+		this.cardDate = cardDate;
+		this.cardFileName = cardFileName;
+		this.cardDel = cardDel;
+		this.nickName = nickName;
+	}
+
+
 
 	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
 			String cardFileName, int cardDel) {
@@ -102,13 +139,34 @@ public class CardDTO implements Serializable {
 	public void setCardDel(int cardDel) {
 		this.cardDel = cardDel;
 	}
+	
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
 
 	@Override
 	public String toString() {
 		return "CardDTO [cardSeq=" + cardSeq + ", cardTitle=" + cardTitle + ", cardContent=" + cardContent
 				+ ", userSeq=" + userSeq + ", cardReadCount=" + cardReadCount + ", cardDate=" + cardDate
-				+ ", cardFileName=" + cardFileName + ", cardDel=" + cardDel + "]";
+				+ ", cardFileName=" + cardFileName + ", cardDel=" + cardDel + ", nickName=" + nickName + ", likeCount="
+				+ likeCount + "]";
 	}
+
 
 
 }

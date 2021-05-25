@@ -21,6 +21,10 @@ public class CardService {
 		return dao.getCardList();
 	}
 	
+	public CardDTO getCardDetail(CardDTO dto) {
+		return dao.getCardDetail(dto);
+	}
+	
 	public int cardWrite(CardDTO dto) {
 		return dao.cardWrite(dto);
 	}
@@ -53,9 +57,12 @@ public class CardService {
 		return dao.getCardReviewCount(dto);
 	}
 	
-	
 	public int cardReviewWrite(CardReviewDTO dto) {
 		return dao.cardReviewWrite(dto);
+	}
+	
+	public int cardReviewDelete(CardReviewDTO dto) {
+		return dao.cardReviewDelete(dto);
 	}
 	
 }

@@ -35,8 +35,13 @@ public class CardController {
 	@RequestMapping(value = "/getCardList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<CardDTO> getCardList() {
 		System.out.println("CardController getCardList() " + new Date());
-		
 		return service.getCardList();
+	}
+	
+	@RequestMapping(value = "/getCardDetail", method = {RequestMethod.GET,RequestMethod.POST})
+	public CardDTO getCardDetail(CardDTO dto) {
+		System.out.println("CardController getCardDetail() " + new Date());
+		return service.getCardDetail(dto);
 	}
 	
 	
@@ -139,11 +144,14 @@ public class CardController {
 		return service.cardReviewWrite(dto)>0?"suc":"err";
 	}
 	
+	@RequestMapping(value = "/cardReviewDelete", method = {RequestMethod.GET,RequestMethod.POST})
+	public String cardReviewDelete(CardReviewDTO dto) {
+		
+		System.out.println("CardController cardReviewDelete() " + new Date());
+		System.out.println(dto.toString());
+		return service.cardReviewDelete(dto)>0?"suc":"err";
+	}
 	
-	
-	
-	
-	
-	
+
 
 }
