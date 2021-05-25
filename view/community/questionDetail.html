@@ -2,11 +2,382 @@
 <html>
 
 <head>
-    <title>VS CODE에서 JSP 동작시키기</title>
+    <meta charset="UTF-8">
+    <title>완벽한 자취생활, 완자</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/question.css">
+    <link rel="stylesheet" type="text/css" href="../../css/question-detail.css">
+    <link rel="stylesheet" type="text/css" href="../../css/question-comment.css">
+    <style>
+        .questions-item-link:hover {
+          text-decoration: none;
+          
+        }
+        .questions-item-link:hover .questions-block{
+          text-decoration: underline black;
+        }
+    
+        .button {
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          float: right;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          transition-duration: 0.4s;
+          cursor: pointer;
+          border-radius: 15px;
+        }
+
+        .share-button {
+          border-color: #fafafa;
+          background-color: #fafafa; 
+          width: 270px;
+          height: 40px;
+          border-radius: 15px;
+          border: 0;
+        }
+
+        .share-button:hover {
+          background-color: coral; 
+          color: white; 
+        }
+
+        .q-button {
+          background-color: #fafafa; 
+          color: coral; 
+          width: 270px;
+          height: 40px;
+          border-radius: 15px;
+          border: 0;
+        }
+
+        .q-button:hover{
+          background-color: coral; 
+          color: white; 
+        }
+
+        .reply-photo{
+          background-color: transparent !important;
+          background-image: none !important;
+          border-color: transparent;
+          border: none;
+          color: #FFFFFF;
+        }
+
+        .reply-submit{
+          background-color: transparent !important;
+          background-image: none !important;
+          border-color: transparent;
+          border: none;
+          color: coral;
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+    
+        .question-btn1 {
+          background-color: rgba(254, 254, 254, 1); 
+          color: black; 
+          border: 2px solid coral;
+        }
+    
+        .question-btn1:hover {
+          background-color: coral;
+          color: white;
+        }
+    
+        .question-btn2 {
+          background-color: white; 
+          color: black; 
+          border: 2px solid powderblue;
+        }
+    
+        .question-btn2:hover {
+          background-color: powderblue;
+          color: white;
+        }
+    
+        .w3-button{
+          border-radius: 15px;
+
+        }
+    
+        .w3-dropdown{
+        }
+    
+        .w3-dropdown-click{
+          background-color: coral;
+          border-radius: 15px;
+          color: white;
+        }
+    
+        #body,#body p ,#body b, #body h1, #body h2, #body h3, #body h4, #body h5,#body h6, #body li{
+          font-family: 'Nanum Gothic', sans-serif;
+          font-weight: 500;
+            /* font-weight: bold; */
+        }
+
+        .question-detail-container{
+          font-family: 'Nanum Gothic', sans-serif;
+          font-weight: 500;
+        }   
+
+        .question-detail-title{
+
+        }
+
+        .col-xl-2 .question-detail-sidebar{
+            position: sticky;
+            top: 100px;
+        }
+
+        
+    
+        
+        </style>
+
+
+
 </head>
 
-<body>
-    <h1> QuestionDetail.html 페이지입니다.</h1>
+<body id="body">
+    
+    <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav>
+    <div class="row">
+
+    <div class="col-xl-2"></div>
+    
+    <div class="col-xl-6">
+        <div class="question-detail-container">
+            <div class="question-detail-header" style="margin-top: 25px;">
+                <h4 style="color: coral; font-weight: 600;">질문과답변</h4>
+                <h2 class="question-detail-title">식물을 기르고싶은데</h2>
+            </div>
+            <br>
+            <div class="question-detail-body">
+
+                <div class="question-detail-content">
+                    <p>
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+                        극락조나 몬테리아를 기르고싶은데
+                        새로 입주할 원룸이 북향이라
+                        해가 안들거든요
+                        키울수있는 방법 없을까요ㅜ
+
+                    </p>
+                    <img src="../image/wdg.gif">
+                </div>
+
+                <br><br><br>
+
+                <div class="question-detail-footer" style="color:black">
+                    <div class="question-detail-body-footer-tag" style="">
+                        <ul class="questions-item-footer-tags keyword-list" style="padding: 0; margin-bottom: -25px; ">
+                            <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                            style="margin-top: 3px; margin-bottom: 10px;padding-left: 10px; padding-right: 10px;">셀프인테리어</li>
+                            <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                            style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">자취</li>
+                            <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                            style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">돈낭비</li>
+                            <li class="keyword-item questions-item-footer-tags-tag" role="button" 
+                            style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">존망</li>
+                        </ul>
+                    </div>
+                    <br>
+                    <div class="question-detail-footer-metadata">
+                        <time>2021년 05월 25일 12:30</time>
+                        <span>조회 <span class="question-detail-footer-metadata-view-count-value">10</span></span>
+                        <span style="color: gainsboro">
+                            <a class="question-detail-footer-metadata-report-link" href="">신고</a>
+                        </span>
+                    </div>
+                </div>
+                
+            </div><!-- question-detail-body 끝 -->
+
+            <div class="question-detail-footer">
+                <div class="question-detail-comment-section">
+                    <div class="comment-feed">
+                        <h3 style="display: inline;" class="comment-feed-header">댓글</h3>&nbsp;&nbsp;&nbsp;<h3 style="display: inline; color: coral; font-weight: 600;">6</h3>
+                        <div class="comment-feed-form">
+                            <br>
+                            <form class="questions-reply" style="margin-top: 15px; height: 40px; vertical-align: middle;">
+                                <div class="questions-reply-writer-image" style="float: left;">
+                                    <img src="../image/ddda.gif" style="width: 50px; height: 50px; border-radius: 70%; "
+                                    onerror="this.src='.../image/avatar.png'"><!-- 프로필사진, 에러시 프로필사진-->
+                                </div>
+                                <div style="margin: 0 auto; vertical-align: middle;">
+                                    <input type="text" size="50 15" style="margin-top: 8px; margin-left: 15px ;margin-bottom: 15px;font-size: 20px; width: 80%; font-weight: 600;">
+                                    <button class="reply-photo"><img src="../image/zaf.png" style="width: 30px; height: 30px; margin-bottom: 2px;"></button>
+                                    <button class="reply-submit" onclick="">등록</button>
+                                </div>
+                            </form>
+                            
+                        </div> 
+                        <ul class="comment-feed-list">
+                            <li class="comment-feed-list-item">
+                                <article class="comment-feed-item">
+                                    <p class="comment-feed-item-content" style="font-size: 13px;">
+                                        <a href="#userprofile" class="comment-feed-item-content-author" style="font-size: 15px;">userid</a>
+                                        <span>댓글내용인디용?</span>
+                                    </p>
+                                    <footer class="comment-feed-item-footer">
+                                        <time class="comment-feed-item-footer-time">10분전</time>
+                                        Ω
+                                        <button>♡ 좋아요</button>
+                                        Ω
+                                        <button>답글달기</button>
+                                        Ω
+                                        <span style="color: gainsboro"><a href="#" style="">신고</a></span>
+                                    </footer>
+                                </article>
+                            </li>
+                        </ul>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-2">
+        
+            <div class="question-detail-sidebar" >
+                <div class="sidebar-header">
+                    <div class="sidebar-header-writer">
+                        <div class="row">
+                            <div class="questions-writer-image" style="float: left;">
+                                <img src="../image/ddda.gif" style="width: 50px; height: 50px; border-radius: 70%"
+                                onerror="this.src='.../image/avatar.png'"><!-- 프로필사진, 에러시 프로필사진-->
+                            </div>
+                            <div class="questions-writer-nickname" style="color: coral; font-size: 15px; margin-left: 15px; ">현성이배통통
+                                <div class="questions-writer-profile" style="color: black; font-size: 12px; ">장현성입니다</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-body" style="margin-top: 15px; margin-bottom: 15px; padding-top: 15px;">
+                    <button class="share-button">공유하기</button>
+                </div>
+                <hr>
+                <div class="sidebar-footer">
+                    <h3>궁금한게 있으신가요?</h3>
+                    <button class="q-button">질문하러가기</button>
+                </div>
+            </div>
+        
+    </div>
+
+    <div class="col-xl-2"></div>
+    
+    </div>  
+
+    <footer include-html="../commons/footer.html"></footer>
+
 </body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
 
 </html>
