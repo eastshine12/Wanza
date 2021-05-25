@@ -244,16 +244,18 @@ select::-ms-expand{
     height: 100%;
     text-align: center;
     line-height: 8;
+    z-index: -1;
 }
 .pay_use input{
     visibility: hidden;
     width: 0;
 }
-.pay_use label:hover{
+.pay_use:hover{
     background-color: #fdf2f0;
     border-radius: 7px;
 }
-.pay_use label.active{
+/* .pay_use label.active, */
+.pay_use.active{
     color: white;
     border: none;
     background-color: #f4744c;
@@ -706,21 +708,20 @@ $(document).ready(function() {
     $('.point_btn').click( function() { //포인트 전액사용 토글
         $(this).toggleClass('active');
     });
+
     
     let method = ''
-    
-    //$('.pay_use').remove('active');
-    
-    $('.pay_use').click( function() { //결제수단 값
+    $('.pay_use label').click( function() { //결제수단 값
+        console.log('12')
+        //$('.pay_use').not($(this)).removeClass('active');
         //$(this).toggleClass('active');
-        if($(this).children('input:radio[name="pay"]').is(':checked')){
-            console.log($(this).children().html())
-            
-            $('label').toggleClass('active');
-        }
+
+        $('.pay_use').removeClass('active');
+        $(this).addClass('active');
+        
 
         method = $(this).children('input[type="hidden"]').val();
-        //console.log(method)
+        
     });
 
     $('.payment_btn').click(function(){ //결제버튼
