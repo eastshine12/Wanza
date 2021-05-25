@@ -17,10 +17,10 @@ public class SearchController {
 	@Autowired
 	SearchService service;
 	
-	// 7일간 검색어 상위 10개
+	// 7일간 상위 10개 검색어
 	@RequestMapping(value = "/getSearchWord",method = {RequestMethod.GET,RequestMethod.POST})
 	public List<SearchDTO> getSearchWord(){
-		System.out.println("SearchController getSearchList() " + new Date());
+		System.out.println("SearchController getSearchWord() " + new Date());
 		
 		return service.getSearchWord();
 	}
