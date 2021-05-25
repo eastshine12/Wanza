@@ -169,46 +169,11 @@
             <div class="top_select"><input type="checkbox" id="checkbox-item-all">전체선택</div>
         </div>
 
-        <div class="row cart_body" id="cart">
-            <!-- 장바구니항목 시작 -->
-            <div class="col-xl-6 d-flex">
-                <div class="cart_item_chk"><input type="checkbox" id="checkbox-item-items"></div>
-                <div class="cart_item_img"><img src="../../assets/img/wanza.png"></div>
-                <div class="cart_item_title">
-                    <h6>리샘가구</h6>
-                    <h3>OFFICY 서랍장 4.1단</h3>
-                    <div class="cart_item_option">
-                        <span>색상 : 월넛</span>
-                        <button class="button opt_btn" onclick="optproduct()">옵션변경</button>
-                    </div>
-                </div>
-            </div><!-- 장바구니항목 끝 -->
 
-            <!-- 가격 -->
-            <div class="col-xl-2" id="cart-body-middle-count"  style=" display: flex;">
-                <div class="cart-body-counting" style="margin: auto; ">
-                    <p style="margin: 0; font-size: 20px;"><b>38,900원</b></p>
-                </div>
-            </div>
+        <div id="listCart"></div>
 
-            <!-- 수량 -->
-            <div class="col-xl-2 d-flex">
-                <div class="cart_body_counting">
-                    <button class="minus_plus_btn" ><b style="font-size: 20px;">-</b></button>
-                    <input type="text" value="1" size="2" >
-                    <button class="minus_plus_btn"><b style="font-size: 20px;">+</b></button>
-                </div>
-            </div>
-
-            <!-- 삭제버튼 -->
-            <div class="col-xl-2" style=" float: right; display: flex;">
-                <div class="cart-body-counting" style="margin: auto;">
-                    <button class="button del_btn" onclick="delproduct()">삭 제</button>
-                </div>
-            </div>
-
-        </div><!-- row끝 -->
-
+        <h3 style="text-align: center;"></h3>
+        
         <!-- 금액박스 -->
         <div class="row" style="background-color: #EAEAEC; margin: 0; font-family: 'Nanum Gothic', sans-serif;">
                 
@@ -260,8 +225,67 @@
                 data: {
                     "cartClassify": "CT-" + sessionId.userSeq
                 },
-                success: function (data) {
-                    console.log(data)
+                success: function (list) {
+                    console.log(list)
+
+                    let app = ""
+                    if (Object.keys(list).length == 0) {
+
+                        app += '<div style="width: 1800px; margin:50px 0px;padding:0 450px;display: flex; align-items:center;">'
+                            + '<h3 style="font-size: 20px; margin-top: 10px;"><b>장바구니가 비어있습니다.</b></h3>'
+                            + "</div>";
+
+                        $("#listCart").append(app);
+
+                    } else {
+
+                        $.each(list, function (i, val) {
+
+                            app += '<div class="row cart_body" id="cart">'
+                                +    '<!-- 장바구니항목 시작 -->'
+                                +    '<div class="col-xl-6 d-flex">'
+                                +    '<div class="cart_item_chk"><input type="checkbox" id="checkbox-item-items"></div>'
+                                +        '<div class="cart_item_img"><img src="../../assets/img/wanza.png"></div>'
+                                +            '<div class="cart_item_title">'
+                                +                '<h6>리샘가구</h6>'
+                                +                '<h3>OFFICY 서랍장 4.1단</h3>'
+                                +                '<div class="cart_item_option">'
+                                +                    '<span>색상 : 월넛</span>'
+                                +                    '<button class="button opt_btn" onclick="optproduct()">옵션변경</button>'
+                                +                '</div>'
+                                +            '</div>'
+                                +        '</div>'
+                                +        '<!-- 장바구니항목 끝 -->'
+
+                                +        '<!-- 가격 -->'
+                                +        '<div class="col-xl-2" id="cart-body-middle-count" style=" display: flex;">'
+                                +            '<div class="cart-body-counting" style="margin: auto; ">'
+                                +                '<p style="margin: 0; font-size: 20px;"><b>38,900원</b></p>'
+                                +            '</div>'
+                                +        '</div>'
+
+                                +        '<!-- 수량 -->'
+                                +        '<div class="col-xl-2 d-flex">'
+                                +            '<div class="cart_body_counting">'
+                                +                '<button class="minus_plus_btn" ><b style="font-size: 20px;">-</b></button>'
+                                +                '<input type="text" value="1" size="2" >'
+                                +                '<button class="minus_plus_btn"><b style="font-size: 20px;">+</b></button>'
+                                +            '</div>'
+                                +        '</div>'
+
+                                +        '<!-- 삭제버튼 -->'
+                                +        '<div class="col-xl-2" style=" float: right; display: flex;">'
+                                +            '<div class="cart-body-counting" style="margin: auto;">'
+                                +                '<button class="button del_btn" onclick="delproduct()">삭 제</button>'
+                                +            '</div>'
+                                +        '</div>'
+                                +    '</div><!-- row끝 -->';
+
+                        });
+                        $("#listCart").append(app);
+                    }
+
+
                 },
                 error: function () {
                     alert('getCartList() error');
