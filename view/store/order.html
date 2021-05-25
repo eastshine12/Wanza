@@ -235,30 +235,29 @@ select::-ms-expand{
     display: inherit;
     justify-content: center;
     align-items: center;
-    border: solid 1px;
+    border: solid 3px;
     border-radius: 7px;
 }
 .pay_use label{
     margin: 0;
-    width: 100%;
-    height: 100%;
+    width: 91px;
+    height: 91px;
     text-align: center;
     line-height: 8;
-    z-index: -1;
 }
 .pay_use input{
     visibility: hidden;
-    width: 0;
+    width: 0; height: 0;
 }
 .pay_use:hover{
     background-color: #fdf2f0;
     border-radius: 7px;
 }
-/* .pay_use label.active, */
 .pay_use.active{
     color: white;
     border: none;
     background-color: #f4744c;
+    /* border-radius: 7px; */
 }
 
 
@@ -707,21 +706,22 @@ $(document).ready(function() {
 
     $('.point_btn').click( function() { //포인트 전액사용 토글
         $(this).toggleClass('active');
+        $("input:radio[name='pay']").prop('checked',false);
     });
 
-    
     let method = ''
-    $('.pay_use label').click( function() { //결제수단 값
-        console.log('12')
-        //$('.pay_use').not($(this)).removeClass('active');
-        //$(this).toggleClass('active');
+    $('.pay_use label').click( function() { //결제수단 값,호버 
+        $(this).parent().toggleClass('active')        
+        $('.pay_use').not($(this).parent()).removeClass('active');
 
-        $('.pay_use').removeClass('active');
-        $(this).addClass('active');
-        
+        if(!$(this).parent().hasClass('active')){
+            $("input:radio[name='pay']").prop('checked',false);
+            $(this).next().prop('checked',false)
+        }
 
-        method = $(this).children('input[type="hidden"]').val();
-        
+        //method = $(this).parent().children('input[type="radio"]').val();
+        method = $(this).next().val();
+        console.log(method)
     });
 
     $('.payment_btn').click(function(){ //결제버튼
