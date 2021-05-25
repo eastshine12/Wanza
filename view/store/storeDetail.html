@@ -583,6 +583,7 @@
     
     // 장바구니 담기
     function addCart() {
+
         $.ajax({
             url: "http://192.168.0.231:3000/addCart",
             type: "get",
@@ -590,13 +591,18 @@
                 "cartClassify":"CT-"+sessionId.userSeq,
                 "userSeq": sessionId.userSeq,
                 "productSeq":seq,
-                "selectOption":"{\'"+$('#selectKey').text()+"\':\'"+$('#selectItem').val()+"\'}",
+                "selectOption":"{\""+$('#selectKey').text()+"\":\""+$('#selectItem').val()+"\"}",
                 "quantity":$('#itemCount').val(),
                 "price":$('#sellPrice').text().replace(/[^0-9]/g, '')
             },
             success: function (data) {
+                console.log(data);
                 if(data=="suc") {
                     console.log('장바구니에 담았습니다.');
+                }
+                else if(data=="exist") {
+                    $('#cartBtn').attr("data-content","장바구니에 이미 담겨있습니다.");
+                    alert('장바구니에 이미 담겨있습니다.');
                 }
                 else {
                     console.log('장바구니에 담기 실패');
@@ -604,6 +610,9 @@
             },
             error: function () {
                 alert('addCart() error');
+            },
+            complete:function(data) {
+
             }
         });
     };
