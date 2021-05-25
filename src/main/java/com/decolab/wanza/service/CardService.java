@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.decolab.wanza.dao.CardDAO;
 import com.decolab.wanza.dto.CardDTO;
+import com.decolab.wanza.dto.CardReviewDTO;
 
 @Service
 @Transactional
@@ -20,8 +21,48 @@ public class CardService {
 		return dao.getCardList();
 	}
 	
+	public CardDTO getCardDetail(CardDTO dto) {
+		return dao.getCardDetail(dto);
+	}
+
 	public int cardWrite(CardDTO dto) {
 		return dao.cardWrite(dto);
 	}
+
+	public int addCardReadCount(CardDTO dto) {
+		return dao.addCardReadCount(dto);
+	}
 	
+	public int getLikeCount(CardDTO dto) {
+		return dao.getLikeCount(dto);
+	}
+	
+	public int boolLike(CardDTO dto) {
+		return dao.boolLike(dto);
+	}
+	
+	public int addCardLikeCount(CardDTO dto) {
+		return dao.addCardLikeCount(dto);
+	}
+	
+	public int deleteCardLikeCount(CardDTO dto) {
+		return dao.deleteCardLikeCount(dto);
+	}
+	
+	public List<CardReviewDTO> getCardReviewList(CardReviewDTO dto) {
+		return dao.getCardReviewList(dto);
+	}
+	
+	public int getCardReviewCount(CardReviewDTO dto) {
+		return dao.getCardReviewCount(dto);
+	}
+	
+	public int cardReviewWrite(CardReviewDTO dto) {
+		return dao.cardReviewWrite(dto);
+	}
+	
+	public int cardReviewDelete(CardReviewDTO dto) {
+		return dao.cardReviewDelete(dto);
+	}
+
 }
