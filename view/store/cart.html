@@ -12,12 +12,17 @@
 <link rel="stylesheet" type="text/css" href="../../css/question.css">
     
 <style>
+.container{
+    margin-bottom: 40px;
+}
+/* 제목 */
 .cart_body_top{
-    margin: 20px 0;
+    margin: 20px 0 0 0;
     text-align: center;
     padding: 20px 0 10px 0;
-    border-bottom: solid 0.8px;
+    /* border-bottom: solid 0.8px; */
 }
+/* 전체체크 */
 .top_select{
     display: flex;
     align-items: center;
@@ -27,8 +32,12 @@
     margin: 0 5px;
     width: 18px; height: 18px;
 }
+
+/* 항목 상자 */
 #cart.cart_body{
-    margin: 40px 0;
+    padding: 40px 0;
+    margin: 0;
+    border-top: solid 0.8px;
 }
 .cart_item_chk{
     display: inherit;
@@ -38,15 +47,18 @@
     margin: 0 5px;
     width: 18px; height: 18px;
 }
+/* 이미지 */
 .cart_item_img img{
     width: 120px; height: 120px;
     border-radius: 30%;
     margin: 0 10px;
 }
+/* 옵션 */
 .cart_item_option{
     display: flex;
     align-items: center;
 }
+/* 수량 */
 .cart_body_counting{
     display: inherit;
     align-items: center;
@@ -58,7 +70,15 @@
     border-radius: 3px;
     text-align: center;
 }
-
+/* 가격상자 */
+#body .amount_box{
+    border-top: solid 0.8px;
+    border-bottom: solid 0.8px;
+    background-color: #EAEAEC;
+    margin: 0;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+/* 버튼들 */
 .button {
     border: none;
     color: white;
@@ -68,7 +88,7 @@
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
     cursor: pointer;
 }
 
@@ -104,11 +124,11 @@
     border-radius: 7px;
 }
 
-.del-btn:hover {
-    background-color: greenyellow;
+.del_btn:hover {
+    background-color: white;
     color: coral;
-    border: 2px solid seashell;
-    border-radius: 16px;
+    border: 1px solid coral;
+    border-radius: 7px;
 }
 
 .opt_btn{
@@ -137,12 +157,14 @@
     font-size: 20px;
     font-weight: bold;
     margin: 20px 0;
-    transition-duration: 0.4s;
+    transition-duration: 0.1s;
     border-radius: 8px;
 }
 
-.w3-button:hover {
-    background-color: coral;
+.w3_button:hover {
+    background-color: white;
+    border: solid coral 1.5px;
+    border-radius: 8px;
     color: coral;
 }
 
@@ -194,14 +216,14 @@
             <!-- 수량 -->
             <div class="col-xl-2 d-flex">
                 <div class="cart_body_counting">
-                    <button class="minus_plus_btn" ><b style="font-size: 20px;">-</b></button>
-                    <input type="text" value="1" size="2" >
-                    <button class="minus_plus_btn"><b style="font-size: 20px;">+</b></button>
+                    <button class="minus_plus_btn minus" ><b style="font-size: 20px;">-</b></button>
+                    <input type="text" value="1" size="2">
+                    <button class="minus_plus_btn plus"><b style="font-size: 20px;">+</b></button>
                 </div>
             </div>
 
             <!-- 삭제버튼 -->
-            <div class="col-xl-2" style=" float: right; display: flex;">
+            <div class="col-xl-2 d-flex">
                 <div class="cart-body-counting" style="margin: auto;">
                     <button class="button del_btn" onclick="delproduct()">삭 제</button>
                 </div>
@@ -210,7 +232,7 @@
         </div><!-- row끝 -->
 
         <!-- 금액박스 -->
-        <div class="row" style="background-color: #EAEAEC; margin: 0; font-family: 'Nanum Gothic', sans-serif;">
+        <div class="row amount_box">
                 
             <div class="cart-item-footer" style="background-color: #EAEAEC; margin: auto;padding-top: 25px;padding-bottom: 25px; text-align: right; " >
                 <div class="cart-item-footer-body">
@@ -224,7 +246,7 @@
         <div class="row" style="align-items: center; margin-top: 15px;">
             <div class="col-xl-5"></div>
             <div class="col-xl-2" style="text-align: center;">
-                <button class="w3_button" >n개 상품 구매하기</button>
+                <button class="w3_button">n개 상품 구매하기</button>
             </div>
             <div class="col-xl-5"></div>
         </div>
@@ -251,6 +273,19 @@
 
     $(document).ready(function() {
 
+        // 수량 +- 버튼
+        $(document).on('click','.plus',function(){
+            let count = Number($('.cart_body_counting input').val());
+            count+=1
+            $('.cart_body_counting input').val(count);
+        })
+        $(document).on('click','.minus',function(){
+            let count = Number($('.cart_body_counting input').val());
+            if(count>1){
+                count+=-1
+            }
+            $('.cart_body_counting input').val(count);
+        })
 
         getCartList()
         function getCartList() {
