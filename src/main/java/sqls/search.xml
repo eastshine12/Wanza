@@ -6,11 +6,13 @@
 <mapper namespace="com.decolab.wanza.dao.SearchDAO">
 
 <select id="getSearchWord" resultType="com.decolab.wanza.dto.SearchDTO">
-	SELECT SEARCHWORD
-	FROM SEARCH_HISTORY
-	GROUP BY SEARCHWORD
-	WHERE SEARCHDATE >=CURDATE()-7
-	ORDER BY COUNT(SEARCHWORD) DESC LIMIT 10
+SELECT SEARCHWORD,COUNT
+FROM (SELECT SEARCHWORD,COUNT(SEARCHWORD) AS COUNT
+		FROM SEARCH_HISTORY
+		WHERE SEARCHDATE >= SYSDATE-7
+		GROUP BY SEARCHWORD	
+		ORDER BY COUNT(SEARCHWORD) DESC)
+WHERE 10 >= ROWNUM
 </select>
 
 <insert id="searchWrite" parameterType="com.decolab.wanza.dto.SearchDTO">
