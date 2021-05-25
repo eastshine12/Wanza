@@ -46,12 +46,11 @@ $(document).on('attr', '#headerSearch', function () {
     location.href = "../login/login.html"
 })
 
-// 검색 아이콘 클릭시
-$(document).on('click', '#fafafa', function () {
-    
+// 검색 아이콘 클릭시 검색어 DB저장
+$(document).on('click', '#search-icon', function () {
+    // 검색어가 없는경우 placeholder값으로 입력
     if($("#headerSearch").val()==""){
         document.getElementById("headerSearch").setAttribute("value",$("#headerSearch").attr('placeholder'))
-       //alert($("#headerSearch").val());
     }
         $.ajax({
             url:"http://localhost:3000/searchWrite",
@@ -106,6 +105,78 @@ $(document).ready(function() {
     let choiceText = randomItem(eventSearchText);
     console.log(choiceText);
     document.getElementById('headerSearch').setAttribute('placeholder', choiceText);
+
+    // 실시간 검색순위 리스트
+    getSearchList();
+    function getSearchList(){
+        $.ajax({
+            url:"http://localhost:3000/getSearchWord",
+            type:"get",
+            success:function(list){
+                
+                let app="";
+                let app2="";
+
+                let today = new Date()
+                let year = today.getFullYear()   // 년
+                let month = today.getMonth()+1   // 월
+                let date = today.getDate();      // 날짜
+                let hours = today.getHours();    // 시
+                let minutes = today.getMinutes();  // 분
+
+                if(hours<10){
+                    hours = "0"+hours;
+                }
+
+                if(minutes<10){
+                    minutes = "0"+minutes;
+                }
+
+                app2 ="<div id='searchChart'>"
+                    +"<table>"
+                    +"<colgroup>"
+                    +"<col width='160px'><col width='160px'>"
+                    +"</colgroup>"
+                    +"<tr>"
+                    +"<th>실시간 인기 검색어</th>"
+                    +"<td>"+year+"."+month+"."+date+" "+hours+":"+minutes+"기준"+"</td>"
+                    +"</tr>"
+
+                $.each(list,function(i,val){                 
+                    app += "<li><b>"+(i+1)+"</b> &emsp;<a href='#' style='color: black;'>"+val.searchWord+"</a></li>";
+                    app2 += "<tr>"
+                        +"<td colspan='2'><a href='#'><b>"+(i+1)+"</b>. "+val.searchWord+"</a></td>"
+                        +"</tr>";
+
+                });
+                $("#_realTime").append(app);
+                app2 += "</table>"
+                     +"</div>";
+                $("#hotIssue").after(app2);
+                
+            },
+            error:function(){
+                alert('검색순위 error')
+            }
+        })
+    }
     
+    $("#_realTime").mouseenter(function(){
+        $("#searchChart").show();
+    });
+
+    $("#searchChart").mouseleave(function(){
+        $("#searchChart").hide();
+       
+    });
+
+   
+
+    
+
+
+
+
+
 });
 
