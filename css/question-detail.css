@@ -700,14 +700,15 @@
 	padding: 40px 0 0;
 	min-width: 0
 }
-.question-detail-container-sidebar {
+.question-detail-sidebar {
 	position: relative;
 	display: none;
-	width: 280px;
+	/* width: 280px; */
 	border-left: 1px solid #ededed;
-	margin-left: 40px;
-	padding-left: 40px
+	/* margin-left: 40px;
+	padding-left: 40px */
 }
+
 @media (min-width: 1024px) {
 	.question-detail-container-sidebar {
 		display: block

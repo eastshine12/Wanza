@@ -133,26 +133,31 @@ $(document).ready(function() {
                 }
 
                 app2 ="<div id='searchChart'>"
-                    +"<table>"
+                    +"<table id='searchTable'>"
                     +"<colgroup>"
                     +"<col width='160px'><col width='160px'>"
                     +"</colgroup>"
                     +"<tr>"
                     +"<th>실시간 인기 검색어</th>"
-                    +"<td>"+year+"."+month+"."+date+" "+hours+":"+minutes+"기준"+"</td>"
+                    +"<td style='color:#757575; font-size:14px; text-align:right;'>"+year+"."+month+"."+date+" "+hours+":"+minutes+"기준"+"</td>"
                     +"</tr>"
 
                 $.each(list,function(i,val){                 
                     app += "<li><b>"+(i+1)+"</b> &emsp;<a href='#' style='color: black;'>"+val.searchWord+"</a></li>";
                     app2 += "<tr>"
-                        +"<td colspan='2'><a href='#'><b>"+(i+1)+"</b>. "+val.searchWord+"</a></td>"
+                        +"<td colspan='2'><a href='#' style='color:black'><b style='color:#F18260'>"+(i+1)+". </b> "+val.searchWord+"</a></td>"
                         +"</tr>";
 
                 });
+                console.log(app)
                 $("#_realTime").append(app);
-                app2 += "</table>"
-                    +"</div>";
+                app2 +="<tr>"
+                    +"<td id='closeSearch' colspan='2' style='text-align:center; cursor: pointer; color:#757575; font-size:13px' >닫기</td>"
+                    +"</tr>" 
+                     +"</table>"
+                     +"</div>";
                 $("#hotIssue").after(app2);
+                console.log(app)
                 
             },
             error:function(){
@@ -160,21 +165,22 @@ $(document).ready(function() {
             }
         })
     }
+
+
+
+    $(document).on('click','#_realTime',function(){
+     
+        $("#searchChart").slideDown();
+
+        })
+
+    $(document).on('click','#closeSearch',function(){ 
+        $("#searchChart").slideUp();
+        })
+
     
-    $("#_realTime").mouseenter(function(){
-        $("#searchChart").show();
-    });
-
-    $("#searchChart").mouseleave(function(){
-        $("#searchChart").hide();
-       
-    });
-
-   
-
     
-
-
+  
 
 
 

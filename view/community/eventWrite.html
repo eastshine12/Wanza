@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>완벽한 자취생활, 완자 | 이벤트 상세 정보</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../css/style.css">
+        <!-- 써머노트 -->
+        <link rel="stylesheet" href="../../css/summernote/summernote-lite.css">
+        <link rel="stylesheet" href="../../css/summernote/font/summernote.eot">
+        <!-- 써머노트 -->
+    </head>
+
+
+<body>
+    <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav>
+
+    <div class="row" style="margin-top: 50px; margin-bottom: 100px;">
+
+        <div class="col-xl-3"></div>
+        
+        <div class="col-xl-6">
+            <!-- 이벤트 제목 입력 -->
+            <div class="form-group">
+                <input type="text" class="form-control" id="eventTitle" placeholder="이벤트 제목을 입력 해 주세요">               
+            </div>
+            <!-- 이벤트 설명 -->
+            <div class="form-group">
+                <textarea class="form-control" rows="5" id="eventContent" placeholder="간단한 이벤트 설명을 적어주세요(생략가능)"></textarea>
+            </div>
+            <!-- 이벤트 썸네일 -->
+            <div style="margin-bottom: 10px;">
+                <textarea id="eventThumnail" class="summernote" name="editordata"></textarea>
+            </div>
+            <!-- 이벤트 내용 사진 -->
+            <div>
+                <textarea id="eventFile" class="summernote" name="editordata"></textarea>
+            </div>
+            <!-- 관련상품 !!!!!@!@!@! -->
+            <div style="margin-top: 10px;">
+                <span>관련 상품을 등록하시겠습니까 ?</span>
+                <div class="form-check-inline">
+                    <label class="form-check-label" for="radio1">
+                      <input type="radio" class="form-check-input" id="radioYes" name="optradioY">네                      
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label" for="radio2">
+                      <input type="radio" class="form-check-input" id="radioNo" name="optradioN" checked>아녕
+                    </label>
+                </div> 
+            </div>
+
+            <div class="form-group" style="margin-top: 10px;">
+                <input type="text" class="form-control" id="productName" placeholder="상품 이름을 입력해주세여" style="width: 50%;">               
+            </div>
+
+
+
+
+
+
+        </div>
+
+
+        <div class="col-xl-3"></div>
+    </div>
+
+    <footer include-html="../commons/footer.html"></footer>
+
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../js/includeHTML.js"></script>
+    <script src="../../js/header.js"></script>
+    <!-- 써머노트 스크립트 시작 -->
+    <script src="../../css/summernote/summernote-lite.js"></script>
+    <script src="../../css/summernote/summernote-ko-KR.js"></script>
+<script>
+    $(document).ready(function() {
+    //여기 아래 부분
+      $('#eventThumnail').summernote({
+          height: 200,                 // 에디터 높이
+          minHeight: 150,             // 최소 높이
+          maxHeight: null,             // 최대 높이
+          focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+          lang: "ko-KR",					// 한글 설정
+          placeholder: '이벤트 썸네일 사진 첨부(사진만 가능)',	//placeholder 설정
+          toolbar: [   
+          //툴바설정
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline','strikethrough']],
+			    ['insert',['picture']],
+			    ['view', [ 'help']]
+			    ],
+        
+	  });
+
+    $('#eventFile').summernote({
+          height: 300,                 // 에디터 높이
+          minHeight: 150,             // 최소 높이
+          maxHeight: null,             // 최대 높이
+          focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+          lang: "ko-KR",					// 한글 설정
+          placeholder: '이벤트 내용 사진 첨부(사진만 가능)',	//placeholder 설정
+          toolbar: [   
+          //툴바설정
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline','strikethrough']],
+			    ['insert',['picture']],
+			    ['view', [ 'help']]
+			    ],        
+	});
+
+    radioCheck();
+    function radioCheck(){
+        if($("#radioYes").is('checked')==true){
+            alert("라디오 쳌");
+
+        }
+    }
+    
+
+
+
+
+    
+              
+    
+    });
+    
+</script>
+
+</body>
+
+</html>
