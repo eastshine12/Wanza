@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>완벽한 자취생활, 완자</title>
+
+<link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon"> <!-- 브라우저 탭 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
+<!-- 부트스트랩 -->
+<!-- <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css"> -->
+<link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통-->
+
+<style>
+/* 프로필 */
+#profile>span{
+    display: inline-block;
+    margin: 50px 10px;
+    font-size: 26pt;
+    font-weight: bold;
+}
+.profile_wrap{
+    margin: 20px 0;
+    padding: 10px 0;
+    height: 370px;
+    border: solid 0.9px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile_img{
+    margin: 20px 0;
+    height: 150px; width: 150px;
+    border: solid;
+    border-radius: 50%;
+    display: inherit;
+    align-items: center;
+    justify-content: center;
+}
+.profile_img i{
+    font-size: 8em;
+    /* position: relative;
+    top: 50%; left: 50%;
+    transform: translate( -50% -50%); */
+}
+/* 정보수정 버튼 */
+.btn_profile{
+    width: 140px; height: 40px;
+    margin: 20px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: #f4744c;
+    font-size: 1.2em;
+    font-weight: 900;
+}
+.btn_profile:hover{
+    color: #f4744c;
+    background-color: white;
+    border: 0.5px solid #f4744c;
+}
+
+/* 오른쪽 파트 */
+
+/* 탭 */
+#my .nav-item{
+    padding: 0 20px 0 0;
+}
+#my .nav-link:hover,
+#my .nav-link.active+.nav-line,
+#my .nav-link.active{
+    border: none;
+    border-bottom: solid #f4744c;
+}
+#my .nav-item a{
+    font-size: 1.4em;
+    font-weight: 900;
+    font-family: 'Nanum Gothic', sans-serif;
+    color: #212529;
+}
+
+/* 나의 쇼핑 */
+/* 주문현황 */
+.my_content_wrap{
+    font-size: 1.2em;
+    font-weight: 600;
+    font-family: 'Nanum Gothic', sans-serif;
+    color: #212529;
+}
+.order_status{
+    margin: 20px 0;
+    background-color: #dbdbdb;
+    border-radius: 4px;
+    color: #aeaeae;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    font-size: 0.8em;
+}
+.order_count_wrap.active{
+    color: #212529;
+    font-weight: 900;
+}
+.order_count_wrap{
+    margin: 20px;
+    display: inherit;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 13%;
+    height: 100%;
+}
+.order_count_wrap .order_count{
+    font-size: 3em;
+    font-weight: 900;
+    line-height: 1.6em;
+}
+
+
+</style>
+
+</head>
+<body>
+    <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav>
+
+<div class="container" style="height: 1000px;">
+    <div class="row">
+        <!-- 왼쪽 프로필 -->
+        <div class="col-md-3" id="profile" style="height: 1000px;">
+            <span>마이페이지</span>
+            <div class="profile_wrap">
+                <div class="profile_img">
+                    <span><i class="fa fa-user-circle-o fa-5x"></i></span>
+                </div>
+                <span>유저 닉네임</span>
+                <div>
+                    <div><span>포인트</span><span>363P</span></div>
+                    <div><span>구매등급</span><span>일반</span></div>
+                </div>
+                <button type="button" class="btn_profile">회원정보 수정</button>
+            </div>
+        </div> <!-- 왼쪽 끝 -->
+
+        <!-- 오른쪽 메인 -->
+        <div class="col-md-9 pt-5" id="my" style="height: 1000px;">
+            
+            <!-- 탭 -->
+            <ul class="nav nav-tabs m-5">
+                <li class="nav-item">
+                    <a class="nav-link " data-toggle="tab" href="#my_story">나의 스토리</a>
+                    <div class="nav_line"></div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#my_order">나의 쇼핑</a>
+                    <div class="nav_line"></div>
+                </li>
+            </ul>
+
+            <!-- 탭내용 -->
+            <div class="tab-content">
+                <div class="tab-pane" id="my_story">
+                    
+                    
+                </div> 
+
+                <div class="tab-pane fade show active" id="my_order">
+                    <div class="my_content_wrap my-5 ml-5 pb-5">
+                        <span>주문 배송 현황</span>
+                        <div class="order_status">
+                            <div class="order_count_wrap"><!-- 해당 건에 active 주면 글씨 색 바뀜 -->
+                                <span class="order_count">0</span>
+                                <span>주문접수</span>
+                            </div>
+                            <i class="fas fa-chevron-right fa-3x"></i>
+
+                            <div class="order_count_wrap active">
+                                <span class="order_count">1</span>
+                                <span>결제완료</span>
+                            </div>
+                            <i class="fas fa-chevron-right fa-3x"></i>
+
+                            <div class="order_count_wrap">
+                                <span class="order_count">0</span>
+                                <span>상품준비</span>
+                            </div>
+                            <i class="fas fa-chevron-right fa-3x"></i>
+
+                            <div class="order_count_wrap">
+                                <span class="order_count">0</span>
+                                <span>배송중</span>
+                            </div>
+                            <i class="fas fa-chevron-right fa-3x"></i>
+
+                            <div class="order_count_wrap">
+                                <span class="order_count">0</span>
+                                <span>배송완료</span>
+                            </div>
+
+                        </div>
+                    </div> <!-- 주문배송현황 끝 -->
+
+                    <div class="my_content_wrap my-5 ml-5">
+                        <span>최근 주문 내역</span>
+                        <div class="order_status">
+                            최근 주문 내역이 없습니다.
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div> <!--탭 컨탠츠 끝-->
+
+
+        </div><!-- 오른쪽 끝 -->
+
+    </div> <!-- 로우 끝 -->
+</div>
+
+
+
+
+
+
+
+
+
+    <footer include-html="../commons/footer.html"></footer>
+</body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
+
+<script>
+
+
+</script>
+
+</html>
