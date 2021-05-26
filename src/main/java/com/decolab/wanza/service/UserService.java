@@ -26,5 +26,9 @@ public class UserService {
 		return dao.login(dto);
 	}
 	
+	public UserDTO getUserInfo(int userSeq) {
+		return dao.getUserInfo(userSeq);
+	}
+	
 	
 }

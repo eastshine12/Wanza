@@ -21,8 +21,12 @@ public interface OrderDAO {
 	
 	public int deleteCart(CartDTO dto);
 	
-	public int checkedCart(CartDTO dto);
+	public int checkedIn(CartDTO dto);
+	public int checkedOut(CartDTO dto);
 	
+	public int changeQuantity(CartDTO dto);
+
+	public List<CartDTO> getPaymentList(CartDTO dto);
 
 	
 }
