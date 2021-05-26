@@ -45,18 +45,18 @@
                 <span>관련 상품을 등록하시겠습니까 ?</span>
                 <div class="form-check-inline">
                     <label class="form-check-label" for="radio1">
-                      <input type="radio" class="form-check-input" id="radioYes" name="optradioY">네                      
+                      <input type="radio" class="form-check-input" id="radioYes" name="optradio" value="yes" onclick=''>네                      
                     </label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label" for="radio2">
-                      <input type="radio" class="form-check-input" id="radioNo" name="optradioN" checked>아녕
+                      <input type="radio" class="form-check-input" id="radioNo" name="optradio" value="no" checked >아녕
                     </label>
                 </div> 
             </div>
 
-            <div class="form-group" style="margin-top: 10px;">
-                <input type="text" class="form-control" id="productName" placeholder="상품 이름을 입력해주세여" style="width: 50%;">               
+            <div id="productNameInput" class="form-group" style="margin-top: 10px;">
+                <input type="text" class="form-control" id="productName" placeholder="이름으로 검색해서 상품 찾아오기" onkeyup="if(window.event.keyCode==13){searchProduct()}" style="width: 50%;">               
             </div>
 
 
@@ -80,6 +80,13 @@
     <script src="../../css/summernote/summernote-lite.js"></script>
     <script src="../../css/summernote/summernote-ko-KR.js"></script>
 <script>
+
+    function searchProduct(){
+        alert("엔터키 입력");
+        $("#productNameInput").after("dddd");
+    }
+  
+
     $(document).ready(function() {
     //여기 아래 부분
       $('#eventThumnail').summernote({
@@ -115,13 +122,25 @@
 			    ],        
 	});
 
-    radioCheck();
-    function radioCheck(){
-        if($("#radioYes").is('checked')==true){
-            alert("라디오 쳌");
+    $("#productNameInput").hide();
+    // 라디오 버튼 '예' 클릭 시 상품 검색창을 띄움
+    $("input:radio[name='optradio']").click(function(){
+        var temp = $('input:radio[name="optradio"]:checked').val();
+        if(temp=="yes"){
+            $("#productNameInput").show();
 
+        }else{
+            $("#productNameInput").hide();  
         }
-    }
+    })
+
+    
+
+
+
+
+    
+    
     
 
 

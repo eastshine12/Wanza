@@ -139,13 +139,13 @@ $(document).ready(function() {
                     +"</colgroup>"
                     +"<tr>"
                     +"<th>실시간 인기 검색어</th>"
-                    +"<td style='color:#757575; font-size:14px; text-align:right;'>"+year+"."+month+"."+date+" "+hours+":"+minutes+"기준"+"</td>"
+                    +"<td style='color:#757575; font-size:14px; text-align:right;'>"+year+"."+month+"."+date+" "+hours+":"+minutes+" 기준"+"</td>"
                     +"</tr>"
 
                 $.each(list,function(i,val){                 
                     app += "<li><b>"+(i+1)+"</b> &emsp;<a href='#' style='color: black;'>"+val.searchWord+"</a></li>";
                     app2 += "<tr>"
-                        +"<td colspan='2'><a href='#' style='color:black'><b style='color:#F18260'>"+(i+1)+". </b> "+val.searchWord+"</a></td>"
+                        +"<td colspan='2' style='margin-left:3px'><a href='#' style='color:black'><b style='color:#F18260'>"+(i+1)+". </b> "+val.searchWord+"</a></td>"
                         +"</tr>";
 
                 });
