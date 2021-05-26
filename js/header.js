@@ -58,13 +58,13 @@ $(document).on('click', '#search-icon', function () {
             data:{searchWord:$("#headerSearch").val()},
             success:function(data) {
                 if(data=="suc"){
-                    alert("검색어등록성공");
+                    //alert("검색어등록성공");
                 }else{
-                    alert("검색어등록실패");
+                    //alert("검색어등록실패");
                 }
             },
             error:function(){
-                alert("검색error");
+                //alert("검색error");
             }
         })
 })
@@ -161,7 +161,7 @@ $(document).ready(function() {
                 
             },
             error:function(){
-                alert('검색순위 error')
+                //alert('검색순위 error')
             }
         })
     }
