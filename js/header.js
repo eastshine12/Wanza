@@ -110,7 +110,7 @@ $(document).ready(function() {
     getSearchList();
     function getSearchList(){
         $.ajax({
-            url:"http://localhost:3000/getSearchWord",
+            url:"http://192.168.0.231:3000/getSearchWord",
             type:"get",
             success:function(list){
                 

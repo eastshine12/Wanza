@@ -216,7 +216,6 @@
         </div>
 
     </div> <!-- 끝 메인컨테이나 -->
-
     <footer include-html="../commons/footer.html"></footer>
 
 </body>
@@ -409,26 +408,29 @@ function chkItem() {
 };
 
 
-// 결제창 이동 (cartStatus값 1로 변환)
+// 결제창 이동 (체크된 상품은 cartStatus값 1, 체크안된 상품은 0으로 변환)
 function goPayment() {
     let finalPrice = parseInt($('#totalPrice').text().replace(/[^0-9]/g, ''));
 
     let itemLength = $('div[name="_cart"]').length;
     let prod_seq_arr = new Array();
+    let prod_quan_arr = new Array();
     for (let i = 1; i <= itemLength; i++) {
         if ($('#chk_' + i).prop('checked')) {
             prod_seq_arr.push($('#productSeq_' + i).val());
+            prod_quan_arr.push($('#itemCount_' + i).val());
         }
     };
     console.log(prod_seq_arr);
-
+    console.log(prod_quan_arr);
 
     $.ajax({
         url: "http://192.168.0.231:3000/goPayment",
         type: "get",
         data: {
             "cartClassify": "CT-" + sessionId.userSeq,
-            "productSeqArr": prod_seq_arr
+            "productSeqArr": prod_seq_arr,
+            "productQuantity": prod_quan_arr
         },
         success: function (data) {
             if(data == "suc") {
