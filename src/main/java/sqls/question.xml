@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.decolab.wanza.dao.QuestionDAO">
+
+	<!-- 질문과답변 전체 목록 가져오기 -->
+	<select id="getAllQuestionList" resultType="com.decolab.wanza.dto.QuestionDTO">
+		SELECT QUESTIONSEQ, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONREADCOUNT, QUESTIONREGDATE, QUESTIONFILENAME, QUESTIONDEL FROM QUESTION
+		<!-- ORDER BY QUESTIONSEQ DESC -->
+	</select>
+	
+	<!-- 질문과답변 목록 가져오기 -->
+	<!-- <select id="getQuestionList" resultType="com.decolab.wanza.dto.QuestionDTO">
+		SELECT QUESTIONSEQ, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONREADCOUNT, QUESTIONDATE, QUESTIONFILENAME, QUESTIONNEWFILENAME, QUESTIONDEL, 
+		QUESTIONREF, QUESTIONSTEP, QUESTIONDEPTH 
+		FROM (SELECT ROW_NUMBER()OVER(ORDER BY REF DESC, STEP ASC) AS RNUM,
+			  QUESTIONSEQ, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONDATE, QUESTIONDEL, QUESTIONREADCOUNT, QUESTIONREF, QUESTIONSTEP, QUESTIONDEPTH
+			  FROM QUESTION
+			  WHERE 1=1
+			  <if test="choice != null and choice != ''
+			  		and search != null and search != ''">
+			  	  AND DEL=0		
+				  <if test="choice == 'title'">
+				  		AND TITLE LIKE '%'||#{search}||'%'		  
+				  </if>
+				  <if test="choice == 'content'">
+				  		AND CONTENT LIKE '%'||#{search}||'%'			  
+				  </if>
+				  <if test="choice == 'writer'">
+				  		AND ID=#{search}  
+				  </if>	
+			  </if>
+			ORDER BY REF DESC, STEP ASC)
+		WHERE RNUM BETWEEN ${start} AND ${end}
+	</select> -->
+	
+	<!-- 질문과답변 총수 --> 
+	<!-- <select id="getBbsCount" parameterType="bit.com.a.dto.BbsParam" resultType="java.lang.Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM BBS
+		WHERE 1=1
+		<if test="choice != null and choice != ''
+		  		and search != null and search != ''">	  	  		
+			  <if test="choice == 'title'">
+			  		AND TITLE LIKE '%'||#{search}||'%'		  
+			  </if>
+			  <if test="choice == 'content'">
+			  		AND CONTENT LIKE '%'||#{search}||'%'			  
+			  </if>
+			  <if test="choice == 'writer'">
+			  		AND ID=#{search}  
+			  </if>	
+		  </if>
+	</select> -->
+	
+	
+</mapper>
+
+
+
+  
