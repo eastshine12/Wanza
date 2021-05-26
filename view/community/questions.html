@@ -80,6 +80,56 @@
       font-weight: 500;
         /* font-weight: bold; */
     }
+
+    .questions-item{
+    color: black; 
+    width: 800px; 
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .questions-head-img{
+    float: right;
+  }
+  .questions-head-image{
+    width: 120px; 
+    height: 120px; 
+    border-radius: 30%;
+    margin-left: 10px;
+  }
+  .questions-head{
+    text-align: center;
+  }
+  .questions-title{
+    color: black; 
+    line-height: inherit;
+  }
+  .questions-content{
+    color: black;
+    text-align: start; 
+    font-size: 22.5px;
+  }
+  .questions-item-footer{
+    font-size: 15;
+  }
+  .questions-item-footer-writer{
+    color: coral;
+  }
+  .questions-item-footer-writer-image{
+    width: 22px; 
+    height: 22px; 
+    border-radius: 70%
+  }
+  .questions-item-footer-tags{
+    float: right;
+  }
+  .keyword-item{
+    margin-top: 3px; 
+    margin-bottom: 10px;
+    padding-left: 10px; 
+    padding-right: 10px;
+  }
+
     
 
     
@@ -210,25 +260,25 @@
       <div class="questions-list-container" id="questions-list-container" >
 
           <!-- 테스트글1 -->
-              <div class="questions-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
+              <div class="questions-item">
                 <a class="questions-item-link" href="questionDetail.html"  >
                   <div class="questions-block">
-                    <div class="questions-head-img" style="float: right; ">
-                      <img src="../image/ddda.gif" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
+                    <div class="questions-head-img" >
+                      <img class="questions-head-image" src="../image/ddda.gif" >
                     </div>
-                    <div class="questions-head" style="text-align: center;">
-                      <h2 class="questions-title" style="color: black; line-height: inherit;" >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
-                      <p class="questions-content" style="color: black; text-align: start; font-size: 22.5px;">붙박이장 어케 할까요?</p> <!-- 질문내용 -->
+                    <div class="questions-head" >
+                      <h2 class="questions-title"  >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
+                      <p class="questions-content" >붙박이장 어케 할까요?</p> <!-- 질문내용 -->
                     </div>
                   </div>
                 </a>
-                <footer class="questions-item-footer" style="font-size: 15;">
+                <footer class="questions-item-footer" >
                     <span class="questions-item-footer-author">
-                        <span class="questions-item-footer-writer-image">
-                            <img src="../image/wdg.gif" style="width: 22px; height: 22px; border-radius: 70%"
+                        <span class="questions-item-footer-writer-img">
+                            <img class="questions-item-footer-writer-image" src="../image/wdg.gif" 
                             onerror="this.src='https://bucketplace-v2-development.s3.amazonaws.com/uploads/default_images/avatar.png'"><!-- 프로필사진 -->
                         </span>
-                        <span class="questions-item-footer-writer" style="color: coral;">현성이배통통</span>
+                        <span class="questions-item-footer-writer" >현성이배통통</span>
                     </span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <span class="questions-item-footer-meta ">
@@ -247,15 +297,11 @@
                       </span>
                     </span>
 
-                    <ul class="questions-item-footer-tags keyword-list" style="float: right; ">
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                      style="margin-top: 3px; margin-bottom: 10px;padding-left: 10px; padding-right: 10px;">셀프인테리어</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">자취</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">돈낭비</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">존망</li>
+                    <ul class="questions-item-footer-tags keyword-list">
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button">셀프인테리어</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button">자취</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button">돈낭비</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button">존망</li>
                     </ul>
                 </footer>
               </div>
@@ -263,26 +309,25 @@
             
             <!-- 테스트글2 -->
             
-            <div class="questions-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
-              <a class="questions-item-link" href="questionDetail.html" style="" >
+            <div class="questions-item" >
+              <a class="questions-item-link" href="questionDetail.html">
                 <div class="questions-block">
-
-                <div class="questions-head-img" style="float: right; ">
-                  <img src="../image/wdg.gif" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
+                <div class="questions-head-img" >
+                  <img class="questions-head-image" src="../image/wdg.gif">
                 </div>
-                <div class="questions-head" style="text-align: center;">
-                  <h2 class="questions-title" style="color: black; line-height: inherit;" >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
-                  <p class="questions-content" style="color: black; text-align: start; font-size: 22.5px;">붙박이장 어케 할까요?</p> <!-- 질문내용 -->
+                <div class="questions-head" >
+                  <h2 class="questions-title" >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
+                  <p class="questions-content" >붙박이장 어케 할까요?</p> <!-- 질문내용 -->
                 </div>
               </div>
             </a>
-                <footer class="questions-item-footer" style="font-size: 15;">
+                <footer class="questions-item-footer" >
                     <span class="questions-item-footer-author">
-                        <span class="questions-item-footer-writer-image">
-                            <img src="../image/wdg.gif" style="width: 22px; height: 22px; border-radius: 70%"
+                        <span class="questions-item-footer-writer-img">
+                            <img class="questions-item-footer-writer-image" src="../image/wdg.gif" 
                             onerror="this.src='https://bucketplace-v2-development.s3.amazonaws.com/uploads/default_images/avatar.png'"><!-- 프로필사진 -->
                         </span>
-                        <span class="questions-item-footer-writer" style="color: coral;">현성이배통통</span>
+                        <span class="questions-item-footer-writer" >현성이배통통</span>
                     </span>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <span class="questions-item-footer-meta ">
@@ -302,15 +347,11 @@
                     </span>
 
                     
-                    <ul class="questions-item-footer-tags keyword-list" style="float: right; ">
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                      style="margin-top: 3px; margin-bottom: 10px;padding-left: 10px; padding-right: 10px;">셀프인테리어</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">자취</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">돈낭비</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                      style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">존망</li>
+                    <ul class="questions-item-footer-tags keyword-list" >
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" >셀프인테리어</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" >자취</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" >돈낭비</li>
+                      <li class="keyword-item questions-item-footer-tags-tag" role="button" >존망</li>
                     </ul>
                     
                     
@@ -320,26 +361,26 @@
 
               <!-- 테스트글3 -->
             
-              <div class="questions-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
-                <a class="questions-item-link" href="questionDetail.html" style="" >
+              <div class="questions-item" >
+                <a class="questions-item-link" href="questionDetail.html" >
                   <div class="questions-block">
   
-                  <div class="questions-head-img" style="float: right; ">
-                    <img src="../image/drsd.gif" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
+                  <div class="questions-head-img" >
+                    <img class="questions-head-image" src="../image/drsd.gif" >
                   </div>
-                  <div class="questions-head" style="text-align: center;">
-                    <h2 class="questions-title" style="color: black; line-height: inherit; " >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
-                    <p class="questions-content" style="color: black; text-align: start; font-size: 22.5px;">붙박이장 어케 할까요?</p> <!-- 질문내용 -->
+                  <div class="questions-head" >
+                    <h2 class="questions-title"  >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
+                    <p class="questions-content" >붙박이장 어케 할까요?</p> <!-- 질문내용 -->
                   </div>
                 </div>
               </a>
-                  <footer class="questions-item-footer" style="font-size: 15;">
+                  <footer class="questions-item-footer" >
                       <span class="questions-item-footer-author">
-                          <span class="questions-item-footer-writer-image">
-                              <img src="../image/wdg.gif" style="width: 22px; height: 22px; border-radius: 70%"
+                          <span class="questions-item-footer-writer-img">
+                              <img class="questions-item-footer-writer-image" src="../image/wdg.gif" 
                               onerror="this.src='https://bucketplace-v2-development.s3.amazonaws.com/uploads/default_images/avatar.png'"><!-- 프로필사진 -->
                           </span>
-                          <span class="questions-item-footer-writer" style="color: coral;">현성이배통통</span>
+                          <span class="questions-item-footer-writer">현성이배통통</span>
                       </span>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                       <span class="questions-item-footer-meta ">
@@ -357,20 +398,14 @@
                         <span class="questions-item-footer-views-content">7</span>
                         </span>
                       </span>
-  
-                      
-                      <ul class="questions-item-footer-tags keyword-list" style="float: right; ">
-                        <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                        style="margin-top: 3px; margin-bottom: 10px;padding-left: 10px; padding-right: 10px;">셀프인테리어</li>
-                        <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                        style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">자취</li>
-                        <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                        style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">돈낭비</li>
-                        <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                        style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">존망</li>
+
+                      <ul class="questions-item-footer-tags keyword-list" >
+                        <li class="keyword-item questions-item-footer-tags-tag" role="button" >셀프인테리어</li>
+                        <li class="keyword-item questions-item-footer-tags-tag" role="button">자취</li>
+                        <li class="keyword-item questions-item-footer-tags-tag" role="button" >돈낭비</li>
+                        <li class="keyword-item questions-item-footer-tags-tag" role="button" >존망</li>
                       </ul>
-                      
-                      
+
                   </footer>
                 
                 </div>
@@ -393,26 +428,25 @@
         alert('getAllQuestionList 성공')
         alert(list)
         $.each(list, function(i, val){
-          let app = "<div class='questions-item' style='color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;'>"
+          let app = "<div class='questions-item' >"
                     + "<a class='questions-item-link' href='questionDetail.html>"
                     + "<div class='questions-block'>"
-                    + "<div class='questions-head-img'  style='width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;' >"
-                    + "<img src='../image/dddzz.gif'>"
+                    + "<div class='questions-head-img'  >"
+                    + "<img class='questions-head-image' src='../image/dddzz.gif'>"
                     + "</div>"
                     + "<div class='questions-head'>"
-                    + "<h2 class='questions-head'>"
+                    + "<h2 class='questions-title'>"
                     + val.questionTitle
                     + "</h2>"
                     + "<p class='questions-content'>"
                     + val.questionContent
                     + "</p>"        
                     + "</div>"
-                    + "</div>"
                     + "</a>"
                     + "<footer class='questions-item-footer'>"
                     + "<span class='questions-item-footer-author'>"  
-                    + "<span class='questions-item-footer-writer-image'>"
-                    + "<img src='../image/dddzz.gif' style='width: 22px; height: 22px; border-radius: 70%'>"
+                    + "<span class='questions-item-footer-writer-img'>"
+                    + "<img class='questions-item-footer-writer-image' src='.../image/avatar.png' >"
                     // + ".../image/dddzz.gif"
                     // + "'>"
                     + "</span>"
@@ -434,10 +468,10 @@
                     + "</span>"
                     + "</span>"
                     + "<ul class='questions-item-footer-tags keyword-list'>"
-                    + "<li class=.keyword-item questions-item-footer-tags-tag'>"
+                    + "<li class=keyword-item questions-item-footer-tags-tag'>"
                     + "셀프인테리어"
                     + "</li>"
-                    + "<li class=.keyword-item questions-item-footer-tags-tag'>"
+                    + "<li class=keyword-item questions-item-footer-tags-tag'>"
                     + "존망"
                     + "</li>"
                     + "</ul>"
