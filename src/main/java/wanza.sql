@@ -1,4 +1,4 @@
------------���� ���̺�---------------
+-----------유저 테이블---------------
 
 DROP TABLE USERS
 CASCADE CONSTRAINTS;
@@ -24,7 +24,7 @@ INCREMENT BY 1;
 COMMIT;
 
 
---------�˻��� ���̺�--------------------
+--------검색어 테이블--------------------
 
 
 DROP TABLE SEARCH_HISTORY
@@ -45,7 +45,7 @@ INCREMENT BY 1;
 COMMIT;
 
 
-------���� ����� ���̺�----------------
+------유저 배송지 테이블----------------
 
 DROP TABLE ADDRESS
 CASCADE CONSTRAINTS;
@@ -61,7 +61,7 @@ CREATE TABLE ADDRESS(
 );
 
 
-------��ٱ��� ���̺�-----------------
+------장바구니 테이블-----------------
 
 DROP TABLE CART
 CASCADE CONSTRAINTS;
@@ -109,7 +109,7 @@ WHERE CARTCLASSIFY='CT-5' AND PRODUCTSEQ=3;
 COMMIT;
 
 
-------- �ֹ� ���̺� --------------------
+------- 주문 테이블 --------------------
 
 DROP TABLE ORDERS
 CASCADE CONSTRAINTS;
@@ -141,7 +141,7 @@ ADD CONSTRAINT FK_ORDER_ADDRESSSEQ FOREIGN KEY(ADDRESSSEQ)
 REFERENCES ADDRESS(ADDRESSSEQ);
 
 
-------���� ��ǰ ��� ���̺� -------------------
+------구매 상품 목록 테이블 -------------------
 
 
 DROP TABLE PURCHASE_PRODUCT
@@ -178,7 +178,7 @@ REFERENCES USERS(USERSEQ);
 
 
 
-----------���丮 �Խñ� ���̺�-----------------
+----------스토리 게시글 테이블-----------------
 
 DROP TABLE CARD_COLLECTIONS
 CASCADE CONSTRAINTS;
@@ -204,7 +204,7 @@ INCREMENT BY 1;
 INSERT INTO CARD_COLLECTIONS  VALUES (SEQ_CARD.NEXTVAL, '�׽�Ʈ1', '�׽�Ʈ��1', 1, 0, SYSDATE, '123.jpg', 0);
 commit;
 
------------���丮 ���ƿ� ���̺�---------------
+-----------스토리 좋아요 테이블---------------
 
 DROP TABLE CARD_FAVORITE
 CASCADE CONSTRAINTS;
@@ -224,7 +224,7 @@ REFERENCES CARD_COLLECTIONS(CARDSEQ);
 
 
 
------------���丮 ��� ���̺�---------------
+-----------스토리 댓글 테이블---------------
 
 
 DROP TABLE CARD_REVIEW
@@ -268,7 +268,7 @@ SELECT CARDREVSEQ, CARDSEQ, NICKNAME, CARDREVCONTENT, CARDREVDATE, CARDREVDEL
 FROM (SELECT ROW_NUMBER()OVER(ORDER BY CARDREVSEQ DESC) AS RNUM, CARDREVSEQ, CARDSEQ, NICKNAME, CARDREVCONTENT, CARDREVDATE, CARDREVDEL FROM CARD_REVIEW)	
 WHERE CARDSEQ=1 AND RNUM>=1 AND RNUM<=4;
 
------------���丮 �� �±� ���̺�---------------
+-----------스토리 글 태그 테이블---------------
 
 DROP TABLE CARD_TAG
 CASCADE CONSTRAINTS;
@@ -282,7 +282,7 @@ CREATE TABLE CARD_TAG(
     REFERENCES CARD_COLLECTIONS(CARDSEQ)
 );
 
------------���丮 ���� ��ǥ ���̺�---------------
+-----------스토리 사진 좌표 테이블---------------
 
 DROP TABLE CARD_COORDINATES
 CASCADE CONSTRAINTS;
@@ -311,7 +311,7 @@ GROUP BY CARDSEQ;
 
 
 
--------��ǰ ���̺�------------------------
+-------상품 테이블------------------------
 
 
 DROP TABLE PRODUCTIONS
@@ -355,7 +355,7 @@ SELECT PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, P
 FROM PRODUCTIONS
 WHERE PRODUCTSEQ=1;
 
-------��ǰ �ɼ� ���̺�----------------------
+------상품 옵션 테이블----------------------
 
 DROP TABLE PRODUCTION_OPTION
 CASCADE CONSTRAINTS;
@@ -370,7 +370,7 @@ CREATE TABLE PRODUCTION_OPTION(
 );
 
 
-------��ǰ �±� ���̺�---------------------
+------상품 태그 테이블---------------------
 
 DROP TABLE PRODUCTION_TAG
 CASCADE CONSTRAINTS;
@@ -385,7 +385,7 @@ CREATE TABLE PRODUCTION_TAG(
 
 
 
--------��ǰ ���� ���̺�-----------------------------
+-------상품 리뷰 테이블-----------------------------
 
 DROP TABLE PRODUCTION_REVIEW
 CASCADE CONSTRAINTS;
@@ -421,7 +421,7 @@ REFERENCES PURCHASE_PRODUCT(PURCHASESEQ);
 
 
 
------��ǰ ���� ���̺�-----------------
+-----상품 문의 테이블-----------------
 
 
 DROP TABLE PRODUCTION_QUESTION
