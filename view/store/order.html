@@ -366,25 +366,19 @@ select::-ms-expand{
                         </div>
                         <div class="row order_content_wrap">
                             <div class="order_subtitle">연락처</div>
-                            <div class="order_content order_phone1"><label for="_phone1">
-                                <select name="phone1" id="_phone1">
-                                    <option value="010">010</option>
-                                    <option value="011">011</option>
-                                    <option value="016">016</option>
-                                    <option value="018">018</option>
-                                    <option value="070">070</option>
-                                </select></label><i class="fas fa-sort"></i></div>
-                            <div class="order_content order_phone2"><label for="_phone2"><input type="text" id="_phone2" name="phone2" value=""></label></div>
+                            <div class="order_content order_phone1" style="margin-right: 10px;">
+                                <label for="_phone1">
+                                <input type="text" name="phone1" id="_phone1" readonly>                                    
+                            </div>
+                            <div class="order_content order_phone2"><label for="_phone2"><input type="text" id="_phone2" name="phone2" value="" readonly></label></div>
                         </div>
                         <div class="row order_content_wrap">
                             <div class="order_subtitle">이메일</div>
-                            <div class="order_content order_email1"><label for="_email1"><input type="text" name="email1" id="_email1" value=""></label></div>
+                            <div class="order_content order_email1"><label for="_email1"><input type="text" name="email1" id="_email1" value="" readonly></label></div>
                             <span>@</span>
                             <div class="order_content order_email2"><label for="_email2">
-                                <select name="email2" id="_email2">
-                                    <option value="naver.com">naver.com</option>
-                                    <option value="daum.com">daum.com</option>
-                                </select></label><i class="fas fa-sort"></i></label></div>
+                                <input type="text" name="email2" id="_email2" readonly>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -661,9 +655,13 @@ $(document).ready(function() {
             async:false,
             success: function(data) {
                 console.log(data);
-                $('#_phone2').val(data.phone);
-                $('#_email1').val(data.email);
+                
                 $('#myPoint').text(makeComma(data.mileage)+'p');
+                $('#_phone1').val(data.phone.substring(0,3));
+                $('#_phone2').val(data.phone.substring(3));
+                let myEmail = data.email.split('@');
+                $('#_email1').val(myEmail[0]);
+                $('#_email2').val(myEmail[1]);
                 myPoint = data.mileage;
             },
             error: function() {
@@ -671,7 +669,6 @@ $(document).ready(function() {
             }
         });
     };
-
 
 
 
@@ -742,7 +739,7 @@ $(document).ready(function() {
 
     $('.point_btn').click( function() { //포인트 전액사용 토글
         $(this).toggleClass('active');
-
+        
         if($(this).hasClass('active')) {  //전액사용 버튼 활성화 시
             if(myPoint > parseInt($('#orderPrice').text().replace(/[^0-9]/g, ''))) {   // 내 포인트가 주문금액보다 많을 때,
                 usePoint(parseInt($('#orderPrice').text().replace(/[^0-9]/g, '')));
@@ -863,6 +860,7 @@ $(document).ready(function() {
 
 // 포인트 입력 이벤트
 $(document).on('blur', '#_point', function () {
+    $('.point_btn').toggleClass('active');
     usePoint($(this).val());
 });
 
@@ -966,80 +964,6 @@ app.post("/payments/complete", async (req, res) => {
     }
 });
 */
-
-
-
-
-// 구매물품 장바구니 리스트 가져오기
-/*
-getPaymentList()
-function getPaymentList() {
-    $.ajax({
-        url: "http://192.168.0.231:3000/getPaymentList",
-        type: "get",
-        data: {
-            "cartClassify": "CT-" + sessionId.userSeq
-        },
-        success: function (data) {
-            console.log(data);
-            $('#itemCount').text(itemCount + '개');
-            $('#selectItem').text(selectItem);
-            $('#itemTitle').text(data.productName);
-            $('#itemMaker').text(data.productMaker);
-            $('#itemImg').attr('src', 'http://192.168.0.231:3000/upload/' + data.productFileName);
-
-            if (data.productDiscount != 0) { // 할인상품이라면,
-
-                $('#itemPrice').text(makeComma(data.productDiscount * itemCount) + '원');
-                $('#allItemPrice').text(makeComma(data.productDiscount * itemCount) + '원');
-                $('#sideTotalPrice').text(makeComma(data.productDiscount * itemCount) + '원');
-                $('#sideGetPoints').text(makeComma(data.productDiscount * itemCount * 0.01) + 'p');
-                //50000원 이상 무료배송
-                if (data.productDiscount * itemCount >= 50000) {
-                    $('#deliveryCharge').text('무료');
-                    $('#sideDeliveryCharge').text('무료');
-                    $('#orderPrice').text(makeComma(data.productDiscount * itemCount) + '원');
-                    $('#sideResultPrice').text(makeComma(data.productDiscount * itemCount) + '원');
-                    $('#sidePaymentBtn').text(makeComma(data.productDiscount * itemCount) + '원 결제하기');
-                } else {
-                    $('#deliveryCharge').text('2,500원');
-                    $('#sideDeliveryCharge').text('2,500원');
-                    $('#orderPrice').text(makeComma(data.productDiscount * itemCount + 2500) + '원');
-                    $('#sideResultPrice').text(makeComma(data.productDiscount * itemCount + 2500) + '원');
-                    $('#sidePaymentBtn').text(makeComma(data.productDiscount * itemCount + 2500) + '원 결제하기');
-                }
-
-            } else {
-
-                $('#itemPrice').text(makeComma(data.productPrice * itemCount) + '원');
-                $('#allItemPrice').text(makeComma(data.productPrice * itemCount) + '원');
-                $('#sideTotalPrice').text(makeComma(data.productPrice * itemCount) + '원');
-                $('#sideGetPoints').text(makeComma(data.productPrice * itemCount * 0.01) + 'p');
-                //50000원 이상 무료배송
-                if (data.productDiscount * itemCount >= 50000) {
-                    $('#deliveryCharge').text('무료');
-                    $('#sideDeliveryCharge').text('무료');
-                    $('#orderPrice').text(makeComma(data.productPrice * itemCount) + '원');
-                    $('#sideResultPrice').text(makeComma(data.productPrice * itemCount) + '원');
-                    $('#sidePaymentBtn').text(makeComma(data.productPrice * itemCount) + '원 결제하기');
-                } else {
-                    $('#deliveryCharge').text('2,500원');
-                    $('#sideDeliveryCharge').text('2,500원');
-                    $('#orderPrice').text(makeComma(data.productPrice * itemCount + 2500) + '원');
-                    $('#sideResultPrice').text(makeComma(data.productPrice * itemCount + 2500) + '원');
-                    $('#sidePaymentBtn').text(makeComma(data.productPrice * itemCount + 2500) + '원 결제하기');
-                }
-
-            };
-
-        },
-        error: function () {
-            alert('getPaymentList() error');
-        }
-    });
-};
-*/
-
 
 </script>
 
