@@ -207,23 +207,21 @@
       </div> -->
 
       
-      <div class="questions-list-container" >
+      <div class="questions-list-container" id="questions-list-container" >
 
           <!-- 테스트글1 -->
-            
               <div class="questions-item" style="color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;">
-              <a class="questions-item-link" href="questionDetail.html"  >
-                <div class="questions-block">
-
-                <div class="questions-head-img" style="float: right; ">
-                  <img src="../image/ddda.gif" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
-                </div>
-                <div class="questions-head" style="text-align: center;">
-                  <h2 class="questions-title" style="color: black; line-height: inherit;" >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
-                  <p class="questions-content" style="color: black; text-align: start; font-size: 22.5px;">붙박이장 어케 할까요?</p> <!-- 질문내용 -->
-                </div>
-              </div>
-            </a>
+                <a class="questions-item-link" href="questionDetail.html"  >
+                  <div class="questions-block">
+                    <div class="questions-head-img" style="float: right; ">
+                      <img src="../image/ddda.gif" style="width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;">
+                    </div>
+                    <div class="questions-head" style="text-align: center;">
+                      <h2 class="questions-title" style="color: black; line-height: inherit;" >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
+                      <p class="questions-content" style="color: black; text-align: start; font-size: 22.5px;">붙박이장 어케 할까요?</p> <!-- 질문내용 -->
+                    </div>
+                  </div>
+                </a>
                 <footer class="questions-item-footer" style="font-size: 15;">
                     <span class="questions-item-footer-author">
                         <span class="questions-item-footer-writer-image">
@@ -249,7 +247,6 @@
                       </span>
                     </span>
 
-                    
                     <ul class="questions-item-footer-tags keyword-list" style="float: right; ">
                       <li class="keyword-item questions-item-footer-tags-tag" role="button" 
                       style="margin-top: 3px; margin-bottom: 10px;padding-left: 10px; padding-right: 10px;">셀프인테리어</li>
@@ -260,10 +257,7 @@
                       <li class="keyword-item questions-item-footer-tags-tag" role="button" 
                       style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">존망</li>
                     </ul>
-                    
-                    
                 </footer>
-              
               </div>
             
             
@@ -390,6 +384,79 @@
 </body>
 
 <script>
+  $(document).ready(function(){
+
+    $.ajax({
+      url:"http://localhost:3000/getAllQuestionList",
+      type: "get",
+      success:function(list){
+        alert('getAllQuestionList 성공')
+        alert(list)
+        $.each(list, function(i, val){
+          let app = "<div class='questions-item' style='color: black; width: 800px; margin: auto;padding-top: 20px;padding-bottom: 20px;'>"
+                    + "<a class='questions-item-link' href='questionDetail.html>"
+                    + "<div class='questions-block'>"
+                    + "<div class='questions-head-img'  style='width: 120px; height: 120px; border-radius: 30%;margin-left: 10px;' >"
+                    + "<img src='../image/dddzz.gif'>"
+                    + "</div>"
+                    + "<div class='questions-head'>"
+                    + "<h2 class='questions-head'>"
+                    + val.questionTitle
+                    + "</h2>"
+                    + "<p class='questions-content'>"
+                    + val.questionContent
+                    + "</p>"        
+                    + "</div>"
+                    + "</div>"
+                    + "</a>"
+                    + "<footer class='questions-item-footer'>"
+                    + "<span class='questions-item-footer-author'>"  
+                    + "<span class='questions-item-footer-writer-image'>"
+                    + "<img src='../image/dddzz.gif' style='width: 22px; height: 22px; border-radius: 70%'>"
+                    // + ".../image/dddzz.gif"
+                    // + "'>"
+                    + "</span>"
+                    + "<span class='questions-item-footer-writer'>배통통한현성</span>"
+                    + "</span>  &nbsp;&nbsp;&nbsp;&nbsp; "
+                    + "<span class='questions-item-footer-meta'>"
+                    + "<time datetime='2021-05-17T19:49:16+09:00' class='questions-item-footer-date text-gray'>방금</time>"
+                    + "·"
+                    + "<span class='questions-item-footer-comments>댓글"  
+                    + "<span class='questions-item-footer-comments-content active>"
+                    + val.questionReadcount  
+                    + "</span>"
+                    + "</span>"
+                    + "·"
+                    + "<span class='questions-item-footer-views>"
+                    + "조회"
+                    + "<span class='questions-item-footer-views-content>"
+                    + val.questionReadcount
+                    + "</span>"
+                    + "</span>"
+                    + "<ul class='questions-item-footer-tags keyword-list'>"
+                    + "<li class=.keyword-item questions-item-footer-tags-tag'>"
+                    + "셀프인테리어"
+                    + "</li>"
+                    + "<li class=.keyword-item questions-item-footer-tags-tag'>"
+                    + "존망"
+                    + "</li>"
+                    + "</ul>"
+                    + "</footer>"
+                    + "</div>"
+
+                    $("#questions-list-container").append(app);
+
+                  });
+        
+      }, error:function(list){
+        alert('getAllQuestionList 에러')
+      }
+    })
+
+
+  });
+  
+
   function filterfunc() {
     var x = document.getElementById("Demo");
     if (x.className.indexOf("w3-show") == -1) {

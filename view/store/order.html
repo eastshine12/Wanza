@@ -479,6 +479,9 @@ select::-ms-expand{
                 <div class="mb-5">
                     <div class="order_title"><span>주문상품</span></div>
                     <div>
+                        <div id="itemList">                           
+                        </div>                        
+                        <!--
                         <div class="row" style="margin: 20px 0px;padding-bottom: 20px; border-bottom: 1px solid rgb(129, 129, 129); display: flex; align-items:center;">
                             <div class="col" style="text-align: center;"><img id="itemImg" style="width: 130px; height: 130px;" alt=""></div>
                             <div class="col-md-6">
@@ -505,10 +508,13 @@ select::-ms-expand{
                                 <p id="itemPrice">원</p>
                             </div>
                         </div>
+                        -->
 
+
+                        
                         <div class="row" style="height: 70px; background-color: #cecece; border-bottom: 1px solid rgb(182, 181, 181); display: flex; align-items:center;">
                             <div style="margin-left: 200px;">
-                                <span>상품금액&ensp;</span><span id="allItemPrice">원</span><span>&ensp;+&ensp;배송비&ensp;</span><span id="deliveryCharge">2,500원</span><span>&ensp;=&ensp;</span><span><b>주문금액&ensp;</b> </span><span id="orderPrice" style="font-size: 21px; font-weight: bold;">41,400원</span>
+                                <span>상품금액&ensp;</span><span id="allItemPrice"></span><span>원&ensp;+&ensp;배송비&ensp;</span><span id="deliveryCharge">2,500원</span><span>&ensp;=&ensp;</span><span><b>주문금액&ensp;</b> </span><span id="orderPrice" style="font-size: 21px; font-weight: bold;">0원</span>
                             </div>
                         </div>
                     </div>
@@ -527,7 +533,7 @@ select::-ms-expand{
                     </div>
                     <div class="row order_content_wrap">
                         <div class="order_subtitle">보유포인트</div>
-                        <div id="myPoint" class="order_subtitle point">4,000<span>p</span></div>
+                        <div id="myPoint" class="order_subtitle point">p</div>
                     </div>
                 </div>
 
@@ -564,7 +570,7 @@ select::-ms-expand{
                         </div>
 
                         <div class="payment1">
-                            <div class="row payment1_0 pa_bo"><span><h4>총 결제금액</h4></span><span><h4 id="sideResultPrice">41,400원</h4></span></div>
+                            <div class="row payment1_0 pa_bo"><span><h4>총 결제금액</h4></span><span><h4 id="sideResultPrice">0원</h4></span></div>
                             <div class="row payment1_0"><span>적립포인트</span><span id="sideGetPoints">p</span></div>                        
                         </div>
 
@@ -574,7 +580,7 @@ select::-ms-expand{
 
                     </div>
 
-                    <button id="sidePaymentBtn" class="payment_btn" type="button" >41,400원 결제하기</button>
+                    <button id="sidePaymentBtn" class="payment_btn" type="button" >0원 결제하기</button>
 
                 </div>
             </div>
@@ -606,6 +612,13 @@ let seq = getParameter("seq");
 let selectItem = getParameter("selectItem");
 let itemCount = getParameter("itemCount");
 
+
+//로그인한 계정 닉네임 가져오기
+let sessionId = JSON.parse(sessionStorage.getItem("login"));
+if (sessionId == null) {
+    sessionId = '';
+};
+
 // 금액 콤마 삽입 정규식
 function makeComma(str) {
 
@@ -620,6 +633,9 @@ console.log("높이 : "+h)
 let element1 = document.getElementById('payment'); //오른쪽 결제 창 높이 설정하여 유동적 고정 적용
 element.clientHeight = h;
 
+let myPoint = 0;
+
+
 $(document).ready(function() {
     $('#_dlvy_req3').hide(); //배송요청사항 직접입력 숨기기/펼치기
     $("#_dlvy_req1").change(function(){
@@ -633,71 +649,91 @@ $(document).ready(function() {
     });
 
 
-
-    // 구매물품 디테일 정보 가져오기
-    getProductDetail()
-    function getProductDetail() {
+    //개인정보 가져오기
+    getUserInfo()
+    function getUserInfo() {
         $.ajax({
-            url: "http://192.168.0.231:3000/getProductDetail",
+            url: "http://192.168.0.231:3000/getUserInfo",
             type: "get",
             data: {
-                "productSeq": seq
+                "userSeq": sessionId.userSeq
             },
-            success: function (data) {
+            async:false,
+            success: function(data) {
                 console.log(data);
-                $('#itemCount').text(itemCount+'개');
-                $('#selectItem').text(selectItem);
-                $('#itemTitle').text(data.productName);
-                $('#itemMaker').text(data.productMaker);
-                $('#itemImg').attr('src', 'http://192.168.0.231:3000/upload/' + data.productFileName);
+                $('#_phone2').val(data.phone);
+                $('#_email1').val(data.email);
+                $('#myPoint').text(makeComma(data.mileage)+'p');
+                myPoint = data.mileage;
+            },
+            error: function() {
+                alert('getUserInfo() error');
+            }
+        });
+    };
 
-                if (data.productDiscount != 0) { // 할인상품이라면,
+
+
+
+    // 구매물품 장바구니 리스트 가져오기
+    getPaymentList()
+    function getPaymentList() {
+        $.ajax({
+            url: "http://192.168.0.231:3000/getPaymentList",
+            type: "get",
+            data: {
+                "cartClassify": "CT-" + sessionId.userSeq
+            },
+            success: function (list) {
+                console.log(list);
+                let app = ""
                 
-                    $('#itemPrice').text(makeComma(data.productDiscount * itemCount) + '원');
-                    $('#allItemPrice').text(makeComma(data.productDiscount * itemCount) + '원');
-                    $('#sideTotalPrice').text(makeComma(data.productDiscount * itemCount) + '원');
-                    $('#sideGetPoints').text(makeComma(data.productDiscount * itemCount *0.01) + 'p');
-                    //50000원 이상 무료배송
-                    if (data.productDiscount * itemCount >= 50000) {
-                        $('#deliveryCharge').text('무료');
-                        $('#sideDeliveryCharge').text('무료');
-                        $('#orderPrice').text(makeComma(data.productDiscount * itemCount) + '원');
-                        $('#sideResultPrice').text(makeComma(data.productDiscount * itemCount) + '원');
-                        $('#sidePaymentBtn').text(makeComma(data.productDiscount * itemCount) + '원 결제하기');
-                    } else {
-                        $('#deliveryCharge').text('2,500원');
-                        $('#sideDeliveryCharge').text('2,500원');
-                        $('#orderPrice').text(makeComma(data.productDiscount * itemCount + 2500) + '원');
-                        $('#sideResultPrice').text(makeComma(data.productDiscount * itemCount + 2500) + '원');
-                        $('#sidePaymentBtn').text(makeComma(data.productDiscount * itemCount + 2500) + '원 결제하기');
-                    }
-                    
+                if (Object.keys(list).length == 0) {
+                    app += '<div style="width: 1800px; margin:50px 0px;padding:0 450px;display: flex; align-items:center;">'
+                        + '<h3 style="font-size: 20px; margin-top: 10px;"><b>결제할 상품이 없습니다.</b></h3>'
+                        + "</div>";
+                    $("#itemList").append(app);
                 } else {
+                    $.each(list, function (i, val) {
 
-                    $('#itemPrice').text(makeComma(data.productPrice * itemCount) + '원');
-                    $('#allItemPrice').text(makeComma(data.productPrice * itemCount) + '원');
-                    $('#sideTotalPrice').text(makeComma(data.productPrice * itemCount) + '원');
-                    $('#sideGetPoints').text(makeComma(data.productPrice * itemCount * 0.01) + 'p');
-                    //50000원 이상 무료배송
-                    if (data.productDiscount * itemCount >= 50000) {
-                        $('#deliveryCharge').text('무료');
-                        $('#sideDeliveryCharge').text('무료');
-                        $('#orderPrice').text(makeComma(data.productPrice * itemCount) + '원');
-                        $('#sideResultPrice').text(makeComma(data.productPrice * itemCount) + '원');
-                        $('#sidePaymentBtn').text(makeComma(data.productPrice * itemCount) + '원 결제하기');
-                    } else {
-                        $('#deliveryCharge').text('2,500원');
-                        $('#sideDeliveryCharge').text('2,500원');
-                        $('#orderPrice').text(makeComma(data.productPrice * itemCount + 2500) + '원');
-                        $('#sideResultPrice').text(makeComma(data.productPrice * itemCount + 2500) + '원');
-                        $('#sidePaymentBtn').text(makeComma(data.productPrice * itemCount + 2500) + '원 결제하기');
-                    }
-            
+                        let key = JSON.parse(val.selectOption);
+                        let value = Object.keys(key);
+
+                        app += '<div class="row" name="_item" style="padding-bottom: 10px; border-bottom: 1px solid rgb(129, 129, 129); display: flex; align-items:center;">'
+                            +    '<div class="col" style="text-align: center;"><img id="itemImg" style="width: 130px; height: 130px; border-radius: 10px;" alt="" src="http://192.168.0.231:3000/upload/'+val.productFileName+'"></div>'
+                            +    '<div class="col-md-6">'
+                            +        '<div class="row">'
+                            +            '<div class="col offset-md-1">'
+                            +                '<p id="itemMaker" style="font-size: 12px;">'+val.productMaker+'</p>'
+                            +            '</div>'
+                            +        '</div>'
+                            +        '<div class="row">'
+                            +            '<div class="col offset-md-1">'
+                            +                '<h5 id="itemTitle" name="_itemTitle">'+val.productName+'</h5>'
+                            +            '</div>'
+                            +        '</div>'
+                            +        '<div class="row">'
+                            +            '<div class="col offset-md-1" style="font-size: 15px; color: #707070;">'
+                            +                '<span>'+Object.keys(key)+'</span><span>&ensp;</span><span id="selectItem">'+key[value]+'</span>'
+                            +            '</div>'
+                            +        '</div>'
+                            +    '</div>'
+                            +    '<div class="col">'
+                            +        '<p id="itemCount">'+val.quantity+'개</p>'
+                            +    '</div>'
+                            +    '<div class="col">'
+                            +        '<p id="itemPrice">'+makeComma(val.price)+'원</p>'
+                            +    '</div>'
+                            +    '<div><input type="hidden" id="itemPrice_'+(i+1)+'" value="'+(val.price*val.quantity)+'"></div>'
+                            +'</div>';
+
+                    });
+                    $("#itemList").append(app);
+                    totalPrice();
                 };
-
             },
             error: function () {
-                alert('getProductDetail() error');
+                alert('getPaymentList() error');
             }
         });
     };
@@ -706,8 +742,20 @@ $(document).ready(function() {
 
     $('.point_btn').click( function() { //포인트 전액사용 토글
         $(this).toggleClass('active');
+
+        if($(this).hasClass('active')) {  //전액사용 버튼 활성화 시
+            if(myPoint > parseInt($('#orderPrice').text().replace(/[^0-9]/g, ''))) {   // 내 포인트가 주문금액보다 많을 때,
+                usePoint(parseInt($('#orderPrice').text().replace(/[^0-9]/g, '')));
+            } else {
+                usePoint(myPoint);
+            }
+        } else if($(this).removeClass('active')) {
+            usePoint('empty');
+        };
+
         $("input:radio[name='pay']").prop('checked',false);
     });
+
 
     let method = ''
     $('.pay_use label').click( function() { //결제수단 값,호버 
@@ -813,21 +861,75 @@ $(document).ready(function() {
 });
 
 
-// 포인트 사용 (DB 추가 후 수정 필요)
+// 포인트 입력 이벤트
 $(document).on('blur', '#_point', function () {
-    let chkNum = /^[0-9]+$/;
-    let myPoint = $('#myPoint').text().replace(/[^0-9]/g, '');
-    if(chkNum.test($(this).val())) {
-        if(parseInt($(this).val())> parseInt(myPoint)) {
-            $(this).val('');
-        } else {
-            $('#myPoint').text(makeComma(parseInt(myPoint) - parseInt($(this).val())) + 'p');
-        }        
-    }else {
-        $(this).val('');           
-    }
-    $('#sideUsePoint').text($('#_point').val() + '원');
+    usePoint($(this).val());
 });
+
+
+
+
+// 포인트 사용
+function usePoint(pointCount) {
+    let chkNum = /^[0-9]+$/;
+    if (chkNum.test(pointCount)) {    // 숫자형식으로 들어왔는지
+        if (parseInt(pointCount) > parseInt(myPoint)) {    // 내가 가진 포인트보다 많이 입력했을 때
+            alert('보유 포인트보다 많습니다.');
+            $('#_point').val('');
+            $('#myPoint').text(makeComma(myPoint) + 'p');
+        }
+        else if (parseInt(pointCount) > parseInt($('#orderPrice').text().replace(/[^0-9]/g, ''))) {  // 주문금액보다 포인트 많이 입력했을 때
+            alert('주문 금액보다 많습니다.');
+            $('#_point').val('');
+            $('#myPoint').text(makeComma(myPoint) + 'p');
+        }
+        else {
+            $('#_point').val(pointCount);
+            $('#myPoint').text(makeComma(myPoint - parseInt(pointCount)) + 'p');
+        }
+    }
+    else if (pointCount == '') {
+        $('#myPoint').text(makeComma(myPoint) + 'p');
+    }
+    else {
+        $('#_point').val('');
+        $('#myPoint').text(makeComma(myPoint) + 'p');
+    }
+    $('#sideUsePoint').text(makeComma($('#_point').val()) + ' 원');
+    totalPrice();
+}
+
+
+
+// 주문금액, 적립포인트 계산 및 표기
+function totalPrice() {
+    let itemLength = $('div[name="_item"]').length;
+    let item_price = 0;
+    for (let i = 1; i <= itemLength; i++) {
+        item_price += parseInt($('#itemPrice_' + i).val());
+        };
+
+    $('#allItemPrice').text(makeComma(item_price));
+    $('#sideTotalPrice').text(makeComma(item_price) + ' 원');
+
+    if (item_price >= 50000) {
+        $('#deliveryCharge').text("무료");
+        $('#orderPrice').text(makeComma(item_price) + '원');
+        $('#sideDeliveryCharge').text("무료");
+        $('#sideGetPoints').text(makeComma(item_price*0.01)+' p');
+        $('#sideResultPrice').text(makeComma(item_price - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원'); //포인트 차감
+        $('#sidePaymentBtn').text(makeComma(item_price - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원 결제하기'); //포인트 차감
+    } else {
+        $('#deliveryCharge').text("2,500원");
+        $('#orderPrice').text(makeComma(item_price + 2500) + '원');
+        $('#sideDeliveryCharge').text("2,500원");
+        $('#sideGetPoints').text(makeComma(item_price * 0.01) + ' p');
+        $('#sideResultPrice').text(makeComma(item_price + 2500 - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원'); //포인트 차감
+        $('#sidePaymentBtn').text(makeComma(item_price + 2500 - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원 결제하기'); //포인트 차감
+    }
+};
+
+
 
 
 
@@ -864,6 +966,81 @@ app.post("/payments/complete", async (req, res) => {
     }
 });
 */
+
+
+
+
+// 구매물품 장바구니 리스트 가져오기
+/*
+getPaymentList()
+function getPaymentList() {
+    $.ajax({
+        url: "http://192.168.0.231:3000/getPaymentList",
+        type: "get",
+        data: {
+            "cartClassify": "CT-" + sessionId.userSeq
+        },
+        success: function (data) {
+            console.log(data);
+            $('#itemCount').text(itemCount + '개');
+            $('#selectItem').text(selectItem);
+            $('#itemTitle').text(data.productName);
+            $('#itemMaker').text(data.productMaker);
+            $('#itemImg').attr('src', 'http://192.168.0.231:3000/upload/' + data.productFileName);
+
+            if (data.productDiscount != 0) { // 할인상품이라면,
+
+                $('#itemPrice').text(makeComma(data.productDiscount * itemCount) + '원');
+                $('#allItemPrice').text(makeComma(data.productDiscount * itemCount) + '원');
+                $('#sideTotalPrice').text(makeComma(data.productDiscount * itemCount) + '원');
+                $('#sideGetPoints').text(makeComma(data.productDiscount * itemCount * 0.01) + 'p');
+                //50000원 이상 무료배송
+                if (data.productDiscount * itemCount >= 50000) {
+                    $('#deliveryCharge').text('무료');
+                    $('#sideDeliveryCharge').text('무료');
+                    $('#orderPrice').text(makeComma(data.productDiscount * itemCount) + '원');
+                    $('#sideResultPrice').text(makeComma(data.productDiscount * itemCount) + '원');
+                    $('#sidePaymentBtn').text(makeComma(data.productDiscount * itemCount) + '원 결제하기');
+                } else {
+                    $('#deliveryCharge').text('2,500원');
+                    $('#sideDeliveryCharge').text('2,500원');
+                    $('#orderPrice').text(makeComma(data.productDiscount * itemCount + 2500) + '원');
+                    $('#sideResultPrice').text(makeComma(data.productDiscount * itemCount + 2500) + '원');
+                    $('#sidePaymentBtn').text(makeComma(data.productDiscount * itemCount + 2500) + '원 결제하기');
+                }
+
+            } else {
+
+                $('#itemPrice').text(makeComma(data.productPrice * itemCount) + '원');
+                $('#allItemPrice').text(makeComma(data.productPrice * itemCount) + '원');
+                $('#sideTotalPrice').text(makeComma(data.productPrice * itemCount) + '원');
+                $('#sideGetPoints').text(makeComma(data.productPrice * itemCount * 0.01) + 'p');
+                //50000원 이상 무료배송
+                if (data.productDiscount * itemCount >= 50000) {
+                    $('#deliveryCharge').text('무료');
+                    $('#sideDeliveryCharge').text('무료');
+                    $('#orderPrice').text(makeComma(data.productPrice * itemCount) + '원');
+                    $('#sideResultPrice').text(makeComma(data.productPrice * itemCount) + '원');
+                    $('#sidePaymentBtn').text(makeComma(data.productPrice * itemCount) + '원 결제하기');
+                } else {
+                    $('#deliveryCharge').text('2,500원');
+                    $('#sideDeliveryCharge').text('2,500원');
+                    $('#orderPrice').text(makeComma(data.productPrice * itemCount + 2500) + '원');
+                    $('#sideResultPrice').text(makeComma(data.productPrice * itemCount + 2500) + '원');
+                    $('#sidePaymentBtn').text(makeComma(data.productPrice * itemCount + 2500) + '원 결제하기');
+                }
+
+            };
+
+        },
+        error: function () {
+            alert('getPaymentList() error');
+        }
+    });
+};
+*/
+
+
 </script>
 
 </html>
