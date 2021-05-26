@@ -1,5 +1,6 @@
 .metadata/
 .mvn/
+bin/
 target/
 .settings/
 .classpath
