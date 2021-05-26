@@ -52,6 +52,36 @@
         margin: 1%;
         color: #757575;
     }
+
+    button{
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+      
+    }
+
+    .eventBtn {
+      background-color: white; 
+      color: coral; 
+      border: 2px solid coral;
+      font-weight: bold;
+      border-radius: 10px;
+    }
+
+    .eventBtn:hover {
+      background-color: coral;
+      color: white;
+      border-radius: 10px;
+    }
+
+    
 </style>
 <body>
     <header include-html="../commons/header.html"></header>
@@ -62,6 +92,14 @@
         <div class="col-xl-2"></div>
         
         <div class="col-xl-8">
+
+            <!-- 관리자만 보이게.. 설정할 것 -->
+            <div align='right' style="margin: 2%;" onclick="goEventWrite()">
+            <button class="eventBtn">이벤트 등록</button>
+            </div>
+
+
+
             <!-- 이벤트 썸네일 div -->
             <div  class="boxbox">
                 <div class='hoverimg'>
@@ -148,5 +186,11 @@
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
+
+<script>
+    function goEventWrite(){
+        location.href='eventWrite.html';
+    }
+</script>
 
 </html>
