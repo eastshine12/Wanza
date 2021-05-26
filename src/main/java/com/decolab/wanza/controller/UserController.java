@@ -36,6 +36,14 @@ public class UserController {
 	}
 	
 	
+	@RequestMapping(value = "/getUserInfo", method = {RequestMethod.GET,RequestMethod.POST})
+	public UserDTO getUserInfo(int userSeq) {
+		System.out.println("UserController getUserInfo() " + new Date() );
+		
+		return service.getUserInfo(userSeq);
+	}
+	
+	
 	
 	
 }

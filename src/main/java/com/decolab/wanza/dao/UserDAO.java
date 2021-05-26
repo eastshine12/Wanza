@@ -12,6 +12,8 @@ public interface UserDAO {
 	public int addUser(UserDTO dto);
 	
 	public UserDTO login(UserDTO dto);
+	
+	public UserDTO getUserInfo(int userSeq);
 
 	
 }

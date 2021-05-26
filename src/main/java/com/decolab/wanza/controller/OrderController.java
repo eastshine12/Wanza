@@ -1,6 +1,5 @@
 package com.decolab.wanza.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -58,26 +57,42 @@ public class OrderController {
 	}
 	
 	
-	@RequestMapping(value = "/checkedCart", method = {RequestMethod.GET,RequestMethod.POST})
-	public String checkedCart(CartDTO dto) {
-		System.out.println("OrderController checkedCart() " + new Date());		
+
+	@RequestMapping(value = "/goPayment", method = {RequestMethod.GET,RequestMethod.POST})
+	public String goPayment(CartDTO dto, @RequestParam(value="productSeqArr[]") int[] sArr,
+			 @RequestParam(value="productQuantity[]") int[] qArr) {
+		System.out.println("OrderController goPayment() " + new Date());
+		System.out.println(Arrays.toString(sArr));
+		System.out.println(Arrays.toString(qArr));
 		
-		return service.checkedCart(dto)>0?"suc":"err";
+		boolean b = false;
+		List<CartDTO> list = service.getCartList(dto);
+		
+		for(CartDTO c : list) {
+			System.out.println(c.toString());
+			int index = -1;
+			for(int s : sArr) {
+				index++;
+				if(c.getProductSeq() == s) {	// 체크되어있다면
+					service.checkedIn(c);	// 분류번호변경(1)
+					c.setQuantity(qArr[index]);
+					service.changeQuantity(c);	//수량변경
+					b = true;
+					break;
+				} else {	//체크안된 상품은
+					service.checkedOut(c);	// 분류번호변경(0)
+				};			
+			};
+		};		
+		return b==true?"suc":"err";
 	}
 	
 	
-	@RequestMapping(value = "/goPayment", method = {RequestMethod.GET,RequestMethod.POST})
-	public String goPayment(CartDTO dto, @RequestParam(value="productSeqArr[]") int[] arr) {
-		System.out.println("OrderController goPayment() " + new Date());	
-		System.out.println(Arrays.toString(arr));
-		boolean b = false;
-		for(int i : arr) {
-			dto.setProductSeq(i);
-			service.checkedCart(dto);
-			b = true;
-		};
+	@RequestMapping(value = "/getPaymentList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<CartDTO> getPaymentList(CartDTO dto) {
+		System.out.println("OrderController getPaymentList() " + new Date());		
 		
-		return b==true?"suc":"err";
+		return service.getPaymentList(dto);
 	}
 	
 	

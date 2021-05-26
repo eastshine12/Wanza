@@ -36,8 +36,21 @@ public class OrderService {
 		return dao.deleteCart(dto);
 	}
 	
-	public int checkedCart(CartDTO dto) {
-		return dao.checkedCart(dto);
+	public int checkedIn(CartDTO dto) {
+		return dao.checkedIn(dto);
+	}
+	
+	public int checkedOut(CartDTO dto) {
+		return dao.checkedOut(dto);
+	}
+	
+	public int changeQuantity(CartDTO dto) {
+		return dao.changeQuantity(dto);
+	}
+	
+	
+	public List<CartDTO> getPaymentList(CartDTO dto) {
+		return dao.getPaymentList(dto);
 	}
 	
 }

@@ -2,7 +2,6 @@ package com.decolab.wanza.controller;
 
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
