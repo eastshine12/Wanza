@@ -16,7 +16,7 @@
 
 <insert id="addUser" parameterType="com.decolab.wanza.dto.UserDTO">
 	INSERT INTO USERS(USERSEQ, EMAIL, PWD, NICKNAME, PROFILENAME, PHONE, AUTH, MILEAGE, DEFAULTADDRESS)
-	VALUES(SEQ_USER.NEXTVAL, #{email}, #{pwd}, #{nickname}, 0, #{phone}, 0, 0, 0)
+	VALUES(SEQ_USER.NEXTVAL, #{email}, #{pwd}, #{nickname}, 0, #{phone}, 0, 40000, 0)
 </insert>
   
   
@@ -25,6 +25,13 @@
 	FROM USERS
 	WHERE EMAIL=#{email} AND PWD=#{pwd}
 </select>  
+
+<select id="getUserInfo" parameterType="int" resultType="com.decolab.wanza.dto.UserDTO">
+	SELECT USERSEQ, EMAIL, NICKNAME, PROFILENAME, PHONE, MILEAGE, DEFAULTADDRESS
+	FROM USERS
+	WHERE USERSEQ=#{userSeq}
+</select>
+
   
   
 </mapper>

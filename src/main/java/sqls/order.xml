@@ -18,7 +18,7 @@
 <select id="checkCart" parameterType="com.decolab.wanza.dto.CartDTO" resultType="int">
 	SELECT NVL(COUNT(*),0)
 	FROM CART
-	WHERE PRODUCTSEQ=#{productSeq} AND CARTSTATUS IN (0,1)
+	WHERE USERSEQ=#{userSeq} AND PRODUCTSEQ=#{productSeq} AND CARTSTATUS IN (0,1)
 </select>
 
 
@@ -40,11 +40,35 @@
 
 
 <!-- 장바구니 분류번호 1 변경  -->
-<update id="checkedCart" parameterType="com.decolab.wanza.dto.CartDTO">
+<update id="checkedIn" parameterType="com.decolab.wanza.dto.CartDTO">
 	UPDATE CART
 	SET CARTSTATUS=1
 	WHERE CARTCLASSIFY=#{cartClassify} AND PRODUCTSEQ=#{productSeq}
 </update>
+
+<!-- 장바구니 분류번호 0 변경  -->
+<update id="checkedOut" parameterType="com.decolab.wanza.dto.CartDTO">
+	UPDATE CART
+	SET CARTSTATUS=0
+	WHERE CARTCLASSIFY=#{cartClassify} AND PRODUCTSEQ=#{productSeq}
+</update>
+
+<!-- 장바구니에서 수량 변경  -->
+<update id="changeQuantity" parameterType="com.decolab.wanza.dto.CartDTO">
+	UPDATE CART
+	SET QUANTITY=#{quantity}
+	WHERE CARTCLASSIFY=#{cartClassify} AND PRODUCTSEQ=#{productSeq}
+</update>
+
+
+<!-- 결제페이지 장바구니 리스트 가져오기 -->
+<select id="getPaymentList" resultType="com.decolab.wanza.dto.CartDTO">
+	SELECT CARTCLASSIFY, C.USERSEQ, C.PRODUCTSEQ, SELECTOPTION, QUANTITY, PRICE, CARTDATE, CARTSTATUS,
+        P.PRODUCTNAME, P.PRODUCTMAKER, P.PRODUCTFILENAME
+	FROM CART C, PRODUCTIONS P
+	WHERE C.PRODUCTSEQ=P.PRODUCTSEQ AND CARTCLASSIFY=#{cartClassify} AND CARTSTATUS=1
+	ORDER BY CARTDATE ASC
+</select>
 
 
 

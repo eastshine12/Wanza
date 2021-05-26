@@ -1,4 +1,4 @@
------------ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½---------------
+-----------À¯Àú Å×ÀÌºí---------------
 
 DROP TABLE USERS
 CASCADE CONSTRAINTS;
@@ -24,7 +24,14 @@ INCREMENT BY 1;
 COMMIT;
 
 
---------ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½--------------------
+SELECT USERSEQ, EMAIL, NICKNAME, PROFILENAME, PHONE, MILEAGE, DEFAULTADDRESS
+FROM USERS
+WHERE USERSEQ=2;
+
+
+
+
+--------°Ë»ö¾î Å×ÀÌºí--------------------
 
 
 DROP TABLE SEARCH_HISTORY
@@ -45,7 +52,7 @@ INCREMENT BY 1;
 COMMIT;
 
 
-------ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½----------------
+------À¯Àú ¹è¼ÛÁö Å×ÀÌºí----------------
 
 DROP TABLE ADDRESS
 CASCADE CONSTRAINTS;
@@ -61,7 +68,7 @@ CREATE TABLE ADDRESS(
 );
 
 
-------ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½-----------------
+------Àå¹Ù±¸´Ï Å×ÀÌºí-----------------
 
 DROP TABLE CART
 CASCADE CONSTRAINTS;
@@ -109,7 +116,7 @@ WHERE CARTCLASSIFY='CT-5' AND PRODUCTSEQ=3;
 COMMIT;
 
 
-------- ï¿½Ö¹ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ --------------------
+------- ÁÖ¹® Å×ÀÌºí --------------------
 
 DROP TABLE ORDERS
 CASCADE CONSTRAINTS;
@@ -141,7 +148,7 @@ ADD CONSTRAINT FK_ORDER_ADDRESSSEQ FOREIGN KEY(ADDRESSSEQ)
 REFERENCES ADDRESS(ADDRESSSEQ);
 
 
-------ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ -------------------
+------±¸¸Å »óÇ° ¸ñ·Ï Å×ÀÌºí -------------------
 
 
 DROP TABLE PURCHASE_PRODUCT
@@ -178,7 +185,7 @@ REFERENCES USERS(USERSEQ);
 
 
 
-----------ï¿½ï¿½ï¿½ä¸® ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½Ìºï¿½-----------------
+----------½ºÅä¸® °Ô½Ã±Û Å×ÀÌºí-----------------
 
 DROP TABLE CARD_COLLECTIONS
 CASCADE CONSTRAINTS;
@@ -201,10 +208,10 @@ START WITH 1
 INCREMENT BY 1;
 
 
-INSERT INTO CARD_COLLECTIONS  VALUES (SEQ_CARD.NEXTVAL, 'ï¿½×½ï¿½Æ®1', 'ï¿½×½ï¿½Æ®ï¿½ï¿½1', 1, 0, SYSDATE, '123.jpg', 0);
+INSERT INTO CARD_COLLECTIONS  VALUES (SEQ_CARD.NEXTVAL, '????1', '??????1', 1, 0, SYSDATE, '123.jpg', 0);
 commit;
 
------------ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½Æ¿ï¿½ ï¿½ï¿½ï¿½Ìºï¿½---------------
+-----------½ºÅä¸® ÁÁ¾Æ¿ä Å×ÀÌºí---------------
 
 DROP TABLE CARD_FAVORITE
 CASCADE CONSTRAINTS;
@@ -224,7 +231,7 @@ REFERENCES CARD_COLLECTIONS(CARDSEQ);
 
 
 
------------ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½---------------
+-----------½ºÅä¸® ´ñ±Û Å×ÀÌºí---------------
 
 
 DROP TABLE CARD_REVIEW
@@ -247,19 +254,19 @@ INCREMENT BY 1;
 
 
 INSERT INTO CARD_REVIEW
-VALUES (SEQ_REVIEW_CARD.NEXTVAL, 4, 'nickname1', 'Ä§ï¿½ï¿½ ï¿½ï¿½ð²«°ï¿½ï¿½ï¿½??', 
+VALUES (SEQ_REVIEW_CARD.NEXTVAL, 4, 'nickname1', '©¤?? ????????', 
         SYSDATE, 0);
 INSERT INTO CARD_REVIEW
-VALUES (SEQ_REVIEW_CARD.NEXTVAL, 4, 'nickname2', 'ï¿½Ê¹ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½', 
+VALUES (SEQ_REVIEW_CARD.NEXTVAL, 4, 'nickname2', '??? ?????', 
         SYSDATE, 0);
 INSERT INTO CARD_REVIEW
-VALUES (SEQ_REVIEW_CARD.NEXTVAL, 4, 'nickname3', 'ï¿½ï¿½ï¿½', 
+VALUES (SEQ_REVIEW_CARD.NEXTVAL, 4, 'nickname3', '???', 
         SYSDATE, 0);
         INSERT INTO CARD_REVIEW
-VALUES (SEQ_REVIEW_CARD.NEXTVAL, 4, 'nickname4', 'ï¿½ß²Ù¸ï¿½ï¿½', 
+VALUES (SEQ_REVIEW_CARD.NEXTVAL, 4, 'nickname4', '?????', 
         SYSDATE, 0);
         INSERT INTO CARD_REVIEW
-VALUES (SEQ_REVIEW_CARD.NEXTVAL, 4, 'nickname5', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×½ï¿½Æ®', 
+VALUES (SEQ_REVIEW_CARD.NEXTVAL, 4, 'nickname5', '??????????', 
         SYSDATE, 0);
 
 COMMIT;
@@ -268,7 +275,7 @@ SELECT CARDREVSEQ, CARDSEQ, NICKNAME, CARDREVCONTENT, CARDREVDATE, CARDREVDEL
 FROM (SELECT ROW_NUMBER()OVER(ORDER BY CARDREVSEQ DESC) AS RNUM, CARDREVSEQ, CARDSEQ, NICKNAME, CARDREVCONTENT, CARDREVDATE, CARDREVDEL FROM CARD_REVIEW)	
 WHERE CARDSEQ=1 AND RNUM>=1 AND RNUM<=4;
 
------------ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ ï¿½Â±ï¿½ ï¿½ï¿½ï¿½Ìºï¿½---------------
+-----------½ºÅä¸® ±Û ÅÂ±× Å×ÀÌºí---------------
 
 DROP TABLE CARD_TAG
 CASCADE CONSTRAINTS;
@@ -282,7 +289,7 @@ CREATE TABLE CARD_TAG(
     REFERENCES CARD_COLLECTIONS(CARDSEQ)
 );
 
------------ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½Ìºï¿½---------------
+-----------½ºÅä¸® »çÁø ÁÂÇ¥ Å×ÀÌºí---------------
 
 DROP TABLE CARD_COORDINATES
 CASCADE CONSTRAINTS;
@@ -311,7 +318,7 @@ GROUP BY CARDSEQ;
 
 
 
--------ï¿½ï¿½Ç° ï¿½ï¿½ï¿½Ìºï¿½------------------------
+-------»óÇ° Å×ÀÌºí------------------------
 
 
 DROP TABLE PRODUCTIONS
@@ -335,13 +342,13 @@ START WITH 1
 INCREMENT BY 1;
 
 INSERT INTO PRODUCTIONS(PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING)
-VALUES (SEQ_PRODUCT.NEXTVAL, 'OFFICY ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4.1ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', '78900', '38900', 'ï¿½ï¿½ï¿½É¾ï¿½', 'product1.jpg', 4.1);
+VALUES (SEQ_PRODUCT.NEXTVAL, 'OFFICY ?????? 4.1??', '???? ????', '78900', '38900', '?????', 'product1.jpg', 4.1);
 
 INSERT INTO PRODUCTIONS(PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING)
-VALUES (SEQ_PRODUCT.NEXTVAL, 'LED USB ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', '11000', null, 'ï¿½ï¿½ï¿½É¾ï¿½', 'product2.jpg', 4.4);
+VALUES (SEQ_PRODUCT.NEXTVAL, 'LED USB ?????? ?©ª???', '???? ????', '11000', null, '?????', 'product2.jpg', 4.4);
 
 INSERT INTO PRODUCTIONS(PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING)
-VALUES (SEQ_PRODUCT.NEXTVAL, 'ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3/4/5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 69900, 39900, 'ï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½', 'product3.png', 4.4);
+VALUES (SEQ_PRODUCT.NEXTVAL, '??? ?????? 3/4/5?? ??????', '???? ????', 69900, 39900, '????????', 'product3.png', 4.4);
 
 COMMIT;
 
@@ -355,7 +362,7 @@ SELECT PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, P
 FROM PRODUCTIONS
 WHERE PRODUCTSEQ=1;
 
-------ï¿½ï¿½Ç° ï¿½É¼ï¿½ ï¿½ï¿½ï¿½Ìºï¿½----------------------
+------»óÇ° ¿É¼Ç Å×ÀÌºí----------------------
 
 DROP TABLE PRODUCTION_OPTION
 CASCADE CONSTRAINTS;
@@ -370,7 +377,7 @@ CREATE TABLE PRODUCTION_OPTION(
 );
 
 
-------ï¿½ï¿½Ç° ï¿½Â±ï¿½ ï¿½ï¿½ï¿½Ìºï¿½---------------------
+------»óÇ° ÅÂ±× Å×ÀÌºí---------------------
 
 DROP TABLE PRODUCTION_TAG
 CASCADE CONSTRAINTS;
@@ -385,7 +392,7 @@ CREATE TABLE PRODUCTION_TAG(
 
 
 
--------ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½-----------------------------
+-------»óÇ° ¸®ºä Å×ÀÌºí-----------------------------
 
 DROP TABLE PRODUCTION_REVIEW
 CASCADE CONSTRAINTS;
@@ -421,7 +428,7 @@ REFERENCES PURCHASE_PRODUCT(PURCHASESEQ);
 
 
 
------ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½-----------------
+-----»óÇ° ¹®ÀÇ Å×ÀÌºí-----------------
 
 
 DROP TABLE PRODUCTION_QUESTION
@@ -517,5 +524,4 @@ CREATE TABLE QUESTION(
 CREATE SEQUENCE SEQ_QUESTION
 START WITH 1
 INCREMENT BY 1;
-
 
