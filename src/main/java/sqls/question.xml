@@ -7,9 +7,18 @@
 
 	<!-- 질문과답변 전체 목록 가져오기 -->
 	<select id="getAllQuestionList" resultType="com.decolab.wanza.dto.QuestionDTO">
-		SELECT QUESTIONSEQ, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONREADCOUNT, QUESTIONREGDATE, QUESTIONFILENAME, QUESTIONDEL FROM QUESTION
+		SELECT QUESTIONSEQ, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONREADCOUNT, QUESTIONREGDATE, QUESTIONFILENAME, QUESTIONDEL 
+		FROM QUESTION
+		ORDER BY QUESTIONSEQ DESC
 		<!-- ORDER BY QUESTIONSEQ DESC -->
 	</select>
+	
+	<!-- 질문과답변 글쓰기 -->
+	<insert id="questionWrite" parameterType="com.decolab.wanza.dto.QuestionDTO">
+		INSERT INTO QUESTION
+		VALUES(QUESTIONSEQ.NEXTVAL, #{userSeq}, #{questionTitle}, #{questionContent}, 0, SYSDATE, #{questionFileName}, 0, 0, 0, 0)
+	</insert>
+	
 	
 	<!-- 질문과답변 목록 가져오기 -->
 	<!-- <select id="getQuestionList" resultType="com.decolab.wanza.dto.QuestionDTO">
