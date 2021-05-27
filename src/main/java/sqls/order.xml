@@ -71,5 +71,32 @@
 </select>
 
 
+<!-- 신규 주소지 추가 -->
+<insert id="addAddress" parameterType="com.decolab.wanza.dto.AddressDTO">
+	INSERT INTO ADDRESS
+	VALUES(SEQ_ADDRESS.NEXTVAL,#{userSeq},#{addressName},#{address},#{receiveUser},#{receivePhone})
+</insert>
+
+
+<!-- 나의 주소지 리스트 -->
+<select id="getAddressList" parameterType="com.decolab.wanza.dto.AddressDTO" resultType="com.decolab.wanza.dto.AddressDTO">
+	SELECT A.ADDRESSSEQ, A.USERSEQ, A.ADDRESSNAME, A.ADDRESS, A.RECEIVEUSER, A.RECEIVEPHONE, U.DEFAULTADDRESS
+	FROM ADDRESS A, USERS U
+	WHERE A.USERSEQ=U.USERSEQ AND A.USERSEQ=#{userSeq}
+	ORDER BY ADDRESSSEQ ASC
+</select>
+
+
+
+<!-- 기본 주소지 설정 -->
+<update id="updateDefaultAddress" parameterType="com.decolab.wanza.dto.AddressDTO">
+	UPDATE USERS
+	SET DEFAULTADDRESS=#{defaultAddress}
+	WHERE USERSEQ=#{userSeq}
+</update>
+
+
+
+
 
 </mapper>

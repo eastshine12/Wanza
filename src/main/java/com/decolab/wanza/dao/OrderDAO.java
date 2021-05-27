@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.decolab.wanza.dto.AddressDTO;
 import com.decolab.wanza.dto.CartDTO;
 
 
@@ -28,5 +29,10 @@ public interface OrderDAO {
 
 	public List<CartDTO> getPaymentList(CartDTO dto);
 
+	public int addAddress(AddressDTO dto);
+	
+	public List<AddressDTO> getAddressList(AddressDTO dto);
+	
+	public int updateDefaultAddress(AddressDTO dto);
 	
 }

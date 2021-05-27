@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.decolab.wanza.dao.OrderDAO;
+import com.decolab.wanza.dto.AddressDTO;
 import com.decolab.wanza.dto.CartDTO;
+import com.decolab.wanza.dto.UserDTO;
 
 
 
@@ -48,9 +50,21 @@ public class OrderService {
 		return dao.changeQuantity(dto);
 	}
 	
-	
 	public List<CartDTO> getPaymentList(CartDTO dto) {
 		return dao.getPaymentList(dto);
 	}
+	
+	public int addAddress(AddressDTO dto) {		
+		return dao.addAddress(dto);
+	}
+	
+	public List<AddressDTO> getAddressList(AddressDTO dto){
+		return dao.getAddressList(dto);
+	}
+	
+	public int updateDefaultAddress(AddressDTO dto) {
+		return dao.updateDefaultAddress(dto);
+	}
+	
 	
 }

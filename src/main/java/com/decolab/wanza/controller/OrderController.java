@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.decolab.wanza.dto.AddressDTO;
 import com.decolab.wanza.dto.CartDTO;
 import com.decolab.wanza.service.OrderService;
 
@@ -94,6 +95,29 @@ public class OrderController {
 		
 		return service.getPaymentList(dto);
 	}
+	
+	
+	@RequestMapping(value = "/addAddress", method = {RequestMethod.GET,RequestMethod.POST})
+	public String addAddress(AddressDTO dto) {
+		System.out.println("OrderController addAddress() " + new Date());		
+		
+		return service.addAddress(dto)>0?"suc":"err";
+	}
+	
+	@RequestMapping(value = "/getAddressList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<AddressDTO> getAddressList(AddressDTO dto) {
+		System.out.println("OrderController getAddressList() " + new Date());		
+		
+		return service.getAddressList(dto);
+	}
+	
+	@RequestMapping(value = "/updateDefaultAddress", method = {RequestMethod.GET,RequestMethod.POST})
+	public String updateDefaultAddress(AddressDTO dto) {
+		System.out.println("OrderController updateDefaultAddress() " + new Date());		
+		
+		return service.updateDefaultAddress(dto)>0?"suc":"err";
+	}
+	
 	
 	
 	
