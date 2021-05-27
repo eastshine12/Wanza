@@ -12,4 +12,6 @@ import com.decolab.wanza.dto.QuestionDTO;
 public interface QuestionDAO {
 	
 	public List<QuestionDTO> getAllQuestionList();
+	
+	public int questionWrite(QuestionDTO dto);
 }

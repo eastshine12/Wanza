@@ -19,5 +19,9 @@ public class QuestionService {
 	public List<QuestionDTO> getAllQuestionList() {
 		return dao.getAllQuestionList();
 	}
+	
+	public int questionWrite(QuestionDTO dto) {
+		return dao.questionWrite(dto);
+	}
 
 }
