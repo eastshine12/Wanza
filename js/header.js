@@ -149,7 +149,7 @@ $(document).ready(function() {
                         +"</tr>";
 
                 });
-                console.log(app)
+                //console.log(app)
                 $("#_realTime").append(app);
                 app2 +="<tr>"
                     +"<td id='closeSearch' colspan='2' style='text-align:center; cursor: pointer; color:#757575; font-size:13px' >닫기</td>"
@@ -157,7 +157,7 @@ $(document).ready(function() {
                      +"</table>"
                      +"</div>";
                 $("#hotIssue").after(app2);
-                console.log(app)
+                //console.log(app)
                 
             },
             error:function(){

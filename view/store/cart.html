@@ -200,7 +200,7 @@
                 
             <div class="cart-item-footer" style="background-color: #EAEAEC; margin: auto;padding-top: 25px;padding-bottom: 25px; text-align: right; " >
                 <div class="cart-item-footer-body">
-                    <h5>상품금액 <span id="itemPrice">0</span>원 &nbsp; + &nbsp; 배송비 <span id="deliveryPrice">2,500원</span> &nbsp; = &nbsp; <b style="font-size: 25px;">주문금액&nbsp;&nbsp;<span id="totalPrice">0원</span></b></h5>
+                    <h5>상품금액 <span id="itemPrice">0</span>원 &nbsp; + &nbsp; 배송비 <span id="deliveryPrice">0원</span> &nbsp; = &nbsp; <b style="font-size: 25px;">주문금액&nbsp;&nbsp;<span id="totalPrice">0원</span></b></h5>
                 </div>
             </div>
 
@@ -324,28 +324,33 @@ function getCartList() {
 
 // 장바구니 아이템 삭제
 function deleteCart(productSeq) {
-    $.ajax({
-        url: "http://192.168.0.231:3000/deleteCart",
-        type: "get",
-        data: {
-            "cartClassify": "CT-" + sessionId.userSeq,
-            "productSeq": productSeq
-        },
-        success: function (data) {
-            console.log(data)
-            if (data == "suc") {
-                console.log('장바구니에서 삭제되었습니다.');
-                $('#listCart').children().remove();
-                getCartList();
-                
-            } else {
-                console.log('장바구니 삭제 실패');
+
+    if (confirm("해당 상품을 삭제하시겠습니까?") == true) {
+        $.ajax({
+            url: "http://192.168.0.231:3000/deleteCart",
+            type: "get",
+            data: {
+                "cartClassify": "CT-" + sessionId.userSeq,
+                "productSeq": productSeq
+            },
+            success: function (data) {
+                console.log(data)
+                if (data == "suc") {
+                    console.log('장바구니에서 삭제되었습니다.');
+                    $('#listCart').children().remove();
+                    getCartList();
+                    
+                } else {
+                    console.log('장바구니 삭제 실패');
+                }
+            },
+            error: function () {
+                alert('deleteCart() error');
             }
-        },
-        error: function () {
-            alert('deleteCart() error');
-        }
-    });
+        });
+    } else {
+        return;
+    }
 };
 
 // 체크박스 전체선택, 전체해제
@@ -353,9 +358,6 @@ $(document).on("click", "#checkbox-item-all", function () {
     $(this).parents(".container").find('input').prop("checked", $(this).is(":checked"));
     chkItem();
 });
-
-
-
 
 
 // 수량 -1
@@ -398,7 +400,12 @@ function chkItem() {
     if (item_price >= 50000) {
         $('#deliveryPrice').text("무료");
         $('#totalPrice').text(makeComma(item_price) + '원');
-    } else {
+    }
+    else if (item_price == 0) {
+        $('#deliveryPrice').text("0원");
+        $('#totalPrice').text('0 원');
+    } 
+    else {
         $('#deliveryPrice').text("2,500원");
         $('#totalPrice').text(makeComma(item_price + 2500) + '원');
     }
