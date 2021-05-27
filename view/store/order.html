@@ -178,6 +178,41 @@ select::-ms-expand{
     height: 0;
 }
 
+/* 기본 배송지 설정 버튼 */
+.defalutAddress_btn{
+    width: 170px;
+    height: 39px;
+    margin: 10px;
+    border-radius: 5px;
+    color: #f4744c;
+    border: 0.5px solid #f4744c;
+    background-color: transparent;
+    font: 1em bold;
+}
+.defalutAddress_btn:hover{
+    color: white;
+    background-color: #f4744c;
+    border: 0.5px solid #f4744c;
+}
+
+/* 기본 배송지 설정 버튼 */
+.addressSearchBtn{
+    width: 100px;
+    height: 39px;
+    margin: 10px 10px 60px 10px;
+    border-radius: 5px;
+    color: #f4744c;
+    border: 0.5px solid #f4744c;
+    background-color: transparent;
+    font: 1em bold;
+}
+.addressSearchBtn:hover{
+    color: white;
+    background-color: #f4744c;
+    border: 0.5px solid #f4744c;
+}
+
+
 /* 배송지 저장버튼 */
 .dlvy_btn{
     width: 40%;
@@ -388,11 +423,11 @@ select::-ms-expand{
                     <!-- 탭 -->
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#dlvy_select">배송지선택</a>
+                            <a id="nav-link-select" class="nav-link active" data-toggle="tab" href="#dlvy_select">배송지선택</a>
                             <div class="nav-line"></div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#dlvy_new">신규배송지</a>
+                            <a id="nav-link-new" class="nav-link" data-toggle="tab" href="#dlvy_new">신규배송지</a>
                             <div class="nav-line"></div>
                         </li>
                     </ul>
@@ -403,10 +438,9 @@ select::-ms-expand{
                                 <div class="order_subtitle">배송지 이름</div>
                                 <div class="order_content order_dlvy_name"><label for="_dlvy_name">
                                     <select name="dlvy_name" id="_dlvy_name">
-                                        <option value="0">집</option>
-                                        <option value="1">회사</option>
                                     </select></label><i class="fas fa-sort"></i>
                                 </div>
+                                <div><button type="button" class="defalutAddress_btn">기본 배송지로 설정</button></div>
                             </div>
                             <div class="row order_content_wrap dlvy">
                                 <div class="order_subtitle">주소</div>
@@ -421,17 +455,18 @@ select::-ms-expand{
                             </div>
                             <div class="row order_content_wrap">
                                 <div class="order_subtitle">연락처</div>
-                                <div class="order_content"><label for="_name"><input type="text" id="_name" name="rphone" value=""></label></div>
+                                <div class="order_content"><label for="_name"><input type="text" id="_rphone" name="rphone" value=""></label></div>
                             </div>
                             <div class="row order_content_wrap dlvy1">
                                 <div class="order_subtitle">요청사항</div>
                                 <div class="order_content dlvy_req">
                                     <div id="_dlvy_req3">
                                         <label for="_dlvy_req2">
-                                        <input type="text" id="_dlvy_req2" name="dlvy_req" placeholder="배송요청사항을 입력해주세요" value="">
+                                        <input type="text" id="_dlvy_req2" name="dlvy_req_free" placeholder="배송요청사항을 입력해주세요" value="">
                                         <div class="textlimit">0<span>/50</span></div></label>
                                     </div>
-                                    <label class="dlvy_req1" for="_dlvy_req1"><select name="dlvy_req" id="_dlvy_req1">
+                                    <label class="dlvy_req1" for="_dlvy_req1">
+                                    <select name="dlvy_req" id="_dlvy_req1">
                                         <option value="0">배송시 요청사항을 선택해주세요</option>
                                         <option value="1">부재시 문앞에 놓아두세요</option>
                                         <option value="2">배송전에 미리 연락주세요</option>
@@ -444,25 +479,28 @@ select::-ms-expand{
                         </div> <!--배송지 선택 끝-->
                         <!-- 신규배송지 -->
                         <div class="tab-pane" id="dlvy_new">
-                            <form action="" id="form_new_dlvy">
+                            <form id="form_new_dlvy">
                             <div class="row order_content_wrap">
                                 <div class="order_subtitle">배송지 이름</div>
-                                <div class="order_content"><label for="_name"><input type="text" id="_name" value=""></label></div>
+                                <div class="order_content"><label for="_name"><input type="text" id="receiveTitle" placeholder="ex) 집, 회사"></label></div>
                             </div>
                             <div class="row order_content_wrap dlvy">
                                 <div class="order_subtitle">주소</div>
                                 <div class="order_content dlvy_address">
-                                    <label for="_dlvy_address1"><input type="text" id="_dlvy_address1" value=""></label>
-                                    <label for="_dlvy_address2"><input type="text" id="_dlvy_address2" value=""></label>
+                                    <label for="_dlvy_address1"><input type="text" id="receiveAddress1" placeholder="주소"></label>
+                                    <label for="_dlvy_address2"><input type="text" id="receiveAddress2" placeholder="상세 주소"></label>
+                                </div>
+                                <div>
+                                    <input type="button" class="addressSearchBtn" onclick="execDaumPostcode()" value="주소 검색">
                                 </div>
                             </div>
                             <div class="row order_content_wrap">
                                 <div class="order_subtitle">받는사람</div>
-                                <div class="order_content"><label for="_name"><input type="text" id="_name" value=""></label></div>
+                                <div class="order_content"><label for="_name"><input type="text" id="receiveUser" placeholder="이름"></label></div>
                             </div>
                             <div class="row order_content_wrap">
                                 <div class="order_subtitle">연락처</div>
-                                <div class="order_content"><label for="_name"><input type="text" id="_name" value=""></label></div>
+                                <div class="order_content"><label for="_name"><input type="text" id="receivePhone" placeholder="휴대폰 번호"></label></div>
                             </div>
                             <button class="dlvy_btn" type="button">저 장</button>
                             </form>
@@ -525,7 +563,11 @@ select::-ms-expand{
                         </div>
                         <div><button class="point_btn" type="button">전액사용</button></div>
                     </div>
-                    <div class="row order_content_wrap">
+                    <div id="usePoint" class="row" style="margin: 0px;">
+                        <div class="order_subtitle">사용포인트</div>
+                        <div id="_usePoint" class="order_subtitle point">p</div>
+                    </div>
+                    <div class="row order_content_wrap" style="margin: 0px;">
                         <div class="order_subtitle">보유포인트</div>
                         <div id="myPoint" class="order_subtitle point">p</div>
                     </div>
@@ -590,6 +632,8 @@ select::-ms-expand{
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d9229def17f744d57603391f713d5651&libraries=services"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
@@ -639,6 +683,15 @@ $(document).ready(function() {
             $('#_dlvy_req3 input').focus();
         }else{
             $('#_dlvy_req3').hide();
+        }
+    });
+
+    $('#usePoint').hide(); //사용포인트 숨기기/펼치기
+    $("#_point").change(function () {
+        if($(this).val() > 0) {
+            $('#usePoint').show();
+        } else {
+            $('#usePoint').hide();
         }
     });
 
@@ -746,8 +799,10 @@ $(document).ready(function() {
             } else {
                 usePoint(myPoint);
             }
+            $('#usePoint').show();
         } else if($(this).removeClass('active')) {
             usePoint('empty');
+            $('#usePoint').hide();
         };
 
         $("input:radio[name='pay']").prop('checked',false);
@@ -769,7 +824,8 @@ $(document).ready(function() {
         console.log(method)
     });
 
-    $('.payment_btn').click(function(){ //결제버튼
+    // 결제버튼 클릭
+    $('.payment_btn').click(function(){
         let formorder1 =  decodeURIComponent($('#form_order').serialize());
         let formorder = formorder1.split('&');
         
@@ -786,6 +842,7 @@ $(document).ready(function() {
 
         if(method==''){
             alert('결제수단을 선택해주세요')
+            console.log(jdata);
         }else{
             requestPay(method,jdata); //아임포트 결제 실행
         }
@@ -851,8 +908,152 @@ $(document).ready(function() {
         });
     }
 
-    $('.dlvy_btn').click(function(){ //배송지 저장 버튼
-        let new_dlvy = $('#form_new_dlvy').serialize()
+
+
+
+    //유저 배송지 리스트 불러오기
+    let addressArray = new Array();
+    getAddressList();
+    function getAddressList() {
+        $.ajax({
+            url: "http://192.168.0.231:3000/getAddressList",
+            type: "post",
+            data: {
+                "userSeq": sessionId.userSeq
+            },
+            async:false,
+            success: function (list) {
+                console.log(list);
+
+                let app = ""
+                if (Object.keys(list).length == 0) {
+                    $('#dlvy_select').children().remove();
+                    app += '<div style="width: 1800px; margin:20px 0px;padding:0 20px;display: flex; align-items:center;">'
+                        + '<h3 style="font-size: 15px;">저장된 배송지가 없습니다. </h3>'
+                        + "</div>";
+                    $("#dlvy_select").append(app);
+                    $('#nav-link-select').attr('class','nav-link');
+                    $('#nav-link-new').attr('class','nav-link active');
+                    $('#dlvy_select').attr('class', 'tab-pane');
+                    $('#dlvy_new').attr('class', 'tab-pane fade show active');
+                } else {
+                    $('#_dlvy_name').children().remove();
+                    $.each(list, function (i, val) {
+                        app += '<option id="dlvy_name_op_'+(i+1)+'" name="_dlvy_name_op" value="'+val.addressSeq+'">'+val.addressName+'</option>'
+                        addressArray.push(val);
+                    });
+                    $('#_dlvy_name').append(app);
+                    
+                    if(list[0].defaultAddress != 0) {
+                        showAddress(list[0].defaultAddress);
+                    } else {
+                        showAddress(list[0].addressSeq);
+                    }
+                };      
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    };
+
+    // 배송지 이름 선택
+    $('#_dlvy_name').change(function() {
+        showAddress($(this).val());
+    });
+
+    // 주소지 입력값 넣기
+    function showAddress(num) {
+
+        let addressLength = $('option[name="_dlvy_name_op"]').length;
+        
+        for(let i=0; i<addressLength; i++) {
+            if(addressArray[i].addressSeq == num) {
+                let address = addressArray[i].address.split('///');
+                $('#_dlvy_name').val(addressArray[i].addressSeq).prop("selected", true);
+                $('#_dlvy_address1').val(address[0]);
+                $('#_dlvy_address2').val(address[1]);
+                $('#_rname').val(addressArray[i].receiveUser);
+                $('#_rphone').val(addressArray[i].receivePhone);
+                return;
+            }
+
+        };
+    }
+
+
+    //기본 배송지 설정 버튼
+    $('.defalutAddress_btn').click(function() {
+
+        let defaultAddress = $("#_dlvy_name option:selected").val();
+        if (confirm("기본 배송지로 등록하시겠습니까?") == true) {
+            $.ajax({
+                url: "http://192.168.0.231:3000/updateDefaultAddress",
+                type: "get",
+                data: {
+                    "userSeq": + sessionId.userSeq,
+                    "defaultAddress": defaultAddress
+                },
+                success: function (data) {
+                    console.log(data)
+                    if (data == "suc") {
+                        alert('기본 배송지로 설정되었습니다.');
+                    } else {
+                        alert('기본 배송지 설정 실패');
+                    }
+                    location.reload();
+                },
+                error: function () {
+                    alert('updateDefaultAddress error');
+                }
+            });
+        } else {
+            return;
+        }
+
+    });
+
+
+
+
+    //배송지 저장 버튼
+    $('.dlvy_btn').click(function(){ 
+        //let new_dlvy = $('#form_new_dlvy').serialize();
+        let receiveTitle = $('#receiveTitle').val();
+        let receiveAddress1 = $('#receiveAddress1').val();
+        let receiveAddress2 = $('#receiveAddress2').val();
+        let receiveUser = $('#receiveUser').val();
+        let receivePhone = $('#receivePhone').val();
+        if(receiveTitle == '' || receiveAddress1 == '' || receiveAddress2 == '' || receiveUser == '' || receivePhone == '') {
+            alert('해당 항목을 빠짐없이 기입해주세요.');
+            return;
+        }
+        $.ajax({
+            url: "http://192.168.0.231:3000/addAddress",
+            type: "post",
+            data: {
+                "userSeq": sessionId.userSeq,
+                "addressName": receiveTitle,
+                "address": receiveAddress1+"///"+receiveAddress2,
+                "receiveUser": receiveUser,
+                "receivePhone": receivePhone
+            },
+            success: function (data) {
+                console.log(data);
+                if(data == "suc") {
+                    //console.log('주소등록완료');
+                    alert('주소가 저장되었습니다.');
+                    
+                } else {
+                    console.log('주소등록실패');
+                }
+                location.reload();
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+        
         
     });
 });
@@ -874,11 +1075,13 @@ function usePoint(pointCount) {
         if (parseInt(pointCount) > parseInt(myPoint)) {    // 내가 가진 포인트보다 많이 입력했을 때
             alert('보유 포인트보다 많습니다.');
             $('#_point').val('');
+            $('#usePoint').hide();
             $('#myPoint').text(makeComma(myPoint) + 'p');
         }
         else if (parseInt(pointCount) > parseInt($('#orderPrice').text().replace(/[^0-9]/g, ''))) {  // 주문금액보다 포인트 많이 입력했을 때
             alert('주문 금액보다 많습니다.');
             $('#_point').val('');
+            $('#usePoint').hide();
             $('#myPoint').text(makeComma(myPoint) + 'p');
         }
         else {
@@ -894,6 +1097,7 @@ function usePoint(pointCount) {
         $('#myPoint').text(makeComma(myPoint) + 'p');
     }
     $('#sideUsePoint').text(makeComma($('#_point').val()) + ' 원');
+    $('#_usePoint').text(makeComma($('#_point').val()) + 'p');
     totalPrice();
 }
 
@@ -909,31 +1113,40 @@ function totalPrice() {
 
     $('#allItemPrice').text(makeComma(item_price));
     $('#sideTotalPrice').text(makeComma(item_price) + ' 원');
+    $('#sideGetPoints').text(makeComma(item_price * 0.01) + ' p');
 
     if (item_price >= 50000) {
         $('#deliveryCharge').text("무료");
+        $('#sideDeliveryCharge').text("무료");        
         $('#orderPrice').text(makeComma(item_price) + '원');
-        $('#sideDeliveryCharge').text("무료");
-        $('#sideGetPoints').text(makeComma(item_price*0.01)+' p');
         $('#sideResultPrice').text(makeComma(item_price - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원'); //포인트 차감
         $('#sidePaymentBtn').text(makeComma(item_price - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원 결제하기'); //포인트 차감
     } else {
         $('#deliveryCharge').text("2,500원");
-        $('#orderPrice').text(makeComma(item_price + 2500) + '원');
         $('#sideDeliveryCharge').text("2,500원");
-        $('#sideGetPoints').text(makeComma(item_price * 0.01) + ' p');
+        $('#orderPrice').text(makeComma(item_price + 2500) + '원');
         $('#sideResultPrice').text(makeComma(item_price + 2500 - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원'); //포인트 차감
         $('#sidePaymentBtn').text(makeComma(item_price + 2500 - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원 결제하기'); //포인트 차감
     }
 };
 
 
+//카카오 주소검색 API
+function execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function (data) {
+            var addr = data.address; // 최종 주소 변수
+            // 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("receiveAddress1").value = addr;
+        }
+    }).open();
+};
+
 
 
 
 /*
 app.use(bodyParser.json());
-  
 // "/payments/complete"에 대한 POST 요청을 처리
 app.post("/payments/complete", async (req, res) => {
     try {
