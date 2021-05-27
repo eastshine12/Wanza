@@ -13,6 +13,21 @@
         <link rel="stylesheet" href="../../css/summernote/font/summernote.eot">
         <!-- 써머노트 -->
     </head>
+    <style>
+        #eventWriteBtn{
+            margin-left: 15px;
+            background: rgb(244, 116, 76);
+            color: rgb(255,255,255);
+            width: 100%;
+            height: 50px;
+            margin: 10px;
+        }
+
+        input:read-only{
+            background-color: #e6e6e6;
+        }
+    </style>
+
 
 
 <body>
@@ -24,6 +39,18 @@
         <div class="col-xl-3"></div>
         
         <div class="col-xl-6">
+
+            <!-- 이벤트 기간 입력 -->
+        
+                <div class="form-group" style="width: 40%;">
+                    <input type="text" class="form-control" id="startdate" placeholder="이벤트 시작일을 입력해주세요 ex(2020/04/14)" >
+                </div>
+                    <span>~</span>
+                <div class="form-group" style="width: 40%;">
+                    <input type="text" class="form-control" id="enddate" placeholder="이벤트 종료일을 입력해주세요 ex(2020/04/15)" >               
+                </div>
+           
+
             <!-- 이벤트 제목 입력 -->
             <div class="form-group">
                 <input type="text" class="form-control" id="eventTitle" placeholder="이벤트 제목을 입력 해 주세요">               
@@ -40,7 +67,7 @@
             <div>
                 <textarea id="eventFile" class="summernote" name="editordata"></textarea>
             </div>
-            <!-- 관련상품 !!!!!@!@!@! -->
+            <!-- 관련상품 Radio Button -->
             <div style="margin-top: 10px;">
                 <span>관련 상품을 등록하시겠습니까 ?</span>
                 <div class="form-check-inline">
@@ -55,15 +82,24 @@
                 </div> 
             </div>
 
+           
+
+            <!-- 상품 이름 검색 -->
             <div id="productNameInput" class="form-group" style="margin-top: 10px;">
                 <input type="text" class="form-control" id="productName" placeholder="이름으로 검색해서 상품 찾아오기" onkeyup="if(window.event.keyCode==13){searchProduct()}" style="width: 50%;">               
             </div>
 
+            <!-- 상품 list up -->
+            <div class="row" style="text-align: center;" id="_productListUp">  
+                                     
+            </div>
 
+            
 
-
-
-
+             <!-- 글쓰기 완료 버튼 -->
+             <div class="row" style="margin-top: 50px;">
+                <button id="eventWriteBtn" class="btn" type="button" onclick="completeEvent()">이벤트 작성</button>
+            </div>
         </div>
 
 
@@ -82,13 +118,71 @@
 <script>
 
     function searchProduct(){
-        alert("엔터키 입력");
-        $("#productNameInput").after("dddd");
+        app ="";
+        $("#_productListUp").children().remove();
+        $.ajax({
+            url:"http://localhost:3000/getSearchProduct",
+            type:"get",
+            data:{productName:$("#productName").val()},
+            success:function(list){
+
+                if(list.length ==0){
+                    $("#_productListUp").append("<h3 style='text-align: center; margin-top: 50px;'>찾으시는 데이터가 없네영~</h3>" );
+                }else{
+                    $.each(list,function(i,val){
+                        app+="<div class='card' style='width: 22%; margin: 1%; padding: 3px;'>"
+                            +"<img class='card-img-top' src='http://localhost:3000/upload/"+val.productFileName+"' alt='Card image cap' width='110px' height='150px' style='object-fit: cover;'>"
+                            +"<div class='card-img-top'>"
+                            +"<h5 class='card-title'>"+val.productName+"</h5>"
+                            +"<p class='card-text'>"+val.productContent+"</p>"
+                            +"<button class='btn btn-primary' onclick='addProduct()'>product add</button>"
+                            +"</div>"
+                            +"</div>";
+
+                        
+                    })
+                    $("#_productListUp").append(app);
+                }
+                
+            },
+            error:function(){
+                alert("검색에러");
+            }
+
+
+        }) 
+        
     }
-  
+
+    
+    function completeEvent(){
+        alert("대충 이런식");
+    }
+
+    function addCancel(){
+        $(this).unwrap().remove();
+    }
+    
+    // Product add 버튼 클릭시 추가 된 상품 표시
+    function addProduct(){
+        alert("상품추가");
+        let app="";
+        app="<div class='input-group mb-3' style='width: 50%;' id='_addProduct'>"
+            +"<input type='text' class='form-control' readonly value='Product Name'>"
+            +"<div class='input-group-append'>"
+            +"<button class='btn btn-outline-secondary' type='button' onclick='addCancel(this)'><i class='fa fa-times' aria-hidden='true'></i></button>"
+            +"</div>"
+            +"</div>";
+        $("#productNameInput").after(app);
+    }
+
 
     $(document).ready(function() {
-    //여기 아래 부분
+
+    $("#productNameInput").hide();
+
+
+    //썸네일 서머노트
       $('#eventThumnail').summernote({
           height: 200,                 // 에디터 높이
           minHeight: 150,             // 최소 높이
@@ -106,6 +200,7 @@
         
 	  });
 
+    // 이벤 내용 서머노트
     $('#eventFile').summernote({
           height: 300,                 // 에디터 높이
           minHeight: 150,             // 최소 높이
@@ -122,7 +217,8 @@
 			    ],        
 	});
 
-    $("#productNameInput").hide();
+    
+
     // 라디오 버튼 '예' 클릭 시 상품 검색창을 띄움
     $("input:radio[name='optradio']").click(function(){
         var temp = $('input:radio[name="optradio"]:checked').val();
@@ -130,26 +226,16 @@
             $("#productNameInput").show();
 
         }else{
-            $("#productNameInput").hide();  
+            $("#productNameInput").hide();
+            $("#_productListUp").empty();
+            $("#productName").val("");            
+            $("#_addProduct").hide();
         }
     })
 
-    
 
 
-
-
-    
-    
-    
-
-
-
-
-    
-              
-    
-    });
+});
     
 </script>
 
