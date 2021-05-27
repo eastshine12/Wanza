@@ -95,6 +95,7 @@
           margin: 20px 0;
           transition-duration: 0.4s;
           border-radius: 8px;
+          align-self: center;
         }
 
         .w3-button:hover {
@@ -118,22 +119,32 @@
     <div class="row">
         <div class="col-xl-3"></div>
 
-        <div class="col-xl-6" style="">
+        <div class="col-xl-6">
             
           <div class="question-form-container" >
 
-              <form id="question-form" action="#" method="POST" ><!-- 질문작성폼시작 -->
+              <form id="question-form" method="POST" enctype="multipart/form-data" ><!-- 질문작성폼시작 -->
 
                   <div id="question-form-header" style="font-size: 20px; text-align: right; width: auto;">
                       <h1 style="text-align: center; margin-top: 30px; margin-bottom: 15px; font-weight: 800;">질문하기</h1>
                       <span style="font-weight: 800;">"상품구매, 배송관련" 질문은 <a href="" style="color: coral;">이곳에 문의하러 가기</a></span>
                   </div>
                   
-                  <input class="question-title" type="text" placeholder="질문의 제목을 적어주세요" 
+                  <input class="question-title" name="questionTitle" id="questionTitle" type="text" placeholder="질문의 제목을 적어주세요" 
                   style="width: 500px; height: 50px; align-items: center; margin: 0 auto; margin-top: 30px; border-radius: 20px; font-size: 20px; font-weight: bold; ">
                   <br>
 
-                  <textarea id="summernote" class="summernote" name="editordata" ></textarea>
+                  <textarea id="summernote" name="questionContent" class="summernote" name="editordata" ></textarea>
+
+                  <input type="hidden" name="questionFileName" value="123">
+
+                  <div class="row" style="align-items: center; ">
+                    <div class="col-xl-3"></div>
+                    <div class="col-xl-6" style="display: flex;" >
+                        <button type="button" id="" class="w3_button" style="margin: 0 auto; margin-top: 30px;" >질문하기</button>
+                    </div>
+                    <div class="col-xl-3"></div>
+                  </div>
 
                   <!-- <div class="question-content" contenteditable="true" style="background-color: white; height: 500px; text-align: left;" tabindex="0" aria-placeholder="내용을 작성해 주세요">
                     <p>
@@ -180,13 +191,7 @@
         <div class="col-xl-3"></div>
     </div><!-- row끝 -->
 
-    <div class="row" style="align-items: center; ">
-      <div class="col-xl-5"></div>
-      <div class="col-xl-2" style="text-align: center;">
-          <button class="w3_button" >질문하기</button>
-      </div>
-      <div class="col-xl-5"></div>
-    </div>
+    
 
     <footer include-html="../commons/footer.html"></footer>
 
@@ -197,26 +202,103 @@
     <!-- 써머노트 스크립트 시작 -->
     <script src="../../css/summernote/summernote-lite.js"></script>
     <script src="../../css/summernote/summernote-ko-KR.js"></script>
+
     <script>
     $(document).ready(function() {
-    //여기 아래 부분
-      $('#summernote').summernote({
-          height: 400,                 // 에디터 높이
-          minHeight: 150,             // 최소 높이
-          maxHeight: null,             // 최대 높이
-          focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-          lang: "ko-KR",					// 한글 설정
-          placeholder: '내용을 적어주세요 참고가 되는 사진을 첨부해주시면 더 좋은 답변을 얻을 수 있습니다.',	//placeholder 설정
-          toolbar: [   
-          //툴바설정
-			    // [groupName, [list of button]]
-			    ['style', ['bold', 'italic', 'underline','strikethrough']],
-			    ['insert',['picture']],
-			    ['view', [ 'help']]
-			    ],
-          
+    //ㅇㅅㅇ
 
+    //로그인한 계정 닉네임 가져오기
+    let sessionId = JSON.parse(sessionStorage.getItem("login"));
+    // if(sessionId == null) {
+    //     sessionId = '';
+    //     alert('로그인해주세요');
+    //     location.href="../login/login.html"
+    // }
+    // console.log(sessionId);
+      
+    // if(sessionId.userSeq == '' || sessionId.userSeq == null){
+      
+    // }
+
+
+    $('#summernote').summernote({
+        height: 400,                 // 에디터 높이
+        minHeight: 150,             // 최소 높이
+        maxHeight: null,             // 최대 높이
+        focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+        lang: "ko-KR",					// 한글 설정
+        placeholder: '<h3>내용을 적어주세요</h3> <br> <b>참고가 되는 사진을 첨부해주시면 더 좋은 답변을 얻을 수 있습니다.</b>',	//placeholder 설정
+        spellCheck: true, //스펠링 체크 
+        toolbar: [   
+        //툴바설정
+        // [groupName, [list of button]]
+        ['style', ['bold', 'italic', 'underline','strikethrough']],
+        ['insert',['picture']],
+        ['view', [ 'help']]
+        ],
 	  });
+
+    
+    
+
+    $('.w3_button').on('click', function(list) {
+      //alert('되냐이거?');
+      var form = $('#question-form').serialize();
+      // form = decodeURIComponent(form);
+      // alert(form);
+      // var form1 = JSON.parse(form);
+      // alert(form1);
+        $.ajax({
+          url: 'http://localhost:3000/questionWrite',
+          type: 'post',
+          data : form,
+          success:function(list){
+            alert('ajax성공');
+            //alert(list);
+            location.href="http://localhost:8090/view/community/questions.html"
+          }, error:function(list){
+            alert('ajax실패');
+          }
+        })
+      //alert('안됨');
+    });
+
+    /*
+    $.ajax({
+			url:"http://localhost:3000/member",
+			type:"get",
+			dataType:"json",
+			success:function(data){
+				$("#demo").text(JSON.stringify(data));
+			}, error:function(){
+				alert('error');
+			}
+			
+		});
+    */
+
+
+
+    // function uploadsummernoteimage(){
+    //   data = new FormData();
+    //   data.append("file", file);
+    //   alert('되냐 이거?');
+    //   $.ajax({
+    //     data : data,
+    //     type : "post",
+    //     url : "http://localhost:3000/questionWrite",
+    //     enctype : 'multipart/form-data',
+    //     processData : false,
+    //     contentType : false,
+    //     success : function(data) {
+		// 			alert('글쓰기성공');
+    //       $(el).summernote('editor.insertImage', data.url);
+		// 		}, error : function(){
+    //       alert('글쓰기실패')
+    //     }
+
+    //   });
+    // }
               
     
     });
