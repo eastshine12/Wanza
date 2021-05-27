@@ -36,6 +36,12 @@ public class ProductController {
 		return service.getProductDetail(dto);
 	}
 	
+	@RequestMapping(value = "/getSearchProduct", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<ProductDTO> getSearchProduct(ProductDTO dto){
+		System.out.println("ProductController getSearchProduct() " + new Date());
+		return service.getSearchProduct(dto);
+	}
+	
 	
 	
 }

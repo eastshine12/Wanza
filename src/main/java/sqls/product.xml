@@ -21,6 +21,13 @@
 	WHERE PRODUCTSEQ=#{productSeq}
 </select>
 
+<!-- 상품 검색 리스트 가져오기 -->
+<select id="getSearchProduct" parameterType="com.decolab.wanza.dto.ProductDTO" resultType="com.decolab.wanza.dto.ProductDTO">
+	SELECT PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING
+	FROM PRODUCTIONS
+	WHERE PRODUCTNAME LIKE'%'||#{productName}||'%'
+</select>
+
 
   
 </mapper>
