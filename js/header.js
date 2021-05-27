@@ -58,7 +58,7 @@ $(document).on('click', '#search-icon', function () {
             data:{searchWord:$("#headerSearch").val()},
             success:function(data) {
                 if(data=="suc"){
-                    //alert("검색어등록성공");
+                    alert("검색어등록성공");
                 }else{
                     //alert("검색어등록실패");
                 }
