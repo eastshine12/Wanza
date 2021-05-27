@@ -702,7 +702,7 @@
 }
 .question-detail-sidebar {
 	position: relative;
-	display: none;
+	/* display: none; */
 	/* width: 280px; */
 	border-left: 1px solid #ededed;
 	/* margin-left: 40px;
