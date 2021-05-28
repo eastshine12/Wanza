@@ -43,11 +43,11 @@
             <!-- 이벤트 기간 입력 -->
         
                 <div class="form-group" style="width: 40%;">
-                    <input type="text" class="form-control" id="startdate" placeholder="이벤트 시작일을 입력해주세요 ex(2020/04/14)" >
+                    <input type="text" class="form-control" id="startDate" placeholder="이벤트 시작일을 입력해주세요 ex(2020/04/14)" >
                 </div>
                     <span>~</span>
                 <div class="form-group" style="width: 40%;">
-                    <input type="text" class="form-control" id="enddate" placeholder="이벤트 종료일을 입력해주세요 ex(2020/04/15)" >               
+                    <input type="text" class="form-control" id="endDate" placeholder="이벤트 종료일을 입력해주세요 ex(2020/04/15)" >               
                 </div>
            
 
@@ -55,13 +55,9 @@
             <div class="form-group">
                 <input type="text" class="form-control" id="eventTitle" placeholder="이벤트 제목을 입력 해 주세요">               
             </div>
-            <!-- 이벤트 설명 -->
-            <div class="form-group">
-                <textarea class="form-control" rows="5" id="eventContent" placeholder="간단한 이벤트 설명을 적어주세요(생략가능)"></textarea>
-            </div>
             <!-- 이벤트 썸네일 -->
             <div style="margin-bottom: 10px;">
-                <textarea id="eventThumnail" class="summernote" name="editordata"></textarea>
+                <textarea id="eventThumbnail" class="summernote" name="editordata"></textarea>
             </div>
             <!-- 이벤트 내용 사진 -->
             <div>
@@ -102,6 +98,8 @@
             </div>
         </div>
 
+        
+
 
         <div class="col-xl-3"></div>
     </div>
@@ -116,7 +114,7 @@
     <script src="../../css/summernote/summernote-lite.js"></script>
     <script src="../../css/summernote/summernote-ko-KR.js"></script>
 <script>
-
+    // 상품 검색
     function searchProduct(){
         app ="";
         $("#_productListUp").children().remove();
@@ -127,7 +125,7 @@
             success:function(list){
 
                 if(list.length ==0){
-                    $("#_productListUp").append("<h3 style='text-align: center; margin-top: 50px;'>찾으시는 데이터가 없네영~</h3>" );
+                    $("#_productListUp").append("<h3 style='text-align: center; margin-top: 50px;'>찾으시는 상품이 없습니다</h3>" );
                 }else{
                     $.each(list,function(i,val){
                         app+="<div class='card' style='width: 22%; margin: 1%; padding: 3px;'>"
@@ -135,45 +133,79 @@
                             +"<div class='card-img-top'>"
                             +"<h5 class='card-title'>"+val.productName+"</h5>"
                             +"<p class='card-text'>"+val.productContent+"</p>"
-                            +"<button class='btn btn-primary' onclick='addProduct()'>product add</button>"
+                            +"<button class='btn btn-primary' onclick='addProduct("+val.productSeq+")'>product add</button>"
                             +"</div>"
-                            +"</div>";
-
-                        
+                            +"</div>";                        
                     })
                     $("#_productListUp").append(app);
-                }
-                
+                }                
             },
             error:function(){
                 alert("검색에러");
             }
-
-
-        }) 
-        
+        })        
     }
 
-    
+    // 이벤트 작성 완료
     function completeEvent(){
-        alert("대충 이런식");
+        $.ajax({
+            url:"http://localhost:3000/eventWrite",
+            type:'post',
+            data:{eventTitle:$("#eventTitle").val(), eventContent: $("#eventFile").val(), eventStartDate:$("#startDate").val(),
+                eventEndDate:$("#endDate").val(), eventFilename:$("#eventThumbnail").val(),  productSeq:$("#_productSeq").val()
+            },
+            success:function(str){
+                if(str=="suc"){
+                    alert("이벤트 등록 성공");
+                }else{
+                    alert("이벤트 등록실패");
+                }
+            },error:function(){
+                alert("error");
+            }
+
+        })
+       
     }
 
     function addCancel(){
-        $(this).unwrap().remove();
+        $("#_addProduct").remove();
+        isDisabled = false;
     }
     
+    
+    // 중복 등록을 막기위함
+    let isDisabled = false;
+
     // Product add 버튼 클릭시 추가 된 상품 표시
-    function addProduct(){
-        alert("상품추가");
+    function addProduct(seq){
         let app="";
-        app="<div class='input-group mb-3' style='width: 50%;' id='_addProduct'>"
-            +"<input type='text' class='form-control' readonly value='Product Name'>"
-            +"<div class='input-group-append'>"
-            +"<button class='btn btn-outline-secondary' type='button' onclick='addCancel(this)'><i class='fa fa-times' aria-hidden='true'></i></button>"
-            +"</div>"
-            +"</div>";
-        $("#productNameInput").after(app);
+
+        if(isDisabled){
+            alert("상품은 1개만 등록 가능합니다");
+            return false;
+        }else{
+            isDisabled = true; 
+            $.ajax({
+                url:"http://localhost:3000/getProductDetail",
+                type:'get',
+                data:{productSeq:seq},
+                success:function(dto){   
+                    app="<div class='input-group mb-3' style='width: 50%;' id='_addProduct'>"
+                        +"<input type='text' class='form-control' readonly value='"+dto.productName+"'>"
+                        +"<div class='input-group-append'>"
+                        +"<button class='btn btn-outline-secondary' type='button' onclick='addCancel()'><i class='fa fa-times' aria-hidden='true'></i></button>"
+                        +"</div>"
+                        +"<input type='hidden' id='_productSeq' value="+dto.productSeq+">"
+                        +"</div>";
+                         
+
+                    $("#productNameInput").after(app);
+                },error:function(){
+                    alert("에러");
+                }
+            })
+        }
     }
 
 
@@ -183,7 +215,7 @@
 
 
     //썸네일 서머노트
-      $('#eventThumnail').summernote({
+      $('#eventThumbnail').summernote({
           height: 200,                 // 에디터 높이
           minHeight: 150,             // 최소 높이
           maxHeight: null,             // 최대 높이
@@ -230,6 +262,7 @@
             $("#_productListUp").empty();
             $("#productName").val("");            
             $("#_addProduct").hide();
+            isDisabled = false;
         }
     })
 
