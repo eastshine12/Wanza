@@ -11,6 +11,9 @@
 <link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통 -->
 
 <style>
+body{
+    background-color: #eee;
+}
 /* 큰 패널 2개*/
 /* 사이드 */
 .sidebar{
@@ -20,11 +23,14 @@
     z-index: 2;
     width: 260px; height: 100%;
     padding-top: 20px;
+    background-color: white;
     color: #a9afbb;
     text-align: center;
     box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%),
                 0 4px 25px 0 rgb(0 0 0 / 12%),
                 0 8px 10px -5px rgb(0 0 0 / 20%);
+    transform: translate3d(0px,0,0);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1);
 }
 
 /* 메인 */
@@ -37,25 +43,37 @@
 
 /* 반응형 */
 @media(max-width: 991px){
-.sidebar{
-    top: 0; left: 0;
-    right: auto;
-    z-index: 100;
-    visibility: visible;
-    background-color: #ededed;
-    overflow-y: visible;
-    transform: translate3d(-260px,0,0);
-    transition: all .33s cubic-bezier(.685,.0473,.346,1);
+    .sidebar{
+        top: 0; left: 0;
+        right: auto;
+        z-index: 100;
+        visibility: visible;
+        background-color: #ededed;
+        overflow-y: visible;
+        transform: translate3d(-260px,0,0);
+        transition: all .33s cubic-bezier(.685,.0473,.346,1);
+    }
+    .main_panel{
+        height: 100%;
+        max-height: 100%;
+        width: 100%;
+        transform: translate3d(-0px,0,0);
+        transition: all .33s cubic-bezier(.685,.0473,.346,1)
+    }
+    .navbar-toggler .icon-bar:nth-child(2) {
+        top: 0;
+        animation: all .5s 0s;
+        animation-fill-mode: forwards;
+    }
+    .side_open{
+        transform: translateZ(0);
+    }
 }
-.main_panel{
-    height: 100%;
-    max-height: 100%;
-    width: 100%;
-    /* transform: translate3d(-260px,0,0); */
-    transition: all .33s cubic-bezier(.685,.0473,.346,1)
+@media(min-width: 991px){
+    .navbar-toggler {
+        display: none;
+    }
 }
-}
-
 
 /* 사이드 메뉴 */
 /* 로고 */
@@ -140,11 +158,9 @@
 /* 사이드 마지막 */
 .menu_footer{
     position: absolute;
-    bottom: 30px;
+    bottom: 15px;
     left: 40px;
-
-    width: 70%;
-    height: 45px;
+    width: 70%;  height: 45px;
     border: none;
     border-radius: 5px;
     text-align: center;
@@ -158,24 +174,114 @@
     color: #a9afbb;
     background-color: hsla(0,0%,78%,.2);
 }
+/* 메뉴 토글 아이콘 */
+.navbar-toggler-icon{
+    display: block;
+    width: 40px; height: 6px;
+    margin-top: 6px;
+    background: #555;
+    border-radius: 1px;
+    outline: 0;
+}
+
 
 
 
 /* 메인 내용 */
-.table_wrap{
-    margin: 40px;
+/* 검색 */
+.search_wrap{
+    margin: 10px 40px;
+    /* width: 1300px; */
+    position: relative;
+    z-index: 10;
 }
-
+.search_box{
+    display: flex;
+    align-items: center;
+    height: 90px;
+    width: 550px;
+    margin: 20px;
+    border-radius: 5px;
+    /* background-color: white; */
+    background-color: #55C08A;
+    color: white;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
+                0 7px 10px -5px rgb(133 217 174 / 40%);
+}
+.search{
+    margin: 0 0 0 100px;
+    min-width: 355px;
+}
+.search input{
+    border: none;
+    width: 300px;
+    background-color: transparent;
+    color: white;
+    border-bottom: solid 0.8px white;
+}
+.search input::placeholder{
+    color: white;
+}
+.search_btn{
+    width: 50px; height: 50px;
+    border: none;
+    border-radius: 50%;
+    color: #999;
+    background-color: white;
+    font-size: 17pt;
+    box-shadow: 2px 2px 0 rgb(0,0,0,0.5);
+    /* box-shadow: 0 2px 2px 0 hsl(0deg 0% 60% / 14%),
+                0 3px 1px -2px hsl(0deg 0% 60% / 20%),
+                0 1px 5px 0 hsl(0deg 0% 60% / 12%); */
+}
+.search_btn:hover{
+    background-color: rgb(133 217 174 / 14%);;
+    color: #999;
+}
+.search_btn:active{
+    position: relative;
+    top:2px;
+    box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+}
 /* 테이블 세부 내용 */
+.table_wrap{
+    min-width: 1300px;
+    margin: -40px 40px 10px 40px;
+    padding: 30px 10px 10px 10px;
+    /* overflow-x: auto; */
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
+                0 7px 10px -5px rgb(133 217 174 / 40%);
+}
+/* .table{
+    min-width: 1260px;
+} */
 .table td{
     vertical-align: middle;
+    word-break:break-all;
 }
-
 .tab_btn{
     width: 70px;
     height: 36px;
     border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #35ab6f;
+    /* transition: all .33s cubic-bezier(.685,.0473,.346,1) */
 }
+.tab_btn:hover{
+    box-shadow: 0 14px 26px -12px rgb(133 217 174 / 42%),
+                0 4px 23px 0 rgb(0 0 0 / 12%),
+                0 8px 10px -5px rgb(133 217 174 / 20%);
+}
+.tab_btn:active{
+    /* border-radius: 50%; */
+    background: radial-gradient(#35ab6f,#0A7C42);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1)
+}
+
+
 
 /* 체크박스 색 바꾸기 */
 #table1 .custom-checkbox{
@@ -210,7 +316,7 @@
 
 <div class="container-fluid" style="height: 100vh;">
 
-    <div class="sidebar">
+    <div class="sidebar" id="side_accordion">
         <div class="accordion" id="menu_accordion">
 
             <div class="logo">
@@ -262,30 +368,41 @@
 
 
     <div class="main_panel" style="height: 800px;">
-        <div class="" style="height: 150px;">
-            헤드
+        <div class="p-4" style="height: 150px; border: solid;">
             <div class=""></div>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#side_accordion">
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
         </div>
-
+        
+        <div class="search_wrap">
+            <div class="search_box">
+                <div class="search">
+                    <input type="text" placeholder="검색...">
+                    <button type="button" class="search_btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        
         <div class="table_wrap" id="table1">
             <div class="custom-checkbox mx-5 my-3" id="checkbox_all">
                 <input type="checkbox" class="custom-control-input" id="cb">
                 <label for="cb" class="custom-control-label"></label>
                 <span>전체체크</span>
             </div>
-
-            
-            
-            <table class="table table-hover table-bordered text-center">
+ 
+            <table class="table table-hover text-center">
                 <colgroup>
                     <col width="56"><col width="56"><col width="86"><col width="auto"><col width="56">
-                    <col width="86"><col width="96"><col width="75"><col width="170">
+                    <col width="86"><col width="96"><col width="75"><col width="160">
                     <col width="110"><col width="105"><col width="86"><col width="80">
                 </colgroup>
                 <thead>
                     <tr>
                         <th>체크</th><th>번호</th><th>주문상태</th><th>제품명</th><th>수량</th>
-                        <th>배송지역</th><th>주문일시</th><th>주문자</th><th>이메일</th>
+                        <th>배송지역</th><th>주문일시</th><th>주문자</th><th>전화번호</th>
                         <th>금액</th><th>사용포인트</th><th>결제수단</th><th>변경</th>
                     </tr>
                 </thead>
@@ -293,8 +410,8 @@
                     <tr>
                         <td>
                             <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="cb1" name="chk">
-                                <label for="cb1" class="custom-control-label"></label>
+                                <input type="checkbox" class="custom-control-input" id="1" name="chk">
+                                <label for="1" class="custom-control-label"></label>
                             </div>
                         </td>
                         <td>1</td>
@@ -304,7 +421,47 @@
                         <td>서울</td>
                         <td>21/05/27 12:17:34</td>
                         <td>홍길동</td>
-                        <td>hgd@naver.com</td>
+                        <td>010-1234-5678</td>
+                        <td>138,700원</td>
+                        <td>120p</td>
+                        <td>카드</td>
+                        <td><button type="button" class="tab_btn">변경</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="2" name="chk">
+                                <label for="2" class="custom-control-label"></label>
+                            </div>
+                        </td>
+                        <td>2</td>
+                        <td>배송중</td>
+                        <td>이탈리아 의자 외 1</td>
+                        <td>1개</td>
+                        <td>서울</td>
+                        <td>21/05/27 12:17:34</td>
+                        <td>홍길동</td>
+                        <td>010-1234-5678</td>
+                        <td>138,700원</td>
+                        <td>120p</td>
+                        <td>카드</td>
+                        <td><button type="button" class="tab_btn">변경</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="3" name="chk">
+                                <label for="3" class="custom-control-label"></label>
+                            </div>
+                        </td>
+                        <td>3</td>
+                        <td>배송중</td>
+                        <td>이탈리아 의자 외 1</td>
+                        <td>1개</td>
+                        <td>서울</td>
+                        <td>21/05/27 12:17:34</td>
+                        <td>홍길동</td>
+                        <td>010-1234-5678</td>
                         <td>138,700원</td>
                         <td>120p</td>
                         <td>카드</td>
@@ -337,17 +494,23 @@ $(document).ready(function() {
         $(this).addClass('active');
     });
 
-    $('.menu_sub li').click( function() { //사이드 메뉴 활성화
+    $('.menu_sub li').click( function() { //사이드 서브메뉴 활성화
         $('.menu_sub li').removeClass('active')
         $(this).addClass('active');
     });
 
-    // 체크박스 전체선택, 전체해제
-    $(document).on("click", 'input[type="checkbox"]', function () {
-        $('#table1').find('input[type="checkbox"]').prop("checked", $(this).is(":checked"));
-        autoCheck()
+    $('.navbar-toggler').click( function() { //사이드 토글
+        $('.sidebar').addClass('side_open')
     });
 
+    // 체크박스 전체선택, 전체해제
+    $(document).on("click", '#table1 input[type="checkbox"]', function () {
+        if($(this).attr('name') != 'chk'){
+            $('#table1 table').find('input[type="checkbox"]').prop("checked", $(this).is(":checked"));
+        }
+        autoCheck()
+    });
+    
 
 });
 
@@ -360,7 +523,6 @@ function autoCheck() {
     } else {
         $('#cb').prop("checked", false);
     }
-
 };
 
 
