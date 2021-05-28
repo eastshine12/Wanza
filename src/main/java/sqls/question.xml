@@ -19,6 +19,36 @@
 		VALUES(QUESTIONSEQ.NEXTVAL, #{userSeq}, #{questionTitle}, #{questionContent}, 0, SYSDATE, #{questionFileName}, 0, 0, 0, 0)
 	</insert>
 	
+	<!-- 질문과답변 디테일가져오기 
+	<select id="questionDetail" parameterType="com.decolab.wanza.dto.QuestionDTO" resultType="com.decolab.wanza.dto.QuestionDTO">
+		SELECT QUESTIONSEQ, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONREADCOUNT, QUESTIONREGDATE, QUESTIONFILENAME, QUESTIONDEL, QUESTIONREF, QUESTIONSTEP QUESTIONDEPTH
+		FROM QUESTION
+		WHERE QUESTIONSEQ = #{questionSeq}
+	</select>-->
+	
+	<!-- 질문과답변 디테일가져오기 & 유저테이블정보도 다 가져오기 -->
+	<select id="questionDetail" parameterType="com.decolab.wanza.dto.QuestionDTO" resultType="com.decolab.wanza.dto.QuestionDTO">
+		SELECT Q.QUESTIONSEQ 
+				,Q.USERSEQ 
+				,Q.QUESTIONTITLE 
+				,Q.QUESTIONCONTENT 
+				,Q.QUESTIONREADCOUNT 
+				,Q.QUESTIONREGDATE 
+				,Q.QUESTIONFILENAME 
+				,Q.QUESTIONDEL 
+				,Q.QUESTIONREF
+				,Q.QUESTIONSTEP 
+				,Q.QUESTIONDEPTH 
+			   	,U.USERNAME 
+			   	,U.NICKNAME 
+			   	,U.PROFILENAME 
+			   	,U.AUTH
+		FROM QUESTION Q, USERS U
+		WHERE 1=1
+		AND Q.USERSEQ = U.USERSEQ 
+		AND Q.QUESTIONSEQ = #{questionSeq}
+	</select>
+	
 	
 	<!-- 질문과답변 목록 가져오기 -->
 	<!-- <select id="getQuestionList" resultType="com.decolab.wanza.dto.QuestionDTO">

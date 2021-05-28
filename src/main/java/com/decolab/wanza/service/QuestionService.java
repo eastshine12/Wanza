@@ -23,5 +23,9 @@ public class QuestionService {
 	public int questionWrite(QuestionDTO dto) {
 		return dao.questionWrite(dto);
 	}
+	
+	public QuestionDTO questionDetail(QuestionDTO dto) {
+		return dao.questionDetail(dto);
+	}
 
 }
