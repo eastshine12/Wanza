@@ -355,10 +355,10 @@
 .comment-feed-form-submit:active,
 .comment-feed-form-submit:focus,
 .comment-feed-form-submit:hover {
-	color: #6cd5f4
+	color: coral
 }
 .comment-feed-form-submit:disabled {
-	color: #a3e4f8
+	color: coral
 }
 .comment-feed-reply-list-more {
 	margin-top: 15px;
@@ -445,8 +445,8 @@
 		color: #f5f5f5
 	}
 	._3UImz:active:checked+._2mDYR {
-		background-color: #09addb;
-		border-color: #09addb
+		background-color: coral;
+		border-color: coral
 	}
 }
 @media (-ms-high-contrast: active),
@@ -595,8 +595,8 @@ all and (-ms-high-contrast: none) {
 		background-color: #f5f5f5
 	}
 	.fs-4H:active:checked+._2ekY2 {
-		background-color: #09addb;
-		border-color: #09addb
+		background-color: coral;
+		border-color: coral
 	}
 }
 @media (-ms-high-contrast: active),
