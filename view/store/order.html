@@ -386,10 +386,14 @@ select::-ms-expand{
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
     
+    <form action="" id="form_order">
+        <input type="hidden" id="_userSeq" name="userSeq">
+        <input type="hidden" id="_productAmount" name="productAmount">
+        <input type="hidden" id="_totalAmount" name="totalAmount">
+        <input type="hidden" id="_deliveryAmount" name="deliveryAmount">
     <div class="container mt-5">
         <div class="row" style="height: 100%;">
             <div class="col-md-8" id="order">
-                <form action="" id="form_order">
                 <div class="order_title_head"><h1>주문결제</h1></div>
 
                 <div class="mb-5">
@@ -437,7 +441,7 @@ select::-ms-expand{
                             <div class="row order_content_wrap">
                                 <div class="order_subtitle">배송지 이름</div>
                                 <div class="order_content order_dlvy_name"><label for="_dlvy_name">
-                                    <select name="dlvy_name" id="_dlvy_name">
+                                    <select name="addressSeq" id="_dlvy_name">
                                     </select></label><i class="fas fa-sort"></i>
                                 </div>
                                 <div><button type="button" class="defalutAddress_btn">기본 배송지로 설정</button></div>
@@ -462,15 +466,15 @@ select::-ms-expand{
                                 <div class="order_content dlvy_req">
                                     <div id="_dlvy_req3">
                                         <label for="_dlvy_req2">
-                                        <input type="text" id="_dlvy_req2" name="dlvy_req_free" placeholder="배송요청사항을 입력해주세요" value="">
+                                        <input type="text" id="_dlvy_req2" name="orderMessage_free" placeholder="배송요청사항을 입력해주세요" value="">
                                         <div class="textlimit">0<span>/50</span></div></label>
                                     </div>
                                     <label class="dlvy_req1" for="_dlvy_req1">
-                                    <select name="dlvy_req" id="_dlvy_req1">
+                                    <select name="orderMessage" id="_dlvy_req1">
                                         <option value="0">배송시 요청사항을 선택해주세요</option>
-                                        <option value="1">부재시 문앞에 놓아두세요</option>
-                                        <option value="2">배송전에 미리 연락주세요</option>
-                                        <option value="3">부재시 경비실에 맡겨주세요</option>
+                                        <option value="부재시 문앞에 놓아주세요">부재시 문앞에 놓아주세요</option>
+                                        <option value="배송 전에 미리 연락주세요">배송 전에 미리 연락주세요</option>
+                                        <option value="부재시 경비실에 맡겨주세요">부재시 경비실에 맡겨주세요</option>
                                         <option value="4">직접입력</option>
                                     </select><i class="fas fa-sort"></i></label>
                                     
@@ -558,7 +562,7 @@ select::-ms-expand{
                     <div class="row order_content_wrap">
                         <div class="order_content point_box">
                             <label for="_point">
-                                <input type="text" id="_point" placeholder="0">
+                                <input type="text" id="_point" name="useMileage" placeholder="0">
                             </label>
                         </div>
                         <div><button class="point_btn" type="button">전액사용</button></div>
@@ -579,15 +583,15 @@ select::-ms-expand{
                     <div class="pay_use_wrap">
                         <div class="pay_use">
                             <label for="pay_card"><i class="far fa-credit-card fa-4x"></i></label>
-                            <input type="radio" id="pay_card" name="pay" value="card">
+                            <input type="radio" id="pay_card" name="amountType" value="card">
                         </div>
                         <div class="pay_use">
                             <label for="pay_cash"><i class="fas fa-won-sign fa-4x"></i></label>
-                            <input type="radio" id="pay_cash" name="pay" value="trans">
+                            <input type="radio" id="pay_cash" name="amountType" value="trans">
                         </div>
                         <div class="pay_use">
                             <label for="pay_mobile" class=""><i class="fas fa-mobile-alt fa-4x"></i></label>
-                            <input type="radio" id="pay_mobile" name="pay" value="phone">
+                            <input type="radio" id="pay_mobile" name="amountType" value="phone">
                         </div>
                     </div>
                 </div>
@@ -615,14 +619,13 @@ select::-ms-expand{
                             [필수] 주문 및 결제 관련 약관 동의<a href="#none"> 보기</a></span>
 
                     </div>
-
                     <button id="sidePaymentBtn" class="payment_btn" type="button" >0원 결제하기</button>
-
+                    <button id="testBtn" class="btn btn-primary" type="button" >결제창생략 임시버튼</button>
                 </div>
             </div>
-
         </div>
     </div>
+
 
     <footer include-html="../commons/footer.html"></footer>
 
@@ -708,7 +711,7 @@ $(document).ready(function() {
             async:false,
             success: function(data) {
                 console.log(data);
-                
+                $('#_userSeq').val(data.userSeq);
                 $('#myPoint').text(makeComma(data.mileage)+'p');
                 $('#_phone1').val(data.phone.substring(0,3));
                 $('#_phone2').val(data.phone.substring(3));
@@ -805,7 +808,7 @@ $(document).ready(function() {
             $('#usePoint').hide();
         };
 
-        $("input:radio[name='pay']").prop('checked',false);
+        $("input:radio[name='amountType']").prop('checked',false);
     });
 
 
@@ -815,7 +818,7 @@ $(document).ready(function() {
         $('.pay_use').not($(this).parent()).removeClass('active');
 
         if(!$(this).parent().hasClass('active')){
-            $("input:radio[name='pay']").prop('checked',false);
+            $("input:radio[name='amountType']").prop('checked',false);
             $(this).next().prop('checked',false)
         }
 
@@ -826,6 +829,7 @@ $(document).ready(function() {
 
     // 결제버튼 클릭
     $('.payment_btn').click(function(){
+
         let formorder1 =  decodeURIComponent($('#form_order').serialize());
         let formorder = formorder1.split('&');
         
@@ -842,11 +846,69 @@ $(document).ready(function() {
 
         if(method==''){
             alert('결제수단을 선택해주세요')
-            console.log(jdata);
         }else{
             requestPay(method,jdata); //아임포트 결제 실행
         }
     })
+
+
+    // 임시 결제버튼 클릭 (나중에 삭제)
+    $('#testBtn').click(function () {
+
+        
+        if($('#_name').val() == '') {
+            alert('이름을 입력해주세요.');
+            return;       
+        };
+
+
+        let formorder1 = decodeURIComponent($('#form_order').serialize());
+        let formorder = formorder1.split('&');
+
+        //모든 데이터 json형태로
+        let fdata = '{'
+        formorder.forEach(e => {
+            let j = e.split('=');
+            fdata += '"' + j[0] + '":"'
+            fdata += j[1] + '",'
+        });
+        fdata = fdata.slice(0, -1)
+        fdata += '}';
+        let jdata = JSON.parse(fdata)
+
+        if (method == '') {
+            alert('결제수단을 선택해주세요.')
+        } else {
+            console.log(jdata);
+
+            $.ajax({
+                url: "http://192.168.0.231:3000/paymentAf",
+                type: "post",
+                data: jdata,
+                success: function (data) {
+                    console.log(data)
+                    if (data == "suc") {
+                        alert('결제완료.');
+                    } else {
+                        alert('결제실패');
+                    }
+                },
+                error: function () {
+                    alert('paymentAf error');
+                }
+            });
+
+
+            // 장바구니 cartStatus 2로 변경
+
+
+
+
+
+        }
+    })
+
+
 
     // 아임포트 결제
     function requestPay(method) {
@@ -1053,9 +1115,9 @@ $(document).ready(function() {
                 alert('error');
             }
         });
-        
-        
     });
+
+
 });
 
 
@@ -1118,15 +1180,21 @@ function totalPrice() {
     if (item_price >= 50000) {
         $('#deliveryCharge').text("무료");
         $('#sideDeliveryCharge').text("무료");        
+        $('#_deliveryAmount').val(0);        
         $('#orderPrice').text(makeComma(item_price) + '원');
+        $('#_productAmount').val(item_price);
         $('#sideResultPrice').text(makeComma(item_price - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원'); //포인트 차감
         $('#sidePaymentBtn').text(makeComma(item_price - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원 결제하기'); //포인트 차감
+        $('#_totalAmount').val(item_price - $('#sideUsePoint').text().replace(/[^0-9]/g, '')); //포인트 차감
     } else {
         $('#deliveryCharge').text("2,500원");
         $('#sideDeliveryCharge').text("2,500원");
+        $('#_deliveryAmount').val(2500);
         $('#orderPrice').text(makeComma(item_price + 2500) + '원');
+        $('#_productAmount').val(item_price + 2500);
         $('#sideResultPrice').text(makeComma(item_price + 2500 - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원'); //포인트 차감
         $('#sidePaymentBtn').text(makeComma(item_price + 2500 - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원 결제하기'); //포인트 차감
+        $('#_totalAmount').val(item_price + 2500 - $('#sideUsePoint').text().replace(/[^0-9]/g, '')); //포인트 차감
     }
 };
 
