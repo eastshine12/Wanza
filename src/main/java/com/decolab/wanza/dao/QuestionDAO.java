@@ -14,4 +14,6 @@ public interface QuestionDAO {
 	public List<QuestionDTO> getAllQuestionList();
 	
 	public int questionWrite(QuestionDTO dto);
+	
+	public QuestionDTO questionDetail(QuestionDTO dto);
 }

@@ -64,7 +64,13 @@ public class QuestionController {
 		return "ss";
 
 		}
-		
+	
+	@RequestMapping(value = "/questionDetail", method = {RequestMethod.GET,RequestMethod.POST} )
+	public QuestionDTO questionDetail(QuestionDTO dto) {
+		System.out.println("QuestionController questionDetail()" + new Date());
+		System.out.println(service.questionDetail(dto));
+		return service.questionDetail(dto);
+	}
 	
 	
 	

@@ -19,8 +19,39 @@ public class QuestionDTO implements Serializable{
 	private int questionStep;
 	private int questionDepth;
 	
+	private String userName;
+	private String nickName;
+	private String profileName;
+	private int auth;
+	//U.USERNAME, U.NICKNAME, U.PROFILENAME, U.AUTH
+	
 	public QuestionDTO() {
 	}
+	
+	
+
+	public QuestionDTO(int questionSeq, int userSeq, String questionTitle, String questionContent,
+			int questionReadcount, Date questionRegDate, String questionFileName, int questionDel, int questionRef,
+			int questionStep, int questionDepth, String userName, String nickName, String profileName, int auth) {
+		super();
+		this.questionSeq = questionSeq;
+		this.userSeq = userSeq;
+		this.questionTitle = questionTitle;
+		this.questionContent = questionContent;
+		this.questionReadcount = questionReadcount;
+		this.questionRegDate = questionRegDate;
+		this.questionFileName = questionFileName;
+		this.questionDel = questionDel;
+		this.questionRef = questionRef;
+		this.questionStep = questionStep;
+		this.questionDepth = questionDepth;
+		this.userName = userName;
+		this.nickName = nickName;
+		this.profileName = profileName;
+		this.auth = auth;
+	}
+
+
 
 	public QuestionDTO(int questionSeq, int userSeq, String questionTitle, String questionContent,
 			int questionReadcount, Date questionRegDate, String questionFileName, int questionDel, int questionRef,
