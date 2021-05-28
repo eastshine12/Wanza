@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
 <!-- 부트스트랩 -->
 <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> <!-- jQuery UI css -->
 <link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통 -->
 
 <style>
@@ -20,7 +21,7 @@ body{
     position: fixed;
     top: 0; bottom: 0;
     left: 0;
-    z-index: 2;
+    z-index: 200;
     width: 260px; height: 100%;
     padding-top: 20px;
     background-color: white;
@@ -188,6 +189,7 @@ body{
 
 
 /* 메인 내용 */
+
 /* 검색 */
 .search_wrap{
     margin: 10px 40px;
@@ -199,8 +201,8 @@ body{
     display: flex;
     align-items: center;
     height: 90px;
-    width: 550px;
-    margin: 20px;
+    /* width: 700px; */
+    margin: 20px; padding: 20px 40px;
     border-radius: 5px;
     /* background-color: white; */
     background-color: #55C08A;
@@ -208,16 +210,42 @@ body{
     box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
                 0 7px 10px -5px rgb(133 217 174 / 40%);
 }
+
+/* 날짜검색 */
+.search_date{
+    width: 300px;
+}
+.search_date input{
+    margin: 5px 5px 0 5px;
+    padding: 0 10px;
+    width: 110px; height: 35px;
+    background-color: white;
+    color: #212529;
+    border: solid 1px white;
+    border-radius: 5px;
+}
+#ui-datepicker-div{
+
+}
+
+
+/* 검색어 검색 */
 .search{
-    margin: 0 0 0 100px;
-    min-width: 355px;
+    margin: 0 0 0 30px;
+    min-width: 260px;
 }
 .search input{
     border: none;
-    width: 300px;
+    width: 200px;
+    height: 30px;
     background-color: transparent;
     color: white;
-    border-bottom: solid 0.8px white;
+    border-bottom: solid 2px white;
+    font-size: 12pt;
+}
+.search_date input:focus,
+.search input:focus{
+    outline: none;
 }
 .search input::placeholder{
     color: white;
@@ -235,7 +263,7 @@ body{
                 0 1px 5px 0 hsl(0deg 0% 60% / 12%); */
 }
 .search_btn:hover{
-    background-color: rgb(133 217 174 / 14%);;
+    background-color: rgb(133 217 174 / 90%);;
     color: #999;
 }
 .search_btn:active{
@@ -366,10 +394,10 @@ body{
         </div> <!-- 아코디언 끝 -->
     </div> <!-- 사이드바 메뉴 끝 -->
 
-
+    <!-- 메인화면 -->
     <div class="main_panel" style="height: 800px;">
-        <div class="p-4" style="height: 150px; border: solid;">
-            <div class=""></div>
+        <div class="p-4" style="height: 150px; border: solid;"><!-- 헤드 -->
+            <!-- 사이드바 토글 버튼 -->
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#side_accordion">
                 <span class="navbar-toggler-icon icon-bar"></span>
                 <span class="navbar-toggler-icon icon-bar"></span>
@@ -377,8 +405,19 @@ body{
             </button>
         </div>
         
+        <!-- 검색화면 -->
         <div class="search_wrap">
             <div class="search_box">
+
+                <!-- 날짜 -->
+                <div class="search_date">
+                    <span>날짜</span>
+                    <input type="text" class="datepicker">
+                    <span>~</span>
+                    <input type="text" class="datepicker">
+                </div>
+
+                <!-- 검색 -->
                 <div class="search">
                     <input type="text" placeholder="검색...">
                     <button type="button" class="search_btn"><i class="fas fa-search"></i></button>
@@ -386,6 +425,7 @@ body{
             </div>
         </div>
         
+        <!-- 테이블박스 -->
         <div class="table_wrap" id="table1">
             <div class="custom-checkbox mx-5 my-3" id="checkbox_all">
                 <input type="checkbox" class="custom-control-input" id="cb">
@@ -484,6 +524,7 @@ body{
 
 <script src="../../assets/js/jquery.min.js"></script>
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script><!-- jQuery UI 라이브러리 -->
 <!-- <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script> -->
 
@@ -509,6 +550,22 @@ $(document).ready(function() {
             $('#table1 table').find('input[type="checkbox"]').prop("checked", $(this).is(":checked"));
         }
         autoCheck()
+    });
+    
+    $('.datepicker').datepicker({
+        showAnim:'slideDown',
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'yy-mm-dd',
+        // minDate: -20,
+        // maxDate: "+1M +10D"
+        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        dayNames: ['일','월','화','수','목','금','토'],
+        dayNamesShort: ['일','월','화','수','목','금','토'],
+        dayNamesMin: ['일','월','화','수','목','금','토'],
+        showMonthAfterYear: true,
+        yearSuffix: '년'
     });
     
 
