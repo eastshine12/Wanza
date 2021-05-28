@@ -1044,10 +1044,7 @@
     content: "·";
     margin: 0 4px
 }
-.questions-item-footer-comments-content.active {
-    font-weight: bold;
-    color: #35c5f0
-}
+
 .questions-item-footer-tags {
     display: block;
     text-overflow: ellipsis;
@@ -1141,7 +1138,7 @@
 .filter-select-list-entry>a:hover,
 .filter-select-list-entry>a:focus,
 .filter-select-list-entry>a:active {
-    background-color: #35c5f0;
+    background-color: coral;
     color: #ffffff
 }
 .filter-select-list-entry.active > a {
@@ -1151,7 +1148,7 @@
 .filter-select-list-entry.active>a:hover,
 .filter-select-list-entry.active>a:focus,
 .filter-select-list-entry.active>a:active {
-    background-color: #35c5f0;
+    background-color: coral;
     color: #ffffff
 }
 .keyword-list {

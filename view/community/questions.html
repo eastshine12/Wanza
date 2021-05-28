@@ -106,7 +106,7 @@
     color: black; 
     line-height: inherit;
   }
-  .questions-content{
+  .questions-content, .questions-content p{
     color: black;
     text-align: start; 
     font-size: 22.5px;
@@ -130,6 +130,11 @@
     margin-bottom: 10px;
     padding-left: 10px; 
     padding-right: 10px;
+  }
+
+  .questions-item-footer-comments-content.active {
+    font-weight: bold;
+    color: coral
   }
 
 
@@ -202,7 +207,7 @@
             style="padding-top: 16px; padding-right: 32px; padding-left: 32px; padding-bottom: 16px;">정렬</button>
             <div id="Demo" class="w3-dropdown-content w3-bar-block w3-card-4 w3-animate-zoom">
               <a href="#" class="w3-bar-item w3-button">최신순</a>
-              <a href="#" class="w3-bar-item w3-button">인기순</a>
+              <a href="#" class="w3-bar-item w3-button">조회순</a>
               <a href="#" class="w3-bar-item w3-button">최근 답변순</a>
             </div>
           </div>
@@ -286,12 +291,12 @@
                       <time datetime="2021-05-17T19:49:16+09:00" class="questions-item-footer-date text-gray">
                         방금
                       </time>
-                      ·
+                     
                       <span class="questions-item-footer-comments text-gray">
                         댓글
                         <span class="questions-item-footer-comments-content active">5</span>
                       </span>
-                      ·
+                  
                       <span class="questions-item-footer-views text-gray">
                         조회
                       <span class="questions-item-footer-views-content">7</span>
@@ -335,12 +340,12 @@
                       <time datetime="2021-05-17T19:49:16+09:00" class="questions-item-footer-date text-gray">
                         방금
                       </time>
-                      ·
+                      <!-- · -->
                       <span class="questions-item-footer-comments text-gray">
                         댓글
                         <span class="questions-item-footer-comments-content active">5</span>
                       </span>
-                      ·
+                      <!-- · -->
                       <span class="questions-item-footer-views text-gray">
                         조회
                       <span class="questions-item-footer-views-content">7</span>
@@ -367,6 +372,7 @@
     // $('.questions-item-footer-writer-image').error(function(){
     //   $('.questions-item-footer-writer-image').attr(src,'../image.avatar.png');
     // });
+    //$('questions-item-footer-writer-image').attr("src", "../image.avatar.png");
 
     //질문글 가져와서 뿌려주기
     $.ajax({
@@ -377,52 +383,62 @@
         //alert(list)
         $.each(list, function(i, val){
           let app = "<div class='questions-item' >"
-                    + "<a class='questions-item-link' href='questionDetail.html>"
+                    + "<a class='questions-item-link' href="
+                    + "'questionDetail.html?seq="
+                    + val.questionSeq
+                    + "'>"
                     + "<div class='questions-block'>"
-                    + "<div class='questions-head-img'  >"
+                    + "<div class='questions-head-img'>"
                     + "<img class='questions-head-image' src='../image/dddzz.gif'>"
                     + "</div>"
                     + "<div class='questions-head'>"
                     + "<h2 class='questions-title'>"
                     + val.questionTitle
                     + "</h2>"
-                    + "<p class='questions-content'>"
-                    + val.questionContent
-                    + "</p>"        
+                    + "<span class='questions-content'>"
+                    + val.questionContent //<p></p>
+                    + "</span>"   
+                    //+ "</p>"     
                     + "</div>"
                     + "</a>"
                     + "<footer class='questions-item-footer'>"
-                    + "<span class='questions-item-footer-author'>"  
-                    + "<span class='questions-item-footer-writer-img'>"
-                    + "<img class='questions-item-footer-writer-image' src='' onerror='this.src='../image.avatar.png'' >"
-                    // + ".../image/dddzz.gif"
-                    // + "'>"
-                    + "</span>"
-                    + "<span class='questions-item-footer-writer'>배통통한현성</span>"
-                    + "</span>  &nbsp;&nbsp;&nbsp;&nbsp; "
-                    + "<span class='questions-item-footer-meta'>"
-                    + "<time datetime='2021-05-17T19:49:16+09:00' class='questions-item-footer-date text-gray'>방금</time>"
-                    + "·"
-                    + "<span class='questions-item-footer-comments>댓글"  
-                    + "<span class='questions-item-footer-comments-content active>"
-                    + val.questionReadcount  
-                    + "</span>"
-                    + "</span>"
-                    + "·"
-                    + "<span class='questions-item-footer-views>"
-                    + "조회"
-                    + "<span class='questions-item-footer-views-content>"
-                    + val.questionReadcount
-                    + "</span>"
-                    + "</span>"
-                    + "<ul class='questions-item-footer-tags keyword-list'>"
-                    + "<li class=keyword-item questions-item-footer-tags-tag'>"
-                    + "셀프인테리어"
-                    + "</li>"
-                    + "<li class=keyword-item questions-item-footer-tags-tag'>"
-                    + "존망"
-                    + "</li>"
-                    + "</ul>"
+                      + "<span class='questions-item-footer-author'>"  
+                        + "<span class='questions-item-footer-writer-img'>"
+                        + "<img class='questions-item-footer-writer-image'"
+                        + "src='../image/avatar.png' "
+                        + "onerror='this.src='../image/avatar.png''>"
+                        // + ".../image/dddzz.gif"
+                        // + "'>"
+                        + "</span>"
+                        + "<span class='questions-item-footer-writer'>배통통한현성</span>"
+                      + "</span>  &nbsp;&nbsp;&nbsp;&nbsp; "
+                      + "<span class='questions-item-footer-meta'>"
+                        + "<time datetime='2021-05-17T19:49:16+09:00' class='questions-item-footer-date text-gray'>"
+                        + "방금"
+                        + "</time>"
+                        // + "·"
+                        + "<span class='questions-item-footer-comments text-gray'>"
+                        + "댓글&nbsp;"  
+                          + "<span class='questions-item-footer-comments-content active'>"
+                          + val.questionReadcount  
+                          + "</span>"
+                        + "</span>"
+                        // + "·"
+                        + "<span class='questions-item-footer-views text-gray'>"
+                          + "조회&nbsp;"
+                          + "<span class='questions-item-footer-views-content'>"
+                          + val.questionReadcount
+                          + "</span>"
+                        + "</span>"
+                      + "</span>"
+                      + "<ul class='questions-item-footer-tags keyword-list'>"
+                      + "<li class=keyword-item questions-item-footer-tags-tag'>"
+                      + "셀프인테리어"
+                      + "</li>"
+                      + "<li class=keyword-item questions-item-footer-tags-tag'>"
+                      + "존망"
+                      + "</li>"
+                      + "</ul>"
                     + "</footer>"
                     + "</div>"
 
@@ -475,6 +491,13 @@
     }
   }
 
+  //해당 시퀀스 질문글로 이동
+/*  function whatquestion(){
+    $.ajax({
+      url=""
+    });
+  }
+*/
   
 
   </script>

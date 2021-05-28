@@ -133,6 +133,8 @@
                   <input class="question-title" name="questionTitle" id="questionTitle" type="text" placeholder="질문의 제목을 적어주세요" 
                   style="width: 500px; height: 50px; align-items: center; margin: 0 auto; margin-top: 30px; border-radius: 20px; font-size: 20px; font-weight: bold; ">
                   <br>
+                  
+                  <input type="hidden" id="userSeq" name="userSeq" >
 
                   <textarea id="summernote" name="questionContent" class="summernote" name="editordata" ></textarea>
 
@@ -209,6 +211,11 @@
 
     //로그인한 계정 닉네임 가져오기
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
+
+
+
+    $('#userSeq').val(sessionId.userSeq);
+
     // if(sessionId == null) {
     //     sessionId = '';
     //     alert('로그인해주세요');
