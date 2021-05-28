@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.decolab.wanza.dto.AddressDTO;
 import com.decolab.wanza.dto.CartDTO;
+import com.decolab.wanza.dto.OrderDTO;
+import com.decolab.wanza.dto.PaymentDTO;
 import com.decolab.wanza.service.OrderService;
 
 
@@ -116,6 +118,15 @@ public class OrderController {
 		System.out.println("OrderController updateDefaultAddress() " + new Date());		
 		
 		return service.updateDefaultAddress(dto)>0?"suc":"err";
+	}
+	
+	
+	@RequestMapping(value = "/paymentAf", method = {RequestMethod.GET,RequestMethod.POST})
+	public String paymentAf(PaymentDTO pDto, OrderDTO dto) {
+		System.out.println("OrderController paymentAf() " + new Date());
+		System.out.println(pDto.toString());
+		System.out.println(dto.toString());
+		return "suc";
 	}
 	
 	
