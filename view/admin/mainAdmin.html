@@ -9,6 +9,7 @@
 <!-- 부트스트랩 -->
 <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> <!-- jQuery UI css -->
+<link rel="stylesheet" type="text/css" href="../../css/admin/calendar.css"> <!-- 달력 -->
 <link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통 -->
 
 <style>
@@ -189,7 +190,6 @@ body{
 
 
 /* 메인 내용 */
-
 /* 검색 */
 .search_wrap{
     margin: 10px 40px;
@@ -201,11 +201,11 @@ body{
     display: flex;
     align-items: center;
     height: 90px;
-    /* width: 700px; */
-    margin: 20px; padding: 20px 40px;
+    min-width: 1260px;
+    /* width: 750px; */
+    margin: 20px; padding: 20px 40px 20px 300px;
     border-radius: 5px;
-    /* background-color: white; */
-    background-color: #55C08A;
+    background-color: #35ab6f;
     color: white;
     box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
                 0 7px 10px -5px rgb(133 217 174 / 40%);
@@ -214,30 +214,139 @@ body{
 /* 날짜검색 */
 .search_date{
     width: 300px;
+    display: flex;
 }
-.search_date input{
-    margin: 5px 5px 0 5px;
-    padding: 0 10px;
-    width: 110px; height: 35px;
-    background-color: white;
-    color: #212529;
-    border: solid 1px white;
+.move_input{
+    margin: 0 10px 0 0;
+    display: inherit;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 130px; height: 50px;
+    background-color: transparent;
+    color: white;
+}
+.move_input.active label{
+    top: -2px; left: 1px;
+    font-size: 0.7em;
+    transition: all .3s ease;
+}
+.move_input label{
+    position: absolute;
+    top: 0.9em; left: 0.6em;
+    margin: 0;
+    pointer-events: none;
+    transition: all .3s ease;
+}
+.move_input input{
+    margin: 0px 0 0 0;
+    padding: 0 0px;
+    width: 120px; height: 32px;
+    text-align: center;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: solid 2px white;
+}
+/* 데이트피커 설정 */
+#ui-datepicker-div select{
+    text-align-last: center;
+    width: 40%;
+    border: none;
     border-radius: 5px;
+    margin-right: 2px;
 }
-#ui-datepicker-div{
-
+#ui-datepicker-div .ui-datepicker-header{
+    border: none;
+    background: #56c084;
+    color: #222222;
+    font-weight: bold;
 }
-
+#ui-datepicker-div .ui-datepicker-header a{
+    margin-top: 4px;
+}
+#ui-datepicker-div .ui-datepicker-month{
+    margin-left: 10px;
+}
+#ui-datepicker-div .ui-datepicker-title option{
+    text-align-last: center;
+}
+#ui-datepicker-div .ui-state-default{
+    border: #35ab6f;
+    background: transparent;
+    color: #424242;
+    text-align: center;
+    width: 40px; height: 30px;
+    border-radius: 50%;
+}
+#ui-datepicker-div .ui-state-default:hover{
+    background: #35ab6f;
+    color: white;
+}
+/* 검색 카테고리 */
+.select_category{
+    margin: 0 10px 0 200px;
+    position: relative;
+}
+.move_label{
+    position: absolute;
+    top: 0.22em; left: -0.4em;
+    margin: 0;
+    pointer-events: none;
+    transition: all .3s ease;
+}
+.move_label.active{
+    top: -1.1em; left: -0.5em;
+    font-size: 0.7em;
+    transition: all .3s ease;
+}
+.select_category label:last-of-type{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2px 0 0 -10px;
+    width: 100px; height: 30px;
+    border: none;
+    border-bottom: solid 2px white;
+    background-color: transparent;
+}
+.select_category select:focus+i{
+    margin: 5px 5px 0 0;
+    transform: rotate(180deg);
+    transition: 0.2s ease;
+}
+.select_category select{
+    margin-right: -15px;
+    height: 100%; width: 100%;
+    background-color: transparent;
+    padding: 0 10px;
+    border: none;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    z-index: 2;
+}
+.select_category option{
+    color: #424242;
+}
+.select_category i{
+    position: relative;
+    margin: -5px 5px 0 0;
+    color: white;
+    z-index: 1;
+    transition: 0.2s ease;
+}
 
 /* 검색어 검색 */
 .search{
-    margin: 0 0 0 30px;
+    margin: 0 0 0 10px;
     min-width: 260px;
 }
 .search input{
     border: none;
-    width: 200px;
-    height: 30px;
+    width: 200px; height: 30px;
+    padding: 0 10px;
     background-color: transparent;
     color: white;
     border-bottom: solid 2px white;
@@ -251,20 +360,17 @@ body{
     color: white;
 }
 .search_btn{
-    width: 50px; height: 50px;
+    width: 40px; height: 40px;
     border: none;
     border-radius: 50%;
     color: #999;
     background-color: white;
-    font-size: 17pt;
+    font-size: 12pt;
     box-shadow: 2px 2px 0 rgb(0,0,0,0.5);
-    /* box-shadow: 0 2px 2px 0 hsl(0deg 0% 60% / 14%),
-                0 3px 1px -2px hsl(0deg 0% 60% / 20%),
-                0 1px 5px 0 hsl(0deg 0% 60% / 12%); */
 }
 .search_btn:hover{
-    background-color: rgb(133 217 174 / 90%);;
-    color: #999;
+    background-color: rgb(255 255 255 / 90%);;
+    color: #777;
 }
 .search_btn:active{
     position: relative;
@@ -275,37 +381,97 @@ body{
 .table_wrap{
     min-width: 1300px;
     margin: -40px 40px 10px 40px;
-    padding: 30px 10px 10px 10px;
+    padding: 30px 30px 10px 30px;
     /* overflow-x: auto; */
     border-radius: 5px;
     background-color: white;
     box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
                 0 7px 10px -5px rgb(133 217 174 / 40%);
 }
-/* .table{
-    min-width: 1260px;
-} */
+.head_tab{
+    display: flex;
+    align-items: center;
+    margin: 0 0 10px 0;
+}
+/* 배송상태 선택 */
+.select_category,
+.select_status{
+    display: flex;
+}
+.select_status label{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 20px 0 -10px;
+    width: 115px; height: 40px;
+    border: solid #35ab6f;
+    border-radius: 5px;
+    background-color: #35ab6f;
+    z-index: 2;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+.select_category select:focus+i,
+.select_status select:focus+i{
+    margin: 5px 5px 0 0;
+    transform: rotate(180deg);
+    transition: 0.2s ease;
+}
+.select_status select{
+    margin-right: -15px;
+    height: 100%; width: 100%;
+    background-color: transparent;
+    padding: 0 10px;
+    border: none;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    z-index: 2;
+}
+option{
+    color: #424242;
+}
+select:focus{
+    outline: none;
+}
+.select_category i,
+.select_status i{
+    position: relative;
+    margin: -5px 5px 0 0;
+    color: white;
+    z-index: 1;
+    transition: 0.2s ease;
+}
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+select::-ms-expand{
+    display: none;
+}
+
+
 .table td{
     vertical-align: middle;
     word-break:break-all;
 }
 .tab_btn{
-    width: 70px;
-    height: 36px;
+    width: 80px;
+    height: 40px;
     border: none;
     border-radius: 4px;
     color: white;
     background-color: #35ab6f;
-    /* transition: all .33s cubic-bezier(.685,.0473,.346,1) */
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
 }
-.tab_btn:hover{
+/* .tab_btn:hover{
     box-shadow: 0 14px 26px -12px rgb(133 217 174 / 42%),
                 0 4px 23px 0 rgb(0 0 0 / 12%),
                 0 8px 10px -5px rgb(133 217 174 / 20%);
-}
+} */
 .tab_btn:active{
-    /* border-radius: 50%; */
-    background: radial-gradient(#35ab6f,#0A7C42);
+    background: radial-gradient(#35ab6f,#56c084);
     transition: all .33s cubic-bezier(.685,.0473,.346,1)
 }
 
@@ -317,7 +483,7 @@ body{
 }
 #table1 .custom-control-label::before,
 #table1 .custom-control-label::after{
-    top: 0rem; left: -1.8rem;
+    top: 0.15rem; left: -1.8rem;
     width: 1.3rem; height: 1.3rem;
 }
 #table1 .custom-control-input:checked~.custom-control-label::before {
@@ -411,10 +577,27 @@ body{
 
                 <!-- 날짜 -->
                 <div class="search_date">
-                    <span>날짜</span>
-                    <input type="text" class="datepicker">
-                    <span>~</span>
-                    <input type="text" class="datepicker">
+                    <div class="move_input">
+                        <label>시작일</label>
+                        <input type="text" class="datepicker s_date">
+                    </div>
+                    <div class="move_input">
+                        <label>종료일</label>
+                        <input type="text" class="datepicker e_date">
+                    </div>
+                </div>
+
+                <!-- 카테고리 -->
+                <div class="select_category">
+                    <label class="move_label">검색종류</label>
+                    <label for="sele2"><select name="search_category" id="sele2">
+                        <option value="0"></option>
+                        <option value="1">주문번호</option>
+                        <option value="2">제품명</option>
+                        <option value="3">배송지역</option>
+                        <option value="4">주문자</option>
+                        <option value="5">전화번호</option>
+                    </select><i class="fas fa-sort-down"></i></label>
                 </div>
 
                 <!-- 검색 -->
@@ -422,28 +605,45 @@ body{
                     <input type="text" placeholder="검색...">
                     <button type="button" class="search_btn"><i class="fas fa-search"></i></button>
                 </div>
+
             </div>
         </div>
         
         <!-- 테이블박스 -->
         <div class="table_wrap" id="table1">
-            <div class="custom-checkbox mx-5 my-3" id="checkbox_all">
-                <input type="checkbox" class="custom-control-input" id="cb">
-                <label for="cb" class="custom-control-label"></label>
-                <span>전체체크</span>
+            <div class="head_tab">
+                <div class="custom-checkbox mx-5 my-3" id="checkbox_all">
+                    <input type="checkbox" class="custom-control-input" id="cb">
+                    <label for="cb" class="custom-control-label"></label>
+                    <span>전체체크</span>
+                </div>
+                <div class="select_status">
+                    <label for="sele1"><select name="dly_status" id="sele1">
+                        <option>-주문상태-</option>
+                        <option value="1">결제대기</option>
+                        <option value="2">결제완료</option>
+                        <option value="3">배송준비</option>
+                        <option value="4">배송중</option>
+                        <option value="5">배송완료</option>
+                        <option value="6">환불대기</option>
+                        <option value="7">환불완료</option>
+                    </select><i class="fas fa-sort-down"></i></label>
+
+                    <button type="button" class="tab_btn">변 경</button>
+                </div>
             </div>
- 
+
             <table class="table table-hover text-center">
                 <colgroup>
-                    <col width="56"><col width="56"><col width="86"><col width="auto"><col width="56">
-                    <col width="86"><col width="96"><col width="75"><col width="160">
-                    <col width="110"><col width="105"><col width="86"><col width="80">
+                    <col width="56"><col width="100"><col width="86"><col width="96">
+                    <col width="auto"><col width="56"><col width="86"><col width="75">
+                    <col width="160"><col width="110"><col width="105"><col width="86">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>체크</th><th>번호</th><th>주문상태</th><th>제품명</th><th>수량</th>
-                        <th>배송지역</th><th>주문일시</th><th>주문자</th><th>전화번호</th>
-                        <th>금액</th><th>사용포인트</th><th>결제수단</th><th>변경</th>
+                        <th>체크</th><th>주문번호</th><th>주문상태</th><th>주문일시</th>
+                        <th>제품명</th><th>수량</th><th>배송지역</th><th>주문자</th>
+                        <th>전화번호</th><th>금액</th><th>사용포인트</th><th>결제수단</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -454,18 +654,17 @@ body{
                                 <label for="1" class="custom-control-label"></label>
                             </div>
                         </td>
-                        <td>1</td>
+                        <td>210529-50902-00</td>
                         <td>배송중</td>
+                        <td>21/05/27 12:17:34</td>
                         <td>이탈리아 의자 외 1</td>
                         <td>1개</td>
                         <td>서울</td>
-                        <td>21/05/27 12:17:34</td>
                         <td>홍길동</td>
                         <td>010-1234-5678</td>
                         <td>138,700원</td>
                         <td>120p</td>
                         <td>카드</td>
-                        <td><button type="button" class="tab_btn">변경</button></td>
                     </tr>
                     <tr>
                         <td>
@@ -474,18 +673,17 @@ body{
                                 <label for="2" class="custom-control-label"></label>
                             </div>
                         </td>
-                        <td>2</td>
+                        <td>210529-50902-00</td>
                         <td>배송중</td>
+                        <td>21/05/27 12:17:34</td>
                         <td>이탈리아 의자 외 1</td>
                         <td>1개</td>
                         <td>서울</td>
-                        <td>21/05/27 12:17:34</td>
                         <td>홍길동</td>
                         <td>010-1234-5678</td>
                         <td>138,700원</td>
                         <td>120p</td>
                         <td>카드</td>
-                        <td><button type="button" class="tab_btn">변경</button></td>
                     </tr>
                     <tr>
                         <td>
@@ -494,30 +692,34 @@ body{
                                 <label for="3" class="custom-control-label"></label>
                             </div>
                         </td>
-                        <td>3</td>
+                        <td>210529-50902-00</td>
                         <td>배송중</td>
+                        <td>21/05/27 12:17:34</td>
                         <td>이탈리아 의자 외 1</td>
                         <td>1개</td>
                         <td>서울</td>
-                        <td>21/05/27 12:17:34</td>
                         <td>홍길동</td>
                         <td>010-1234-5678</td>
                         <td>138,700원</td>
                         <td>120p</td>
                         <td>카드</td>
-                        <td><button type="button" class="tab_btn">변경</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
+        
+        <div class="row" style="margin-top: 20px; justify-content:center; height: 20px;">
+            <div class="col offset-xl-3">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination" id="pagination">123</ul>
+                </nav>
+            </div>
+        </div>
+        
     </div>
 
-
 </div>
-
-
-
 
 
 </body>
@@ -544,6 +746,38 @@ $(document).ready(function() {
         $('.sidebar').addClass('side_open')
     });
 
+    $('.move_input input').focus( function() { // 날짜 선택시 글씨 이동 이벤트
+        $(this).parent().addClass('active')
+    });
+    $('.move_input input').change( function() {
+        if($(this).val()==''){
+            $(this).parent().removeClass('active')
+        }
+    });
+    $('#sele2').focus( function() { // 카테고리 선택시 글씨 이동 이벤트
+        $('.move_label').addClass('active')
+    });
+    $('#sele2').change( function() {
+        //console.log( $(this).val())
+        if($(this).val()==0){
+            $('.move_label').removeClass('active')
+        }
+    });
+    $('.search input').keypress( function() {
+        console.log( $(this).val())
+        $('.search_btn').click()
+    });
+    $('#table1 tbody tr').click( function() { //테이블 누르면 체크
+        let tr = $(this).find('input[type="checkbox"]');
+        let c = tr.prop("checked");
+        if(c){
+            tr.prop("checked",false);
+        }else{
+            tr.prop("checked",true);
+        }
+        autoCheck()
+    });
+
     // 체크박스 전체선택, 전체해제
     $(document).on("click", '#table1 input[type="checkbox"]', function () {
         if($(this).attr('name') != 'chk'){
@@ -552,22 +786,29 @@ $(document).ready(function() {
         autoCheck()
     });
     
-    $('.datepicker').datepicker({
+    $.datepicker.setDefaults({
         showAnim:'slideDown',
         changeMonth: true,
         changeYear: true,
         dateFormat: 'yy-mm-dd',
-        // minDate: -20,
-        // maxDate: "+1M +10D"
         monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
         monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
         dayNames: ['일','월','화','수','목','금','토'],
         dayNamesShort: ['일','월','화','수','목','금','토'],
         dayNamesMin: ['일','월','화','수','목','금','토'],
         showMonthAfterYear: true,
-        yearSuffix: '년'
+        yearSuffix: '년' 
     });
-    
+    $('.s_date').datepicker({
+        onClose: function( selectedDate ) {
+            $(".e_date").datepicker( "option", "minDate", selectedDate );
+        }   
+    });
+    $('.e_date').datepicker({
+        onClose: function( selectedDate ) {
+            $(".s_date").datepicker( "option", "maxDate", selectedDate );
+        }   
+    });
 
 });
 
@@ -577,8 +818,10 @@ function autoCheck() {
 
     if (chkLength.length == chkLength2.length) {
         $('#cb').prop("checked", true);
+        $('#checkbox_all').find('span').text('전체해제');
     } else {
         $('#cb').prop("checked", false);
+        $('#checkbox_all').find('span').text('전체체크');
     }
 };
 

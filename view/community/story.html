@@ -30,34 +30,46 @@
         align-items: center;
         z-index: 10;
     }
+    .btn_pop.change{
+        justify-content: start;
+    }
     .pop_box{
         position: relative;
+        overflow: hidden;
+        margin-left: -19px;
+        padding: 0px 16px 0px 16px;
+        width: 130%;
+        height: 0px;
+        z-index: 3;
+        opacity: 1;
+        transition: height .3s, opacity .3s;
+        /* transition: all .3s; */
     }
-    .btn_pop:hover+.pop_box .pop_content,.pop_content:hover{     /* 마우스 이벤트 */
+    .pop_box:hover,
+    .btn_pop:hover+.pop_box{     /* 마우스 이벤트 */
         opacity: 1;
         height: auto;
-        top: 20px;
-        transition: opacity .3s, height .3s, top .3s;
+        padding: 13px 16px 16px 16px;
+        transition: all .3s;
     }
     .pop_content{   /* 내용박스 */
         position: relative;
         border-radius: 4px;
-        box-shadow: 0 -1px 16px rgb(0 0 0 / 20%);
         background-color: white;
-        top: 10px;
-        height: 0;
-        z-index: 9;
-        opacity: 0;
-        transition: opacity .1s, height .2s, top .2s;
+        z-index: 3;
+        box-shadow: 0 -1px 16px rgb(0 0 0 / 20%);
     }
     .pop_content::before{   /* 박스 위 꼬다리 */
         content: "";
         position: absolute;
         background: white;
-        z-index: -2;
+        z-index: -1;
         width: 15px; height: 15px;
         top: -8px; left: 40%;
         transform: rotate(45deg);
+    }
+    .pop_content.active::before{
+        background: wheat;
     }
     .sub_content_ul{
         list-style: none;
@@ -67,11 +79,19 @@
         width: 100%;
         height: 100%;
         border: none;
-        border-radius: 4px;
+        /* border-radius: 4px; */
         color: #424242;
         background-color: white;
         padding: 15px;
         text-align: left;
+    }
+    .sub_content_ul li:first-of-type .btn_subpop{
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+    .sub_content_ul li:last-of-type .btn_subpop{
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
     }
     .btn_subpop:hover{
         background-color: wheat;
@@ -93,6 +113,20 @@
     .pi{background-color: pink;}
     .gr{background-color: green;}
     .re{background-color: red;}
+
+    .sort_clear{
+        display: none;
+        border: none;
+        background-color: transparent;
+        color: #f4744c;
+        font-size: 12pt;
+        font-weight: 900;
+    }
+    .sort_clear:hover{
+        color: #f1aa94;
+    }
+
+
     </style>
 </head>
 <body>
@@ -104,20 +138,20 @@
 
         <div id="type_menu">
             <div class="row m-5">
+
                 <div class="col-md-2 pop_wrap">
                     <button type="button" class="btn_pop">정렬 <i class="fas fa-sort"></i></button>
                     
                     <div class="pop_box">
                         <div class="pop_content">
                             <ul class="sub_content_ul">
-                                <li><button type="button" class="btn_subpop">최신순</button></li>
-                                <li><button type="button" class="btn_subpop">조회순</button></li>
-                                <li><button type="button" class="btn_subpop">인기순</button></li>
+                                <li><button type="button" class="btn_subpop" value="sort=1">최신순</button></li>
+                                <li><button type="button" class="btn_subpop" value="sort=2">조회순</button></li>
+                                <li><button type="button" class="btn_subpop" value="sort=3">인기순</button></li>
                             </ul>
                         </div>
                     </div>
-
-                </div>
+                </div> <!-- 정렬 -->
 
                 <div class="col-md-2 pop_wrap">
                     <button type="button" class="btn_pop">주거형태 <i class="fas fa-sort"></i></button>
@@ -125,64 +159,68 @@
                     <div class="pop_box">
                         <div class="pop_content">
                             <ul class="sub_content_ul">
-                                <li><button type="button" class="btn_subpop">원룸</button></li>
-                                <li><button type="button" class="btn_subpop">투룸</button></li>
-                                <li><button type="button" class="btn_subpop">오피스텔</button></li>
-                                <li><button type="button" class="btn_subpop">아파트</button></li>
+                                <li><button type="button" class="btn_subpop" value="residence=1">원룸</button></li>
+                                <li><button type="button" class="btn_subpop" value="residence=2">투룸</button></li>
+                                <li><button type="button" class="btn_subpop" value="residence=3">오피스텔</button></li>
+                                <li><button type="button" class="btn_subpop" value="residence=4">아파트</button></li>
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div>  <!-- 주거형태 -->
+
                 <div class="col-md-2 pop_wrap">
                     <button type="button" class="btn_pop">스타일 <i class="fas fa-sort"></i></button>
                     
                     <div class="pop_box">
                         <div class="pop_content">
-                            <ul class="sub_content_ul">
-                                <li><button type="button" class="btn_subpop">모던</button></li>
-                                <li><button type="button" class="btn_subpop">미니멀</button></li>
-                                <li><button type="button" class="btn_subpop">네츄럴</button></li>
-                                <li><button type="button" class="btn_subpop">빈티지</button></li>
-                                <li><button type="button" class="btn_subpop">북유럽</button></li>
-                                <li><button type="button" class="btn_subpop">유니크</button></li>
-                                <li><button type="button" class="btn_subpop">로맨틱</button></li>
-                                <li><button type="button" class="btn_subpop">엔틱</button></li>
+                            <ul class="sub_content_ul style">
+                                <li><button type="button" class="btn_subpop" value="style=1">모던</button></li>
+                                <li><button type="button" class="btn_subpop" value="style=2">미니멀</button></li>
+                                <li><button type="button" class="btn_subpop" value="style=3">네츄럴</button></li>
+                                <li><button type="button" class="btn_subpop" value="style=4">빈티지</button></li>
+                                <li><button type="button" class="btn_subpop" value="style=5">북유럽</button></li>
+                                <li><button type="button" class="btn_subpop" value="style=6">유니크</button></li>
+                                <li><button type="button" class="btn_subpop" value="style=7">로맨틱</button></li>
+                                <li><button type="button" class="btn_subpop" value="style=8">엔틱</button></li>
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> <!-- 스타일 -->
+
                 <div class="col-md-2 pop_wrap">
-                    <button type="button" class="btn_pop">색상 <i class="fas fa-sort"></i></button>
+                    <button type="button" class="btn_pop"><span>색상</span><i class="fas fa-sort"></i></button>
                     
                     <div class="pop_box">
                         <div class="pop_content">
-                            <ul class="sub_content_ul">
-                                <li><button type="button" class="btn_subpop">
+                            <ul class="sub_content_ul color">
+                                <li><button type="button" class="btn_subpop" value="color=1">
                                     <div class="color_wrap"><div class="color_circle gy"></div>그레이</div></button></li>
-                                <li><button type="button" class="btn_subpop">
+                                <li><button type="button" class="btn_subpop" value="color=2">
                                     <div class="color_wrap"><div class="color_circle wh"></div>화이트</button></li>
-                                <li><button type="button" class="btn_subpop">
+                                <li><button type="button" class="btn_subpop" value="color=3">
                                     <div class="color_wrap"><div class="color_circle bl"></div>블랙</button></li>
-                                <li><button type="button" class="btn_subpop">
+                                <li><button type="button" class="btn_subpop" value="color=4">
                                     <div class="color_wrap"><div class="color_circle mi"></div>민트</button></li>
-                                <li><button type="button" class="btn_subpop">
+                                <li><button type="button" class="btn_subpop" value="color=5">
                                     <div class="color_wrap"><div class="color_circle bu"></div>블루</button></li>
-                                <li><button type="button" class="btn_subpop">
+                                <li><button type="button" class="btn_subpop" value="color=6">
                                     <div class="color_wrap"><div class="color_circle pi"></div>핑크</button></li>
-                                <li><button type="button" class="btn_subpop">
+                                <li><button type="button" class="btn_subpop" value="color=7">
                                     <div class="color_wrap"><div class="color_circle gr"></div>그린</button></li>
-                                <li><button type="button" class="btn_subpop">
+                                <li><button type="button" class="btn_subpop" value="color=8">
                                     <div class="color_wrap"><div class="color_circle re"></div>레드</button></li>
                             </ul>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-        </div>
+                </div> <!-- 색상 -->
+
+                <button class="sort_clear">초기화</button>
+
+            </div> <!-- row -->
+        </div> <!-- type menu 끝 -->
     </div>
 
-    <div class="container" style="width: 1200px;">
+    <div class="container" style="width: 1200px; height: 500px;">
         <div style="margin-top: 30px;">
             <div id="hotCardList" class="row">
 
@@ -202,12 +240,44 @@
 
 </body>
 
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
 
 <script>
+$(document).ready(function() {
+    $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 메뉴 호버시 색
+        $('.pop_content').toggleClass('active')
+    });
+
+    $('.btn_subpop').click( function() { //선택한 걸로 제목 바꾸기
+        $(this).parents('.pop_wrap').children('.btn_pop').html($(this).text()+' <i class="fas fa-sort"></i>')
+
+        if($(this).children().hasClass('color_wrap')){
+            $(this).parents('.pop_wrap').children().first().html( $(this).children().html()+'<i class="fas fa-sort"></i>');
+        }
+        //console.log(c);
+
+        console.log( $(this).val() );
+        $('.sort_clear').show();
+    });
+
+    $('.sort_clear').click( function() {
+        let menu = ['정렬', '주거형태', '스타일', '색상'];
+        $('button[class=btn_pop]').each(function(i){
+            $(this).html(menu[i]+' <i class="fas fa-sort"></i>');
+        });
+
+    });
+    
+
+
+
+});
+
     // '인기 인테리어 사진' 리스트
-    getCardList();
+    //getCardList();
     function getCardList() {
         $.ajax({
             url: "http://192.168.0.231:3000/getCardList",
