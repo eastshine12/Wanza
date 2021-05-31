@@ -29,25 +29,51 @@
 	<!-- 질문과답변 디테일가져오기 & 유저테이블정보도 다 가져오기 -->
 	<select id="questionDetail" parameterType="com.decolab.wanza.dto.QuestionDTO" resultType="com.decolab.wanza.dto.QuestionDTO">
 		SELECT Q.QUESTIONSEQ 
-				,Q.USERSEQ 
-				,Q.QUESTIONTITLE 
-				,Q.QUESTIONCONTENT 
-				,Q.QUESTIONREADCOUNT 
-				,Q.QUESTIONREGDATE 
-				,Q.QUESTIONFILENAME 
-				,Q.QUESTIONDEL 
-				,Q.QUESTIONREF
-				,Q.QUESTIONSTEP 
-				,Q.QUESTIONDEPTH 
-			   	,U.USERNAME 
-			   	,U.NICKNAME 
-			   	,U.PROFILENAME 
-			   	,U.AUTH
+			,Q.USERSEQ 
+			,Q.QUESTIONTITLE 
+			,Q.QUESTIONCONTENT 
+			,Q.QUESTIONREADCOUNT 
+			,Q.QUESTIONREGDATE 
+			,Q.QUESTIONFILENAME 
+			,Q.QUESTIONDEL
+		   	,U.USERNAME 
+		   	,U.NICKNAME 
+		   	,U.PROFILENAME 
+		   	,U.AUTH
 		FROM QUESTION Q, USERS U
 		WHERE 1=1
 		AND Q.USERSEQ = U.USERSEQ 
 		AND Q.QUESTIONSEQ = #{questionSeq}
 	</select>
+	
+	<!-- 질문과답변 댓글리스트 가져오기 -->
+	<select id="questionCommentList" parameterType="com.decolab.wanza.dto.QuestionCommentDTO" resultType="com.decolab.wanza.dto.QuestionCommentDTO">
+		SELECT Q.QUESTIONSEQ
+		, Q.USERSEQ
+		, Q.QCSEQ
+		, Q.QCCONTENT
+		, Q.QCREGDATE
+		, Q.QCFILENAME
+		, Q.QCDEL
+		, Q.QCREF
+		, Q.QCSTEP
+		, Q.QCDEPTH
+        , U.USERNAME
+        , U.NICKNAME
+        , U.AUTH
+		FROM Q_COMMENT Q, USERS U
+		WHERE 1=1 
+		AND Q.USERSEQ = U.USERSEQ 
+		AND Q.QUESTIONSEQ = #{questionSeq}
+		<!-- ORDER BY Q_COMMENTSEQ DESC, Q_COMMENTREF ASC -->
+		
+	</select>
+	
+	<!-- 질문과답변 댓글쓰기 -->
+	<insert id="questionComment" parameterType="com.decolab.wanza.dto.QuestionCommentDTO">
+		INSERT INTO Q_COMMENT
+		VALUES(#{questionSeq}, #{userSeq}, QCSEQ.NEXTVAL, #{qcContent}, SYSDATE, #{qcFileName}, 0, 0, 0, 0)
+	</insert>
 	
 	
 	<!-- 질문과답변 목록 가져오기 -->

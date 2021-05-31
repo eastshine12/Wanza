@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.decolab.wanza.dao.QuestionDAO;
+import com.decolab.wanza.dto.QuestionCommentDTO;
 import com.decolab.wanza.dto.QuestionDTO;
 
 @Service
@@ -26,6 +27,14 @@ public class QuestionService {
 	
 	public QuestionDTO questionDetail(QuestionDTO dto) {
 		return dao.questionDetail(dto);
+	}
+	
+	public int questionComment(QuestionCommentDTO dto) {
+		return dao.questionComment(dto);
+	}
+	
+	public List<QuestionCommentDTO> questionCommentList(QuestionCommentDTO dto) {
+		return dao.questionCommentList(dto);
 	}
 
 }
