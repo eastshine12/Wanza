@@ -711,8 +711,9 @@ all and (-ms-high-contrast: none) {
 .comment-feed-item-content-author {
 	display: block;
 	margin: 0 0 -5px;
-	font-size: 0;
-	line-height: 20px
+	font-size: 15px;
+	line-height: 20px;
+	color : black;
 }
 @media (min-width: 768px) {
 	.comment-feed-item-content-author {
@@ -1026,12 +1027,7 @@ all and (-ms-high-contrast: none) {
 		font-size: 18px
 	}
 }
-.comment-feed-header-count {
-	color: coral
-}
-.comment-feed-header-count.zero {
-	color: #000
-}
+
 .comment-feed-form {
 	margin-bottom: 30px
 }

@@ -146,7 +146,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p>원룸&nbsp;· 앤틱&nbsp;·&nbsp;<i class="fa fa-circle" style="font-size: 20px;color: var(--orange);"></i><br></p>
+                        <p><span id="tagHomeType"></span>&nbsp;· <span id="tagStyle"></span>&nbsp;·&nbsp;<span id="tagColor" style="border: 1px solid black; border-radius: 50%;"><i class="fa fa-circle fa-lg"></i></span><br></p>
                     </div>
                 </div>
                 <div class="row">
@@ -226,7 +226,7 @@
                                                 <p><b>인테리어 그림 액자 포스터</b></p>
                                                 <p style="font-size: 15px;"><b>48,900원</b></p>
                                             </div>
-                                            <div class="col" style="margin-top: 25px;margin-right: -70px;">
+                                            <div class="col" style="margin-top: 25px;margin-right: -70px; cursor: pointer;">
                                                 <p style="font-size: 25px;"><b>＞</b></p>
                                             </div>
                                         </div>
@@ -246,7 +246,7 @@
                                             <p><b>인테리어 그림 액자 포스터</b></p>
                                             <p style="font-size: 15px;"><b>48,900원</b></p>
                                         </div>
-                                        <div class="col" style="margin-top: 25px;margin-right: -70px;">
+                                        <div class="col" style="margin-top: 25px;margin-right: -70px; cursor: pointer;">
                                             <p style="font-size: 25px;"><b>＞</b></p>
                                         </div>
                                     </div>
@@ -267,7 +267,27 @@
                                             <p><b>인테리어 그림 액자 포스터</b></p>
                                             <p style="font-size: 15px;"><b>48,900원</b></p>
                                         </div>
-                                        <div class="col" style="margin-top: 25px;margin-right: -70px;">
+                                        <div class="col" style="margin-top: 25px;margin-right: -70px; cursor: pointer;">
+                                            <p style="font-size: 25px;"><b>＞</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="position: absolute;">
+                            <div id="marker" style="position: relative; top: 0px;left: 0px;">
+                                <img src="../../assets/img/marker.png" style="width: 40px;">
+                                <div id="markerMessage">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
+                                        </div>
+                                        <div class="col" style="margin-left: -40px;margin-right: -10px;">
+                                            <p><b>인테리어 그림 액자 포스터</b></p>
+                                            <p style="font-size: 15px;"><b>48,900원</b></p>
+                                        </div>
+                                        <div class="col" style="margin-top: 25px;margin-right: -70px; cursor: pointer;">
                                             <p style="font-size: 25px;"><b>＞</b></p>
                                         </div>
                                     </div>
@@ -450,6 +470,9 @@
                 },
                 success: function (data) {
                     console.log(data);
+                    $('#tagHomeType').text(data.tagHomeType);
+                    $('#tagStyle').text(data.tagStyle);
+                    $('#tagColor').css('color', data.tagColor);
                     $('#title').html('<strong>'+data.cardTitle+'</strong>');
                     $('#readCount').text(data.cardReadCount);
                     $('#mainImg').attr('src', 'http://192.168.0.231:3000/upload/'+data.cardFileName);

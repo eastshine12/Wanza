@@ -515,11 +515,7 @@
 	content: "Â·";
 	margin: 0 4px
 }
-.qna-list-item-footer-comments-count {
-	margin-left: 2px;
-	font-weight: 700;
-	color: coral
-}
+
 .qna-list-item-footer-views-count {
 	margin-left: 3px
 }
