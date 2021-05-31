@@ -33,6 +33,14 @@ public class CardService {
 		return dao.addCardReadCount(dto);
 	}
 	
+	public int getCardSeq(CardDTO dto) {
+		return dao.getCardSeq(dto);
+	}
+	
+	public int addCardTag(CardDTO dto) {
+		return dao.addCardTag(dto);
+	}
+	
 	public int getLikeCount(CardDTO dto) {
 		return dao.getLikeCount(dto);
 	}

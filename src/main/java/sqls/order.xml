@@ -38,6 +38,12 @@
 	WHERE CARTCLASSIFY=#{cartClassify} AND PRODUCTSEQ=#{productSeq}
 </delete>
 
+<!-- 장바구니 분류번호 2 변경  -->
+<update id="checkedOrder" parameterType="com.decolab.wanza.dto.CartDTO">
+	UPDATE CART
+	SET CARTSTATUS=2
+	WHERE CARTCLASSIFY=#{cartClassify} AND PRODUCTSEQ=#{productSeq}
+</update>
 
 <!-- 장바구니 분류번호 1 변경  -->
 <update id="checkedIn" parameterType="com.decolab.wanza.dto.CartDTO">
@@ -87,13 +93,35 @@
 </select>
 
 
-
 <!-- 기본 주소지 설정 -->
 <update id="updateDefaultAddress" parameterType="com.decolab.wanza.dto.AddressDTO">
 	UPDATE USERS
 	SET DEFAULTADDRESS=#{defaultAddress}
 	WHERE USERSEQ=#{userSeq}
 </update>
+
+
+<!-- 결제완료 ORDER 테이블 삽입 -->
+<insert id="addOrder" parameterType="com.decolab.wanza.dto.OrderDTO">
+	INSERT INTO ORDERS
+	VALUES (SEQ_ORDER.NEXTVAL, #{userSeq}, #{addressSeq}, #{productAmount}, #{deliveryAmount}, #{totalAmount}, 
+			#{amountType}, SYSDATE, #{useMileage}, #{saveMileage}, 0, #{orderMessage})
+</insert>
+
+
+<!-- orderSeq 가져오기 -->
+<select id="getOrderSeq" parameterType="com.decolab.wanza.dto.OrderDTO" resultType="int">
+	SELECT ORDERSEQ
+	FROM (SELECT * FROM ORDERS WHERE USERSEQ=#{userSeq} ORDER BY ORDERSEQ DESC)
+	WHERE ROWNUM=1
+</select>
+
+
+<!-- purchase_product 테이블 DB 삽입 -->
+<insert id="addPurchase" parameterType="com.decolab.wanza.dto.OrderDTO">
+	INSERT INTO PURCHASE_PRODUCT
+	VALUES (SEQ_PURC_PROD.NEXTVAL, #{orderSeq}, #{productSeq}, #{userSeq}, #{selectOption}, #{quantity}, #{price})
+</insert>
 
 
 

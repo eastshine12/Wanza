@@ -20,6 +20,10 @@ public interface CardDAO {
 	
 	public int addCardReadCount(CardDTO dto);
 	
+	public int getCardSeq(CardDTO dto);
+	
+	public int addCardTag(CardDTO dto);
+	
 	public int getLikeCount(CardDTO dto);
 	public int boolLike(CardDTO dto);
 	public int addCardLikeCount(CardDTO dto);

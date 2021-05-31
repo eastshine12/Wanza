@@ -7,8 +7,17 @@
   
 <mapper namespace="com.decolab.wanza.dao.CardDAO">
 
+
 <!-- 스토리 글 목록 가져오기 -->
 <select id="getCardList" resultType="com.decolab.wanza.dto.CardDTO">
+	SELECT C.CARDSEQ, C.CARDTITLE, C.CARDCONTENT, U.USERSEQ, C.CARDREADCOUNT, C.CARDDATE, CARDFILENAME, CARDDEL, U.NICKNAME, F.LIKECOUNT  
+	FROM USERS U, CARD_COLLECTIONS C, (SELECT CARDSEQ, NVL(COUNT(*), 0) LIKECOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ) F
+	WHERE U.USERSEQ=C.USERSEQ AND C.CARDSEQ=F.CARDSEQ(+)
+	ORDER BY C.CARDDATE DESC
+</select>
+
+<!-- 스토리 인기글 목록 가져오기 -->
+<select id="getCardHotList" resultType="com.decolab.wanza.dto.CardDTO">
 	SELECT C.CARDSEQ, C.CARDTITLE, C.CARDCONTENT, U.USERSEQ, C.CARDREADCOUNT, C.CARDDATE, CARDFILENAME, CARDDEL, U.NICKNAME, F.LIKECOUNT  
 	FROM USERS U, CARD_COLLECTIONS C, (SELECT CARDSEQ, NVL(COUNT(*), 0) LIKECOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ) F
 	WHERE U.USERSEQ=C.USERSEQ AND C.CARDSEQ=F.CARDSEQ(+)
@@ -24,10 +33,25 @@
   
 <!-- 스토리 디테일 가져오기 -->
 <select id="getCardDetail" parameterType="com.decolab.wanza.dto.CardDTO" resultType="com.decolab.wanza.dto.CardDTO">
-	SELECT CARDSEQ, CARDTITLE, CARDCONTENT, U.USERSEQ, CARDREADCOUNT, CARDDATE, CARDFILENAME, CARDDEL, U.NICKNAME
-	FROM USERS U, CARD_COLLECTIONS C
-	WHERE U.USERSEQ = C.USERSEQ AND CARDSEQ=#{cardSeq}
+	SELECT C.CARDSEQ, CARDTITLE, CARDCONTENT, U.USERSEQ, CARDREADCOUNT, CARDDATE, CARDFILENAME, CARDDEL, U.NICKNAME,
+        T.TAGCOLOR, T.TAGHOMETYPE, T.TAGSTYLE
+	FROM USERS U, CARD_COLLECTIONS C, CARD_TAG T
+	WHERE U.USERSEQ = C.USERSEQ AND C.CARDSEQ = T.CARDSEQ AND C.CARDSEQ=#{cardSeq}
 </select>
+
+
+<!-- cardSeq 가져오기 -->
+<select id="getCardSeq" parameterType="com.decolab.wanza.dto.CardDTO" resultType="int">
+	SELECT CARDSEQ
+	FROM (SELECT * FROM CARD_COLLECTIONS WHERE USERSEQ=#{userSeq} ORDER BY CARDDATE DESC)
+	WHERE ROWNUM=1
+</select>
+
+<!-- 카드 태그 삽입 -->
+<insert id="addCardTag" parameterType="com.decolab.wanza.dto.CardDTO">
+	INSERT INTO CARD_TAG
+	VALUES(#{cardSeq}, #{tagColor}, #{tagHomeType}, #{tagStyle})
+</insert>
   
   
   
@@ -69,8 +93,7 @@
   
   
   
-  
-  
+ 
 <!-- 댓글 가져온다 -->
 <select id="getCardReviewList" parameterType="com.decolab.wanza.dto.CardReviewDTO" resultType="com.decolab.wanza.dto.CardReviewDTO">
 	SELECT CARDREVSEQ, CARDSEQ, NICKNAME, CARDREVCONTENT, CARDREVDATE, CARDREVDEL
