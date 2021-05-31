@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.decolab.wanza.dto.QuestionCommentDTO;
 import com.decolab.wanza.dto.QuestionDTO;
 import com.decolab.wanza.service.QuestionService;
 
@@ -31,7 +32,7 @@ public class QuestionController {
 	@RequestMapping(value = "/getAllQuestionList", method = {RequestMethod.GET,RequestMethod.POST} )
 	public List<QuestionDTO> getAllQuestionList(){
 		System.out.println("QuestionController getAllQuestionList()" + new Date());
-		System.out.println(service.getAllQuestionList());
+		//System.out.println(service.getAllQuestionList());
 		return service.getAllQuestionList();
 	}
 	
@@ -70,6 +71,24 @@ public class QuestionController {
 		System.out.println("QuestionController questionDetail()" + new Date());
 		System.out.println(service.questionDetail(dto));
 		return service.questionDetail(dto);
+	}
+	
+	@RequestMapping(value = "/questionCommentList", method = {RequestMethod.GET,RequestMethod.POST} )
+	public List<QuestionCommentDTO> questionCommentList(QuestionCommentDTO dto){
+		System.out.println("QuestionController questionCommentList()" + new Date());
+		System.out.println(service.questionCommentList(dto));
+		
+		return service.questionCommentList(dto);
+	}
+	
+	@RequestMapping(value = "/questionComment", method = {RequestMethod.GET,RequestMethod.POST} )
+	public String questionComment(QuestionCommentDTO dto, HttpServletRequest req) {
+		System.out.println("QuestionController questionComment()" + new Date());
+		
+		
+		int a = service.questionComment(dto);
+		System.out.println(a);
+		return "ss";
 	}
 	
 	
