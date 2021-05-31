@@ -15,15 +15,36 @@ public class CardDTO implements Serializable {
 	private int cardDel;
 	private String nickName;
 	private int likeCount;
+	private String tagColor;
+	private String tagHometype;
+	private String tagStyle;
+	private int sort;
 	
 	public CardDTO() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
+			String cardFileName, int cardDel, String nickName, int likeCount, String tagColor, String tagHometype,
+			String tagStyle, int sort) {
+		this.cardSeq = cardSeq;
+		this.cardTitle = cardTitle;
+		this.cardContent = cardContent;
+		this.userSeq = userSeq;
+		this.cardReadCount = cardReadCount;
+		this.cardDate = cardDate;
+		this.cardFileName = cardFileName;
+		this.cardDel = cardDel;
+		this.nickName = nickName;
+		this.likeCount = likeCount;
+		this.tagColor = tagColor;
+		this.tagHometype = tagHometype;
+		this.tagStyle = tagStyle;
+		this.sort = sort;
+	}
 
 	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
 			String cardFileName, int cardDel, String nickName, int likeCount) {
-		super();
 		this.cardSeq = cardSeq;
 		this.cardTitle = cardTitle;
 		this.cardContent = cardContent;
@@ -36,11 +57,8 @@ public class CardDTO implements Serializable {
 		this.likeCount = likeCount;
 	}
 
-
-
 	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
 			String cardFileName, int cardDel, String nickName) {
-		super();
 		this.cardSeq = cardSeq;
 		this.cardTitle = cardTitle;
 		this.cardContent = cardContent;
@@ -54,7 +72,6 @@ public class CardDTO implements Serializable {
 
 	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
 			String cardFileName, int cardDel) {
-		super();
 		this.cardSeq = cardSeq;
 		this.cardTitle = cardTitle;
 		this.cardContent = cardContent;
@@ -66,7 +83,6 @@ public class CardDTO implements Serializable {
 	}
 
 	public CardDTO(String cardTitle, String cardContent, int userSeq, String cardFileName) {
-		super();
 		this.cardTitle = cardTitle;
 		this.cardContent = cardContent;
 		this.userSeq = userSeq;
@@ -154,12 +170,45 @@ public class CardDTO implements Serializable {
 		this.likeCount = likeCount;
 	}
 
+	public String getTagColor() {
+		return tagColor;
+	}
+
+	public void setTagColor(String tagColor) {
+		this.tagColor = tagColor;
+	}
+
+	public String getTagHometype() {
+		return tagHometype;
+	}
+
+	public void setTagHometype(String tagHometype) {
+		this.tagHometype = tagHometype;
+	}
+
+	public String getTagStyle() {
+		return tagStyle;
+	}
+
+	public void setTagStyle(String tagStyle) {
+		this.tagStyle = tagStyle;
+	}
+
+	public int getSort() {
+		return sort;
+	}
+
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
+
 	@Override
 	public String toString() {
 		return "CardDTO [cardSeq=" + cardSeq + ", cardTitle=" + cardTitle + ", cardContent=" + cardContent
 				+ ", userSeq=" + userSeq + ", cardReadCount=" + cardReadCount + ", cardDate=" + cardDate
 				+ ", cardFileName=" + cardFileName + ", cardDel=" + cardDel + ", nickName=" + nickName + ", likeCount="
-				+ likeCount + "]";
+				+ likeCount + ", tagColor=" + tagColor + ", tagHometype=" + tagHometype + ", tagStyle=" + tagStyle
+				+ ", sort=" + sort + "]";
 	}
 
 }
