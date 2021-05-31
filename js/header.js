@@ -1,7 +1,6 @@
 
 includeHTML();
 
-
 // 상단 배너 X 클릭 삭제
 $(document).on('click', '#closeBanner', function() {
     $('#_card').hide();
@@ -13,11 +12,11 @@ $(document).on('click', '#_logo', function () {
 })
 
 $(document).on('click', '#goCommunity', function () {
-    alert('커뮤이동');
+    //alert('커뮤이동');
 })
 
 $(document).on('click', '#goStore', function () {
-    alert('스토어이동');
+    //alert('스토어이동');
 })
 
 
@@ -38,14 +37,9 @@ $(document).on('mouseleave', '#_realTime', function () {
 */
 
 
-$(document).on('click', '#goLogin', function () {
-    location.href = "../login/login.html"
-})
-
 $(document).on('attr', '#headerSearch', function () {
     location.href = "../login/login.html"
 })
-
 // 검색 아이콘 클릭시 검색어 DB저장
 $(document).on('click', '#search-icon', function () {
     // 검색어가 없는경우 placeholder값으로 입력
@@ -74,20 +68,32 @@ $(document).on('click', '#search-icon', function () {
 
 
 $(document).ready(function() {
-
     // 세션 아이디 정보 가져오기
     let sessionId = sessionStorage.getItem("login");
+    console.log(sessionId)
     if (sessionId != null) {
-        $('#goLogin').html('<b>내 정보</b>')
+        $('#goLogin').html('<b>내 정보</b>');
+        $('#logOut').show();
+        $(document).on('click', '#goLogin', function () {
+            location.href = "../myPage/mainMyPage.html"
+        });
+    }else{
+        $('#logOut').hide();
+        $(document).on('click', '#goLogin', function () {
+            location.href = "../login/login.html"
+        });
     }
-
+    $(document).on('click', '#logOut', function () {
+        sessionStorage.removeItem('login');
+        location.href = '../../index.html';
+    });
+        
 
     // 실시간 검색어 슬라이드
     function tick() {
         $('#_realTime li:first').slideUp(function () {
             $(this).appendTo($('#_realTime')).slideDown();
-        }
-        )
+        })
     };
 
     // 실시간 검색어 2초마다 변경
@@ -105,7 +111,7 @@ $(document).ready(function() {
     let choiceText = randomItem(eventSearchText);
     console.log(choiceText);
     document.getElementById('headerSearch').setAttribute('placeholder', choiceText);
-
+    
     // 실시간 검색순위 리스트
     getSearchList();
     function getSearchList(){
@@ -167,21 +173,13 @@ $(document).ready(function() {
     }
 
 
-
     $(document).on('click','#_realTime',function(){
-     
         $("#searchChart").slideDown();
-
-        })
+    })
 
     $(document).on('click','#closeSearch',function(){ 
         $("#searchChart").slideUp();
-        })
-
-    
-    
-  
-
+    });
 
 
 });
