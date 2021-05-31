@@ -108,11 +108,12 @@
     .gy{background-color: gray;}
     .wh{background-color: white; border: gray 0.5px solid;}
     .bl{background-color: black;}
-    .mi{background-color: rgb(154, 230, 213);}
+    .br{background-color: brown;}  /* rgb(154, 230, 213) */
     .bu{background-color: blue;}
     .pi{background-color: pink;}
     .gr{background-color: green;}
     .re{background-color: red;}
+    .ye{background-color: yellow;}
 
     .sort_clear{
         display: none;
@@ -137,10 +138,10 @@
         <h1 style="font-size: 30px;margin-bottom: 15px;"><strong>스토리</strong></h1>
 
         <div id="type_menu">
-            <div class="row m-5">
+            <div class="row my-5 mx-1">
 
-                <div class="col-md-2 pop_wrap">
-                    <button type="button" class="btn_pop">정렬 <i class="fas fa-sort"></i></button>
+                <div class="col-md-2 pop_wrap pl-0">
+                    <button type="button" class="btn_pop" value="sort=0">정렬 <i class="fas fa-sort"></i></button>
                     
                     <div class="pop_box">
                         <div class="pop_content">
@@ -154,61 +155,63 @@
                 </div> <!-- 정렬 -->
 
                 <div class="col-md-2 pop_wrap">
-                    <button type="button" class="btn_pop">주거형태 <i class="fas fa-sort"></i></button>
+                    <button type="button" class="btn_pop" value="tagHometype=0">주거형태 <i class="fas fa-sort"></i></button>
                     
                     <div class="pop_box">
                         <div class="pop_content">
                             <ul class="sub_content_ul">
-                                <li><button type="button" class="btn_subpop" value="residence=1">원룸</button></li>
-                                <li><button type="button" class="btn_subpop" value="residence=2">투룸</button></li>
-                                <li><button type="button" class="btn_subpop" value="residence=3">오피스텔</button></li>
-                                <li><button type="button" class="btn_subpop" value="residence=4">아파트</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHometype=원룸">원룸</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHometype=투룸">투룸</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHometype=오피스텔">오피스텔</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHometype=아파트">아파트</button></li>
                             </ul>
                         </div>
                     </div>
                 </div>  <!-- 주거형태 -->
 
                 <div class="col-md-2 pop_wrap">
-                    <button type="button" class="btn_pop">스타일 <i class="fas fa-sort"></i></button>
+                    <button type="button" class="btn_pop" value="tagStyle=0">스타일 <i class="fas fa-sort"></i></button>
                     
                     <div class="pop_box">
                         <div class="pop_content">
                             <ul class="sub_content_ul style">
-                                <li><button type="button" class="btn_subpop" value="style=1">모던</button></li>
-                                <li><button type="button" class="btn_subpop" value="style=2">미니멀</button></li>
-                                <li><button type="button" class="btn_subpop" value="style=3">네츄럴</button></li>
-                                <li><button type="button" class="btn_subpop" value="style=4">빈티지</button></li>
-                                <li><button type="button" class="btn_subpop" value="style=5">북유럽</button></li>
-                                <li><button type="button" class="btn_subpop" value="style=6">유니크</button></li>
-                                <li><button type="button" class="btn_subpop" value="style=7">로맨틱</button></li>
-                                <li><button type="button" class="btn_subpop" value="style=8">엔틱</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=모던">모던</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=미니멀">미니멀</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=네츄럴">네츄럴</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=빈티지">빈티지</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=북유럽">북유럽</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=유니크">유니크</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=로맨틱">로맨틱</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=엔틱">엔틱</button></li>
                             </ul>
                         </div>
                     </div>
                 </div> <!-- 스타일 -->
 
                 <div class="col-md-2 pop_wrap">
-                    <button type="button" class="btn_pop"><span>색상</span><i class="fas fa-sort"></i></button>
+                    <button type="button" class="btn_pop" value="tagColor=0"><span>색상</span><i class="fas fa-sort"></i></button>
                     
                     <div class="pop_box">
                         <div class="pop_content">
                             <ul class="sub_content_ul color">
-                                <li><button type="button" class="btn_subpop" value="color=1">
+                                <li><button type="button" class="btn_subpop" value="tagColor=grey">
                                     <div class="color_wrap"><div class="color_circle gy"></div>그레이</div></button></li>
-                                <li><button type="button" class="btn_subpop" value="color=2">
+                                <li><button type="button" class="btn_subpop" value="tagColor=white">
                                     <div class="color_wrap"><div class="color_circle wh"></div>화이트</button></li>
-                                <li><button type="button" class="btn_subpop" value="color=3">
+                                <li><button type="button" class="btn_subpop" value="tagColor=black">
                                     <div class="color_wrap"><div class="color_circle bl"></div>블랙</button></li>
-                                <li><button type="button" class="btn_subpop" value="color=4">
-                                    <div class="color_wrap"><div class="color_circle mi"></div>민트</button></li>
-                                <li><button type="button" class="btn_subpop" value="color=5">
+                                <li><button type="button" class="btn_subpop" value="tagColor=brown">
+                                    <div class="color_wrap"><div class="color_circle br"></div>브라운</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagColor=blue">
                                     <div class="color_wrap"><div class="color_circle bu"></div>블루</button></li>
-                                <li><button type="button" class="btn_subpop" value="color=6">
+                                <li><button type="button" class="btn_subpop" value="tagColor=pink">
                                     <div class="color_wrap"><div class="color_circle pi"></div>핑크</button></li>
-                                <li><button type="button" class="btn_subpop" value="color=7">
+                                <li><button type="button" class="btn_subpop" value="tagColor=green">
                                     <div class="color_wrap"><div class="color_circle gr"></div>그린</button></li>
-                                <li><button type="button" class="btn_subpop" value="color=8">
+                                <li><button type="button" class="btn_subpop" value="tagColor=red">
                                     <div class="color_wrap"><div class="color_circle re"></div>레드</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagColor=yellow">
+                                    <div class="color_wrap"><div class="color_circle ye"></div>옐로우</button></li>
                             </ul>
                         </div>
                     </div>
@@ -220,16 +223,11 @@
         </div> <!-- type menu 끝 -->
     </div>
 
-    <div class="container" style="width: 1200px; height: 500px;">
-        <div style="margin-top: 30px;">
+    <div class="container" style="width: 1200px;">
+        <div class="mt-5 ml-3">
             <div id="hotCardList" class="row">
-
                 <!-- 인기 인테리어 리스트 생성되는 곳 -->
-
             </div>
-
-
-
         </div>
     </div>
 
@@ -251,55 +249,57 @@ $(document).ready(function() {
         $('.pop_content').toggleClass('active')
     });
 
-    $('.btn_subpop').click( function() { //선택한 걸로 제목 바꾸기
-        $(this).parents('.pop_wrap').children('.btn_pop').html($(this).text()+' <i class="fas fa-sort"></i>')
-
+    $('.btn_subpop').click( function() { //선택한 걸로 제목 바꾸기, 값 바꾸기
+        let val = $(this).val()
         if($(this).children().hasClass('color_wrap')){
             $(this).parents('.pop_wrap').children().first().html( $(this).children().html()+'<i class="fas fa-sort"></i>');
+            $(this).parents('.pop_wrap').children().first().val(val);
+        }else{
+            $(this).parents('.pop_wrap').children('.btn_pop').html($(this).text()+' <i class="fas fa-sort"></i>')
+            $(this).parents('.pop_wrap').children('.btn_pop').val(val);
         }
-        //console.log(c);
-
-        console.log( $(this).val() );
+        let data = setJdata();
+        console.log( data );
+        getCardSortList(data);
         $('.sort_clear').show();
     });
-
+    
+    //초기화
+    let menu = ['정렬', '주거형태', '스타일', '색상'];
+    let initVal = ['sort=0', 'tagHometype=0', 'tagStyle=0', 'tagColor=0'];
     $('.sort_clear').click( function() {
-        let menu = ['정렬', '주거형태', '스타일', '색상'];
         $('button[class=btn_pop]').each(function(i){
             $(this).html(menu[i]+' <i class="fas fa-sort"></i>');
+            $(this).val(initVal[i])
         });
-
+        $(this).css('display','none');
+        let data = setJdata();
+        console.log( data );
+        getCardSortList(data);
     });
-    
+
 
 
 
 });
 
-    // '인기 인테리어 사진' 리스트
-    //getCardList();
-    function getCardList() {
-        $.ajax({
-            url: "http://192.168.0.231:3000/getCardList",
-            type: "get",
-            success: function (list) {
-
-                console.log(list);
-
-                let app = ""
-                if (Object.keys(list).length == 0) {	// JSON형식의 길이
-
+// '인기 인테리어 사진' 리스트
+getCardList();
+function getCardList() {
+    $.ajax({
+        url: "http://localhost:3000/getCardList",
+        type: "get",
+        success: function (list) {
+            console.log(list);
+            let app = ""
+            if (Object.keys(list).length == 0) {	// JSON형식의 길이
+                app += '<div style="width: 320px; margin-right: 50px;">'
+                    + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                    + "</div>";
+                $("#hotCardList").append(app);
+            } else {
+                $.each(list, function (i, val) {
                     app += '<div style="width: 320px; margin-right: 50px;">'
-                        + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
-                        + "</div>";
-
-                    $("#hotCardList").append(app);
-
-                } else {
-
-                    $.each(list, function (i, val) {
-
-                        app += '<div style="width: 320px; margin-right: 50px;">'
                             +   '<article article class="project_wrap" >'
                             +    '<a href="./cardDetail.html?seq='+val.cardSeq+'"></a>'
                             +     '<div class="project_item">'
@@ -307,24 +307,69 @@ $(document).ready(function() {
                             +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
                             +     '</div>'
                             +     '<h3 style="font-family: \'Noto Sans KR\'; font-size: 16px; margin-top: 15px; height: 32px;"><b>'+val.cardTitle+'</b></h3>'
-                            +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.cardContent+'</b></span>'
-                            +    '<div style="font-family: \'Noto Sans KR\'; font-size: 13px;margin-top: 5px;"><i class="fa fa-heart" style="font-size: 13px;color: rgb(244,116,76);margin-left: 2px;"></i> 28&ensp;│&ensp;<b>조회</b> 2,338</div>'
+                            +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.nickName+'</b></span>'
+                            +    '<div style="font-family: \'Noto Sans KR\'; font-size: 13px;margin-top: 5px;"><i class="fa fa-heart" style="font-size: 13px;color: rgb(244,116,76);margin-left: 2px;"></i> '+val.likeCount+'&ensp;│&ensp;<b>조회</b> '+val.cardReadCount+'</div>'
                             +   '</article>'
                             +  '</div >'
-
-                    });
-                    $("#hotCardList").append(app);
-                }
-
-            },
-            error: function () {
-                alert('error');
+                });
+                $("#hotCardList").append(app);
             }
-        });
-    };
+        },
+        error: function () {  alert('error');   }
+    });
+};
 
+// 분류 데이터 가져와서 json형태로 만들기
+function setJdata(){
+    let param='{';
+    $('button[class=btn_pop]').each(function(i){
+        let a = $(this).val();
+        param += '"';
+        param += a.split('=')[0];
+        param += '":"';
+        param += a.split('=')[1];
+        param += '",';
+    });
+    param = param.substring(0,param.length-1);
+    param += '}';
+    return JSON.parse(param);
+}
 
-
+function getCardSortList(data) {
+    $.ajax({
+        url: "http://localhost:3000/getCardSortList",
+        type: "get",
+        data: data,
+        success: function (list) {
+            console.log(list);
+            $("#hotCardList").html('');
+            let app = ""
+            if (Object.keys(list).length == 0) {	// JSON형식의 길이
+                app += '<div style="width: 320px; margin-right: 50px; height:100px">'
+                    + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                    + "</div>";
+                $("#hotCardList").append(app);
+            } else {
+                $.each(list, function (i, val) {
+                    app += '<div style="width: 320px; margin-right: 50px;">'
+                            +   '<article article class="project_wrap" >'
+                            +    '<a href="./cardDetail.html?seq='+val.cardSeq+'"></a>'
+                            +     '<div class="project_item">'
+                            +      '<span></span>'
+                            +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                            +     '</div>'
+                            +     '<h3 style="font-family: \'Noto Sans KR\'; font-size: 16px; margin-top: 15px; height: 32px;"><b>'+val.cardTitle+'</b></h3>'
+                            +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.nickName+'</b></span>'
+                            +    '<div style="font-family: \'Noto Sans KR\'; font-size: 13px;margin-top: 5px;"><i class="fa fa-heart" style="font-size: 13px;color: rgb(244,116,76);margin-left: 2px;"></i> '+val.likeCount+'&ensp;│&ensp;<b>조회</b> '+val.cardReadCount+'</div>'
+                            +   '</article>'
+                            +  '</div >'
+                });
+                $("#hotCardList").append(app);
+            }
+        },
+        error: function () {  console.log('error')   }
+    });
+}
 </script>
 
 

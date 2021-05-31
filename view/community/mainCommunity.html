@@ -183,8 +183,8 @@
 <script>
 
     //로그인한 계정 닉네임 가져오기
-    let sessionId = JSON.parse(sessionStorage.getItem("login"));
-    console.log(sessionId);
+    //let sessionId = JSON.parse(sessionStorage.getItem("login"));
+    //console.log(sessionId);
 
 
     // 금액 콤마 삽입 정규식
@@ -200,7 +200,7 @@
         return Math.ceil(discount/price*100);
     };
 
-
+    console.log('본문1')
     // '인기 상품' 리스트
     getProductList();
     function getProductList() {
@@ -303,8 +303,8 @@
             }
         });
     };
-
-
+    console.log('본문2')
+    $(document).ready(function() {console.log('본문3') })
 
 </script>
 

@@ -93,6 +93,11 @@
         align-items: center;
         justify-content: flex-end;
     }
+    #issue .fa-sign-out{
+        margin: 0 0 0 10px;
+        cursor: pointer;
+        display: none;
+    }
     #headerSearch{
         height: 52px; width: 50%;
         /* margin-top: 30px;margin-left: 30px; */
@@ -164,7 +169,7 @@
                 <img id="_logo" src="../../assets/img/완자logo2.png" style="width: 211px;margin-top: 28px;margin-right: 25px; cursor: pointer;">
                 <div class="text-nowrap main_subtitle">
                     <a href="../community/story.html" id="goCommunity"><strong>커뮤니티</strong></a>
-                    <a href="../store/storeDetail.html" id="goStore"><strong>스토어</strong></a>
+                    <a href="../store/mainStore.html" id="goStore"><strong>스토어</strong></a>
                 </div>
             </div>
 
@@ -189,13 +194,16 @@
                     
                     <!-- 장바구니 -->
                     <svg id="goCart" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none"
-                    style="font-size: 35px; margin: 0 20px; cursor: pointer;">
+                    style="font-size: 35px; margin: 0 10px; cursor: pointer;">
                     <path d="M16 11V7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V11M5 9H19L20 21H4L5 9Z"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     </path></svg>
 
                     <!-- 로그인버튼 -->
                     <button id="goLogin" class="btn btn-primary" type="button"><strong>로그인/가입</strong></button>
+                    <!-- 로그아웃 버튼 -->
+                    <i class="fa fa-sign-out fa-2x" id="logOut" title="로그아웃"></i>
+                    
                 </div>
 
             </div>
@@ -204,7 +212,7 @@
 
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
-
+    <script src="../../js/header.js"></script>
 </body>
 
 </html>
