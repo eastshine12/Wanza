@@ -63,6 +63,11 @@ public class CartDTO implements Serializable {
 		this.quantity = quantity;
 		this.price = price;
 	}
+	
+	public CartDTO(String cartClassify) {
+		this.cartClassify = cartClassify;
+	}
+	
 
 	public String getCartClassify() {
 		return cartClassify;
