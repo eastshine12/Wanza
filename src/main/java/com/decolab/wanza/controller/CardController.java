@@ -38,6 +38,13 @@ public class CardController {
 		return service.getCardList();
 	}
 	
+	@RequestMapping(value = "/getCardSortList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<CardDTO> getCardSortList(CardDTO dto) {
+		System.out.println("CardController getCardSortList() " + new Date());
+		System.out.println(dto.toString());
+		return service.getCardSortList(dto);
+	}
+	
 	@RequestMapping(value = "/getCardDetail", method = {RequestMethod.GET,RequestMethod.POST})
 	public CardDTO getCardDetail(CardDTO dto) {
 		System.out.println("CardController getCardDetail() " + new Date());
