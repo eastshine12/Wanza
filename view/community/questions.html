@@ -369,6 +369,14 @@
 <script>
   $(document).ready(function(){
 
+    //로그인한 계정 닉네임 가져오기
+  let sessionId = JSON.parse(sessionStorage.getItem("login"));
+  console.log(sessionId);
+
+  
+
+  
+
     // $('.questions-item-footer-writer-image').error(function(){
     //   $('.questions-item-footer-writer-image').attr(src,'../image.avatar.png');
     // });
@@ -380,8 +388,14 @@
       type: "get",
       success:function(list){
         alert('getAllQuestionList 성공')
+        console.log(list);
         //alert(list)
         $.each(list, function(i, val){
+          // if(val.questionFileName == '' || val.questionFileName == null){
+          //   val.questionFileName == '../image/wanza.png'            
+          // }
+          
+
           let app = "<div class='questions-item' >"
                     + "<a class='questions-item-link' href="
                     + "'questionDetail.html?seq="
@@ -389,7 +403,10 @@
                     + "'>"
                     + "<div class='questions-block'>"
                     + "<div class='questions-head-img'>"
-                    + "<img class='questions-head-image' src='../image/dddzz.gif'>"
+                    + "<img class='questions-head-image'" 
+                    + "src='"
+                    + val.questionFileName
+                    + "' onerror='this.src='../image/wanza.png''>"
                     + "</div>"
                     + "<div class='questions-head'>"
                     + "<h2 class='questions-title'>"
@@ -405,8 +422,9 @@
                       + "<span class='questions-item-footer-author'>"  
                         + "<span class='questions-item-footer-writer-img'>"
                         + "<img class='questions-item-footer-writer-image'"
-                        + "src='../image/avatar.png' "
-                        + "onerror='this.src='../image/avatar.png''>"
+                        + "src='"
+                        + sessionId.profileName
+                        + "'>"
                         // + ".../image/dddzz.gif"
                         // + "'>"
                         + "</span>"
@@ -442,6 +460,10 @@
                     + "</footer>"
                     + "</div>"
 
+                    if(val.questionFileName == 0){
+                      $('#questions-item-footer-writer-image').attr("src", "../image/avatar.png")
+                    }
+
                     $("#questions-list-container").append(app);
 
                   });
@@ -454,9 +476,9 @@
 
   });
 
-  //로그인한 계정 닉네임 가져오기
-  let sessionId = JSON.parse(sessionStorage.getItem("login"));
-  console.log(sessionId);
+  
+
+  
 
   function filterfunc() {
     var x = document.getElementById("Demo");
