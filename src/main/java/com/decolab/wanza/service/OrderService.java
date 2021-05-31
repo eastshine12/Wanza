@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.decolab.wanza.dao.OrderDAO;
 import com.decolab.wanza.dto.AddressDTO;
 import com.decolab.wanza.dto.CartDTO;
+import com.decolab.wanza.dto.OrderDTO;
 import com.decolab.wanza.dto.UserDTO;
 
 
@@ -36,6 +37,10 @@ public class OrderService {
 	
 	public int deleteCart(CartDTO dto) {
 		return dao.deleteCart(dto);
+	}
+	
+	public int checkedOrder(CartDTO dto) {
+		return dao.checkedOrder(dto);
 	}
 	
 	public int checkedIn(CartDTO dto) {
@@ -66,5 +71,16 @@ public class OrderService {
 		return dao.updateDefaultAddress(dto);
 	}
 	
+	public int addOrder(OrderDTO dto) {
+		return dao.addOrder(dto);
+	}
+	
+	public int addPurchase(OrderDTO dto) {
+		return dao.addPurchase(dto);
+	}
+	
+	public int getOrderSeq(OrderDTO dto) {
+		return dao.getOrderSeq(dto);
+	}
 	
 }

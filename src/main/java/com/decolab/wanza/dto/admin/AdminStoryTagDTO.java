@@ -1,9 +1,9 @@
-package com.decolab.wanza.dto;
+package com.decolab.wanza.dto.admin;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class CardDTO implements Serializable {
+public class AdminStoryTagDTO implements Serializable {
 	
 	private int cardSeq;
 	private String cardTitle;
@@ -15,23 +15,29 @@ public class CardDTO implements Serializable {
 	private int cardDel;
 	private String nickName;
 	private int likeCount;
-	private String tagColor;
-	private String tagHometype;
-	private String tagStyle;
-	private int sort;
+	
+	private int productSeq;
+	private String productName;
+	private String productFileName;
+	
+	private int locationX;
+	private int locationY;
 	
 	private String tagColor;
 	private String tagHomeType;
 	private String tagStyle;
 	
 	
-	public CardDTO() {
+	public AdminStoryTagDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
-			String cardFileName, int cardDel, String nickName, int likeCount, String tagColor, String tagHometype,
-			String tagStyle, int sort) {
+
+
+	public AdminStoryTagDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount,
+			Date cardDate, String cardFileName, int cardDel, String nickName, int likeCount, int productSeq,
+			String productName, String productFileName, int locationX, int locationY, String tagColor,
+			String tagHomeType, String tagStyle) {
+		super();
 		this.cardSeq = cardSeq;
 		this.cardTitle = cardTitle;
 		this.cardContent = cardContent;
@@ -42,56 +48,14 @@ public class CardDTO implements Serializable {
 		this.cardDel = cardDel;
 		this.nickName = nickName;
 		this.likeCount = likeCount;
+		this.productSeq = productSeq;
+		this.productName = productName;
+		this.productFileName = productFileName;
+		this.locationX = locationX;
+		this.locationY = locationY;
 		this.tagColor = tagColor;
-		this.tagHometype = tagHometype;
+		this.tagHomeType = tagHomeType;
 		this.tagStyle = tagStyle;
-		this.sort = sort;
-	}
-
-	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
-			String cardFileName, int cardDel, String nickName, int likeCount) {
-		this.cardSeq = cardSeq;
-		this.cardTitle = cardTitle;
-		this.cardContent = cardContent;
-		this.userSeq = userSeq;
-		this.cardReadCount = cardReadCount;
-		this.cardDate = cardDate;
-		this.cardFileName = cardFileName;
-		this.cardDel = cardDel;
-		this.nickName = nickName;
-		this.likeCount = likeCount;
-	}
-
-	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
-			String cardFileName, int cardDel, String nickName) {
-		this.cardSeq = cardSeq;
-		this.cardTitle = cardTitle;
-		this.cardContent = cardContent;
-		this.userSeq = userSeq;
-		this.cardReadCount = cardReadCount;
-		this.cardDate = cardDate;
-		this.cardFileName = cardFileName;
-		this.cardDel = cardDel;
-		this.nickName = nickName;
-	}
-
-	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
-			String cardFileName, int cardDel) {
-		this.cardSeq = cardSeq;
-		this.cardTitle = cardTitle;
-		this.cardContent = cardContent;
-		this.userSeq = userSeq;
-		this.cardReadCount = cardReadCount;
-		this.cardDate = cardDate;
-		this.cardFileName = cardFileName;
-		this.cardDel = cardDel;
-	}
-
-	public CardDTO(String cardTitle, String cardContent, int userSeq, String cardFileName) {
-		this.cardTitle = cardTitle;
-		this.cardContent = cardContent;
-		this.userSeq = userSeq;
-		this.cardFileName = cardFileName;
 	}
 
 
@@ -105,23 +69,14 @@ public class CardDTO implements Serializable {
 	}
 
 
-
-
-
 	public String getCardTitle() {
 		return cardTitle;
 	}
 
 
-
-
-
 	public void setCardTitle(String cardTitle) {
 		this.cardTitle = cardTitle;
 	}
-
-
-
 
 
 	public String getCardContent() {
@@ -203,46 +158,97 @@ public class CardDTO implements Serializable {
 		this.likeCount = likeCount;
 	}
 
+
+	public int getProductSeq() {
+		return productSeq;
+	}
+
+
+	public void setProductSeq(int productSeq) {
+		this.productSeq = productSeq;
+	}
+
+
+	public String getProductName() {
+		return productName;
+	}
+
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+
+	public String getProductFileName() {
+		return productFileName;
+	}
+
+
+	public void setProductFileName(String productFileName) {
+		this.productFileName = productFileName;
+	}
+
+
+	public int getLocationX() {
+		return locationX;
+	}
+
+
+	public void setLocationX(int locationX) {
+		this.locationX = locationX;
+	}
+
+
+	public int getLocationY() {
+		return locationY;
+	}
+
+
+	public void setLocationY(int locationY) {
+		this.locationY = locationY;
+	}
+
+
 	public String getTagColor() {
 		return tagColor;
 	}
 
+
 	public void setTagColor(String tagColor) {
 		this.tagColor = tagColor;
 	}
-	public String getTagHometype() {
-		return tagHometype;
+
+
+	public String getTagHomeType() {
+		return tagHomeType;
 	}
 
-	public void setTagHometype(String tagHometype) {
-		this.tagHometype = tagHometype;
+
+	public void setTagHomeType(String tagHomeType) {
+		this.tagHomeType = tagHomeType;
 	}
+
 
 	public String getTagStyle() {
 		return tagStyle;
 	}
 
+
 	public void setTagStyle(String tagStyle) {
 		this.tagStyle = tagStyle;
 	}
 
-	public int getSort() {
-		return sort;
-	}
-
-	public void setSort(int sort) {
-		this.sort = sort;
-	}
 
 	@Override
 	public String toString() {
-		return "CardDTO [cardSeq=" + cardSeq + ", cardTitle=" + cardTitle + ", cardContent=" + cardContent
+		return "AdminStoryTagDTO [cardSeq=" + cardSeq + ", cardTitle=" + cardTitle + ", cardContent=" + cardContent
 				+ ", userSeq=" + userSeq + ", cardReadCount=" + cardReadCount + ", cardDate=" + cardDate
 				+ ", cardFileName=" + cardFileName + ", cardDel=" + cardDel + ", nickName=" + nickName + ", likeCount="
-				+ likeCount + ", tagColor=" + tagColor + ", tagHometype=" + tagHometype + ", tagStyle=" + tagStyle
-				+ ", sort=" + sort + "]";
+				+ likeCount + ", productSeq=" + productSeq + ", productName=" + productName + ", productFileName="
+				+ productFileName + ", locationX=" + locationX + ", locationY=" + locationY + ", tagColor=" + tagColor
+				+ ", tagHomeType=" + tagHomeType + ", tagStyle=" + tagStyle + "]";
 	}
 
-
 	
+
 }

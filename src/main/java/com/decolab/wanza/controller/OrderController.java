@@ -120,12 +120,43 @@ public class OrderController {
 		return service.updateDefaultAddress(dto)>0?"suc":"err";
 	}
 	
-	
+	//결제버튼 클릭
 	@RequestMapping(value = "/paymentAf", method = {RequestMethod.GET,RequestMethod.POST})
 	public String paymentAf(PaymentDTO pDto, OrderDTO dto) {
 		System.out.println("OrderController paymentAf() " + new Date());
 		System.out.println(pDto.toString());
+		
+		//배송메시지 입력없거나, 직접 입력일 경우
+		if(dto.getOrderMessage().equals("0")) {
+			dto.setOrderMessage("");
+		} else if(dto.getOrderMessage().equals("4")) {
+			dto.setOrderMessage(dto.getOrderMessage_free());
+		};
+		
+		//적립포인트 (상품금액 * 0.01)
+		dto.setSaveMileage((int)Math.ceil(dto.getProductAmount()*0.01));
+		
 		System.out.println(dto.toString());
+		service.addOrder(dto);
+		
+		//OrderSeq 가져오기
+		int orderSeq = service.getOrderSeq(dto);
+		
+		//cartstatus 1인 상품 리스트 가져오기			
+		List<CartDTO> cartList = service.getPaymentList(new CartDTO("CT-"+dto.getUserSeq()));
+		for(CartDTO c : cartList) {
+			System.out.println(c.toString());
+			//purchase_product 테이블에 DB 삽입	
+			dto.setOrderSeq(orderSeq);
+			dto.setProductSeq(c.getProductSeq());
+			dto.setSelectOption(c.getSelectOption());
+			dto.setQuantity(c.getQuantity());
+			dto.setPrice(c.getPrice());
+			service.addPurchase(dto);
+			//cartstatus 2로 변경
+			service.checkedOrder(c);
+		};
+		
 		return "suc";
 	}
 	

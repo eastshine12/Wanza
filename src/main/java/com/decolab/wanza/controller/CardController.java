@@ -51,10 +51,10 @@ public class CardController {
 		return service.getCardDetail(dto);
 	}
 	
-	@RequestMapping(value = "/cardWrite", method = {RequestMethod.GET,RequestMethod.POST})
-	public String cardWrite(@RequestParam("cardFile")MultipartFile cardFile, CardDTO dto, HttpServletRequest req) {
+	@RequestMapping(value = "/storyWrite", method = {RequestMethod.GET,RequestMethod.POST})
+	public String storyWrite(@RequestParam("cardFile")MultipartFile cardFile, CardDTO dto, HttpServletRequest req) {
 		
-		System.out.println("CardController cardWrite() " + new Date());
+		System.out.println("CardController storyWrite() " + new Date());
 		
 		/* 경로	src/main/webapp/upload 폴더를 생성할 것 */
 		String uploadPath = req.getServletContext().getRealPath("/upload");
@@ -70,7 +70,6 @@ public class CardController {
 
 		System.out.println("dto 들어오나 : "+dto.toString());
 		
-		
 		try {
 			BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
 			os.write(cardFile.getBytes());
@@ -81,7 +80,12 @@ public class CardController {
 			return "file upload fail";
 		}
 		
-		return service.cardWrite(dto)>0?"suc":"err";
+		service.cardWrite(dto);
+		int cardSeq = service.getCardSeq(dto);
+		dto.setCardSeq(cardSeq);
+		service.addCardTag(dto);
+		
+		return "suc"; 
 	}
 	
 	@RequestMapping(value = "/addCardReadCount", method = {RequestMethod.GET,RequestMethod.POST})

@@ -1,32 +1,21 @@
 package com.decolab.wanza.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.decolab.wanza.dao.AdminDAO;
-import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
+import com.decolab.wanza.dao.EventDAO;
+import com.decolab.wanza.dto.EventDTO;
 
 @Service
 @Transactional
-public class AdminService {
-	
+public class EventService {
 	
 	@Autowired
-	AdminDAO dao;
+	EventDAO dao;
 	
-	public List<AdminStoryTagDTO> getStoryTagList(){
-		return dao.getStoryTagList();
+	public int eventWrite(EventDTO dto) {
+		return dao.eventWrite(dto);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

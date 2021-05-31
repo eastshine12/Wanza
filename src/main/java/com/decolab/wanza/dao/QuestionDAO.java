@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.decolab.wanza.dto.QuestionCommentDTO;
 import com.decolab.wanza.dto.QuestionDTO;
 
 @Mapper
@@ -16,4 +17,8 @@ public interface QuestionDAO {
 	public int questionWrite(QuestionDTO dto);
 	
 	public QuestionDTO questionDetail(QuestionDTO dto);
+	
+	public int questionComment(QuestionCommentDTO dto);
+	
+	public List<QuestionCommentDTO> questionCommentList(QuestionCommentDTO dto);
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.decolab.wanza.dao.EventDAO">
+
+
+<insert id="eventWrite" parameterType="com.decolab.wanza.dto.EventDTO">
+	INSERT INTO EVENT(EVENTSEQ, EVENTTITLE,EVENTCONTENT,EVENTREADCOUNT,EVENTDATE,EVENTSTARTDATE,EVENTENDDATE,EVENTFILENAME,EVENTDEL,PRODUCTSEQ)
+	VALUES(SEQ_EVENT.NEXTVAL, #{eventTitle}, #{eventContent},0,SYSDATE,#{eventStartDate},#{eventEndDate},#{eventFilename},0,#{productSeq})
+
+</insert>
+
+
+
+</mapper>
