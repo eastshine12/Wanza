@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>완벽한 자취생활, 완자</title>
+
+<link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon"> <!-- 브라우저 탭 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
+<!-- 부트스트랩 -->
+<link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> <!-- jQuery UI css -->
+<link rel="stylesheet" type="text/css" href="../../css/admin/calendar.css"> <!-- 달력 -->
+<link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통 -->
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script type="text/javascript" src="../../assets/js/raphael_path_s.korea.js"></script>
+<script type="text/javascript" src="../../assets/js/raphael_min.js"></script>
+
+
+<style>
+body{
+    background-color: #eee;
+}
+/* 큰 패널 2개*/
+/* 사이드 */
+.sidebar{
+    position: fixed;
+    top: 0; bottom: 0;
+    left: 0;
+    z-index: 200;
+    width: 260px; height: 100%;
+    padding-top: 20px;
+    background-color: white;
+    color: #a9afbb;
+    text-align: center;
+    box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%),
+                0 4px 25px 0 rgb(0 0 0 / 12%),
+                0 8px 10px -5px rgb(0 0 0 / 20%);
+    transform: translate3d(0px,0,0);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1);
+}
+
+/* 메인 */
+.main_panel{
+    position: relative;
+    float: right;
+    width: calc(100% - 260px);
+    transition: .33s,cubic-bezier(.685,.0473,.346,1);
+}
+
+/* 반응형 */
+@media(max-width: 991px){
+    .sidebar{
+        top: 0; left: 0;
+        right: auto;
+        z-index: 100;
+        visibility: visible;
+        background-color: #ededed;
+        overflow-y: visible;
+        transform: translate3d(-260px,0,0);
+        transition: all .33s cubic-bezier(.685,.0473,.346,1);
+    }
+    .main_panel{
+        height: 100%;
+        max-height: 100%;
+        width: 100%;
+        transform: translate3d(-0px,0,0);
+        transition: all .33s cubic-bezier(.685,.0473,.346,1)
+    }
+    .navbar-toggler .icon-bar:nth-child(2) {
+        top: 0;
+        animation: all .5s 0s;
+        animation-fill-mode: forwards;
+    }
+    .side_open{
+        transform: translateZ(0);
+    }
+}
+@media(min-width: 991px){
+    .navbar-toggler {
+        display: none;
+    }
+}
+
+/* 사이드 메뉴 */
+/* 로고 */
+.logo{
+    border-bottom: solid hsla(0,0%,71%,.3);
+    height: 60px;
+    margin: 20px 10px;
+}
+.logo a,.logo a:hover{
+    color: #3c4858;;
+    font-size: 20pt;
+    text-decoration: none;
+}
+/* 메뉴 전체 */
+.menu{
+    list-style: none;
+    padding: 0;
+}
+/* 메인메뉴 */
+.menu_header{
+    padding: 15px 0;
+    margin: 0 20px 0 20px;
+    display: flex;
+    justify-content: center;
+}
+.btn_menu_h{
+    width: 100%;
+    height: 60px;
+    color: #a9afbb;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    text-align: left;
+    padding-left: 25px;
+    font-size: 16pt;
+}
+.btn_menu_h i{
+    margin-right: 10px;
+}
+.btn_menu_h:hover{
+    color: #a9afbb;
+    background-color: hsla(0,0%,78%,.2);
+}
+.menu li.active button{
+    color: white;
+    background-color: #35ab6f;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+/* 서브메뉴 */
+.menu_sub{
+    /* border: solid 0.5px; */
+    /* height: 250px; */
+    margin: -20px 15px 10px 15px;
+    padding: 20px 10px 10px 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+}
+.btn_menu_s{
+    width: 85%;
+    height: 50px;
+    color: #56c084;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    text-align: left;
+    margin: 0 0 10px 10px;
+    padding-left: 10px;
+    font-size: 12pt;
+}
+.btn_menu_s i{
+    margin-right: 10px;
+}
+.btn_menu_s:hover{
+    color: #a9afbb;
+    background-color: hsla(0,0%,78%,.2);
+}
+.menu_sub .menu li.active button{
+    color: white;
+    background-color: #56c084;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+/* 사이드 마지막 */
+.menu_footer{
+    position: absolute;
+    bottom: 15px;
+    left: 40px;
+    width: 70%;  height: 45px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 3;
+}
+.menu_footer a{
+    color: #a9afbb;
+    text-decoration: none;
+}
+.menu_footer:hover{
+    color: #a9afbb;
+    background-color: hsla(0,0%,78%,.2);
+}
+/* 메뉴 토글 아이콘 */
+.navbar-toggler-icon{
+    display: block;
+    width: 40px; height: 6px;
+    margin-top: 6px;
+    background: #555;
+    border-radius: 1px;
+    outline: 0;
+}
+
+
+
+
+
+
+/* 메인 내용 */
+/* 검색 */
+.search_wrap{
+    margin: 10px 40px;
+    /* width: 1300px; */
+    position: relative;
+    z-index: 10;
+}
+.search_box{
+    display: flex;
+    align-items: center;
+    height: 90px;
+    min-width: 1260px;
+    /* width: 750px; */
+    margin: 20px; padding: 20px 40px 20px 300px;
+    border-radius: 5px;
+    background-color: #35ab6f;
+    color: white;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
+                0 7px 10px -5px rgb(133 217 174 / 40%);
+}
+
+/* 날짜검색 */
+.search_date{
+    width: 300px;
+    display: flex;
+}
+.move_input{
+    margin: 0 10px 0 0;
+    display: inherit;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 130px; height: 50px;
+    background-color: transparent;
+    color: white;
+}
+.move_input.active label{
+    top: -2px; left: 1px;
+    font-size: 0.7em;
+    transition: all .3s ease;
+}
+.move_input label{
+    position: absolute;
+    top: 0.9em; left: 0.6em;
+    margin: 0;
+    pointer-events: none;
+    transition: all .3s ease;
+}
+.move_input input{
+    margin: 0px 0 0 0;
+    padding: 0 0px;
+    width: 120px; height: 32px;
+    text-align: center;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: solid 2px white;
+}
+/* 데이트피커 설정 */
+#ui-datepicker-div select{
+    text-align-last: center;
+    width: 40%;
+    border: none;
+    border-radius: 5px;
+    margin-right: 2px;
+}
+#ui-datepicker-div .ui-datepicker-header{
+    border: none;
+    background: #56c084;
+    color: #222222;
+    font-weight: bold;
+}
+#ui-datepicker-div .ui-datepicker-header a{
+    margin-top: 4px;
+}
+#ui-datepicker-div .ui-datepicker-month{
+    margin-left: 10px;
+}
+#ui-datepicker-div .ui-datepicker-title option{
+    text-align-last: center;
+}
+#ui-datepicker-div .ui-state-default{
+    border: #35ab6f;
+    background: transparent;
+    color: #424242;
+    text-align: center;
+    width: 40px; height: 30px;
+    border-radius: 50%;
+}
+#ui-datepicker-div .ui-state-default:hover{
+    background: #35ab6f;
+    color: white;
+}
+/* 검색 카테고리 */
+.select_category{
+    margin: 0 10px 0 200px;
+    position: relative;
+}
+.move_label{
+    position: absolute;
+    top: 0.22em; left: -0.4em;
+    margin: 0;
+    pointer-events: none;
+    transition: all .3s ease;
+}
+.move_label.active{
+    top: -1.1em; left: -0.5em;
+    font-size: 0.7em;
+    transition: all .3s ease;
+}
+.select_category label:last-of-type{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2px 0 0 -10px;
+    width: 100px; height: 30px;
+    border: none;
+    border-bottom: solid 2px white;
+    background-color: transparent;
+}
+.select_category select:focus+i{
+    margin: 5px 5px 0 0;
+    transform: rotate(180deg);
+    transition: 0.2s ease;
+}
+.select_category select{
+    margin-right: -15px;
+    height: 100%; width: 100%;
+    background-color: transparent;
+    padding: 0 10px;
+    border: none;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    z-index: 2;
+}
+.select_category option{
+    color: #424242;
+}
+.select_category i{
+    position: relative;
+    margin: -5px 5px 0 0;
+    color: white;
+    z-index: 1;
+    transition: 0.2s ease;
+}
+
+/* 검색어 검색 */
+.search{
+    margin: 0 0 0 10px;
+    min-width: 260px;
+}
+.search input{
+    border: none;
+    width: 200px; height: 30px;
+    padding: 0 10px;
+    background-color: transparent;
+    color: white;
+    border-bottom: solid 2px white;
+    font-size: 12pt;
+}
+.search_date input:focus,
+.search input:focus{
+    outline: none;
+}
+.search input::placeholder{
+    color: white;
+}
+.search_btn{
+    width: 40px; height: 40px;
+    border: none;
+    border-radius: 50%;
+    color: #999;
+    background-color: white;
+    font-size: 12pt;
+    box-shadow: 2px 2px 0 rgb(0,0,0,0.5);
+}
+.search_btn:hover{
+    background-color: rgb(255 255 255 / 90%);;
+    color: #777;
+}
+.search_btn:active{
+    position: relative;
+    top:2px;
+    box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+}
+/* 테이블 세부 내용 */
+.table_wrap{
+    min-width: 1300px;
+    margin: -40px 40px 10px 40px;
+    padding: 30px 30px 10px 30px;
+    /* overflow-x: auto; */
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
+                0 7px 10px -5px rgb(133 217 174 / 40%);
+}
+.head_tab{
+    display: flex;
+    align-items: center;
+    margin: 0 0 10px 0;
+}
+/* 배송상태 선택 */
+.select_category,
+.select_status{
+    display: flex;
+}
+.select_status label{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 20px 0 -10px;
+    width: 115px; height: 40px;
+    border: solid #35ab6f;
+    border-radius: 5px;
+    background-color: #35ab6f;
+    z-index: 2;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+.select_category select:focus+i,
+.select_status select:focus+i{
+    margin: 5px 5px 0 0;
+    transform: rotate(180deg);
+    transition: 0.2s ease;
+}
+.select_status select{
+    margin-right: -15px;
+    height: 100%; width: 100%;
+    background-color: transparent;
+    padding: 0 10px;
+    border: none;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    z-index: 2;
+}
+option{
+    color: #424242;
+}
+select:focus{
+    outline: none;
+}
+.select_category i,
+.select_status i{
+    position: relative;
+    margin: -5px 5px 0 0;
+    color: white;
+    z-index: 1;
+    transition: 0.2s ease;
+}
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+select::-ms-expand{
+    display: none;
+}
+
+
+.table td{
+    vertical-align: middle;
+    word-break:break-all;
+}
+.tab_btn{
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #35ab6f;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+/* .tab_btn:hover{
+    box-shadow: 0 14px 26px -12px rgb(133 217 174 / 42%),
+                0 4px 23px 0 rgb(0 0 0 / 12%),
+                0 8px 10px -5px rgb(133 217 174 / 20%);
+} */
+.tab_btn:active{
+    background: radial-gradient(#35ab6f,#56c084);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1)
+}
+
+
+
+/* 체크박스 색 바꾸기 */
+#table1 .custom-checkbox{
+    margin-left: 30px;
+}
+#table1 .custom-control-label::before,
+#table1 .custom-control-label::after{
+    top: 0.15rem; left: -1.8rem;
+    width: 1.3rem; height: 1.3rem;
+}
+#table1 .custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #35ab6f;
+    background-color: #35ab6f;
+}
+#table1 .custom-control-input:focus~.custom-control-label::before {
+    box-shadow: none;   /* 0 0 0 .2rem rgba(0,123,255,.25) */
+}
+#table1 .custom-control-input:focus:not(:checked)~.custom-control-label::before {
+    border-color: #adb5bd
+}
+#table1 .custom-control-input:not(:disabled):active~.custom-control-label::before {
+    color: #fff;
+    background-color: #82a593;
+    border-color: #82a593;
+}
+
+/* Chart */
+.chartdiv {
+  width: 100%;
+  height: 500px;
+}
+
+/* Map */
+
+
+#canvas h2{ padding:0; margin:0; font-size:12px; }
+
+#seoul, #gygg, #incheon, #gangwon, #chungbuk, #chungnam, #daejeon, #sejong, #jeonbuk, #jeonnam, #gwangju, #gyeongbuk, #gyeongnam, #daegu, #busan, #ulsan, #jeju { 
+    display: none; position: absolute; height:16px; background-color:#000; color:#fff; padding:2px 5px; text-align:center;}
+
+#seoul{ left:80px; top:75px; }
+#gygg{ left:80px; top:45px; }
+#incheon{ left:60px; top:75px; }
+#gangwon{ left:150px; top:45px; }
+#chungbuk{ left:120px; top:145px; }
+#chungnam{ left:60px; top:165px; }
+#daejeon{ left:80px; top:165px; }
+#sejong{ left:70px; top:145px; }
+#jeonbuk{ left:60px; top:205px; }
+#jeonnam{ left:60px; top:260px; }
+#gwangju{ left:	60px; top:260px; }
+#gyeongbuk{ left:150px; top:165px; }
+#gyeongnam{ left:130px; top:240px; }
+#daegu{ left:170px; top:210px; }
+#busan{ left:190px; top:250px; }
+#ulsan{ left:200px; top:225px; }
+#jeju{ left:80px; top:340px; }
+
+</style>
+
+</head>
+
+
+
+<body>
+
+<div class="container-fluid" style="height: 100vh;">
+
+    <div class="sidebar" id="side_accordion">
+        <div class="accordion" id="menu_accordion">
+
+            <div class="logo">
+                <a href="#none"><i class="fas fa-file-signature"></i> 관리자 화면</a>             
+            </div>
+
+            <ul class="menu">
+                <li class="menu_header active">
+                    <button class="btn_menu_h" type="button" data-toggle="collapse" data-target="#menu_store"><i class="fas fa-boxes"></i> 스토어</button>
+                </li>
+
+                <li id="menu_store" class="collapse" data-parent="#menu_accordion">
+                    <div class="menu_sub">
+                        <ul class="menu">
+                            <li><button class="btn_menu_s" type="button"><i class="fas fa-truck"></i> 배송현황</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="fas fa-chart-bar"></i> 매출현황</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="fas fa-chalkboard"></i> 제품등록</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="fab fa-replyd"></i> 답변등록</button></li>
+                        </ul>
+                    </div>
+                </li> <!-- 스토어 서브메뉴 끝 -->
+
+                <li class="menu_header">
+                    <button class="btn_menu_h" type="button" data-toggle="collapse"
+                        data-target="#menu_comt"><i class="far fa-comments"></i> 커뮤니티</button>
+                </li>
+                
+                <li id="menu_comt" class="collapse" data-parent="#menu_accordion">
+                    <div class="menu_sub">
+                        <ul class="menu">
+                            <li><button class="btn_menu_s active" type="button"><i class="fas fa-user-cog"></i> 회원관리</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="fas fa-tags"></i> 사진태그등록</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="fas fa-clipboard"></i> 커뮤니티 관리</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="far fa-edit"></i> Q&A게시판 관리</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="far fa-calendar-check"></i> 이벤트 등록</button></li>
+                        </ul>
+                    </div>
+                </li> <!-- 커뮤니티 서브메뉴 끝 -->
+                
+                <li class="menu_footer">
+                    <a href="../../index.html"><i class="fas fa-undo-alt"></i> 돌아가기</a>
+                </li>
+                
+            </ul> <!-- 메뉴리스트 끝 -->
+
+
+        </div> <!-- 아코디언 끝 -->
+    </div> <!-- 사이드바 메뉴 끝 -->
+
+    <!-- 메인화면 -->
+    <div class="main_panel" style="height: 800px;">
+        <div class="p-4" style="height: 150px; border: solid;"><!-- 헤드 -->
+            <!-- 사이드바 토글 버튼 -->
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#side_accordion">
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
+        </div>
+        
+        <!-- 검색화면 -->
+        <div class="search_wrap">
+            <div class="search_box">
+
+                <!-- 날짜 -->
+                <div class="search_date">
+                    <div class="move_input">
+                        <label>시작일</label>
+                        <input type="text" class="datepicker s_date">
+                    </div>
+                    <div class="move_input">
+                        <label>종료일</label>
+                        <input type="text" class="datepicker e_date">
+                    </div>
+                </div>
+
+                <!-- 카테고리 -->
+                <div class="select_category">
+                    <label class="move_label">검색종류</label>
+                    <label for="sele2"><select name="search_category" id="sele2">
+                        <option value="0"></option>
+                        <option value="1">주문번호</option>
+                        <option value="2">제품명</option>
+                        <option value="3">배송지역</option>
+                        <option value="4">주문자</option>
+                        <option value="5">전화번호</option>
+                    </select><i class="fas fa-sort-down"></i></label>
+                </div>
+
+                <!-- 검색 -->
+                <div class="search">
+                    <input type="text" placeholder="검색...">
+                    <button type="button" class="search_btn"><i class="fas fa-search"></i></button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- HTML -->
+        <div class="row">
+            <!-- 그래프 차트 -->
+            <div class="col-xl-6">
+                <h3 style="text-align: center;">판매금액</h3>
+                <div class="chartdiv" id="graphChart"></div>
+            </div>
+            <!-- 바 차트 -->
+            <div class="col-xl-6">
+                <h3 style="text-align: center;">판매수량</h3> 
+                <div class="chartdiv" id="barChart"></div>           
+            </div>
+
+        </div>
+
+        <div class="row">
+            <!-- 맵 차트  -->
+            <div class="col-xl-6">
+                <h3 style="text-align: center;">지역별 주문건수</h3>                
+                    <div id="canvas"  style="position: relative; left: 250px; top: 50px;">
+                        <div id="south"></div>
+                        <div id="seoul"><h2>서울특별시 주문건수:400</h2></div>
+                        <div id="gygg"><h2>경기도 주문건수:400</h2></div>
+                        <div id="incheon"><h2>인천광역시</h2></div>
+                        <div id="gangwon"><h2>강원도</h2></div>
+                        <div id="chungbuk"><h2>충청북도</h2></div>
+                        <div id="chungnam"><h2>충청남도</h2></div>
+                        <div id="daejeon"><h2>대전광역시</h2></div>
+                        <div id="sejong"><h2>세종특별자치시</h2></div>
+                        <div id="gwangju"><h2>광주광역시</h2></div>
+                        <div id="jeonbuk"><h2>전라북도</h2></div>
+                        <div id="jeonnam"><h2>전라남도</h2></div>
+                        <div id="gyeongbuk"><h2>경상북도 주문건수:344</h2></div>
+                        <div id="gyeongnam"><h2>경상남도</h2></div>
+                        <div id="daegu"><h2>대구광역시</h2></div>
+                        <div id="busan"><h2>부산광역시</h2></div>
+                        <div id="ulsan"><h2>울산광역시</h2></div>
+                        <div id="jeju"><h2>제주특별자치도</h2></div>
+                    </div>                   
+            </div>
+            <!-- 파이 차트 -->
+            <div class="col-xl-6">
+                <h3 style="text-align: center;">카테고리별 판매비율</h3>
+                <div class="chartdiv" id="pieChart"></div>                
+            </div>
+        </div>
+        
+        
+        
+        
+
+
+
+
+</div>
+
+
+</body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script><!-- jQuery UI 라이브러리 -->
+<!-- <script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script> -->
+
+<script>
+$(document).ready(function() {
+
+
+    $('.menu_header').click( function() { //사이드 메뉴 활성화
+        $('.menu_header').removeClass('active')
+        $(this).addClass('active');
+    });
+
+    $('.menu_sub li').click( function() { //사이드 서브메뉴 활성화
+        $('.menu_sub li').removeClass('active')
+        $(this).addClass('active');
+    });
+
+    $('.navbar-toggler').click( function() { //사이드 토글
+        $('.sidebar').addClass('side_open')
+    });
+
+    $('.move_input input').focus( function() { // 날짜 선택시 글씨 이동 이벤트
+        $(this).parent().addClass('active')
+    });
+    $('.move_input input').change( function() {
+        if($(this).val()==''){
+            $(this).parent().removeClass('active')
+        }
+    });
+    $('#sele2').focus( function() { // 카테고리 선택시 글씨 이동 이벤트
+        $('.move_label').addClass('active')
+    });
+    $('#sele2').change( function() {
+        //console.log( $(this).val())
+        if($(this).val()==0){
+            $('.move_label').removeClass('active')
+        }
+    });
+    $('.search input').keypress( function() {
+        console.log( $(this).val())
+        $('.search_btn').click()
+    });
+    $('#table1 tbody tr').click( function() { //테이블 누르면 체크
+        let tr = $(this).find('input[type="checkbox"]');
+        let c = tr.prop("checked");
+        if(c){
+            tr.prop("checked",false);
+        }else{
+            tr.prop("checked",true);
+        }
+        autoCheck()
+    });
+
+    // 체크박스 전체선택, 전체해제
+    $(document).on("click", '#table1 input[type="checkbox"]', function () {
+        if($(this).attr('name') != 'chk'){
+            $('#table1 table').find('input[type="checkbox"]').prop("checked", $(this).is(":checked"));
+        }
+        autoCheck()
+    });
+    
+    $.datepicker.setDefaults({
+        showAnim:'slideDown',
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'yy-mm-dd',
+        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        dayNames: ['일','월','화','수','목','금','토'],
+        dayNamesShort: ['일','월','화','수','목','금','토'],
+        dayNamesMin: ['일','월','화','수','목','금','토'],
+        showMonthAfterYear: true,
+        yearSuffix: '년' 
+    });
+    $('.s_date').datepicker({
+        onClose: function( selectedDate ) {
+            $(".e_date").datepicker( "option", "minDate", selectedDate );
+        }   
+    });
+    $('.e_date').datepicker({
+        onClose: function( selectedDate ) {
+            $(".s_date").datepicker( "option", "maxDate", selectedDate );
+        }   
+    });
+
+});
+
+function autoCheck() {
+    let chkLength = $('input:checkbox[name="chk"]');
+    let chkLength2 = $('input:checkbox[name="chk"]:checked');
+
+    if (chkLength.length == chkLength2.length) {
+        $('#cb').prop("checked", true);
+        $('#checkbox_all').find('span').text('전체해제');
+    } else {
+        $('#cb').prop("checked", false);
+        $('#checkbox_all').find('span').text('전체체크');
+    }
+};
+
+//////////////Chart code/////////////////
+
+/////////////////// graph chart//////////////////////////
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_material);
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+// Create chart instance
+var chart = am4core.create("graphChart", am4charts.XYChart);
+
+// Add data
+//
+chart.data = [
+  {date:new Date(2019,0), value1:35000},
+  {date:new Date(2019,3,12), value1:50000},
+  {date:new Date(2019,6,13), value1:40000},
+  {date:new Date(2019,7,14), value1:37000},
+  {date:new Date(2019,8,15), value1:41000},
+  {date:new Date(2019,9,16), value1:43000},
+  {date:new Date(2019,10,17), value1:42000},
+  {date:new Date(2019,12), value1:50000}
+]
+
+// Create axes
+var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+dateAxis.renderer.minGridDistance = 50;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+// Create series
+var series = chart.series.push(new am4charts.LineSeries());
+series.dataFields.valueY = "value1";
+series.dataFields.dateX = "date";
+series.strokeWidth = 2;
+series.minBulletDistance = 10;
+series.tooltipText = "[bold]{date.formatDate()} :[/] {value1}\n[bold]{previousDate.formatDate()}";
+series.tooltip.pointerOrientation = "vertical";
+
+// Create series
+var series2 = chart.series.push(new am4charts.LineSeries());
+series2.dataFields.valueY = "value2";
+series2.dataFields.dateX = "date";
+series2.strokeWidth = 2;
+series2.strokeDasharray = "3,4";
+series2.stroke = series.stroke;
+
+// Add cursor
+chart.cursor = new am4charts.XYCursor();
+chart.cursor.xAxis = dateAxis;
+
+}); // end am4core.ready()
+
+
+////////////////////// bar graph//////////////////////////
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+// Create chart instance
+var chart = am4core.create("barChart", am4charts.XYChart);
+chart.scrollbarX = new am4core.Scrollbar();
+
+// Add data
+chart.data = [{
+  "country": "패브릭",
+  "visits": 3025
+}, {
+  "country": "가구",
+  "visits": 1882
+}, {
+  "country": "수납",
+  "visits": 1809
+}, {
+  "country": "조명",
+  "visits": 1322
+}, {
+  "country": "의자",
+  "visits": 1122
+}, {
+  "country": "침대",
+  "visits": 1114
+}, {
+  "country": "옷장",
+  "visits": 984
+}, {
+  "country": "기타",
+  "visits": 711
+}];
+
+// Create axes
+var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+categoryAxis.dataFields.category = "country";
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.renderer.minGridDistance = 30;
+categoryAxis.renderer.labels.template.horizontalCenter = "right";
+categoryAxis.renderer.labels.template.verticalCenter = "middle";
+categoryAxis.renderer.labels.template.rotation = 270;
+categoryAxis.tooltip.disabled = true;
+categoryAxis.renderer.minHeight = 110;
+
+var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+valueAxis.renderer.minWidth = 50;
+
+// Create series
+var series = chart.series.push(new am4charts.ColumnSeries());
+series.sequencedInterpolation = true;
+series.dataFields.valueY = "visits";
+series.dataFields.categoryX = "country";
+series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
+series.columns.template.strokeWidth = 0;
+
+series.tooltip.pointerOrientation = "vertical";
+
+series.columns.template.column.cornerRadiusTopLeft = 10;
+series.columns.template.column.cornerRadiusTopRight = 10;
+series.columns.template.column.fillOpacity = 0.8;
+
+// on hover, make corner radiuses bigger
+var hoverState = series.columns.template.column.states.create("hover");
+hoverState.properties.cornerRadiusTopLeft = 0;
+hoverState.properties.cornerRadiusTopRight = 0;
+hoverState.properties.fillOpacity = 1;
+
+
+series.columns.template.adapter.add("fill", function(fill, target) {
+  return chart.colors.getIndex(target.dataItem.index);
+});
+
+// Cursor
+chart.cursor = new am4charts.XYCursor();
+
+}); // end am4core.ready()
+
+////////////////////// pie chart////////////////////////
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+// Create chart instance
+let chart = am4core.create("pieChart", am4charts.PieChart);
+
+// Add data
+chart.data = [ {
+  "category": "침대",
+  "litres": 50
+}, {
+  "category": "조명",
+  "litres": 301
+}, {
+  "category": "수납",
+  "litres": 201
+}, {
+  "category": "패브릭",
+  "litres": 165
+}, {
+  "category": "가구",
+  "litres": 139
+}, {
+  "category": "홈데코",
+  "litres": 128
+}];
+
+// Add and configure Series
+var pieSeries = chart.series.push(new am4charts.PieSeries());
+pieSeries.dataFields.value = "litres";
+pieSeries.dataFields.category = "category";
+pieSeries.slices.template.stroke = am4core.color("#fff");
+pieSeries.slices.template.strokeWidth = 2;
+pieSeries.slices.template.strokeOpacity = 1;
+
+// This creates initial animation
+pieSeries.hiddenState.properties.opacity = 1;
+pieSeries.hiddenState.properties.endAngle = -90;
+pieSeries.hiddenState.properties.startAngle = -90;
+
+}); // end am4core.ready()
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
