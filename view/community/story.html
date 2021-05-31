@@ -170,15 +170,15 @@
                 </div> <!-- 정렬 -->
 
                 <div class="col-md-2 pop_wrap">
-                    <button type="button" class="btn_pop" value="tagHometype=0">주거형태 <i class="fas fa-sort"></i></button>
+                    <button type="button" class="btn_pop" value="tagHomeType=0">주거형태 <i class="fas fa-sort"></i></button>
                     
                     <div class="pop_box">
                         <div class="pop_content">
                             <ul class="sub_content_ul">
-                                <li><button type="button" class="btn_subpop" value="tagHometype=원룸">원룸</button></li>
-                                <li><button type="button" class="btn_subpop" value="tagHometype=투룸">투룸</button></li>
-                                <li><button type="button" class="btn_subpop" value="tagHometype=오피스텔">오피스텔</button></li>
-                                <li><button type="button" class="btn_subpop" value="tagHometype=아파트">아파트</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHomeType=원룸">원룸</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHomeType=투룸">투룸</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHomeType=오피스텔">오피스텔</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHomeType=아파트">아파트</button></li>
                             </ul>
                         </div>
                     </div>
@@ -285,7 +285,7 @@ $(document).ready(function() {
     
     //초기화
     let menu = ['정렬', '주거형태', '스타일', '색상'];
-    let initVal = ['sort=0', 'tagHometype=0', 'tagStyle=0', 'tagColor=0'];
+    let initVal = ['sort=0', 'tagHomeType=0', 'tagStyle=0', 'tagColor=0'];
     $('.sort_clear').click( function() {
         $('button[class=btn_pop]').each(function(i){
             $(this).html(menu[i]+' <i class="fas fa-sort"></i>');
