@@ -113,9 +113,6 @@
 
         }
     
-        .w3-dropdown{
-        }
-    
         .w3-dropdown-click{
           background-color: coral;
           border-radius: 15px;
@@ -133,14 +130,80 @@
           font-weight: 500;
         }   
 
-        .question-detail-title{
-
-        }
-
         .col-xl-2 .question-detail-sidebar{
             position: sticky;
             top: 100px;
             padding-left: 50px;
+        }
+
+        .qna-list-item-footer-comments-count {
+            margin-left: 2px;
+            font-weight: 700;
+            color: coral
+        }
+
+        .comment-feed-header-count {
+            color: coral;
+            font-weight: 700;
+        }
+        .comment-feed-header-count.zero {
+            color: #000
+        }
+
+        .question-detail-footer{
+            color:black;
+        }
+
+        .questions-item-footer-tags .keyword-list{
+            padding: 0; 
+            margin-bottom: -25px;
+        }
+        
+        .keyword-item .questions-item-footer-tags-tag{
+            margin-top: 3px; 
+            margin-bottom: 10px;
+            padding-left: 10px; 
+            padding-right: 10px;
+        }
+
+        .question-detail-header{
+            margin-top: 25px;
+        }
+
+        .question-detail-header .h4{
+            color: coral; 
+            font-weight: 600;
+        }
+
+        .questions-writer-image{
+            float: left;
+        }
+
+        .questions-writer-image-image{
+            width: 50px; 
+            height: 50px; 
+            border-radius: 70%;
+        }    
+
+        .questions-writer-nickname{
+            color: coral; 
+            font-size: 20px; 
+            margin-left: 15px;
+        }
+
+        .questions-writer-profile{
+            color: black; 
+            font-size: 16px;
+        }
+
+        .sidebar-body{
+            margin-top: 15px; 
+            margin-bottom: 15px;
+            padding-top: 15px;
+        }
+
+        .comment-feed-item .p{
+            font-size: 13px;
         }
 
         
@@ -163,8 +226,8 @@
     
     <div class="col-xl-6">
         <div class="question-detail-container" id="question-detail-container">
-            <div class="question-detail-header" style="margin-top: 25px;">
-                <h4 style="color: coral; font-weight: 600;">질문과답변</h4>
+            <div class="question-detail-header">
+                <h4>질문과답변</h4>
                 <h2 class="question-detail-title"></h2>
             </div>
             <br>
@@ -179,17 +242,13 @@
 
                 <br><br><br>
 
-                <div class="question-detail-footer" style="color:black">
-                    <div class="question-detail-body-footer-tag" style="">
-                        <ul class="questions-item-footer-tags keyword-list" style="padding: 0; margin-bottom: -25px; ">
-                            <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                            style="margin-top: 3px; margin-bottom: 10px;padding-left: 10px; padding-right: 10px;">셀프인테리어</li>
-                            <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                            style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">자취</li>
-                            <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                            style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">돈낭비</li>
-                            <li class="keyword-item questions-item-footer-tags-tag" role="button" 
-                            style="margin-top: 3px; margin-bottom: 10px; padding-left: 10px; padding-right: 10px;">존망</li>
+                <div class="question-detail-footer" >
+                    <div class="question-detail-body-footer-tag" >
+                        <ul class="questions-item-footer-tags keyword-list" >
+                            <li class="keyword-item questions-item-footer-tags-tag" role="button">셀프인테리어</li>
+                            <li class="keyword-item questions-item-footer-tags-tag" role="button">자취</li>
+                            <li class="keyword-item questions-item-footer-tags-tag" role="button">돈낭비</li>
+                            <li class="keyword-item questions-item-footer-tags-tag" role="button">존망</li>
                         </ul>
                     </div>
                     <br>
@@ -204,33 +263,72 @@
                 
             </div><!-- question-detail-body 끝 -->
 
-            <section class="qna-detail-comment-section">
-                <section class="comment-feed">
-                    <h1 class="comment-feed-header">댓글<!-- --> <span class="comment-feed-header-count">6</span></h1>
-                    <form class="comment-feed-form">
+            <div class="qna-detail-comment-section">
+                <div class="comment-feed">
+                    <h1 class="comment-feed-header">댓글<!-- --> 
+                    <span class="comment-feed-header-count">6</span></h1>
+                    <!-- 댓글작성 폼 -->  
+                    <form class="comment-feed-form" id="comment-feed-form" method="POST" enctype="multipart/form-data" onsubmit="return false;">
                         <div class="comment-feed-form-user">
-                            <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images1527758173_fAU.jpeg?gif=1&amp;w=36" srcSet="https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images1527758173_fAU.jpeg?gif=1&amp;w=72 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images1527758173_fAU.jpeg?gif=1&amp;w=72 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images1527758173_fAU.jpeg?gif=1&amp;w=144 3x" />
+                            <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images1527758173_fAU.jpeg?gif=1&amp;w=36" 
+                            srcSet="https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images1527758173_fAU.jpeg?gif=1&amp;w=72 1.5x
+                            ,https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images1527758173_fAU.jpeg?gif=1&amp;w=72 2x
+                            ,https://image.ohou.se/i/bucketplace-v2-development/uploads/users/profile_images1527758173_fAU.jpeg?gif=1&amp;w=144 3x" />
                         </div>
+                        <!-- <input type="hidden" name="questionCommentSeq" id="questionCommentSeq">
+                        <input type="hidden" name="questionCommentRegDate" id="questionCommentRegDate">
+                        <input type="hidden" name="questionCommentRef" id="questionCommentRef">
+                        <input type="hidden" name="questionCommentStep" id="questionCommentStep">
+                        <input type="hidden" name="questionCommentDepth" id="questionCommentDepth"> -->
+                        <input type="hidden" id="userSeq" name="userSeq" >
+                        <input type="hidden" id="questionSeq" name="questionSeq" >
+                        <input type="hidden" name="qcFileName" value="123">
                         <div class="comment-feed-form-input">
                             <div class="comment-feed-form-content">
                                 <div class="comment-content-input">
-                                    <div class="comment-content-input-text comment-feed-form-content-text" data-ph="댓글을 남겨 보세요." contenteditable="true" style="outline: none;"></div>
+                                    <input class="comment-content-input-text comment-feed-form-content-text" 
+                                    name="qcContent" id="questionCommentContent" style="outline: none;" placeholder="댓글을 남겨 보세요.">
                                 </div>
                                 <div class="photo-input-wrap comment-feed-form-content-photo">
                                     <ul class="photo-input"></ul>
                                 </div>
                             </div>
                             <div class="comment-feed-form-actions">
-                                <button class="comment-feed-form-photo" aria-label="사진 업로드" type="button">
+                                <button class="comment-feed-form-photo" value="사진 업로드" type="button">
                                     <svg width="24" height="20" viewBox="0 0 24 20" preserveAspectRatio="xMidYMid meet">
                                         <path fill="#292929" fill-rule="nonzero" d="M3.22 20C1.446 20 0 18.547 0 16.765V6.176c0-1.782 1.446-3.235 3.22-3.235h3.118L7.363.377A.586.586 0 0 1 7.903 0h8.195c.24.003.453.152.54.377l1.024 2.564h3.118c1.774 0 3.22 1.453 3.22 3.235v10.589C24 18.547 22.554 20 20.78 20H3.22zm0-1.176h17.56a2.037 2.037 0 0 0 2.05-2.06V6.177c0-1.15-.904-2.058-2.05-2.058h-3.512a.585.585 0 0 1-.54-.368l-1.024-2.574H8.296L7.27 3.75a.585.585 0 0 1-.54.368H3.22a2.037 2.037 0 0 0-2.05 2.058v10.589c0 1.15.904 2.059 2.05 2.059zM12 17.059c-3.064 0-5.561-2.51-5.561-5.588 0-3.08 2.497-5.589 5.561-5.589s5.561 2.51 5.561 5.589c0 3.079-2.497 5.588-5.561 5.588zm0-1.177a4.392 4.392 0 0 0 4.39-4.411A4.392 4.392 0 0 0 12 7.059a4.392 4.392 0 0 0-4.39 4.412A4.392 4.392 0 0 0 12 15.882z"></path>
                                     </svg>
                                 </button>
-                                <button class="comment-feed-form-submit" aria-label="등록" type="submit">등록</button>
+                                <button class="comment-feed-form-submit" value="등록" type="button">등록</button>
                             </div>
                         </div>
                     </form>
-                    <ul class="comment-feed-list"></ul>
+
+                    
+                        <ul class="comment-feed-list" id="comment-feed-list" style="list-style: none;">
+                            <li class="comment-feed-list-item">
+                                <div class="comment-feed-item">
+                                    <p class="comment-feed-item-content" style="font-size: 13px;">
+                                        <a href="#userprofile" class="comment-feed-item-content-author-name" style="font-size: 15px;">
+                                        <img class="comment-feed-item-content-author-image" src="" onerror="this.src='../image/avatar.png'">    
+                                        <span>userid</span>
+                                        </a>
+                                        <span>댓글내용인디용?</span>
+                                    </p>
+                                    <footer class="comment-feed-item-footer">
+                                        <time class="comment-feed-item-footer-time">10분전</time>
+                                        
+                                        <button>좋아요</button>
+                                        
+                                        <button>답글달기</button>
+                                        
+                                        <span style="color: gainsboro"><a href="#" style="">신고</a></span>
+                                    </footer>
+                                </div>
+                            </li>
+                        </ul>
+                    
+
                     <ul class="list-paginator">
                         <li>
                             <button class="list-paginator-page sm selected" type="button">1</button>
@@ -251,8 +349,9 @@
                             </button>
                         </li>
                     </ul>
-                </section>
-            </section>
+                    
+                </div>
+            </div>
 
             <!-- <div class="question-detail-footer">
                 <div class="question-detail-comment-section">
@@ -304,12 +403,12 @@
                 <div class="sidebar-header">
                     <div class="sidebar-header-writer">
                         <div class="row">
-                            <div class="questions-writer-image" style="float: left;">
+                            <div class="questions-writer-image" >
                                 <img class="questions-writer-image-image" src="" style="width: 50px; height: 50px; border-radius: 70%"
                                 onerror="this.src='../image/avatar.png'"> <!--프로필사진, 에러시 프로필사진 -->
                             </div>
-                            <div class="questions-writer-nickname" style="color: coral; font-size: 20px; margin-left: 15px; ">
-                                <div class="questions-writer-profile" style="color: black; font-size: 16px; "></div>
+                            <div class="questions-writer-nickname"><!--유저닉네임-->
+                                <div class="questions-writer-profile" ></div><!--유저프로필네임-->
                             </div>
                             
                         </div>
@@ -350,7 +449,8 @@ $(document).ready(function(){
 
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
     console.log(sessionId);
-
+    $('#userSeq').val(sessionId.userSeq);
+    
     // $('.questions-writer-image-image').attr('src',sessionId.profileName);
     // $('.questions-writer-nickname').text(sessionId.nickname);
     // if(sessionId.auth == 0 || sessionId.auth == ''){
@@ -365,18 +465,114 @@ $(document).ready(function(){
         data:{questionSeq:seq},
         success:function(list){
             alert('detail ajax 성공');
-            alert(JSON.stringify(list));
-
+            //alert(JSON.stringify(list));
+            console.log(JSON.stringify(list));
             $('.question-detail-title').text(list.questionTitle);
             $('.question-detail-content').html(list.questionContent);
             $('.question-detail-img').attr('src',list.questionFileName);
-            
-
+            $('.questions-writer-nickname').text(list.nickName);
+            $('#questionSeq').val(list.questionSeq);
+            if(list.userName == '' || list.userName == 0){
+                $('.questions-writer-profile').text("반갑습니다.");
+            } else {
+                $('.questions-writer-profile').text(list.userName);
+            }
         },error:function(list){
             alert('detail ajax 대실패!!');
         }
 
     });
+    
+    //해당 글에 대한 댓글 내용 <span>userid</span>뿌리기
+    $.ajax({
+        url:"http://localhost:3000/questionCommentList",
+        type:'post',
+        data:{questionSeq:seq},
+        success:function(list){
+            alert('CommentList ajax 성공');
+            console.log(JSON.stringify(list));
+            alert(JSON.stringify(list));
+            //$('.comment-feed-item-content-author-image').attr('src',list.questionFileName);
+            $.each(list, function(i, val){
+                console.log(val);
+                
+                let app = "<li class='comment=feed-list-item'>"
+                    + "<div class='comment-feed-item'>"
+                    + "<div class='comment-feed-item-content'>"
+                    + "<a href='#' class='comment-feed-item-content-author-name'>"
+                    + "<img class='comment-feed-item-content-author-image'  " 
+                    + "src='"
+                    + val.profileName
+                    + "' onerror='this.src='../image/avatar.png'' >"
+                    + "<span>" + val.nickName + "</span>"
+                    + "</a>"
+                    + "<span>"
+                    + val.qcContent
+                    + "</span>"
+                    + "</div>"
+                    + "<footer class='comment-feed-item-footer'>"
+                    + "<time class='comment-feed-item-footer-time'>10분전</time>"    
+                    + "<button> 좋아요 </button>"
+                    + "<button> 답글달기 </button>"
+                    + "<span>"
+                    + "<a href='#'>신고</a>"
+                    + "</span>"
+                    + "</footer>"
+                    + "</div>"
+                    + "</li>"
+                    
+                $("#comment-feed-list").append(app);
+
+            });
+        }, error:function(list){
+            alert('CommentList ajax 실패');
+        }
+    });
+
+    /*
+    <ul class="comment-feed-list" style="list-style: none;">
+        <li class="comment-feed-list-item">
+            <div class="comment-feed-item">
+                <p class="comment-feed-item-content" style="font-size: 13px;">
+                    <a href="#userprofile" class="comment-feed-item-content-author" style="font-size: 15px;">
+                    <img class="comment-feed-item-content-author-image" src="" onerror="this.src='../image/avatar.png'">    
+                    userid
+                    </a>
+                    <span>댓글내용인디용?</span>
+                </p>
+                <footer class="comment-feed-item-footer">
+                    <time class="comment-feed-item-footer-time">10분전</time>
+                    
+                    <button>♡ 좋아요</button>
+                    
+                    <button>답글달기</button>
+                    
+                    <span style="color: gainsboro"><a href="#" style="">신고</a></span>
+                </footer>
+            </div>
+        </li>
+    </ul>
+    */
+    
+    $('.comment-feed-form-submit').on('click', function(list) {
+      alert('되냐이거?');
+      //alert(list);
+      var form = $('#comment-feed-form').serialize();
+      console.log(form);
+        $.ajax({
+          url: 'http://localhost:3000/questionComment',
+          type: 'post',
+          data : form,
+          success:function(list){
+            alert('ajax성공');
+          }, error:function(list){
+            alert('ajax실패');
+          }
+        })
+      //alert('안됨');
+    });
+
+   
 
     /*
     <div class="question-detail-container">
@@ -392,6 +588,7 @@ $(document).ready(function(){
 
 
 });
+
    
 
 </script>
