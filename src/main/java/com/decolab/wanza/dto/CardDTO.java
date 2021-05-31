@@ -15,22 +15,18 @@ public class CardDTO implements Serializable {
 	private int cardDel;
 	private String nickName;
 	private int likeCount;
-	private String tagColor;
-	private String tagHometype;
-	private String tagStyle;
-	private int sort;
 	
 	private String tagColor;
 	private String tagHomeType;
 	private String tagStyle;
-	
+	private int sort;
 	
 	public CardDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	public CardDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount, Date cardDate,
-			String cardFileName, int cardDel, String nickName, int likeCount, String tagColor, String tagHometype,
+			String cardFileName, int cardDel, String nickName, int likeCount, String tagColor, String tagHomeType,
 			String tagStyle, int sort) {
 		this.cardSeq = cardSeq;
 		this.cardTitle = cardTitle;
@@ -43,7 +39,7 @@ public class CardDTO implements Serializable {
 		this.nickName = nickName;
 		this.likeCount = likeCount;
 		this.tagColor = tagColor;
-		this.tagHometype = tagHometype;
+		this.tagHomeType = tagHomeType;
 		this.tagStyle = tagStyle;
 		this.sort = sort;
 	}
@@ -104,100 +100,73 @@ public class CardDTO implements Serializable {
 		this.cardSeq = cardSeq;
 	}
 
-
-
-
-
 	public String getCardTitle() {
 		return cardTitle;
 	}
-
-
-
-
 
 	public void setCardTitle(String cardTitle) {
 		this.cardTitle = cardTitle;
 	}
 
-
-
-
-
 	public String getCardContent() {
 		return cardContent;
 	}
-
 
 	public void setCardContent(String cardContent) {
 		this.cardContent = cardContent;
 	}
 
-
 	public int getUserSeq() {
 		return userSeq;
 	}
-
 
 	public void setUserSeq(int userSeq) {
 		this.userSeq = userSeq;
 	}
 
-
 	public int getCardReadCount() {
 		return cardReadCount;
 	}
-
 
 	public void setCardReadCount(int cardReadCount) {
 		this.cardReadCount = cardReadCount;
 	}
 
-
 	public Date getCardDate() {
 		return cardDate;
 	}
-
 
 	public void setCardDate(Date cardDate) {
 		this.cardDate = cardDate;
 	}
 
-
 	public String getCardFileName() {
 		return cardFileName;
 	}
-
 
 	public void setCardFileName(String cardFileName) {
 		this.cardFileName = cardFileName;
 	}
 
-
 	public int getCardDel() {
 		return cardDel;
 	}
-
 
 	public void setCardDel(int cardDel) {
 		this.cardDel = cardDel;
 	}
 
-
 	public String getNickName() {
 		return nickName;
 	}
-
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
 
-
 	public int getLikeCount() {
 		return likeCount;
 	}
-
 
 	public void setLikeCount(int likeCount) {
 		this.likeCount = likeCount;
@@ -210,12 +179,12 @@ public class CardDTO implements Serializable {
 	public void setTagColor(String tagColor) {
 		this.tagColor = tagColor;
 	}
-	public String getTagHometype() {
-		return tagHometype;
+	public String getTagHomeType() {
+		return tagHomeType;
 	}
 
-	public void setTagHometype(String tagHometype) {
-		this.tagHometype = tagHometype;
+	public void setTagHometype(String tagHomeType) {
+		this.tagHomeType = tagHomeType;
 	}
 
 	public String getTagStyle() {
@@ -239,7 +208,7 @@ public class CardDTO implements Serializable {
 		return "CardDTO [cardSeq=" + cardSeq + ", cardTitle=" + cardTitle + ", cardContent=" + cardContent
 				+ ", userSeq=" + userSeq + ", cardReadCount=" + cardReadCount + ", cardDate=" + cardDate
 				+ ", cardFileName=" + cardFileName + ", cardDel=" + cardDel + ", nickName=" + nickName + ", likeCount="
-				+ likeCount + ", tagColor=" + tagColor + ", tagHometype=" + tagHometype + ", tagStyle=" + tagStyle
+				+ likeCount + ", tagColor=" + tagColor + ", tagHomeType=" + tagHomeType + ", tagStyle=" + tagStyle
 				+ ", sort=" + sort + "]";
 	}
 

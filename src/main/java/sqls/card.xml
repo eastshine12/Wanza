@@ -31,7 +31,7 @@
 	FROM USERS U, CARD_COLLECTIONS C, (SELECT CARDSEQ, NVL(COUNT(*), 0) LIKECOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ) F, CARD_TAG T
 	WHERE U.USERSEQ=C.USERSEQ AND C.CARDSEQ=F.CARDSEQ(+) AND C.CARDSEQ=T.CARDSEQ(+) 
 	<if test='tagColor neq "0"'>AND TAGCOLOR=#{tagColor} </if>
-	<if test='tagHometype neq "0"'>AND TAGHOMETYPE=#{tagHometype} </if>
+	<if test='tagHomeType neq "0"'>AND TAGHOMETYPE=#{tagHomeType} </if>
 	<if test='tagStyle neq "0"'>AND TAGSTYLE=#{tagStyle} </if>
 	<choose>
 		<when test="sort eq 1"> ORDER BY C.CARDDATE DESC</when>
