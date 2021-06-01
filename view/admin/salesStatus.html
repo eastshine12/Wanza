@@ -635,20 +635,17 @@ select::-ms-expand{
                 <!-- 카테고리 -->
                 <div class="select_category">
                     <label class="move_label">검색종류</label>
-                    <label for="sele2"><select name="search_category" id="sele2">
+                    <label for="sele2"><select name="search_category" id="sele2" onchange="selectDay()">
                         <option value="0"></option>
-                        <option value="1">주문번호</option>
-                        <option value="2">제품명</option>
-                        <option value="3">배송지역</option>
-                        <option value="4">주문자</option>
-                        <option value="5">전화번호</option>
+                        <option value="1">일간</option>
+                        <option value="3">월간</option>
+                        <option value="4">연간</option>
                     </select><i class="fas fa-sort-down"></i></label>
                 </div>
 
                 <!-- 검색 -->
                 <div class="search">
-                    <input type="text" placeholder="검색...">
-                    <button type="button" class="search_btn"><i class="fas fa-search"></i></button>
+                    <button type="button" class="search_btn" onclick="selectDay()"><i class="fas fa-search"></i></button>
                 </div>
 
             </div>
@@ -675,8 +672,8 @@ select::-ms-expand{
                 <h3 style="text-align: center;">지역별 주문건수</h3>                
                     <div id="canvas"  style="position: relative; left: 250px; top: 50px;">
                         <div id="south"></div>
-                        <div id="seoul"><h2>서울특별시 주문건수:400</h2></div>
-                        <div id="gygg"><h2>경기도 주문건수:400</h2></div>
+                        <div id="seoul"><h2>서울특별시</h2></div>
+                        <div id="gygg"><h2>경기도</h2></div>
                         <div id="incheon"><h2>인천광역시</h2></div>
                         <div id="gangwon"><h2>강원도</h2></div>
                         <div id="chungbuk"><h2>충청북도</h2></div>
@@ -686,7 +683,7 @@ select::-ms-expand{
                         <div id="gwangju"><h2>광주광역시</h2></div>
                         <div id="jeonbuk"><h2>전라북도</h2></div>
                         <div id="jeonnam"><h2>전라남도</h2></div>
-                        <div id="gyeongbuk"><h2>경상북도 주문건수:344</h2></div>
+                        <div id="gyeongbuk"><h2>경상북도</h2></div>
                         <div id="gyeongnam"><h2>경상남도</h2></div>
                         <div id="daegu"><h2>대구광역시</h2></div>
                         <div id="busan"><h2>부산광역시</h2></div>
@@ -832,14 +829,14 @@ var chart = am4core.create("graphChart", am4charts.XYChart);
 // Add data
 //
 chart.data = [
-  {date:new Date(2019,0), value1:35000},
+  {date:'2019-02-18', value1:35000},
   {date:new Date(2019,3,12), value1:50000},
-  {date:new Date(2019,6,13), value1:40000},
+  {date:new Date(2019,4,9), value1:40000},
   {date:new Date(2019,7,14), value1:37000},
   {date:new Date(2019,8,15), value1:41000},
   {date:new Date(2019,9,16), value1:43000},
   {date:new Date(2019,10,17), value1:42000},
-  {date:new Date(2019,12), value1:50000}
+  {date:new Date(2019,12,15), value1:50000}
 ]
 
 // Create axes
@@ -999,6 +996,103 @@ pieSeries.hiddenState.properties.endAngle = -90;
 pieSeries.hiddenState.properties.startAngle = -90;
 
 }); // end am4core.ready()
+
+
+
+
+// select 값 변경시마다 함수 호출
+function selectDay(){
+   if($(".datepicker").val()==""){
+       alert("날짜를 입력 해 주세요");
+   }else{
+        lineGraph();
+        mapList();
+        }
+    }
+
+// 총 매출액 그래프 호출 함수
+function lineGraph(){     
+    $.ajax({
+         url:"http://localhost:3000/graphList",
+         type:"post",
+         data:{sDate:$(".s_date").val(),eDate:$(".e_date").val(),sType:$("#sele2").val()},
+         success:function(list){
+            if(list.length==0){
+                alert("찾으시는 기간 내 데이터가 없습니다");
+            }else{
+                let app = "[";
+                $.each(list,function(i,val){
+                    app += "{\"date\":\""+val.sDay+"\","+"\"value1\":"+val.total+"},";    
+                    if(i == list.length-1){
+                        app += "{\"date\":\""+val.sDay+"\","+"\"value1\":"+val.total+"}]"; 
+                    }            
+                })
+                    app = JSON.parse(app);
+                    /////////////////// graph chart//////////////////////////
+                    am4core.ready(function() {
+                    // Themes begin
+                    am4core.useTheme(am4themes_material);
+                    am4core.useTheme(am4themes_animated);
+                    // Themes end
+
+                    // Create chart instance
+                    var chart = am4core.create("graphChart", am4charts.XYChart);
+
+                    // Add data
+                    //
+                    chart.data = app
+
+                    // Create axes
+                    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+                    dateAxis.renderer.minGridDistance = 50;
+
+                    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+                    // Create series
+                    var series = chart.series.push(new am4charts.LineSeries());
+                    series.dataFields.valueY = "value1";
+                    series.dataFields.dateX = "date";
+                    series.strokeWidth = 2;
+                    series.minBulletDistance = 10;
+                    series.tooltipText = "[bold]{date.formatDate()} :[/] {value1}\n[bold]{previousDate.formatDate()}";
+                    series.tooltip.pointerOrientation = "vertical";
+
+                    // Create series
+                    var series2 = chart.series.push(new am4charts.LineSeries());
+                    series2.dataFields.valueY = "value2";
+                    series2.dataFields.dateX = "date";
+                    series2.strokeWidth = 2;
+                    series2.strokeDasharray = "3,4";
+                    series2.stroke = series.stroke;
+
+                    // Add cursor
+                    chart.cursor = new am4charts.XYCursor();
+                    chart.cursor.xAxis = dateAxis;
+
+                    }); // end am4core.ready()
+                }
+            },
+            error:function(){
+                alert("error");
+                }
+            }) 
+        }
+
+ function mapList(){
+     $.ajax({
+         url:"http://localhost:3000/mapList",
+         type:"post",
+         data:{sDate:$(".s_date").val(),eDate:$(".e_date").val()},
+         success:function(list){
+            alert(JSON.stringify(list));
+         },
+         error:function(){
+             alert("error");
+         }
+
+     })
+
+ }
 
 
 
