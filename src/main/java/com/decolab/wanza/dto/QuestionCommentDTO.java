@@ -21,14 +21,15 @@ public class QuestionCommentDTO implements Serializable{
 	private String userName;
 	private String nickName;
 	private int auth;
+	private String profileName;
 	//U.USERNAME, U.NICKNAME, U.PROFILENAME, U.AUTH
 	
 	public QuestionCommentDTO() {
 	}
-
+	
 	public QuestionCommentDTO(int questionSeq, int userSeq, int qcSeq, String qcContent, Date qcRegDate,
 			String qcFileName, int qcDel, int qcRef, int qcStep, int qcDepth, String userName, String nickName,
-			int auth) {
+			int auth, String profileName) {
 		super();
 		this.questionSeq = questionSeq;
 		this.userSeq = userSeq;
@@ -43,8 +44,8 @@ public class QuestionCommentDTO implements Serializable{
 		this.userName = userName;
 		this.nickName = nickName;
 		this.auth = auth;
+		this.profileName = profileName;
 	}
-
 
 	public int getQuestionSeq() {
 		return questionSeq;
@@ -150,14 +151,21 @@ public class QuestionCommentDTO implements Serializable{
 		this.auth = auth;
 	}
 
+	public String getProfileName() {
+		return profileName;
+	}
+
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
+	}
+
 	@Override
 	public String toString() {
 		return "QuestionCommentDTO [questionSeq=" + questionSeq + ", userSeq=" + userSeq + ", qcSeq=" + qcSeq
 				+ ", qcContent=" + qcContent + ", qcRegDate=" + qcRegDate + ", qcFileName=" + qcFileName + ", qcDel="
 				+ qcDel + ", qcRef=" + qcRef + ", qcStep=" + qcStep + ", qcDepth=" + qcDepth + ", userName=" + userName
-				+ ", nickName=" + nickName + ", auth=" + auth + "]";
+				+ ", nickName=" + nickName + ", auth=" + auth + ", profileName=" + profileName + "]";
 	}
-
 	
 	
 	

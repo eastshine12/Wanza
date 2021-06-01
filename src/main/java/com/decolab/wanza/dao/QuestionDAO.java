@@ -21,4 +21,10 @@ public interface QuestionDAO {
 	public int questionComment(QuestionCommentDTO dto);
 	
 	public List<QuestionCommentDTO> questionCommentList(QuestionCommentDTO dto);
+	
+	public int questionCommentCount(QuestionCommentDTO dto);
+	
+	public int questionReadCountUp(QuestionDTO dto);
+	
+	public boolean questionCommentdel(QuestionCommentDTO dto);
 }

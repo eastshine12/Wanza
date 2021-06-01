@@ -91,7 +91,23 @@ public class QuestionController {
 		return "ss";
 	}
 	
+	@RequestMapping(value = "/questionCommentCount", method = {RequestMethod.GET,RequestMethod.POST} )
+	public int questionCommentCount(QuestionCommentDTO dto) {
+		System.out.println("QuestionController questionCommentCount()" + new Date());
+		System.out.println(service.questionCommentCount(dto));
+		return service.questionCommentCount(dto);
+	}
 	
+	@RequestMapping(value = "/questionReadCountUp", method = {RequestMethod.GET,RequestMethod.POST} )
+	public int questionReadCountUp(QuestionDTO dto) {
+		System.out.println("QuestionController questionReadCountUp()" + new Date());
+		return service.questionReadCountUp(dto);
+	}
 	
+	@RequestMapping(value = "/questionCommentdel", method = {RequestMethod.GET,RequestMethod.POST} )
+	public boolean questionCommentdel(QuestionCommentDTO dto) {
+		System.out.println("QuestionController questionCommentdel()" + new Date());
+		return service.questionCommentdel(dto);
+	}
 	
 }
