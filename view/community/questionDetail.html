@@ -206,6 +206,12 @@
             font-size: 13px;
         }
 
+        .comment-feed-item-content-nothing{
+            color: coral;
+            font-weight: 800;
+            text-align: center;
+        }
+
         
     
         
@@ -227,7 +233,7 @@
     <div class="col-xl-6">
         <div class="question-detail-container" id="question-detail-container">
             <div class="question-detail-header">
-                <h4>질문과답변</h4>
+                <h4 style="color: coral; font-weight: 600;">질문과답변</h4>
                 <h2 class="question-detail-title"></h2>
             </div>
             <br>
@@ -253,8 +259,15 @@
                     </div>
                     <br>
                     <div class="question-detail-footer-metadata">
-                        <time>2021년 05월 25일 12:30</time>
-                        <span>조회 <span class="question-detail-footer-metadata-view-count-value">10</span></span>
+                        <time class="questions-item-footer-date" datetime="2021-05-17T19:49:16+09:00"></time>
+                        <!-- 
+                        <time datetime="2021-05-17T19:49:16+09:00" class="questions-item-footer-date text-gray">
+                        방금
+                        </time> 
+                    -->
+                        <span> 조회 
+                            <span class="question-detail-footer-metadata-view-count-value"></span>
+                        </span>
                         <span style="color: gainsboro">
                             <a class="question-detail-footer-metadata-report-link" href="">신고</a>
                         </span>
@@ -263,7 +276,7 @@
                 
             </div><!-- question-detail-body 끝 -->
 
-            <div class="qna-detail-comment-section">
+            <div class="question-detail-comment-section">
                 <div class="comment-feed">
                     <h1 class="comment-feed-header">댓글<!-- --> 
                     <span class="comment-feed-header-count">6</span></h1>
@@ -304,18 +317,19 @@
                         </div>
                     </form>
 
-                    
                         <ul class="comment-feed-list" id="comment-feed-list" style="list-style: none;">
+                            <!-- 테스트댓글1 -->
                             <li class="comment-feed-list-item">
                                 <div class="comment-feed-item">
-                                    <p class="comment-feed-item-content" style="font-size: 13px;">
-                                        <a href="#userprofile" class="comment-feed-item-content-author-name" style="font-size: 15px;">
+                                    <p class="comment-feed-item-content" >
+                                        <a href="#userprofile" class="comment-feed-item-content-author-name" >
                                         <img class="comment-feed-item-content-author-image" src="" onerror="this.src='../image/avatar.png'">    
                                         <span>userid</span>
                                         </a>
                                         <span>댓글내용인디용?</span>
                                     </p>
                                     <footer class="comment-feed-item-footer">
+                                       
                                         <time class="comment-feed-item-footer-time">10분전</time>
                                         
                                         <button>좋아요</button>
@@ -326,6 +340,7 @@
                                     </footer>
                                 </div>
                             </li>
+
                         </ul>
                     
 
@@ -353,52 +368,10 @@
                 </div>
             </div>
 
-            <!-- <div class="question-detail-footer">
-                <div class="question-detail-comment-section">
-                    <div class="comment-feed">
-                        <h3 style="display: inline;" class="comment-feed-header">댓글</h3>&nbsp;&nbsp;&nbsp;<h3 style="display: inline; color: coral; font-weight: 600;">6</h3>
-                        <div class="comment-feed-form">
-                            <br>
-                            <form class="questions-reply" style="margin-top: 15px; height: 40px; vertical-align: middle;">
-                                <div class="questions-reply-writer-image" style="float: left;">
-                                    <img src="../image/ddda.gif" style="width: 50px; height: 50px; border-radius: 70%; "
-                                    onerror="this.src='.../image/avatar.png'">
-                                </div>
-                                <div style="margin: 0 auto; vertical-align: middle;">
-                                    <input type="text" size="50 15" style="margin-top: 8px; margin-left: 15px ;margin-bottom: 15px;font-size: 20px; width: 80%; font-weight: 600;">
-                                    <button class="reply-photo"><img src="../image/zaf.png" style="width: 30px; height: 30px; margin-bottom: 2px;"></button>
-                                    <button class="reply-submit" onclick="">등록</button>
-                                </div>
-                            </form>
-                            
-                        </div> 
-                        <ul class="comment-feed-list">
-                            <li class="comment-feed-list-item">
-                                <article class="comment-feed-item">
-                                    <p class="comment-feed-item-content" style="font-size: 13px;">
-                                        <a href="#userprofile" class="comment-feed-item-content-author" style="font-size: 15px;">userid</a>
-                                        <span>댓글내용인디용?</span>
-                                    </p>
-                                    <footer class="comment-feed-item-footer">
-                                        <time class="comment-feed-item-footer-time">10분전</time>
-                                        Ω
-                                        <button>♡ 좋아요</button>
-                                        Ω
-                                        <button>답글달기</button>
-                                        Ω
-                                        <span style="color: gainsboro"><a href="#" style="">신고</a></span>
-                                    </footer>
-                                </article>
-                            </li>
-                        </ul>   
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 
     <div class="col-xl-2" style="">
-        
             <div class="question-detail-sidebar" >
                 <div class="sidebar-header">
                     <div class="sidebar-header-writer">
@@ -449,21 +422,99 @@ $(document).ready(function(){
 
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
     console.log(sessionId);
+
+    //글 삭제하기
+
+    //조회수 증가시키기
+    questionReadCountUp();
+    function questionReadCountUp(){
+        $.ajax({
+            url:"http://localhost:3000/questionReadCountUp",
+            type:"get",
+            data:{questionSeq:seq},
+            success:function(){
+                alert('questionReadCountUp 성공');
+                //console.log("조회수 증가?");
+                
+            }, error:function(){
+                alert('questionReadCountUp 실패');
+            }
+        });
+    }
+
+    // 작성 시간 나타내기
+    function timeForToday(value) {
+        const today = new Date();
+        const timeValue = new Date(value);
+
+        const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+        if (betweenTime < 1) return '방금 전';
+        if (betweenTime < 60) {
+            return `${betweenTime}분 전`;
+        }
+
+        const betweenTimeHour = Math.floor(betweenTime / 60);
+        if (betweenTimeHour < 24) {
+            return `${betweenTimeHour}시간 전`;
+        }
+
+        const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+        if (betweenTimeDay < 365) {
+            return `${betweenTimeDay}일 전`;
+        }
+
+        return `${Math.floor(betweenTimeDay / 365)}년 전`;
+    }
+    
+    //yyyyMMdd 포맷으로 반환
+    function getFormatDate(date){
+        var year = date.getFullYear();              //yyyy
+        var month = (1 + date.getMonth());          //M
+        month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+        var day = date.getDate();                   //d
+        day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+        return  year + '-' + month + '-' + day;       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능
+    }
+    
+
+    //유저시퀀스 부여하기
     $('#userSeq').val(sessionId.userSeq);
     
-    // $('.questions-writer-image-image').attr('src',sessionId.profileName);
-    // $('.questions-writer-nickname').text(sessionId.nickname);
-    // if(sessionId.auth == 0 || sessionId.auth == ''){
-    //     $('.questions-writer-profile').text('test');
-    // } else {
-    //     $('.questions-writer-profile').text(sessionId.auth);
-    // }
+    //질문글의 댓글 수 카운팅해서 가져오기
+    var qccount;
+    $.ajax({
+    url:"http://localhost:3000/questionCommentCount",
+    type:"get",
+    data:{questionSeq:seq},
+    async : false,
+    success:function(data){
+        alert('questionCommentCount 성공');
+        qccount = data;
+        if(qccount == 0 || qccount == null || qccount=='0' || typeof(qccount) == "undefined"){
+            qccount = 0;
+        }
+        console.log(qccount);
+        $('.comment-feed-header-count').text(qccount);
+    }, error:function(data){
+        alert('questionCommentCount 실패');
+    }
+    });
+
+   
+
     //해당 글에 대한 내용 뿌리기
     $.ajax({
         url:"http://localhost:3000/questionDetail",
         type:'post',
         data:{questionSeq:seq},
         success:function(list){
+            var qdate = list.questionRegDate;
+            const date2 = new Date(qdate);
+            //alert(date2);
+            //alert(getFormatDate(date2));
+            //alert(qdate);
+            var date3 = getFormatDate(date2);
+
             alert('detail ajax 성공');
             //alert(JSON.stringify(list));
             console.log(JSON.stringify(list));
@@ -471,19 +522,25 @@ $(document).ready(function(){
             $('.question-detail-content').html(list.questionContent);
             $('.question-detail-img').attr('src',list.questionFileName);
             $('.questions-writer-nickname').text(list.nickName);
+            $('.questions-writer-profile').text(list.userName);
             $('#questionSeq').val(list.questionSeq);
-            if(list.userName == '' || list.userName == 0){
+            $('.question-detail-footer-metadata-view-count-value').text(list.questionReadcount);
+            //$('.questions-item-footer-date').text(qdate);
+            $('.questions-item-footer-date').text(date3);
+           // $('.question-detail-footer-date').attr("datetime", list.questionRegDate);
+            if(list.userName == '' || list.userName == 0 || list.userName == null){
                 $('.questions-writer-profile').text("반갑습니다.");
             } else {
                 $('.questions-writer-profile').text(list.userName);
             }
+            
         },error:function(list){
             alert('detail ajax 대실패!!');
         }
 
     });
     
-    //해당 글에 대한 댓글 내용 <span>userid</span>뿌리기
+    //해당 글에 대한 댓글 내용 뿌리기
     $.ajax({
         url:"http://localhost:3000/questionCommentList",
         type:'post',
@@ -491,72 +548,73 @@ $(document).ready(function(){
         success:function(list){
             alert('CommentList ajax 성공');
             console.log(JSON.stringify(list));
-            alert(JSON.stringify(list));
-            //$('.comment-feed-item-content-author-image').attr('src',list.questionFileName);
-            $.each(list, function(i, val){
-                console.log(val);
-                
-                let app = "<li class='comment=feed-list-item'>"
-                    + "<div class='comment-feed-item'>"
-                    + "<div class='comment-feed-item-content'>"
-                    + "<a href='#' class='comment-feed-item-content-author-name'>"
-                    + "<img class='comment-feed-item-content-author-image'  " 
-                    + "src='"
-                    + val.profileName
-                    + "' onerror='this.src='../image/avatar.png'' >"
-                    + "<span>" + val.nickName + "</span>"
-                    + "</a>"
-                    + "<span>"
-                    + val.qcContent
-                    + "</span>"
-                    + "</div>"
-                    + "<footer class='comment-feed-item-footer'>"
-                    + "<time class='comment-feed-item-footer-time'>10분전</time>"    
-                    + "<button> 좋아요 </button>"
-                    + "<button> 답글달기 </button>"
-                    + "<span>"
-                    + "<a href='#'>신고</a>"
-                    + "</span>"
-                    + "</footer>"
-                    + "</div>"
-                    + "</li>"
-                    
-                $("#comment-feed-list").append(app);
+            //alert(JSON.stringify(list));
 
+            $.each(list, function(i, val){
+                if(val.qcDel == 0){
+                var pfname = val.profileName;
+                if(pfname == 0 || pfname == null){
+                    //alert('pfname 들어옴');
+                    pfname = '../image/avatar.png';
+                }
+                console.log(val)
+
+                if(sessionId.auth == 3 || sessionId.userSeq == val.userSeq){
+                    var apple = "<button onclick='commentdel(" + val.qcSeq + ")' > 삭제" + "</button>"
+                } else {
+                    apple = '';
+                }
+
+                let app = "<li class='comment=feed-list-item'>"
+                            + "<div class='comment-feed-item'>"
+                                + "<div class='comment-feed-item-content'>"
+                                    + "<a href='#' class='comment-feed-item-content-author-name'>"
+                                        + "<img class='comment-feed-item-content-author-image' src=' " 
+                                        + pfname
+                                        + "' >"
+                                        + "<span>" + val.nickName + "</span>"
+                                    + "</a>"
+                                    + "<span>"
+                                    + val.qcContent
+                                    + "</span>"
+                                + "</div>"
+                                + "<footer class='comment-feed-item-footer'>"
+                                    + "<time class='comment-feed-item-footer-time'>" + timeForToday(val.qcRegDate) + "</time>"    
+                                    + "<button> 좋아요 </button>"
+                                    + "<button> 답글달기 </button>"
+                                    + "<span>"
+                                        + "<a href='#'>신고</a>"
+                                    + "</span>"
+                                    + apple
+                                + "</footer>"
+                            + "</div>"
+                        + "</li>"
+
+                $("#comment-feed-list").append(app);
+                } else {
+                    let app = "<li class='comment=feed-list-item'>"
+                            + "<div class='comment-feed-item'>"
+                                + "<div class='comment-feed-item-content'>"
+                                    + "<p href='none' class='comment-feed-item-content-nothing'>"
+                                        + "표시할 댓글이 없습니다. "
+                                        + "댓글을 추가해주세요."
+                                    + "</p>"
+                                + "</div>"
+                            + "</div>"
+                        + "</li>"
+
+                $("#comment-feed-list").append(app);
+                }
             });
+            
         }, error:function(list){
             alert('CommentList ajax 실패');
         }
     });
 
-    /*
-    <ul class="comment-feed-list" style="list-style: none;">
-        <li class="comment-feed-list-item">
-            <div class="comment-feed-item">
-                <p class="comment-feed-item-content" style="font-size: 13px;">
-                    <a href="#userprofile" class="comment-feed-item-content-author" style="font-size: 15px;">
-                    <img class="comment-feed-item-content-author-image" src="" onerror="this.src='../image/avatar.png'">    
-                    userid
-                    </a>
-                    <span>댓글내용인디용?</span>
-                </p>
-                <footer class="comment-feed-item-footer">
-                    <time class="comment-feed-item-footer-time">10분전</time>
-                    
-                    <button>♡ 좋아요</button>
-                    
-                    <button>답글달기</button>
-                    
-                    <span style="color: gainsboro"><a href="#" style="">신고</a></span>
-                </footer>
-            </div>
-        </li>
-    </ul>
-    */
-    
+    //질문과답변 댓글 작성하기
     $('.comment-feed-form-submit').on('click', function(list) {
-      alert('되냐이거?');
-      //alert(list);
+      //alert('되냐이거?');
       var form = $('#comment-feed-form').serialize();
       console.log(form);
         $.ajax({
@@ -564,25 +622,33 @@ $(document).ready(function(){
           type: 'post',
           data : form,
           success:function(list){
-            alert('ajax성공');
+            alert('questionComment ajax성공');
+            rejax();
           }, error:function(list){
-            alert('ajax실패');
+            alert('questionComment ajax실패');
           }
         })
-      //alert('안됨');
     });
 
-   
+    //질문과답변 댓글 삭제하기
+    function commentdel(commentseq){
+        $.ajax({
+            url:"http://localhost:3000/questionCommentdel",
+            type:"get",
+            data : {qcSeq:seq},
+            success:function(){
+                alert('questionCommentdel ajax성공');
+                rejax();
+            }, error:function(){
+                alert('questionCommentdel ajax실패');
+            }
+        })
+    }
 
-    /*
-    <div class="question-detail-container">
-            <div class="question-detail-header" style="margin-top: 25px;">
-                <h4 style="color: coral; font-weight: 600;">질문과답변</h4>
-                <h2 class="question-detail-title">식물을 기르고싶은데</h2>
-            </div>
-            <br>
-    */
-
+    //ajax 후 새로고침
+    function rejax(){  
+        location.reload();
+    }
 
 
 

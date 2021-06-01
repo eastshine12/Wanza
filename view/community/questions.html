@@ -120,7 +120,8 @@
   .questions-item-footer-writer-image{
     width: 22px; 
     height: 22px; 
-    border-radius: 70%
+    border-radius: 70%;
+    margin-right: 10px;
   }
   .questions-item-footer-tags{
     float: right;
@@ -226,19 +227,19 @@
           <ul class="questions-notice-list" style="margin:-5px 0; list-style: none; ">
               <li class="questions-notice-list-list" style="margin: 5px 0; padding:  10px 20px 10px 54px; background-color: #ffcb9d; border-radius: 10px; font-size: larger;">
                 <a href="#" style="color: black;">
-                  <span class=""><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
+                  <span ><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
                   <span class="title ">완자의 인테리어 멘토를 만나보세요🏆</span>
                 </a>        
               </li>
               <li class="questions-notice-list-list" style="margin: 5px 0; padding:  10px 20px 10px 54px; background-color: #ffcb9d; border-radius: 10px; font-size: larger;">
                 <a href="#" style="color: black;">
-                  <span class=""><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
+                  <span ><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
                   <span class="title text-body-1">답변 이벤트 안내 및 활동 주의사항 📢</span>
                 </a>        
               </li>
               <li class="questions-notice-list-list" style="margin: 5px 0; padding:  10px 20px 10px 54px; background-color: #ffcb9d; border-radius: 10px; font-size: larger;">
                 <a href="#" style="color: black;">
-                  <span class=""><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
+                  <span ><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
                   <span class="title text-body-1">빠르고 정확한 인테리어 답변을 받는 방법은?</span>
                 </a>        
               </li>
@@ -312,53 +313,7 @@
                 </footer>
               </div>
             
-            
-            <!-- 테스트글2 -->
-            
-            <div class="questions-item" >
-              <a class="questions-item-link" href="questionDetail.html">
-                <div class="questions-block">
-                  <div class="questions-head-img" >
-                    <img class="questions-head-image" src="../image/wdg.gif">
-                  </div>
-                  <div class="questions-head" >
-                    <h2 class="questions-title" >테스트글2</h2> <!-- 질문제목 -->
-                    <p class="questions-content" >붙박이장 어케 할까요?</p> <!-- 질문내용 -->
-                  </div>
-                </div>
-              </a>
-                <footer class="questions-item-footer" >
-                    <span class="questions-item-footer-author">
-                        <span class="questions-item-footer-writer-img">
-                            <img class="questions-item-footer-writer-image" src="../image/wdg.gif" 
-                            onerror="this.src='../image.avatar.png'"><!-- 프로필사진 -->
-                        </span>
-                        <span class="questions-item-footer-writer" >현성이배통통</span>
-                    </span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="questions-item-footer-meta ">
-                      <time datetime="2021-05-17T19:49:16+09:00" class="questions-item-footer-date text-gray">
-                        방금
-                      </time>
-                      <!-- · -->
-                      <span class="questions-item-footer-comments text-gray">
-                        댓글
-                        <span class="questions-item-footer-comments-content active">5</span>
-                      </span>
-                      <!-- · -->
-                      <span class="questions-item-footer-views text-gray">
-                        조회
-                      <span class="questions-item-footer-views-content">7</span>
-                      </span>
-                    </span>
-                    <ul class="questions-item-footer-tags keyword-list" >
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" >셀프인테리어</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" >자취</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" >돈낭비</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button" >존망</li>
-                    </ul>
-                </footer>
-              </div>
+
       </div>
     </div>
 
@@ -369,32 +324,93 @@
 <script>
   $(document).ready(function(){
 
-    //로그인한 계정 닉네임 가져오기
+  //로그인한 계정 닉네임 가져오기
   let sessionId = JSON.parse(sessionStorage.getItem("login"));
   console.log(sessionId);
 
-  
+  let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
+            return paramPair.split(/=(.+)?/).slice(0, 2);
+        }).reduce(function(obj, pairArray) {
+            obj[pairArray[0]] = pairArray[1];
+            return obj;
+        }, {});
+
+  let seq = urlParams.seq;	// html 에서 html 이동할때 값 가져가는 그런 코드
+
+  // 작성 시간 나타내기
+  function timeForToday(value) {
+    const today = new Date();
+    const timeValue = new Date(value);
+
+    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+    if (betweenTime < 1) return '방금 전';
+    if (betweenTime < 60) {
+        return `${betweenTime}분 전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+        return `${betweenTimeHour}시간 전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+        return `${betweenTimeDay}일 전`;
+    }
+
+    return `${Math.floor(betweenTimeDay / 365)}년 전`;
+}
 
   
-
-    // $('.questions-item-footer-writer-image').error(function(){
-    //   $('.questions-item-footer-writer-image').attr(src,'../image.avatar.png');
-    // });
-    //$('questions-item-footer-writer-image').attr("src", "../image.avatar.png");
 
     //질문글 가져와서 뿌려주기
     $.ajax({
       url:"http://localhost:3000/getAllQuestionList",
       type: "get",
+      async : false,
       success:function(list){
         alert('getAllQuestionList 성공')
-        console.log(list);
+        //console.log(list);
         //alert(list)
         $.each(list, function(i, val){
-          // if(val.questionFileName == '' || val.questionFileName == null){
-          //   val.questionFileName == '../image/wanza.png'            
-          // }
-          
+
+          var pfname = val.profileName;
+          if(pfname == 0 || pfname == null ){
+            pfname = '../image/avatar.png';
+          }
+
+          var qfname = val.questionFileName;
+          if(qfname == 0 || qfname == null){
+            qfname = '../image/wanza.png';
+          }
+
+          var unname = val.nickName;
+          if(unname == 0 || unname == null){
+            unname == '알수없는 회원입니다.';
+          }
+
+
+
+          var qccount;
+
+          //질문글의 댓글 수 카운팅해서 가져오기
+          $.ajax({
+            url:"http://localhost:3000/questionCommentCount",
+            type:"get",
+            data:{questionSeq:val.questionSeq},
+            async : false,
+            success:function(data){
+              qccount = data;
+              if(qccount == 0 || qccount == null || qccount=='0' || typeof(qccount) == "undefined"){
+                  qccount = 0;
+              }
+              console.log(qccount);
+            }, error:function(data){
+              alert('questionCommentCount 실패')
+            }
+          });
+
+          console.log(val);
 
           let app = "<div class='questions-item' >"
                     + "<a class='questions-item-link' href="
@@ -405,17 +421,16 @@
                     + "<div class='questions-head-img'>"
                     + "<img class='questions-head-image'" 
                     + "src='"
-                    + val.questionFileName
-                    + "' onerror='this.src='../image/wanza.png''>"
+                    + qfname
+                    + "'>"
                     + "</div>"
                     + "<div class='questions-head'>"
                     + "<h2 class='questions-title'>"
                     + val.questionTitle
                     + "</h2>"
                     + "<span class='questions-content'>"
-                    + val.questionContent //<p></p>
-                    + "</span>"   
-                    //+ "</p>"     
+                    + val.questionContent
+                    + "</span>"       
                     + "</div>"
                     + "</a>"
                     + "<footer class='questions-item-footer'>"
@@ -423,25 +438,21 @@
                         + "<span class='questions-item-footer-writer-img'>"
                         + "<img class='questions-item-footer-writer-image'"
                         + "src='"
-                        + sessionId.profileName
+                        + pfname
                         + "'>"
-                        // + ".../image/dddzz.gif"
-                        // + "'>"
                         + "</span>"
-                        + "<span class='questions-item-footer-writer'>배통통한현성</span>"
+                        + "<span class='questions-item-footer-writer'>" + unname + "</span>"
                       + "</span>  &nbsp;&nbsp;&nbsp;&nbsp; "
                       + "<span class='questions-item-footer-meta'>"
-                        + "<time datetime='2021-05-17T19:49:16+09:00' class='questions-item-footer-date text-gray'>"
-                        + "방금"
+                        + "<time class='questions-item-footer-date text-gray'>"
+                        + timeForToday(val.questionRegDate)
                         + "</time>"
-                        // + "·"
                         + "<span class='questions-item-footer-comments text-gray'>"
                         + "댓글&nbsp;"  
                           + "<span class='questions-item-footer-comments-content active'>"
-                          + val.questionReadcount  
+                          + qccount
                           + "</span>"
                         + "</span>"
-                        // + "·"
                         + "<span class='questions-item-footer-views text-gray'>"
                           + "조회&nbsp;"
                           + "<span class='questions-item-footer-views-content'>"
@@ -450,10 +461,10 @@
                         + "</span>"
                       + "</span>"
                       + "<ul class='questions-item-footer-tags keyword-list'>"
-                      + "<li class=keyword-item questions-item-footer-tags-tag'>"
+                      + "<li class='keyword-item questions-item-footer-tags-tag'>"
                       + "셀프인테리어"
                       + "</li>"
-                      + "<li class=keyword-item questions-item-footer-tags-tag'>"
+                      + "<li class='keyword-item questions-item-footer-tags-tag'>"
                       + "존망"
                       + "</li>"
                       + "</ul>"
@@ -465,7 +476,6 @@
                     }
 
                     $("#questions-list-container").append(app);
-
                   });
         
       }, error:function(list){
@@ -476,10 +486,11 @@
 
   });
 
-  
 
   
 
+  
+  //정렬버튼 설정부분
   function filterfunc() {
     var x = document.getElementById("Demo");
     if (x.className.indexOf("w3-show") == -1) {
