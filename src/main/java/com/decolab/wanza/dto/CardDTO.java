@@ -182,8 +182,8 @@ public class CardDTO implements Serializable {
 	public String getTagHomeType() {
 		return tagHomeType;
 	}
-
-	public void setTagHometype(String tagHomeType) {
+	
+	public void setTagHomeType(String tagHomeType) {
 		this.tagHomeType = tagHomeType;
 	}
 
