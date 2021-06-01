@@ -13,9 +13,27 @@ public class ProductDTO implements Serializable {
 	private String productFileName;
 	private float productRating;
 	
+	private String searchText;
+	
 	public ProductDTO() {
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
+			String productMaker, String productFileName, float productRating, String searchText) {
+		super();
+		this.productSeq = productSeq;
+		this.productName = productName;
+		this.productContent = productContent;
+		this.productPrice = productPrice;
+		this.productDiscount = productDiscount;
+		this.productMaker = productMaker;
+		this.productFileName = productFileName;
+		this.productRating = productRating;
+		this.searchText = searchText;
+	}
+
 
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating) {
@@ -105,12 +123,22 @@ public class ProductDTO implements Serializable {
 		this.productRating = productRating;
 	}
 
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductDTO [productSeq=" + productSeq + ", productName=" + productName + ", productContent="
 				+ productContent + ", productPrice=" + productPrice + ", productDiscount=" + productDiscount
 				+ ", productMaker=" + productMaker + ", productFileName=" + productFileName + ", productRating="
-				+ productRating + "]";
+				+ productRating + ", searchText=" + searchText + "]";
 	}
+
+
 
 }

@@ -15,8 +15,10 @@ public class AdminStoryTagDTO implements Serializable {
 	private int cardDel;
 	private String nickName;
 	private int likeCount;
+	private int tagCount;
 	
 	private int productSeq;
+	private int productPrice;
 	private String productName;
 	private String productFileName;
 	
@@ -32,11 +34,11 @@ public class AdminStoryTagDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-
+	
 	public AdminStoryTagDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount,
-			Date cardDate, String cardFileName, int cardDel, String nickName, int likeCount, int productSeq,
-			String productName, String productFileName, int locationX, int locationY, String tagColor,
-			String tagHomeType, String tagStyle) {
+			Date cardDate, String cardFileName, int cardDel, String nickName, int likeCount, int tagCount,
+			int productSeq, int productPrice, String productName, String productFileName, int locationX, int locationY,
+			String tagColor, String tagHomeType, String tagStyle) {
 		super();
 		this.cardSeq = cardSeq;
 		this.cardTitle = cardTitle;
@@ -48,7 +50,9 @@ public class AdminStoryTagDTO implements Serializable {
 		this.cardDel = cardDel;
 		this.nickName = nickName;
 		this.likeCount = likeCount;
+		this.tagCount = tagCount;
 		this.productSeq = productSeq;
+		this.productPrice = productPrice;
 		this.productName = productName;
 		this.productFileName = productFileName;
 		this.locationX = locationX;
@@ -159,6 +163,16 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+	public int getTagCount() {
+		return tagCount;
+	}
+
+
+	public void setTagCount(int tagCount) {
+		this.tagCount = tagCount;
+	}
+
+
 	public int getProductSeq() {
 		return productSeq;
 	}
@@ -166,6 +180,16 @@ public class AdminStoryTagDTO implements Serializable {
 
 	public void setProductSeq(int productSeq) {
 		this.productSeq = productSeq;
+	}
+
+
+	public int getProductPrice() {
+		return productPrice;
+	}
+
+
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
 	}
 
 
@@ -244,11 +268,14 @@ public class AdminStoryTagDTO implements Serializable {
 		return "AdminStoryTagDTO [cardSeq=" + cardSeq + ", cardTitle=" + cardTitle + ", cardContent=" + cardContent
 				+ ", userSeq=" + userSeq + ", cardReadCount=" + cardReadCount + ", cardDate=" + cardDate
 				+ ", cardFileName=" + cardFileName + ", cardDel=" + cardDel + ", nickName=" + nickName + ", likeCount="
-				+ likeCount + ", productSeq=" + productSeq + ", productName=" + productName + ", productFileName="
-				+ productFileName + ", locationX=" + locationX + ", locationY=" + locationY + ", tagColor=" + tagColor
-				+ ", tagHomeType=" + tagHomeType + ", tagStyle=" + tagStyle + "]";
+				+ likeCount + ", tagCount=" + tagCount + ", productSeq=" + productSeq + ", productPrice=" + productPrice
+				+ ", productName=" + productName + ", productFileName=" + productFileName + ", locationX=" + locationX
+				+ ", locationY=" + locationY + ", tagColor=" + tagColor + ", tagHomeType=" + tagHomeType + ", tagStyle="
+				+ tagStyle + "]";
 	}
 
-	
+
+
+
 
 }
