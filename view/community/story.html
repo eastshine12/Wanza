@@ -298,9 +298,15 @@ $(document).ready(function() {
     });
 
     $('.write_btn').click(function() {
+        if(sessionStorage.getItem("login") == null) {
+            alert('로그인 후에 작성 가능합니다. ');
+            return;
+        }
         location.href = "storyWrite.html";
     })
-
+    //로그인한 계정 닉네임 가져오기
+    //let sessionId = JSON.parse();
+    //console.log(sessionId);
 
 
 

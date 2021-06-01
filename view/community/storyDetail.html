@@ -160,7 +160,7 @@
                 </div>
                 <div class="row" style="margin-top: 5px;width: 350px;margin-right: 10px;margin-left: -5px;margin-bottom: 0px;padding-right: 5px;">  
                     
-                    <!-- 메인 이외의 업로드 사진 리스트 -->
+                    <!-- 유저의 다른 업로드 사진 리스트 -->
 
                     <div style="width: 150px;margin-right: 5px;">
                         <article article class="project_wrap">
@@ -210,31 +210,11 @@
 
                 
                 <div class="row" style="text-align: center;">
-                    <div class="col">
+                    <div id="userImg" class="col">
 
                         <!-- 메인 사진 마커 -->
 
-                        <div style="position: absolute;">
-                            <div id="marker" style="position: relative; top: 42px;left: 255px;">
-                                <img src="../../assets/img/marker.png" style="width: 40px;">
-                                <div id="markerMessage">
-                                    <div class="row">
-                                            <div class="col">
-                                                <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
-                                            </div>
-                                            <div class="col" style="margin-left: -40px;margin-right: -10px;">
-                                                <p><b>인테리어 그림 액자 포스터</b></p>
-                                                <p style="font-size: 15px;"><b>48,900원</b></p>
-                                            </div>
-                                            <div class="col" style="margin-top: 25px;margin-right: -70px; cursor: pointer;">
-                                                <p style="font-size: 25px;"><b>＞</b></p>
-                                            </div>
-                                        </div>
-                                    </div>   
-                            </div>
-                        </div>
-
-                        <div style="position: absolute;">
+                       <!--  <div style="position: absolute;">
                             <div id="marker" style="position: relative; top: 300px;left: 660px;">
                                 <img src="../../assets/img/marker.png" style="width: 40px;">
                                 <div id="markerMessage">
@@ -252,48 +232,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         
-
-                        <div style="position: absolute;">
-                            <div id="marker" style="position: relative; top: 400px;left: 270px;">
-                                <img src="../../assets/img/marker.png" style="width: 40px;">
-                                <div id="markerMessage">
-                                    <div class="row">
-                                        <div class="col">
-                                            <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
-                                        </div>
-                                        <div class="col" style="margin-left: -40px;margin-right: -10px;">
-                                            <p><b>인테리어 그림 액자 포스터</b></p>
-                                            <p style="font-size: 15px;"><b>48,900원</b></p>
-                                        </div>
-                                        <div class="col" style="margin-top: 25px;margin-right: -70px; cursor: pointer;">
-                                            <p style="font-size: 25px;"><b>＞</b></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="position: absolute;">
-                            <div id="marker" style="position: relative; top: 0px;left: 0px;">
-                                <img src="../../assets/img/marker.png" style="width: 40px;">
-                                <div id="markerMessage">
-                                    <div class="row">
-                                        <div class="col">
-                                            <img style="width: 80px;border-radius: 7px;margin-left: 10px;" src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
-                                        </div>
-                                        <div class="col" style="margin-left: -40px;margin-right: -10px;">
-                                            <p><b>인테리어 그림 액자 포스터</b></p>
-                                            <p style="font-size: 15px;"><b>48,900원</b></p>
-                                        </div>
-                                        <div class="col" style="margin-top: 25px;margin-right: -70px; cursor: pointer;">
-                                            <p style="font-size: 25px;"><b>＞</b></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         
 
 
@@ -559,6 +499,12 @@
 
         // 좋아요 버튼 클릭
         $('#likeBtn').click(function() {
+
+            if(sessionId.userSeq == undefined) {
+                alert('로그인 후에 가능합니다.');
+                return;
+            }
+
             // 좋아요가 눌려있지 않았다면 좋아요 +1
             if (existLike != "exist") {
                 $.ajax({
@@ -575,11 +521,11 @@
                             getBoolLike();
                         }
                         else {
-                            alert('에러')
+                            alert('likeBtn error');
                         }
                     },
                     error: function () {
-                        alert('로그인 후에 가능합니다.');
+                        alert('likeBtn error');
                     }
                 });
             }
@@ -614,9 +560,59 @@
 
     });
 
+    // 금액 콤마 삽입 정규식
+    function makeComma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    };
 
+    getProductTag(seq);
+    function getProductTag(cardSeq) {
+        $.ajax({
+            url: "http://192.168.0.231:3000/getProductTag",
+            type: "get",
+            data: {
+                "cardSeq": cardSeq
+            },
+            success: function (list) {
+                $('div[name=tags]').remove();
+                let tag = "";
+                console.log(list);
+                $.each(list, function (i, val) {
+                    tag +=  '<div name="tags" style="position: absolute;">'
+                        +        '<div id="marker" style="position: relative; top: '+(val.locationY - 40)+'px;left: '+(val.locationX+33)+'px;">'
+                        +            '<img src="../../assets/img/marker.png" style="width: 40px;">'
+                        +            '<div id="markerMessage">'
+                        +                '<div class="row">'
+                        +                    '<div class="col">'
+                        +                        '<img style="width: 80px;height: 80px;border-radius: 7px;margin-left: 10px; object-fit: cover;" src="http://192.168.0.231:3000/upload/' +val.productFileName+ '">'
+                        +                    '</div>'
+                        +                    '<div class="col" style="margin-left: -40px;margin-right: -10px;">'
+                        +                        '<p><b>'+val.productName+'</b></p>'
+                        +                        '<p style="font-size: 15px;"><b>'+makeComma(val.productPrice)+'원</b></p>'
+                        +                    '</div>'
+                        +                    '<div name="goProdDetail" productSeq="'+val.productSeq+'" class="col" style="margin-top: 25px;margin-right: -70px; cursor: pointer;">'
+                        +                        '<p style="font-size: 25px;"><b>〉</b></p>'
+                        +                    '</div>'
+                        +                '</div>'
+                        +            '</div>'
+                        +        '</div>'
+                        +    '</div>';
+                });
+                
+                $('#userImg').prepend(tag);
+                
+            },
+            error: function () {
+                alert('getProductTag error');
+            }
+        });
+    }
 
-
+    $(document).on('click', 'div[name=goProdDetail]', function() {
+        let productSeq = $(this).attr('productSeq');
+        location.href = "../store/storeDetail.html?seq="+productSeq;
+    });
 
 
 
@@ -637,6 +633,12 @@
     //댓글 달기
     $(function () {
         $('#reviewBtn').click(function () {
+
+            if(sessionId.userSeq == undefined) {
+                alert('로그인 후에 작성 가능합니다.');
+                return;
+            }
+
             $.ajax({
                 url: "http://192.168.0.231:3000/cardReviewWrite",
                 type: "post",
@@ -653,12 +655,12 @@
 
                     }
                     else {
-                        alert("로그인 이후 작성 가능합니다.");
+                        alert("reviewBtn error");
                     }
 
                 },
                 error: function () {
-                    alert("로그인 이후 작성 가능합니다.");
+                    alert("reviewBtn error");
                 }
             });
 
