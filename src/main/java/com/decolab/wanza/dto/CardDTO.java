@@ -90,6 +90,15 @@ public class CardDTO implements Serializable {
 		this.cardFileName = cardFileName;
 	}
 
+	@Override
+	public String toString() {
+		return "CardDTO [cardSeq=" + cardSeq + ", cardTitle=" + cardTitle + ", cardContent=" + cardContent
+				+ ", userSeq=" + userSeq + ", cardReadCount=" + cardReadCount + ", cardDate=" + cardDate
+				+ ", cardFileName=" + cardFileName + ", cardDel=" + cardDel + ", nickName=" + nickName + ", likeCount="
+				+ likeCount + ", tagColor=" + tagColor + ", tagHomeType=" + tagHomeType + ", tagStyle=" + tagStyle
+				+ ", sort=" + sort + "]";
+	}
+
 	public int getCardSeq() {
 		return cardSeq;
 	}
@@ -202,15 +211,8 @@ public class CardDTO implements Serializable {
 		this.sort = sort;
 	}
 
-	@Override
-	public String toString() {
-		return "CardDTO [cardSeq=" + cardSeq + ", cardTitle=" + cardTitle + ", cardContent=" + cardContent
-				+ ", userSeq=" + userSeq + ", cardReadCount=" + cardReadCount + ", cardDate=" + cardDate
-				+ ", cardFileName=" + cardFileName + ", cardDel=" + cardDel + ", nickName=" + nickName + ", likeCount="
-				+ likeCount + ", tagColor=" + tagColor + ", tagHomeType=" + tagHomeType + ", tagStyle=" + tagStyle
-				+ ", sort=" + sort + "]";
-	}
 
+	
 
 
 

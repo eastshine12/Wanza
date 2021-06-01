@@ -36,5 +36,16 @@ public class QuestionService {
 	public List<QuestionCommentDTO> questionCommentList(QuestionCommentDTO dto) {
 		return dao.questionCommentList(dto);
 	}
-
+	
+	public int questionCommentCount(QuestionCommentDTO dto) {
+		return dao.questionCommentCount(dto);
+	}
+	
+	public int questionReadCountUp(QuestionDTO dto) {
+		return dao.questionReadCountUp(dto);
+	}
+	
+	public boolean questionCommentdel(QuestionCommentDTO dto) {
+		return dao.questionCommentdel(dto);
+	}
 }

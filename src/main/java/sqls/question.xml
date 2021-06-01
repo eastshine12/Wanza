@@ -7,10 +7,23 @@
 
 	<!-- 질문과답변 전체 목록 가져오기 -->
 	<select id="getAllQuestionList" resultType="com.decolab.wanza.dto.QuestionDTO">
-		SELECT QUESTIONSEQ, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONREADCOUNT, QUESTIONREGDATE, QUESTIONFILENAME, QUESTIONDEL 
-		FROM QUESTION
+		SELECT Q.QUESTIONSEQ 
+			,Q.USERSEQ 
+			,Q.QUESTIONTITLE 
+			,Q.QUESTIONCONTENT 
+			,Q.QUESTIONREADCOUNT 
+			,Q.QUESTIONREGDATE 
+			,Q.QUESTIONFILENAME 
+			,Q.QUESTIONDEL
+		   	,U.USERNAME 
+		   	,U.NICKNAME 
+		   	,U.PROFILENAME 
+		   	,U.AUTH
+		FROM QUESTION Q, USERS U
+		WHERE 1=1
+		AND QUESTIONDEL = 0
+		AND Q.USERSEQ = U.USERSEQ
 		ORDER BY QUESTIONSEQ DESC
-		<!-- ORDER BY QUESTIONSEQ DESC -->
 	</select>
 	
 	<!-- 질문과답변 글쓰기 -->
@@ -61,11 +74,13 @@
         , U.USERNAME
         , U.NICKNAME
         , U.AUTH
+        , U.PROFILENAME
 		FROM Q_COMMENT Q, USERS U
 		WHERE 1=1 
 		AND Q.USERSEQ = U.USERSEQ 
+		AND Q.QCDEL = 0
 		AND Q.QUESTIONSEQ = #{questionSeq}
-		<!-- ORDER BY Q_COMMENTSEQ DESC, Q_COMMENTREF ASC -->
+		ORDER BY QCSEQ DESC, QCREF ASC
 		
 	</select>
 	
@@ -74,6 +89,30 @@
 		INSERT INTO Q_COMMENT
 		VALUES(#{questionSeq}, #{userSeq}, QCSEQ.NEXTVAL, #{qcContent}, SYSDATE, #{qcFileName}, 0, 0, 0, 0)
 	</insert>
+	
+	<!-- 질문과답변 댓글삭제 -->
+	<update id="questionCommentdel" parameterType="com.decolab.wanza.dto.QuestionCommentDTO">
+		UPDATE Q_COMMENT
+		SET QCDEL = 1
+		WHERE QCSEQ = #{qcSeq}
+	</update>
+	
+	<!-- 질문과답변 댓글숫자 세기 -->
+	<select id="questionCommentCount" parameterType="com.decolab.wanza.dto.QuestionCommentDTO" resultType="int">
+		SELECT NVL(COUNT(*), 0) 
+		FROM Q_COMMENT
+		WHERE  1=1
+		AND QUESTIONSEQ = #{questionSeq}
+	</select>
+	
+	<!-- 질문과답변 조회수 -->
+	<insert id="questionReadCountUp" parameterType="com.decolab.wanza.dto.QuestionDTO">
+		UPDATE QUESTION
+		SET QUESTIONREADCOUNT = QUESTIONREADCOUNT + 1
+		WHERE QUESTIONSEQ = #{questionSeq}
+	</insert>
+	
+	
 	
 	
 	<!-- 질문과답변 목록 가져오기 -->
