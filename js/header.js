@@ -72,13 +72,22 @@ $(document).ready(function() {
     let sessionId = sessionStorage.getItem("login");
     console.log(sessionId)
     if (sessionId != null) {
-        $('#goLogin').html('<b>내 정보</b>');
-        $('#logOut').show();
+        let auth = JSON.parse(sessionId).auth
+        if(auth==3){
+            let admin = '<a href="../admin/mainAdmin.html"><i class="fas fa-file-signature"></i> 관리자페이지</a>'
+            $('#myp').html(admin)
+            $('.cart').remove()
+            $('#goLogin').html('<b>관리자 </b> <i class="fa fa-sort-down"></i>');
+        }
+        else{
+            $('#goLogin').html('<b>내 정보 </b> <i class="fa fa-sort-down"></i>');
+        }
+        $('#goLogin').addClass('active')
         $(document).on('click', '#goLogin', function () {
             location.href = "../myPage/mainMyPage.html"
         });
     }else{
-        $('#logOut').hide();
+        $('#goLogin').removeClass('active')
         $(document).on('click', '#goLogin', function () {
             location.href = "../login/login.html"
         });
@@ -180,7 +189,6 @@ $(document).ready(function() {
     $(document).on('click','#closeSearch',function(){ 
         $("#searchChart").slideUp();
     });
-
 
 });
 
