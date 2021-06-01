@@ -11,23 +11,30 @@
 <link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통-->
 
 <style>
+/* 맨 위에 상자 */
 .top_slider{
     height: 500px;
     margin: 60px 0 0 0;
 }
+/* 캐로셀, 슬라이드 */
 #store_carousel{
-    /* width: 60%; */
-    padding: 0 30px 0 0;
+    height: 420px;
+    padding: 0 00px 0 0;
+}
+#store_carousel .carousel-inner{
+    height: 100%;
+    padding: 5px;
 }
 #store_carousel .carousel-item{
-    width: 100%; height: 500px;
-    border-radius: 5px;
     min-width: 535px;
+    position: relative;
     overflow: hidden;
+    padding-bottom: 56.66667%;
+    border-radius: 5px;
 }
 #store_carousel .carousel-item img{
-    width: 100%;
-    position: relative;
+    position: absolute;
+    height: 100%;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -37,15 +44,171 @@
 #store_carousel .carousel-indicators li{
     height: 7px;
 }
+/* 위쪽 태그상자 */
 .main_tag{
-    height: 500px;
+    height: 410px;
     padding: 0 0 0 20px; 
 }
 .tag_div{
     height: 100%;
     border-radius: 5px;
-    background-color: #FFB49C;
+    background-color: #FFE8E1;
+    margin: 5px 0;
+    padding: 40px;
 }
+.tag_head span{
+    font-size: 20pt;
+    font-weight: 700;
+}
+.tag{
+    display: inline-block;
+    height: 40px;
+    line-height: 38px;
+    margin: 20px 0;
+    padding: 0 8px;
+    border: solid 1px #f4744c;
+    border-radius: 18px;
+    background-color: #f4744c;
+    color: white;
+    font-size: 12pt;
+    text-decoration: none;
+}
+.tag a, .tag a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+/* 아래 메인 */
+#store_items{
+    height: 800px;
+}
+#store_items a:hover,
+#store_items a{
+    color: #424242;
+    text-decoration: none;
+}
+/* 메인 카테고리 나열 */
+.store_head{
+    display: flex;
+    height: 100px;
+    margin: 0 10px 30px;
+    padding: 30px 10px;
+    border-top: solid 3px #dbdbdb;
+}
+.store_head span{
+    font-size: 2em;
+    font-weight: 900;
+}
+.store_head .store_subcategory{
+    min-width: 650px;
+    display: flex;
+    list-style: none;
+    align-items: center;
+    font-size: 1.1em;
+    padding: 0;
+    margin: 0 0 0 15px;
+}
+.store_subcategory li{
+    margin: 0 15px;
+    display: inherit;
+}
+.store_subcategory div{
+    height: 50%;
+    border: solid 1px #424242;
+}
+
+/* 정렬버튼 */
+.right_wrap{
+    display: flex;
+    /* width: 32%; */
+    justify-content: flex-end;
+}
+.pop_wrap{
+    margin: 0;
+    width: 130px;
+    height: 40px;
+}
+.btn_pop{   /* 제목 버튼 */
+    display: flex;
+    position: relative;
+    width: 100%; height: 100%;
+    margin-bottom: 1PX;
+    border: solid 0.5px #757575;
+    border-radius: 4px;
+    color: #424242;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+.btn_pop.change{
+    justify-content: start;
+}
+.pop_box{
+    position: relative;
+    overflow: hidden;
+    margin-left: -19px;
+    padding: 0px 16px 0px 16px;
+    width: 130%;
+    height: 0px;
+    z-index: 3;
+    opacity: 1;
+    transition: height .3s, opacity .3s;
+    /* transition: all .3s; */
+}
+.pop_box:hover,
+.btn_pop:hover+.pop_box{     /* 마우스 이벤트 */
+    opacity: 1;
+    height: auto;
+    padding: 13px 16px 16px 16px;
+    transition: all .3s;
+}
+.pop_content{   /* 내용박스 */
+    position: relative;
+    border-radius: 4px;
+    background-color: white;
+    z-index: 3;
+    box-shadow: 0 -1px 16px rgb(0 0 0 / 20%);
+}
+.pop_content::before{   /* 박스 위 꼬다리 */
+    content: "";
+    position: absolute;
+    background: white;
+    z-index: -1;
+    width: 15px; height: 15px;
+    top: -8px; left: 40%;
+    transform: rotate(45deg);
+}
+.pop_content.active::before{
+    background: wheat;
+}
+.sub_content_ul{
+    list-style: none;
+    margin: 0; padding: 0;
+}
+.btn_subpop{    /* 세부내용 버튼 */
+    width: 100%;
+    height: 100%;
+    border: none;
+    color: #424242;
+    background-color: white;
+    padding: 15px;
+    text-align: left;
+}
+.sub_content_ul li:first-of-type .btn_subpop{
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.sub_content_ul li:last-of-type .btn_subpop{
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn_subpop:hover{
+    background-color: wheat;
+}
+
+
+
 </style>
 
 </head>
@@ -57,7 +220,7 @@
 <div class="container top_slider">
     <div class="row">
 
-        <div class="carousel slide col-md-8 " data-ride="carousel" id="store_carousel">
+        <div class="carousel slide col-md-8" id="store_carousel" data-ride="carousel">
             <div class="carousel-inner">
                 
                 <div class="carousel-item active">
@@ -76,30 +239,67 @@
 
         </div> <!-- 캐로셀 끝 -->
 
+        <!-- 추천태그 -->
         <div class="col-md-4 main_tag">
             <div class="tag_div">
-
+                <div class="tag_head"><span>추천태그</span></div>
+                <div class="row mt-4 pr-4">
+                    <div class="col-6 px-1"><span class="tag"><a href="#">#원목</a></span></div>
+                    <div class="col-6 px-1"><span class="tag"><a href="#">#우드레이</a></span></div>
+                    <div class="col-6 px-1"><span class="tag"><a href="#">#퍼니랙</a></span></div>
+                    <div class="col-6 px-1"><span class="tag"><a href="#">#미니멀프레임</a></span></div>
+                    <div class="col-6 px-1"><span class="tag"><a href="#">#벤트리</a></span></div>
+                    <div class="col-6 px-1"><span class="tag"><a href="#">#우드선반</a></span></div>
+                </div>
             </div>
         </div>
 
-    </div>
-
-
+    </div> <!-- 로우 끝 -->
 </div> <!-- 슬라이더 상자 끝 -->
 
 <!-- 상품파트 -->
-<div class="container" style="border: solid; height: 800px;">
-    <div class="store_head" style="border: solid; height: 100px;">
+<div class="container" id="store_items">
+    <div class="store_head">
+        <a href="#"><span>가구</span></a>
+        <ul class="store_subcategory">
+            <li><a href="#">전체</a></li><div></div>
+            <li><a href="#">침대 / 매트리스</a></li><div></div>
+            <li><a href="#">소파</a></li><div></div>
+            <li><a href="#">테이블</a></li><div></div>
+            <li><a href="#">화장대/거울</a></li><div></div>
+            <li><a href="#">책상/책장</a></li><div></div>
+            <li><a href="#">의자</a></li>
+        </ul>
+        
+        <div class="col right_wrap"> <!-- 오른쪽 정렬 -->
+            <div class="pop_wrap">
+                <button type="button" class="btn_pop" value="sort=0">인기순 <i class="fas fa-sort"></i></button>
+                
+                <div class="pop_box">
+                    <div class="pop_content">
+                        <ul class="sub_content_ul">
+                            <li><button type="button" class="btn_subpop" value="sort=1">평점순</button></li>
+                            <li><button type="button" class="btn_subpop" value="sort=2">최신순</button></li>
+                            <li><button type="button" class="btn_subpop" value="sort=3">좋아요순</button></li>
+                            <li><button type="button" class="btn_subpop" value="sort=3">판매순</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- 인기순 버튼 -->
+        </div>  <!-- 오른쪽 정렬 -->
 
     </div>
-    <div class="store_main" style="border: solid; height: 100%;">
 
+
+    <div class="store_main">
+        <div id="hotProductList" class="row">
+        
+            <!-- 상품 리스트 생성되는 곳 -->
+
+        </div>
     </div>
 
 </div>
-
-
-
 
 
 
@@ -113,7 +313,78 @@
 <script src="../../js/header.js"></script>
 
 <script>
-    
+$(document).ready(function() {
+    $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 메뉴 호버시 색
+        $('.pop_content').toggleClass('active')
+    });
+});
+
+// '인기 상품' 리스트
+getProductList();
+function getProductList() {
+    $.ajax({
+        url: "http://localhost:3000/getProductList",
+        type: "get",
+        success: function (list) {
+
+            console.log(list);
+
+            let app = ""
+            if (Object.keys(list).length == 0) {	// JSON형식의 길이
+
+                app += '<div style="width: 320px; margin-right: 50px;">'
+                    + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                    + "</div>";
+
+                $("#hotProductList").append(app);
+
+            } else {
+
+                $.each(list, function (i, val) {
+                    
+                    app += '<div style="width: 350px; height: 400px;">'
+                        +  '<article article class="project2_wrap" >'
+                        +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
+                        +  '<div class="project2_item">'
+                        +  '<span></span>'
+                        +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
+                        +  '</div>'
+                        +  '<h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; margin-top: 15px; margin-bottom: -5px; height: 32px;">' + val.productName + '</h3>';
+
+                    if(val.productDiscount != 0) {
+                        app += '<span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
+                            + '<span style="font-family: \'Noto Sans KR\';font-size: 18px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span>';
+                    } else {
+                        app += '<span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span>';
+                    }
+
+                    app += '<div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 5px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰</b> </div>'
+                        +  '</article>'
+                        +  '</div >';
+
+                });
+                $("#hotProductList").append(app);
+            }
+
+        },
+        error: function () {
+            alert('error');
+        }
+    });
+};
+
+// 금액 콤마 삽입 정규식
+function makeComma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+};
+
+//할인 퍼센테이지 계산
+function discountRate(price, discount) {
+    return Math.ceil(discount/price*100);
+};
+
+
 </script>
 
 </html>
