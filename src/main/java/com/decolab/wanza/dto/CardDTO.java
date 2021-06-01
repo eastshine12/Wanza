@@ -90,11 +90,9 @@ public class CardDTO implements Serializable {
 		this.cardFileName = cardFileName;
 	}
 
-
 	public int getCardSeq() {
 		return cardSeq;
 	}
-
 
 	public void setCardSeq(int cardSeq) {
 		this.cardSeq = cardSeq;
@@ -179,11 +177,12 @@ public class CardDTO implements Serializable {
 	public void setTagColor(String tagColor) {
 		this.tagColor = tagColor;
 	}
+
 	public String getTagHomeType() {
 		return tagHomeType;
 	}
 
-	public void setTagHometype(String tagHomeType) {
+	public void setTagHomeType(String tagHomeType) {
 		this.tagHomeType = tagHomeType;
 	}
 
@@ -211,6 +210,8 @@ public class CardDTO implements Serializable {
 				+ likeCount + ", tagColor=" + tagColor + ", tagHomeType=" + tagHomeType + ", tagStyle=" + tagStyle
 				+ ", sort=" + sort + "]";
 	}
+
+
 
 
 	
