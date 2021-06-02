@@ -43,6 +43,11 @@ public class ProductController {
 		return service.getSearchProduct(dto);
 	}
 	
-	
+	@RequestMapping(value = "/getProductSortList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<ProductDTO> getProductSortList(ProductDTO dto) { //분류하여 리스트로 가져오기
+		System.out.println("ProductController getProductList() " + new Date());
+		System.out.println(dto.toString());
+		return service.getProductSortList(dto);
+	}
 	
 }

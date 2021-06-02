@@ -29,4 +29,8 @@ public class ProductService {
 	public List<ProductDTO> getSearchProduct(ProductDTO dto){
 		return dao.getSearchProduct(dto);
 	}
+	
+	public List<ProductDTO> getProductSortList(ProductDTO dto){
+		return dao.getProductSortList(dto);
+	}
 }

@@ -20,4 +20,5 @@ public interface ProductDAO {
 	
 	public List<ProductDTO> getSearchProduct(ProductDTO dto);
 	
+	public List<ProductDTO> getProductSortList(ProductDTO dto);
 }
