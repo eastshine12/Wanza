@@ -1,6 +1,7 @@
 package com.decolab.wanza.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,8 +23,11 @@ public class EventController {
 		System.out.println(dto.toString());
 						
 		return service.eventWrite(dto)>0?"suc":"err";
-
 	}
 	
-	
+	@RequestMapping(value = "/getEventList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<EventDTO> getEventList(EventDTO dto){
+		System.out.println("EventController getEventList() " + new Date());
+		return service.getEventList(dto);
+	}
 }

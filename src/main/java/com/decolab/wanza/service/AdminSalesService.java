@@ -21,8 +21,12 @@ public class AdminSalesService{
 	public List<AdminSalesDTO> graphList(AdminSalesDTO dto){
 		return dao.graphList(dto);
 	}
-	public List<AdminSalesDTO> mapList(AdminSalesDTO dto){
+	public AdminSalesDTO mapList(AdminSalesDTO dto){
 		return dao.mapList(dto);
+	}
+	
+	public List<AdminSalesDTO> pieChart(AdminSalesDTO dto){
+		return dao.pieChart(dto);
 	}
 
 }

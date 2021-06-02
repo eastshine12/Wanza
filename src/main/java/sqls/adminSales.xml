@@ -16,8 +16,11 @@ SELECT SUM(PRODUCTAMOUNT) AS TOTAL,
 <when test="sType==3">
 (TO_CHAR(ORDERDATE,'YYYY-MM')) AS SDAY
 </when>
-<otherwise>
+<when test="sType==4">
 (TO_CHAR(ORDERDATE,'YYYY')) AS SDAY
+</when>
+<otherwise>
+(TO_CHAR(ORDERDATE,'YYYY-MM-DD')) AS SDAY
 </otherwise>
 </choose>
 FROM ORDERS
@@ -31,9 +34,13 @@ ORDER BY (TO_CHAR(ORDERDATE,'YYYY-MM-DD'))
 GROUP BY (TO_CHAR(ORDERDATE,'YYYY-MM'))
 ORDER BY (TO_CHAR(ORDERDATE,'YYYY-MM'))
 </when>
-<otherwise>
+<when test="sType==4">
 GROUP BY (TO_CHAR(ORDERDATE,'YYYY'))
 ORDER BY (TO_CHAR(ORDERDATE,'YYYY'))
+</when>
+<otherwise>
+GROUP BY (TO_CHAR(ORDERDATE,'YYYY-MM-DD'))
+ORDER BY (TO_CHAR(ORDERDATE,'YYYY-MM-DD'))
 </otherwise>
 </choose>
 </select>
@@ -42,109 +49,118 @@ ORDER BY (TO_CHAR(ORDERDATE,'YYYY'))
 <select id="mapList" parameterType="com.decolab.wanza.dto.admin.AdminSalesDTO" resultType="com.decolab.wanza.dto.admin.AdminSalesDTO">
 SELECT NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
-            WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%부산%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE 
-            GROUP BY A.ADDRESS),0) AS BUSAN,
-            
-            NVL((SELECT COUNT(A.ADDRESS)
-            FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%경기%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE 
             GROUP BY A.ADDRESS),0) AS GYUNGGI,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
+            WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%부산%'AND
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            GROUP BY A.ADDRESS),0) AS BUSAN,
+ 
+            NVL((SELECT COUNT(A.ADDRESS)
+            FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%서울%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS SEOUL,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%인천%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS INCHEON,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%강원%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS GANGWON,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%충청남%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS CHUNGNAM,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%충청북%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS CHUNGBUK,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%세종%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS SEJONG,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%대전%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS DAJEON,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%전라북%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS JEONBUK,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%전라남%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS JEONNAM,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%광주%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS GWANGJU,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%제주%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS JEJU,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%경상북%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS GYEONGBUK,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%경상남%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
-            GROUP BY A.ADDRESS),0) AS GYEONNAM,
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            GROUP BY A.ADDRESS),0) AS GYEONGNAM,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%대구%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS DAEGU,
             
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%울산%'AND
-            O.ORDERDATE >= TO_DATE('#{sDate}','YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+            O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
             GROUP BY A.ADDRESS),0) AS ULSAN
+
 FROM ORDERS O,ADDRESS A
 WHERE O.ADDRESSSEQ = A.ADDRESSSEQ
-GROUP BY A.ADDRESS;
+GROUP BY A.ADDRESS
 
+</select>
+
+<select id="pieChart" parameterType="com.decolab.wanza.dto.admin.AdminSalesDTO" resultType="com.decolab.wanza.dto.admin.AdminSalesDTO">
+SELECT T.MEDIUMCATEGORY AS CATEGORY, SUM(P.QUANTITY) AS QUANTI
+FROM PURCHASE_PRODUCT P, PRODUCTION_TAG T, ORDERS O
+WHERE P.PRODUCTSEQ = T.PRODUCTSEQ AND P.ORDERSEQ = O.ORDERSEQ AND
+O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
+GROUP BY T.MEDIUMCATEGORY
 </select>
 
 
