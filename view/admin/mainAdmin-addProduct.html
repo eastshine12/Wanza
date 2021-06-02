@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>완벽한 자취생활, 완자</title>
+
+<link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon"> <!-- 브라우저 탭 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
+<!-- 부트스트랩 -->
+<link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> <!-- jQuery UI css -->
+<link rel="stylesheet" type="text/css" href="../../css/admin/calendar.css"> <!-- 달력 -->
+<link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통 -->
+
+<style>
+body{
+    background-color: #eee;
+}
+/* 큰 패널 2개*/
+/* 사이드 */
+.sidebar{
+    position: fixed;
+    top: 0; bottom: 0;
+    left: 0;
+    z-index: 200;
+    width: 260px; height: 100%;
+    padding-top: 20px;
+    background-color: white;
+    color: #a9afbb;
+    text-align: center;
+    box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%),
+                0 4px 25px 0 rgb(0 0 0 / 12%),
+                0 8px 10px -5px rgb(0 0 0 / 20%);
+    transform: translate3d(0px,0,0);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1);
+}
+
+/* 메인 */
+.main_panel{
+    position: relative;
+    float: right;
+    width: calc(100% - 260px);
+    transition: .33s,cubic-bezier(.685,.0473,.346,1);
+}
+
+/* 반응형 */
+@media(max-width: 991px){
+    .sidebar{
+        top: 0; left: 0;
+        right: auto;
+        z-index: 100;
+        visibility: visible;
+        background-color: #ededed;
+        overflow-y: visible;
+        transform: translate3d(-260px,0,0);
+        transition: all .33s cubic-bezier(.685,.0473,.346,1);
+    }
+    .main_panel{
+        height: 100%;
+        max-height: 100%;
+        width: 100%;
+        transform: translate3d(-0px,0,0);
+        transition: all .33s cubic-bezier(.685,.0473,.346,1)
+    }
+    .navbar-toggler .icon-bar:nth-child(2) {
+        top: 0;
+        animation: all .5s 0s;
+        animation-fill-mode: forwards;
+    }
+    .side_open{
+        transform: translateZ(0);
+    }
+}
+@media(min-width: 991px){
+    .navbar-toggler {
+        display: none;
+    }
+}
+
+/* 사이드 메뉴 */
+/* 로고 */
+.logo{
+    border-bottom: solid hsla(0,0%,71%,.3);
+    height: 60px;
+    margin: 20px 10px;
+}
+.logo a,.logo a:hover{
+    color: #3c4858;;
+    font-size: 20pt;
+    text-decoration: none;
+}
+/* 메뉴 전체 */
+.menu{
+    list-style: none;
+    padding: 0;
+}
+/* 메인메뉴 */
+.menu_header{
+    padding: 15px 0;
+    margin: 0 20px 0 20px;
+    display: flex;
+    justify-content: center;
+}
+.btn_menu_h{
+    width: 100%;
+    height: 60px;
+    color: #a9afbb;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    text-align: left;
+    padding-left: 25px;
+    font-size: 16pt;
+}
+.btn_menu_h i{
+    margin-right: 10px;
+}
+.btn_menu_h:hover{
+    color: #a9afbb;
+    background-color: hsla(0,0%,78%,.2);
+}
+.menu li.active button{
+    color: white;
+    background-color: #35ab6f;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+/* 서브메뉴 */
+.menu_sub{
+    /* border: solid 0.5px; */
+    /* height: 250px; */
+    margin: -20px 15px 10px 15px;
+    padding: 20px 10px 10px 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+}
+.btn_menu_s{
+    width: 85%;
+    height: 50px;
+    color: #56c084;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    text-align: left;
+    margin: 0 0 10px 10px;
+    padding-left: 10px;
+    font-size: 12pt;
+}
+.btn_menu_s i{
+    margin-right: 10px;
+}
+.btn_menu_s:hover{
+    color: #a9afbb;
+    background-color: hsla(0,0%,78%,.2);
+}
+.menu_sub .menu li.active button{
+    color: white;
+    background-color: #56c084;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+/* 사이드 마지막 */
+.menu_footer{
+    position: absolute;
+    bottom: 15px;
+    left: 40px;
+    width: 70%;  height: 45px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 3;
+}
+.menu_footer a{
+    color: #a9afbb;
+    text-decoration: none;
+}
+.menu_footer:hover{
+    color: #a9afbb;
+    background-color: hsla(0,0%,78%,.2);
+}
+/* 메뉴 토글 아이콘 */
+.navbar-toggler-icon{
+    display: block;
+    width: 40px; height: 6px;
+    margin-top: 6px;
+    background: #555;
+    border-radius: 1px;
+    outline: 0;
+}
+
+
+
+
+
+/* 테이블 세부 내용 */
+.table_wrap{
+    min-width: 1300px;
+    margin: -40px 40px 10px 40px;
+    padding: 30px 30px 10px 30px;
+    /* overflow-x: auto; */
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
+                0 7px 10px -5px rgb(133 217 174 / 40%);
+}
+.head_tab{
+    display: flex;
+    align-items: center;
+    margin: 0 0 10px 0;
+}
+
+
+
+.table td{
+    vertical-align: middle;
+    word-break:break-all;
+}
+.tab_btn{
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #35ab6f;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+
+.tab_btn:active{
+    background: radial-gradient(#35ab6f,#56c084);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1)
+}
+
+.write_btn{
+    width: 90%;
+    height: 47px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #35ab6f;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+    font-size: 20px;
+}
+
+.write_btn:active{
+    background: radial-gradient(#35ab6f,#56c084);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1)
+}
+
+
+
+/* 체크박스 색 바꾸기 */
+#table1 .custom-checkbox{
+    margin-left: 30px;
+}
+#table1 .custom-control-label::before,
+#table1 .custom-control-label::after{
+    top: 0.15rem; left: -1.8rem;
+    width: 1.3rem; height: 1.3rem;
+}
+#table1 .custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #35ab6f;
+    background-color: #35ab6f;
+}
+#table1 .custom-control-input:focus~.custom-control-label::before {
+    box-shadow: none;   /* 0 0 0 .2rem rgba(0,123,255,.25) */
+}
+#table1 .custom-control-input:focus:not(:checked)~.custom-control-label::before {
+    border-color: #adb5bd
+}
+#table1 .custom-control-input:not(:disabled):active~.custom-control-label::before {
+    color: #fff;
+    background-color: #82a593;
+    border-color: #82a593;
+}
+
+
+.uploadImg {
+    height:300px;
+    width: 300px;
+    object-fit: cover;
+}
+
+.uploadImg:hover {
+    filter: brightness(85%);
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container-fluid" style="height: 100vh;">
+
+    <div class="sidebar" id="side_accordion">
+        <div class="accordion" id="menu_accordion">
+
+            <div class="logo">
+                <a href="#none"><i class="fas fa-file-signature"></i> 관리자 화면</a>             
+            </div>
+
+            <ul class="menu">
+                <li class="menu_header active">
+                    <button class="btn_menu_h" type="button" data-toggle="collapse" data-target="#menu_store"><i class="fas fa-boxes"></i> 스토어</button>
+                </li>
+
+                <li id="menu_store" class="collapse" data-parent="#menu_accordion">
+                    <div class="menu_sub">
+                        <ul class="menu">
+                            <li><button class="btn_menu_s" type="button"><i class="fas fa-truck"></i> 배송현황</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="fas fa-chart-bar"></i> 매출현황</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="fas fa-chalkboard"></i> 제품등록</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="fab fa-replyd"></i> 답변등록</button></li>
+                        </ul>
+                    </div>
+                </li> <!-- 스토어 서브메뉴 끝 -->
+
+                <li class="menu_header">
+                    <button class="btn_menu_h" type="button" data-toggle="collapse"
+                        data-target="#menu_comt"><i class="far fa-comments"></i> 커뮤니티</button>
+                </li>
+                
+                <li id="menu_comt" class="collapse" data-parent="#menu_accordion">
+                    <div class="menu_sub">
+                        <ul class="menu">
+                            <li><button class="btn_menu_s active" type="button"><i class="fas fa-user-cog"></i> 회원관리</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="fas fa-tags"></i> 사진태그등록</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="fas fa-clipboard"></i> 커뮤니티 관리</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="far fa-edit"></i> Q&A게시판 관리</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="far fa-calendar-check"></i> 이벤트 등록</button></li>
+                        </ul>
+                    </div>
+                </li> <!-- 커뮤니티 서브메뉴 끝 -->
+                
+                <li class="menu_footer">
+                    <a href="../../index.html"><i class="fas fa-undo-alt"></i> 돌아가기</a>
+                </li>
+                
+            </ul> <!-- 메뉴리스트 끝 -->
+
+
+        </div> <!-- 아코디언 끝 -->
+    </div> <!-- 사이드바 메뉴 끝 -->
+
+    <!-- 메인화면 -->
+    <div class="main_panel" style="height: 800px;">
+        <div class="p-4" style="height: 150px; border: solid;"><!-- 헤드 -->
+            <!-- 사이드바 토글 버튼 -->
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#side_accordion">
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
+        </div>
+        
+        <!-- 검색화면 -->
+        
+        
+        <!-- 테이블박스 -->
+        <div class="table_wrap" id="table1">
+            <table class="table table-borderless" style="margin-left: 50px;">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;"></th>
+                        <td style="width: 14%;"></td>
+                        <td style="width: 12%;"></td>
+                        <td style="width: 12%;"></td>
+                        <td style="width: 42%;"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <form id="upload_frm">
+                    <tr>
+                        <th scope="row">상품명</th>
+                        <td><input type="text" class="form-control" id="_productName" name="productName" placeholder="상품명을 입력하세요. (필수)"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">브랜드명</th>
+                        <td><input type="text" class="form-control" id="_productMaker" name="productMaker" placeholder="브랜드명을 입력하세요. (필수)"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">썸네일 사진</th>
+                        <td>
+                            <img src="../../assets/img/imgUpload.png" id="_uploadImg" class="uploadImg">
+                            <input type="file" id="_file" name="fileName" style="display:none;">
+                            <input type="hidden" id="_target_url" name="target_url">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">정가</th>
+                        <td><input type="text" class="form-control" id="_productPrice" name="productPrice" placeholder="숫자만 입력 (필수)"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">할인가</th>
+                        <td><input type="text" class="form-control" id="_productDiscount" name="productDiscount" placeholder="숫자만 입력 (선택)"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">분류</th>
+                        <td>
+                            <select class="form-control" id="_largeCategory" name="largeCategory" onchange="changeMedium(this)"> 
+                                <option value="0">대분류</option>
+                                <option value="가구">가구</option>
+                                <option value="조명">조명</option>
+                                <option value="홈데코">홈데코</option>
+                                <option value="패브릭">패브릭</option>
+                                <option value="수납/정리">수납/정리</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" id="_mediumCategory" name="mediumCategory" onchange="changeSmall(this)">
+                                <option>중분류</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" id="_smallCategory" name="smallCategory">
+                                <option>소분류</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">상품옵션</th>
+                        <td><input type="text" id="optionName" class="form-control" placeholder="옵션이름 (선택)"></td>
+                        <td><input type="button" id="addOption" class="tab_btn" value="+"></td>
+                    </tr>
+
+                    <!-- 옵션 뿌려주는 곳 -->
+
+                    <tr id="option">
+                        <th scope="row">내용</th>
+                        <td colspan="4"><textarea id="_productContent" name="productContent"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"><input type="button" class="write_btn" value="상품 올리기" style="margin-top: 60px;"></td>
+                    </tr>
+                    </form>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script><!-- jQuery UI 라이브러리 -->
+<!-- 썸머노트 -->
+<script src="../../css/summernote/summernote-lite.js"></script>
+<script src="../../css/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="../../css/summernote/summernote-lite.css">
+
+<script>
+$(document).ready(function() {
+    $('.menu_header').click( function() { //사이드 메뉴 활성화
+        $('.menu_header').removeClass('active')
+        $(this).addClass('active');
+    });
+
+    $('.menu_sub li').click( function() { //사이드 서브메뉴 활성화
+        $('.menu_sub li').removeClass('active')
+        $(this).addClass('active');
+    });
+
+    $('.navbar-toggler').click( function() { //사이드 토글
+        $('.sidebar').addClass('side_open')
+    });
+
+    $('.move_input input').focus( function() { // 날짜 선택시 글씨 이동 이벤트
+        $(this).parent().addClass('active')
+    });
+    $('.move_input input').change( function() {
+        if($(this).val()==''){
+            $(this).parent().removeClass('active')
+        }
+    });
+    $('#sele2').focus( function() { // 카테고리 선택시 글씨 이동 이벤트
+        $('.move_label').addClass('active')
+    });
+    $('#sele2').change( function() {
+        if($(this).val()==0){
+            $('.move_label').removeClass('active')
+        }
+    });
+
+    $('#_productContent').summernote({
+        toolbar:[
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+                ['color', ['forecolor','color']],
+                ['table', ['table']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['insert',['picture','link','video']],
+                ['view', ['fullscreen', 'help']]
+            ],
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+        height: 400,                 // 에디터 높이
+        width: 750,
+        minHeight: 400,             // 최소 높이
+        maxHeight: null,             // 최대 높이
+        focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
+        lang: "ko-KR",					// 한글 설정
+        placeholder: "상품 설명 (이미지 첨부)"
+    });
+
+    // 이미지 클릭 시 파일 업로드
+    $('.uploadImg').click(function(e) {
+        $('#_target_url').val(document.getElementById('_uploadImg').src);
+        e.preventDefault();
+        $('#_file').click();
+    })
+
+
+    $('#addOption').click(function() {
+
+        let name = $('#optionName').val();
+        let seq = $('input[name=addSubOption]').length + 1;
+        let app = '<tr id="option_'+seq+'">'
+            + '<th scope="row"><input type="hidden" id="optionSeq" name="optionSeq" value="1"></th>'
+            + '<td><h5 style="text-align: center;"><b>'+name+'</b></h5><input type="hidden" name="optionTitle" value="'+name+'"></td>'
+            + '<td><input type="text" class="form-control" name="optionContent" placeholder="옵션항목"></td>'
+            + '<td><input type="text" class="form-control" name="optionPrice" placeholder="옵션가격"></td>'
+            + '<td><input type="button" id="addSubOption" class="tab_btn" name="addSubOption" seq="'+seq+'" value="+"></td>'
+            + '</tr>';            
+        $('#option').before(app);
+    });
+
+
+
+
+});
+
+
+$(document).on('click', "input[name=addSubOption]", function() {
+    let seq = $(this).attr('seq');
+    let subSeq = $('th[name=countSubOption_'+seq+']').length;
+    let app = '<tr id="subOption_'+seq+'_'+subSeq+'">'
+            + '<th name="countSubOption_'+seq+'" scope="row"></th>'
+            + '<td><input type="hidden" name="optionTitle" value="색상"></td>'
+            + '<td><input type="text" class="form-control" name="optionContent" placeholder="옵션항목"></td>'
+            + '<td><input type="text" class="form-control" name="optionPrice" placeholder="옵션가격"></td>'
+            + '<td></td>'
+            + '</tr>';
+    
+    if(subSeq == 0) {
+        $('#option_'+seq).after(app);
+    } else {
+        $('#subOption_'+seq+'_'+(subSeq-1)).after(app);
+    }
+});
+
+
+
+    
+$(document).on('click', '.write_btn', function() { 
+    /*
+    $.ajax({
+        url: "http://192.168.0.231:3000/writeProduct",
+        type: "post",
+        data: new FormData($('#upload_frm')[0]),
+        enctype:"multipart/form-data",
+        processData:false,
+        contentType:false,
+        cache:false,
+        success: function (data) {
+            console.log(data)
+            if (data == "suc") {
+                alert('작성완료.');
+            } else {
+                alert('작성실패');
+            }
+        },
+        error: function () {
+            alert('addProduct error');
+        }
+    });
+    */
+
+
+
+    $.ajax({
+        url: "http://192.168.0.231:3000/writeProductOption",
+        type: "post",
+        data: {
+            optionTitle : $('input[name=optionTitle]').val()
+        },
+        success: function (data) {
+            console.log(data)
+            if (data == "suc") {
+                alert('작성완료.');
+            } else {
+                alert('작성실패');
+            }
+        },
+        error: function () {
+            alert('writeProductOption error');
+        }
+    });
+    
+
+});
+
+
+
+function autoCheck() {
+    let chkLength = $('input:checkbox[name="chk"]');
+    let chkLength2 = $('input:checkbox[name="chk"]:checked');
+
+    if (chkLength.length == chkLength2.length) {
+        $('#cb').prop("checked", true);
+        $('#checkbox_all').find('span').text('전체해제');
+    } else {
+        $('#cb').prop("checked", false);
+        $('#checkbox_all').find('span').text('전체체크');
+    }
+};
+
+// 파일 업로드 이미지 미리보기
+let sel_file;
+$(document).on('change', '#_file', function(e) {
+    let files = e.target.files;
+    let filesArr = Array.prototype.slice.call(files);
+
+    filesArr.forEach(function(f) {
+        if(!f.type.match("image.*")) {
+            alert('이미지 확장자만 가능합니다. ');
+            return;
+        }
+
+        sel_file = f;
+
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            $('#_uploadImg').attr("src", e.target.result);
+        }
+        reader.readAsDataURL(f);
+    })
+});
+
+
+
+// 대,중,소 분류 셀렉트마다 변환
+function changeMedium(e) {
+    let furniture = ["침대/매트리스", "소파", "테이블", "화장대/거울", "책상/책장", "의자"];
+    let light = ["LED등", "스탠드", "무드등", "센서등", "형광등"];
+    let homeDeco = ["플라워/식물", "캔들/디퓨져", "시계", "인테리어소품"];
+    let fabric = ["침구", "커튼/블라인드", "카페트/러그", "쿠션/방석"];
+    let storage = ["서랍장", "리빙박스", "바구니", "행거", "선반", "옷걸이", "현관/신발정리"];
+
+    let target_m = document.getElementById("_mediumCategory");
+    let target_s = document.getElementById("_smallCategory");
+    
+    let m;
+    if(e.value == "가구") {
+        m = furniture;
+    }
+    else if(e.value == "조명") {
+        m = light;
+    }
+    else if(e.value == "홈데코") {
+        m = homeDeco;
+    }
+    else if(e.value == "패브릭") {
+        m = fabric;
+    }
+    else if(e.value == "수납/정리") {
+        m = storage;
+    }
+
+    target_m.options.length = 0;
+    let defaultOp = document.createElement("option");
+    defaultOp.value = 0;
+    defaultOp.innerHTML = "중분류";
+    target_m.appendChild(defaultOp);
+
+    target_s.options.length = 0;
+    let defaultOp2 = document.createElement("option");
+    defaultOp2.value = 0;
+    defaultOp2.innerHTML = "소분류";
+    target_s.appendChild(defaultOp2);
+
+
+    for (x in m) {
+        let opt = document.createElement("option");
+        opt.value = m[x];
+        opt.innerHTML = m[x];
+        target_m.appendChild(opt);
+    }  
+
+}
+
+function changeSmall(e) {
+    
+    let bed = ["침대", "매트리스", "토퍼"];
+    let table = ["식탁", "좌식테이블", "사이드테이블"];
+    let mirror = ["일반화장대", "좌식화장대", "거울"];
+    let desk = ["일반책상", "좌식책상", "책장"];
+    let chair = ["일반의자", "좌식의자", "안락의자"];
+
+    let stand = ["장스탠드", "단스탠드"];
+    let moodLamp = ["무드등", "네온사인"];
+
+    let flower = ["식물", "조화", "드라이플라워"];
+    let candle = ["캔들", "디퓨져"];
+    let clock = ["벽시계", "탁상시계"];
+    let accessories = ["장식소품", "기타"];
+
+    let bedding = ["이불", "매트리스", "커버"];
+    let curtain = ["커튼", "암막커튼", "블라인드"];
+    let carpet = ["카페트", "러그" , "다용도매트"];
+    let cushion = ["쿠션", "방석"];
+
+    let target_s = document.getElementById("_smallCategory");
+
+    let s;
+    if(e.value == "침대/매트리스") {
+        s = bed;
+    }
+    else if(e.value == "테이블") {
+        s = table;
+    }
+    else if(e.value == "화장대/거울") {
+        s = mirror;
+    }
+    else if(e.value == "책상/책장") {
+        s = desk;
+    }
+    else if(e.value == "의자") {
+        s = chair;
+    }
+    else if(e.value == "스탠드") {
+        s = stand;
+    }
+    else if(e.value == "무드등") {
+        s = moodLamp;
+    }
+    else if(e.value == "플라워/식물") {
+        s = flower;
+    }
+    else if(e.value == "캔들/디퓨져") {
+        s = candle;
+    }
+    else if(e.value == "시계") {
+        s = clock;
+    }
+    else if(e.value == "인테리어소품") {
+        s = accessories;
+    }
+    else if(e.value == "침구") {
+        s = bedding;
+    }
+    else if(e.value == "커튼/블라인드") {
+        s = curtain;
+    }
+    else if(e.value == "카페트/러그") {
+        s = carpet;
+    }
+    else if(e.value == "쿠션/방석") {
+        s = cushion;
+    }
+
+
+    target_s.options.length = 0;
+    let defaultOp = document.createElement("option");
+    defaultOp.value = 0;
+    defaultOp.innerHTML = "소분류";
+    target_s.appendChild(defaultOp);
+
+    for (x in s) {
+        let opt = document.createElement("option");
+        opt.value = s[x];
+        opt.innerHTML = s[x];
+        target_s.appendChild(opt);
+    }  
+}
+
+
+</script>
+
+</html>
