@@ -28,6 +28,16 @@
 	WHERE PRODUCTNAME LIKE'%'||#{productName}||'%'
 </select>
 
-
+<!-- 상품글 리스트 분류하여 가져오기 -->
+<select id="getProductSortList" parameterType="com.decolab.wanza.dto.ProductDTO" resultType="com.decolab.wanza.dto.ProductDTO">
+	SELECT P.PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING,
+	       LARGECATEGORY, MEDIUMCATEGORY,SMALLCATEGORY
+	FROM PRODUCTIONS P, PRODUCTION_TAG T
+	WHERE P.PRODUCTSEQ=T.PRODUCTSEQ
+	<if test='largeCategory neq null'>AND LARGECATEGORY=#{largeCategory}</if>
+	<if test='mediumCategory neq null'>AND MEDIUMCATEGORY=#{mediumCategory}</if>
+	<if test='smallCategory neq null'>AND SMALLCATEGORY=#{smallCategory}</if>
+	ORDER BY PRODUCTSEQ DESC
+</select>
   
 </mapper>
