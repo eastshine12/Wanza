@@ -766,6 +766,9 @@ select::-ms-expand{
 
 <script>
 $(document).ready(function() {
+
+    $('div[name=itemDetail]').hide();
+
     $('.menu_header').click( function() { //사이드 메뉴 활성화
         $('.menu_header').removeClass('active')
         $(this).addClass('active');
@@ -843,10 +846,6 @@ $(document).ready(function() {
             $(".s_date").datepicker( "option", "maxDate", selectedDate );
         }   
     });
-
-
-    $('div[name=itemDetail]').hide();
-
 
 });
 
