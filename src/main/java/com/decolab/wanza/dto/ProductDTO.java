@@ -15,11 +15,37 @@ public class ProductDTO implements Serializable {
 	
 	private String searchText;
 	
+	private String largeCategory;
+	private String mediumCategory;
+	private String smallCategory;
+	
+
+	
 	public ProductDTO() {
 		// TODO Auto-generated constructor stub
 	}
-
 	
+	
+	
+	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
+			String productMaker, String productFileName, float productRating, String searchText, String largeCategory,
+			String mediumCategory, String smallCategory) {
+		super();
+		this.productSeq = productSeq;
+		this.productName = productName;
+		this.productContent = productContent;
+		this.productPrice = productPrice;
+		this.productDiscount = productDiscount;
+		this.productMaker = productMaker;
+		this.productFileName = productFileName;
+		this.productRating = productRating;
+		this.searchText = searchText;
+		this.largeCategory = largeCategory;
+		this.mediumCategory = mediumCategory;
+		this.smallCategory = smallCategory;
+	}
+
+
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating, String searchText) {
 		super();
@@ -131,14 +157,41 @@ public class ProductDTO implements Serializable {
 		this.searchText = searchText;
 	}
 
+	public String getLargeCategory() {
+		return largeCategory;
+	}
+	
+	public void setLargeCategory(String largeCategory) {
+		this.largeCategory = largeCategory;
+	}
+	
+	public String getMediumCategory() {
+		return mediumCategory;
+	}
+
+	public void setMediumCategory(String mediumCategory) {
+		this.mediumCategory = mediumCategory;
+	}
+
+	public String getSmallCategory() {
+		return smallCategory;
+	}
+
+	public void setSmallCategory(String smallCategory) {
+		this.smallCategory = smallCategory;
+	}
+
+
 	@Override
 	public String toString() {
 		return "ProductDTO [productSeq=" + productSeq + ", productName=" + productName + ", productContent="
 				+ productContent + ", productPrice=" + productPrice + ", productDiscount=" + productDiscount
 				+ ", productMaker=" + productMaker + ", productFileName=" + productFileName + ", productRating="
-				+ productRating + ", searchText=" + searchText + "]";
+				+ productRating + ", searchText=" + searchText + ", largeCategory=" + largeCategory
+				+ ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory + "]";
 	}
 
 
+	
 
 }
