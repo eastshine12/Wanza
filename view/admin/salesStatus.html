@@ -622,11 +622,11 @@ select::-ms-expand{
 
                 <!-- 날짜 -->
                 <div class="search_date">
-                    <div class="move_input">
+                    <div class="move_input active">
                         <label>시작일</label>
                         <input type="text" class="datepicker s_date">
                     </div>
-                    <div class="move_input">
+                    <div class="move_input active">
                         <label>종료일</label>
                         <input type="text" class="datepicker e_date">
                     </div>
@@ -634,7 +634,7 @@ select::-ms-expand{
 
                 <!-- 카테고리 -->
                 <div class="select_category">
-                    <label class="move_label">검색종류</label>
+                    <label class="move_label active">검색종류</label>
                     <label for="sele2"><select name="search_category" id="sele2" onchange="selectDay()">
                         <option value="0"></option>
                         <option value="1">일간</option>
@@ -645,7 +645,7 @@ select::-ms-expand{
 
                 <!-- 검색 -->
                 <div class="search">
-                    <button type="button" class="search_btn" onclick="selectDay()"><i class="fas fa-search"></i></button>
+                    <button type="button" id="searchBtn" class="search_btn" onclick="selectDay()"><i class="fas fa-search"></i></button>
                 </div>
 
             </div>
@@ -698,13 +698,6 @@ select::-ms-expand{
             </div>
         </div>
         
-        
-        
-        
-
-
-
-
 </div>
 
 
@@ -718,6 +711,33 @@ select::-ms-expand{
 
 <script>
 $(document).ready(function() {
+    enterPage()
+    function enterPage(){
+
+        let today = new Date();   
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+        let day = today.getDay();  // 요일
+        let beforeMonth = month-1;
+        if(month <10){
+            month = "0"+month;
+        }
+        if(date <10){
+            date = "0"+date;
+        }
+        if(beforeMonth<10){
+            beforeMonth = "0"+beforeMonth;
+        }
+
+        $(".s_date").val(year + '-' + beforeMonth+ '-' + date);
+        $(".e_date").val(year + '-' + month + '-' + date);
+        $("#sele2").val("1").prop("selected", true);
+        $("#searchBtn").trigger('click');
+    }
+
+
+
 
 
     $('.menu_header').click( function() { //사이드 메뉴 활성화
@@ -813,190 +833,6 @@ function autoCheck() {
     }
 };
 
-//////////////Chart code/////////////////
-
-/////////////////// graph chart//////////////////////////
-am4core.ready(function() {
-
-// Themes begin
-am4core.useTheme(am4themes_material);
-am4core.useTheme(am4themes_animated);
-// Themes end
-
-// Create chart instance
-var chart = am4core.create("graphChart", am4charts.XYChart);
-
-// Add data
-//
-chart.data = [
-  {date:'2019-02-18', value1:35000},
-  {date:new Date(2019,3,12), value1:50000},
-  {date:new Date(2019,4,9), value1:40000},
-  {date:new Date(2019,7,14), value1:37000},
-  {date:new Date(2019,8,15), value1:41000},
-  {date:new Date(2019,9,16), value1:43000},
-  {date:new Date(2019,10,17), value1:42000},
-  {date:new Date(2019,12,15), value1:50000}
-]
-
-// Create axes
-var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-dateAxis.renderer.minGridDistance = 50;
-
-var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-
-// Create series
-var series = chart.series.push(new am4charts.LineSeries());
-series.dataFields.valueY = "value1";
-series.dataFields.dateX = "date";
-series.strokeWidth = 2;
-series.minBulletDistance = 10;
-series.tooltipText = "[bold]{date.formatDate()} :[/] {value1}\n[bold]{previousDate.formatDate()}";
-series.tooltip.pointerOrientation = "vertical";
-
-// Create series
-var series2 = chart.series.push(new am4charts.LineSeries());
-series2.dataFields.valueY = "value2";
-series2.dataFields.dateX = "date";
-series2.strokeWidth = 2;
-series2.strokeDasharray = "3,4";
-series2.stroke = series.stroke;
-
-// Add cursor
-chart.cursor = new am4charts.XYCursor();
-chart.cursor.xAxis = dateAxis;
-
-}); // end am4core.ready()
-
-
-////////////////////// bar graph//////////////////////////
-am4core.ready(function() {
-
-// Themes begin
-am4core.useTheme(am4themes_animated);
-// Themes end
-
-// Create chart instance
-var chart = am4core.create("barChart", am4charts.XYChart);
-chart.scrollbarX = new am4core.Scrollbar();
-
-// Add data
-chart.data = [{
-  "country": "패브릭",
-  "visits": 3025
-}, {
-  "country": "가구",
-  "visits": 1882
-}, {
-  "country": "수납",
-  "visits": 1809
-}, {
-  "country": "조명",
-  "visits": 1322
-}, {
-  "country": "의자",
-  "visits": 1122
-}, {
-  "country": "침대",
-  "visits": 1114
-}, {
-  "country": "옷장",
-  "visits": 984
-}, {
-  "country": "기타",
-  "visits": 711
-}];
-
-// Create axes
-var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-categoryAxis.dataFields.category = "country";
-categoryAxis.renderer.grid.template.location = 0;
-categoryAxis.renderer.minGridDistance = 30;
-categoryAxis.renderer.labels.template.horizontalCenter = "right";
-categoryAxis.renderer.labels.template.verticalCenter = "middle";
-categoryAxis.renderer.labels.template.rotation = 270;
-categoryAxis.tooltip.disabled = true;
-categoryAxis.renderer.minHeight = 110;
-
-var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.renderer.minWidth = 50;
-
-// Create series
-var series = chart.series.push(new am4charts.ColumnSeries());
-series.sequencedInterpolation = true;
-series.dataFields.valueY = "visits";
-series.dataFields.categoryX = "country";
-series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
-series.columns.template.strokeWidth = 0;
-
-series.tooltip.pointerOrientation = "vertical";
-
-series.columns.template.column.cornerRadiusTopLeft = 10;
-series.columns.template.column.cornerRadiusTopRight = 10;
-series.columns.template.column.fillOpacity = 0.8;
-
-// on hover, make corner radiuses bigger
-var hoverState = series.columns.template.column.states.create("hover");
-hoverState.properties.cornerRadiusTopLeft = 0;
-hoverState.properties.cornerRadiusTopRight = 0;
-hoverState.properties.fillOpacity = 1;
-
-
-series.columns.template.adapter.add("fill", function(fill, target) {
-  return chart.colors.getIndex(target.dataItem.index);
-});
-
-// Cursor
-chart.cursor = new am4charts.XYCursor();
-
-}); // end am4core.ready()
-
-////////////////////// pie chart////////////////////////
-am4core.ready(function() {
-
-// Themes begin
-am4core.useTheme(am4themes_animated);
-// Themes end
-
-// Create chart instance
-let chart = am4core.create("pieChart", am4charts.PieChart);
-
-// Add data
-chart.data = [ {
-  "category": "침대",
-  "litres": 50
-}, {
-  "category": "조명",
-  "litres": 301
-}, {
-  "category": "수납",
-  "litres": 201
-}, {
-  "category": "패브릭",
-  "litres": 165
-}, {
-  "category": "가구",
-  "litres": 139
-}, {
-  "category": "홈데코",
-  "litres": 128
-}];
-
-// Add and configure Series
-var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "litres";
-pieSeries.dataFields.category = "category";
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeWidth = 2;
-pieSeries.slices.template.strokeOpacity = 1;
-
-// This creates initial animation
-pieSeries.hiddenState.properties.opacity = 1;
-pieSeries.hiddenState.properties.endAngle = -90;
-pieSeries.hiddenState.properties.startAngle = -90;
-
-}); // end am4core.ready()
-
 
 
 
@@ -1007,6 +843,8 @@ function selectDay(){
    }else{
         lineGraph();
         mapList();
+        barChart();
+        pieChart();
         }
     }
 
@@ -1017,16 +855,17 @@ function lineGraph(){
          type:"post",
          data:{sDate:$(".s_date").val(),eDate:$(".e_date").val(),sType:$("#sele2").val()},
          success:function(list){
-            if(list.length==0){
-                alert("찾으시는 기간 내 데이터가 없습니다");
-            }else{
+
                 let app = "[";
                 $.each(list,function(i,val){
-                    app += "{\"date\":\""+val.sDay+"\","+"\"value1\":"+val.total+"},";    
+                        
                     if(i == list.length-1){
                         app += "{\"date\":\""+val.sDay+"\","+"\"value1\":"+val.total+"}]"; 
+                    }else{
+                        app += "{\"date\":\""+val.sDay+"\","+"\"value1\":"+val.total+"},";
                     }            
                 })
+
                     app = JSON.parse(app);
                     /////////////////// graph chart//////////////////////////
                     am4core.ready(function() {
@@ -1070,7 +909,7 @@ function lineGraph(){
                     chart.cursor.xAxis = dateAxis;
 
                     }); // end am4core.ready()
-                }
+                
             },
             error:function(){
                 alert("error");
@@ -1083,8 +922,24 @@ function lineGraph(){
          url:"http://localhost:3000/mapList",
          type:"post",
          data:{sDate:$(".s_date").val(),eDate:$(".e_date").val()},
-         success:function(list){
-            alert(JSON.stringify(list));
+         success:function(mapDto){
+            $("#seoul").html("<h2>서울특별시 주문건수 : "+mapDto.seoul+"건");
+            $("#gygg").html("<h2>경기도 주문건수 : "+mapDto.gyunggi+"건");
+            $("#incheon").html("<h2>인천광역시 주문건수 : "+mapDto.incheon+"건");
+            $("#gangwon").html("<h2>강원도 주문건수 : "+mapDto.gangwon+"건");
+            $("#chungbuk").html("<h2>충청북도 주문건수 : "+mapDto.chungbuk+"건");
+            $("#chungnam").html("<h2>충청남도 주문건수 : "+mapDto.chungnam+"건");
+            $("#daejeon").html("<h2>대전광역시 주문건수 : "+mapDto.daejeon+"건");
+            $("#sejong").html("<h2>세종특별자치시 주문건수 : "+mapDto.sejong+"건");
+            $("#gwangju").html("<h2>광주광역시 주문건수 : "+mapDto.gwangju+"건");
+            $("#jeonbuk").html("<h2>전라북도 주문건수 : "+mapDto.jeonbuk+"건");
+            $("#jeonnam").html("<h2>전라남도 주문건수 : "+mapDto.jeonnam+"건");
+            $("#gyeongbuk").html("<h2>경상북도 주문건수 : "+mapDto.gyeongbuk+"건");
+            $("#gyeongnam").html("<h2>경상남도 주문건수 : "+mapDto.gyeongnam+"건");
+            $("#daegu").html("<h2>대구광역시 주문건수 : "+mapDto.daegu+"건");
+            $("#busan").html("<h2>부산광역시 주문건수 : "+mapDto.busan+"건");
+            $("#ulsan").html("<h2>울산광역시 주문건수 : "+mapDto.ulsan+"건");
+            $("#jeju").html("<h2>제주광역시 주문건수 : "+mapDto.jeju+"건");               
          },
          error:function(){
              alert("error");
@@ -1093,6 +948,133 @@ function lineGraph(){
      })
 
  }
+
+ function barChart(){
+     $.ajax({
+         url:"http://localhost:3000/pieChart",
+         type:"post",
+         data:{sDate:$(".s_date").val(),eDate:$(".e_date").val()},
+         success:function(list){
+           let app="[";
+           $.each(list,function(i,val){
+                if(i == list.length-1){
+                    app += "{\"country\":\""+val.category+"\","+"\"visits\":"+val.quanti+"}]"; 
+                } else {
+                    app += "{\"country\":\""+val.category+"\","+"\"visits\":"+val.quanti+"},"; 
+                }
+            })                
+                app = JSON.parse(app);
+                am4core.ready(function() {
+
+                    // Themes begin
+                    am4core.useTheme(am4themes_animated);
+                    // Themes end
+
+                    // Create chart instance
+                    var chart = am4core.create("barChart", am4charts.XYChart);
+                    chart.scrollbarX = new am4core.Scrollbar();
+
+                    // Add data
+                    chart.data = app
+
+                    // Create axes
+                    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                    categoryAxis.dataFields.category = "country";
+                    categoryAxis.renderer.grid.template.location = 0;
+                    categoryAxis.renderer.minGridDistance = 30;
+                    categoryAxis.renderer.labels.template.horizontalCenter = "right";
+                    categoryAxis.renderer.labels.template.verticalCenter = "middle";
+                    categoryAxis.renderer.labels.template.rotation = 270;
+                    categoryAxis.tooltip.disabled = true;
+                    categoryAxis.renderer.minHeight = 110;
+
+                    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                    valueAxis.renderer.minWidth = 50;
+
+                    // Create series
+                    var series = chart.series.push(new am4charts.ColumnSeries());
+                    series.sequencedInterpolation = true;
+                    series.dataFields.valueY = "visits";
+                    series.dataFields.categoryX = "country";
+                    series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
+                    series.columns.template.strokeWidth = 0;
+
+                    series.tooltip.pointerOrientation = "vertical";
+
+                    series.columns.template.column.cornerRadiusTopLeft = 10;
+                    series.columns.template.column.cornerRadiusTopRight = 10;
+                    series.columns.template.column.fillOpacity = 0.8;
+
+                    // on hover, make corner radiuses bigger
+                    var hoverState = series.columns.template.column.states.create("hover");
+                    hoverState.properties.cornerRadiusTopLeft = 0;
+                    hoverState.properties.cornerRadiusTopRight = 0;
+                    hoverState.properties.fillOpacity = 1;
+
+
+                    series.columns.template.adapter.add("fill", function(fill, target) {
+                    return chart.colors.getIndex(target.dataItem.index);
+                    });
+
+                    // Cursor
+                    chart.cursor = new am4charts.XYCursor();
+
+                    }); // end am4core.ready()
+          
+         },error:function(){
+             alert("piechart error");
+         }
+     })
+ }
+
+ function pieChart(){
+    $.ajax({
+         url:"http://localhost:3000/pieChart",
+         type:"post",
+         data:{sDate:$(".s_date").val(),eDate:$(".e_date").val()},
+         success:function(list){
+           let app="[";
+           $.each(list,function(i,val){
+                
+                if(i == list.length-1){
+                    app += "{\"category\":\""+val.category+"\","+"\"litres\":"+val.quanti+"}]"; 
+                }else{
+                    app += "{\"category\":\""+val.category+"\","+"\"litres\":"+val.quanti+"},"; 
+                }    
+            })
+            app = JSON.parse(app);
+            am4core.ready(function() {
+                    // Themes begin
+                    am4core.useTheme(am4themes_animated);
+                    // Themes end
+
+                    // Create chart instance
+                    let chart = am4core.create("pieChart", am4charts.PieChart);
+
+                    // Add data
+                    chart.data = app
+
+                    // Add and configure Series
+                    var pieSeries = chart.series.push(new am4charts.PieSeries());
+                    pieSeries.dataFields.value = "litres";
+                    pieSeries.dataFields.category = "category";
+                    pieSeries.slices.template.stroke = am4core.color("#fff");
+                    pieSeries.slices.template.strokeWidth = 2;
+                    pieSeries.slices.template.strokeOpacity = 1;
+
+                    // This creates initial animation
+                    pieSeries.hiddenState.properties.opacity = 1;
+                    pieSeries.hiddenState.properties.endAngle = -90;
+                    pieSeries.hiddenState.properties.startAngle = -90;
+
+                    }); // end am4core.ready()
+
+
+
+
+        }
+    })
+}
 
 
 
