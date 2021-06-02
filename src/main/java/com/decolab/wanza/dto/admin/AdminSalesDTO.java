@@ -21,11 +21,14 @@ public class AdminSalesDTO implements Serializable{
 	private int gwangju;
 	private int jeju;
 	private int gangwon;
-	private int gyungbuk;
-	private int gyungnam;
+	private int gyeongbuk;
+	private int gyeongnam;
 	private int daegu;
 	private int ulsan;
 	private int busan;
+	
+	private String category;
+	private int quanti;
 	
 	
 	
@@ -37,7 +40,7 @@ public class AdminSalesDTO implements Serializable{
 
 	public AdminSalesDTO(String sDate, String eDate, int sType, int total, String sDay, int gyunggi, int seoul,
 			int incheon, int chungnam, int chungbuk, int sejong, int daejeon, int jeonbuk, int jeonnam, int gwangju,
-			int jeju, int gangwon, int gyungbuk, int gyungnam, int daegu, int ulsan, int busan) {
+			int jeju, int gangwon, int gyeongbuk, int gyeongnam, int daegu, int ulsan, int busan) {
 		super();
 		this.sDate = sDate;
 		this.eDate = eDate;
@@ -56,11 +59,49 @@ public class AdminSalesDTO implements Serializable{
 		this.gwangju = gwangju;
 		this.jeju = jeju;
 		this.gangwon = gangwon;
-		this.gyungbuk = gyungbuk;
-		this.gyungnam = gyungnam;
+		this.gyeongbuk = gyeongbuk;
+		this.gyeongnam = gyeongnam;
 		this.daegu = daegu;
 		this.ulsan = ulsan;
 		this.busan = busan;
+	}
+	
+	
+
+
+
+	public AdminSalesDTO(String sDate, String eDate, String category, int quanti) {
+		super();
+		this.sDate = sDate;
+		this.eDate = eDate;
+		this.category = category;
+		this.quanti = quanti;
+	}
+	
+	
+
+
+
+	public String getCategory() {
+		return category;
+	}
+
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
+
+	public int getQuanti() {
+		return quanti;
+	}
+
+
+
+	public void setQuanti(int quanti) {
+		this.quanti = quanti;
 	}
 
 
@@ -269,27 +310,7 @@ public class AdminSalesDTO implements Serializable{
 
 
 
-	public int getGyungbuk() {
-		return gyungbuk;
-	}
-
-
-
-	public void setGyungbuk(int gyungbuk) {
-		this.gyungbuk = gyungbuk;
-	}
-
-
-
-	public int getGyungnam() {
-		return gyungnam;
-	}
-
-
-
-	public void setGyungnam(int gyungnam) {
-		this.gyungnam = gyungnam;
-	}
+	
 
 
 
@@ -329,15 +350,42 @@ public class AdminSalesDTO implements Serializable{
 
 
 
+	public int getGyeongbuk() {
+		return gyeongbuk;
+	}
+
+
+
+	public void setGyeongbuk(int gyeongbuk) {
+		this.gyeongbuk = gyeongbuk;
+	}
+
+
+
+	public int getGyeongnam() {
+		return gyeongnam;
+	}
+
+
+
+	public void setGyeongnam(int gyeongnam) {
+		this.gyeongnam = gyeongnam;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "AdminSalesDTO [sDate=" + sDate + ", eDate=" + eDate + ", sType=" + sType + ", total=" + total
 				+ ", sDay=" + sDay + ", gyunggi=" + gyunggi + ", seoul=" + seoul + ", incheon=" + incheon
 				+ ", chungnam=" + chungnam + ", chungbuk=" + chungbuk + ", sejong=" + sejong + ", daejeon=" + daejeon
 				+ ", jeonbuk=" + jeonbuk + ", jeonnam=" + jeonnam + ", gwangju=" + gwangju + ", jeju=" + jeju
-				+ ", gangwon=" + gangwon + ", gyungbuk=" + gyungbuk + ", gyungnam=" + gyungnam + ", daegu=" + daegu
+				+ ", gangwon=" + gangwon + ", gyeongbuk=" + gyeongbuk + ", gyeongnam=" + gyeongnam + ", daegu=" + daegu
 				+ ", ulsan=" + ulsan + ", busan=" + busan + "]";
 	}
+
+
+
 	
 	
 
