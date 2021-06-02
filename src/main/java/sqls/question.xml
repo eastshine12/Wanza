@@ -105,6 +105,32 @@
 		AND QUESTIONSEQ = #{questionSeq}
 	</select>
 	
+	<!-- 질문과답변 댓글에 답글 -->
+	<!-- 질문과답변 댓글에 답글달기 -->
+	<insert id="questionCommentAnswer" parameterType="com.decolab.wanza.dto.QuestionCommentDTO">
+		INSERT INTO Q_COMMENT
+		VALUES(
+		#{questionSeq}
+		, #{userSeq}
+		, QCSEQ.NEXTVAL
+		, #{qcContent}
+		, SYSDATE
+		, #{qcFileName}
+		, 0
+		, (SELECT QCREF FROM Q_COMMENT WHERE QCSEQ=#{qcSeq})
+		, (SELECT QCSTEP FROM Q_COMMENT WHERE QCSEQ=#{qcSeq}) + 1
+		, (SELECT QCDEPTH FROM Q_COMMENT WHERE QCSEQ=#{qcSeq}) + 1)
+	</insert>
+	
+	<!-- 질문과답변 댓글에 답글달면서 부모글 번호조정 -->
+	<update id="questionCommentAnswerStep">
+		UPDATE Q_COMMENT
+		SET QCSTEP = QCSTEP + 1
+		WHERE QCREF = (SELECT QCREF FROM Q_COMMENT WHERE QCSEQ=#{qcSeq})
+		AND QCSTEP>(SELECT QCSTEP FROM Q_COMMENT WHERE QCSEQ=#{qcSeq}) 
+	</update>
+	
+	
 	<!-- 질문과답변 조회수 -->
 	<insert id="questionReadCountUp" parameterType="com.decolab.wanza.dto.QuestionDTO">
 		UPDATE QUESTION
