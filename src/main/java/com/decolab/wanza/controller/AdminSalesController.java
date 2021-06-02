@@ -25,10 +25,15 @@ public class AdminSalesController {
 		return service.graphList(dto);
 	}
 	@RequestMapping(value = "/mapList", method = {RequestMethod.GET,RequestMethod.POST})
-	public List<AdminSalesDTO> mapList(AdminSalesDTO dto){
+	public AdminSalesDTO mapList(AdminSalesDTO dto){
 		System.out.println("AdminSalesController mapList() " + new Date());
-		System.out.println(dto.toString());
 		return service.mapList(dto);
+		
+	}
+	@RequestMapping(value = "/pieChart", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<AdminSalesDTO> pieChart(AdminSalesDTO dto){
+		System.out.println("AdminSalesController pieChart() " + new Date());
+		return service.pieChart(dto);
 		
 	}
 
