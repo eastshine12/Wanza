@@ -82,39 +82,59 @@
 #store_items{
     height: 800px;
 }
-#store_items a:hover,
-#store_items a{
+#store_items a:hover{
     color: #424242;
     text-decoration: none;
+}
+#store_items a{
+    color: #aeaeae;
 }
 /* 메인 카테고리 나열 */
 .store_head{
     display: flex;
+    position: relative;
     height: 100px;
-    margin: 0 10px 30px;
+    margin: 30px 10px 30px;
     padding: 30px 10px;
-    border-top: solid 3px #dbdbdb;
+    /* border-top: solid 3px #dbdbdb; */
 }
 .store_head span{
     font-size: 2em;
     font-weight: 900;
+}
+.subtitle{
+    position: absolute;
+    width: 100px;
+    top: 85px;
+    left: 27px;
+    color: #424242;
+    text-align: right;
+    font-size: 0.5em;
+    font-weight: 700;
 }
 .store_head .store_subcategory{
     min-width: 650px;
     display: flex;
     list-style: none;
     align-items: center;
-    font-size: 1.1em;
+    font-size: 1em;
     padding: 0;
     margin: 0 0 0 15px;
+    color: #aeaeae;
+    cursor: pointer;
 }
 .store_subcategory li{
     margin: 0 15px;
     display: inherit;
 }
+.store_subcategory li.active,
+.store_subcategory li:hover{
+    color: #424242;
+    font-weight: bold;
+}
 .store_subcategory div{
     height: 50%;
-    border: solid 1px #424242;
+    border: solid 1px #aeaeae;
 }
 
 /* 정렬버튼 */
@@ -206,7 +226,20 @@
 .btn_subpop:hover{
     background-color: wheat;
 }
-
+/* 상품리스트 */
+.store_main_head{
+    height: 100px;
+    margin: 0 10px 30px;
+    padding: 40px 10px;
+    border-top: solid 3px #dbdbdb;
+}
+.store_main_head h1{
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+#hotProductList{
+    justify-content: center;
+}
 
 
 </style>
@@ -259,16 +292,18 @@
 
 <!-- 상품파트 -->
 <div class="container" id="store_items">
+    
     <div class="store_head">
-        <a href="#"><span>가구</span></a>
+        <span>가구</span>
+        <!-- <div class="subtitle"><span>가구</span></div> -->
         <ul class="store_subcategory">
-            <li><a href="#">전체</a></li><div></div>
-            <li><a href="#">침대 / 매트리스</a></li><div></div>
-            <li><a href="#">소파</a></li><div></div>
-            <li><a href="#">테이블</a></li><div></div>
-            <li><a href="#">화장대/거울</a></li><div></div>
-            <li><a href="#">책상/책장</a></li><div></div>
-            <li><a href="#">의자</a></li>
+            <li>전체</li><div></div>
+            <li>침대/매트리스</li><div></div>
+            <li>소파</li><div></div>
+            <li>테이블</li><div></div>
+            <li>화장대/거울</li><div></div>
+            <li>책상/책장</li><div></div>
+            <li>의자</li>
         </ul>
         
         <div class="col right_wrap"> <!-- 오른쪽 정렬 -->
@@ -285,11 +320,14 @@
                         </ul>
                     </div>
                 </div>
+
             </div> <!-- 인기순 버튼 -->
         </div>  <!-- 오른쪽 정렬 -->
-
     </div>
-
+    
+    <div class="store_main_head" id="today_hot">
+        <h1><strong>오늘의 인기상품</strong></h1>
+    </div>
 
     <div class="store_main">
         <div id="hotProductList" class="row">
@@ -314,9 +352,54 @@
 
 <script>
 $(document).ready(function() {
+    $('.store_head').hide();
+
     $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 메뉴 호버시 색
         $('.pop_content').toggleClass('active')
     });
+
+    $('#navcol-2 .nav_a').click(function(){//인기 이동
+        $('.store_head').hide();
+        $('.top_slider, .store_main_head').show();
+
+        if($(this).attr('href')!='#'){
+            $('html, body').animate({//화면 부드럽게 이동
+                scrollTop: $($.attr(this,'href')).offset().top
+            }, 400);
+            return false;
+        }
+    });
+
+    $('#navcol-2 .down_list').click(function(){ //카테고리 이동
+        $('.top_slider, .store_main_head, .submenu_wrap').hide();        
+        let b_sort = $(this).text().trim()
+        $('.store_head span').text(b_sort);
+        setCategory(b_sort)
+        
+        let param = setPdata('largeCategory',b_sort)
+        getProductSortList(param)
+        console.log(param)  
+        $('.store_head').slideDown();
+    });
+
+    $(document).on('click','.store_subcategory li',function(){ //중분류 뿌리기
+        $('.store_subcategory li').removeClass('active')
+        $(this).addClass('active')
+
+        let m_sort = $(this).text()
+        console.log(m_sort)
+        
+    });
+
+    $('.btn_subpop').click(function(){ //순서정렬 버튼 바꾸기
+        let title_text = $(this).text();
+        let title_val = $(this).val();
+        $('.btn_pop').html(title_text+' <i class="fas fa-sort"></i>').val(title_val);
+        setSortBtn(title_text)
+    });
+
+
+
 });
 
 // '인기 상품' 리스트
@@ -326,22 +409,16 @@ function getProductList() {
         url: "http://localhost:3000/getProductList",
         type: "get",
         success: function (list) {
-
             console.log(list);
 
             let app = ""
             if (Object.keys(list).length == 0) {	// JSON형식의 길이
-
                 app += '<div style="width: 320px; margin-right: 50px;">'
                     + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
                     + "</div>";
-
                 $("#hotProductList").append(app);
-
             } else {
-
                 $.each(list, function (i, val) {
-                    
                     app += '<div style="width: 350px; height: 400px;">'
                         +  '<article article class="project2_wrap" >'
                         +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
@@ -350,7 +427,6 @@ function getProductList() {
                         +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
                         +  '</div>'
                         +  '<h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; margin-top: 15px; margin-bottom: -5px; height: 32px;">' + val.productName + '</h3>';
-
                     if(val.productDiscount != 0) {
                         app += '<span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
                             + '<span style="font-family: \'Noto Sans KR\';font-size: 18px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span>';
@@ -365,11 +441,8 @@ function getProductList() {
                 });
                 $("#hotProductList").append(app);
             }
-
         },
-        error: function () {
-            alert('error');
-        }
+        error: function () { alert('error'); }
     });
 };
 
@@ -384,6 +457,90 @@ function discountRate(price, discount) {
     return Math.ceil(discount/price*100);
 };
 
+
+//카테고리 리스트 저장
+function setCategory(param) {
+    let furniture = '<li class="active">전체</li><div></div><li>침대/매트리스</li><div></div><li>소파</li><div></div><li>테이블</li><div></div><li>화장대/거울</li><div></div><li>책상/책장</li><div></div><li>의자</li>'
+    let light = '<li class="active">전체</li><div></div><li>LED등</li><div></div><li>스탠드</li><div></div><li>무드등</li><div></div><li>센서등</li><div></div><li>형광등</li>'
+    let deco = '<li class="active">전체</li><div></div><li>플라워/식물</li><div></div><li>캔들/디퓨져</li><div></div><li>시계</li><div></div><li>인테리어소품</li>'
+    let fabric = '<li class="active">전체</li><div></div><li>침구</li><div></div><li>커튼/블라인드</li><div></div><li>카페트/러그</li><div></div><li>쿠션/방석</li>'
+    let box = '<li class="active">전체</li><div></div><li>서랍장</li><div></div><li>리빙박스</li><div></div><li>바구니</li><div></div><li>행거</li><div></div><li>선반</li><div></div><li>옷걸이</li><div></div><li>현관/신발정리</li>'
+    let setData;
+    switch(param){
+        case '가구':setData=furniture; break;
+        case '조명':setData=light; break;
+        case '홈데코':setData=deco; break;
+        case '패브릭':setData=fabric; break;
+        case '수납정리':setData=box; break;
+    }
+    $('.store_subcategory').html(setData);
+}
+
+function getProductSortList(jdata) {
+    $.ajax({
+        url: "http://localhost:3000/getProductSortList",
+        type: "get",
+        data: jdata,
+        success: function (list) {
+            console.log(list);
+            $("#hotProductList").html('');
+            let app = ""
+            if (Object.keys(list).length == 0) {	// JSON형식의 길이
+                app += '<div style="width: 320px; margin-right: 50px;">'
+                    + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                    + "</div>";
+                $("#hotProductList").append(app);
+            } else {
+                $.each(list, function (i, val) {
+                    app += '<div style="width: 350px; height: 400px;">'
+                        +  '<article article class="project2_wrap" >'
+                        +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
+                        +  '<div class="project2_item">'
+                        +  '<span></span>'
+                        +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
+                        +  '</div>'
+                        +  '<h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; margin-top: 15px; margin-bottom: -5px; height: 32px;">' + val.productName + '</h3>';
+                    if(val.productDiscount != 0) {
+                        app += '<span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
+                            + '<span style="font-family: \'Noto Sans KR\';font-size: 18px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span>';
+                    } else {
+                        app += '<span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span>';
+                    }
+
+                    app += '<div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 5px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰</b> </div>'
+                        +  '</article>'
+                        +  '</div >';
+
+                });
+                $("#hotProductList").append(app);
+            }
+        },
+        error: function () { alert('error'); }
+    });
+};
+
+// 분류 데이터 가져와서 json형태로 만들기
+function setPdata(k_category,v_category){
+    let param='{"'+k_category+'":"'+v_category+'",';
+    let a = $('.btn_pop').val();
+    param += '"'+a.split('=')[0]+'":"'+a.split('=')[1]+'"}'
+    return JSON.parse(param);
+}
+
+function setSortBtn(data){
+    let text=['인기순','평점순','최신순','좋아요순','판매순']
+    let val=['sort=0','sort=1','sort=2','sort=3','sort=4']
+    let k=0
+    $('.sub_content_ul button[class=btn_subpop]').each(function(i){
+        console.log(data+','+k)
+        if(data==text[k]){
+            k++;
+        }
+        $(this).text(text[k]);
+        $(this).val(val[k]);
+        k++;
+    });
+}
 
 </script>
 
