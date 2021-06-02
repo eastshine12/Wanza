@@ -87,7 +87,7 @@
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
 
-    <div class="row" style="margin-top: 50px; margin-bottom: 100px;">
+    <div class="row" id="mainForm" style="margin-top: 50px; margin-bottom: 100px;">
 
         <div class="col-xl-2"></div>
         
@@ -135,46 +135,7 @@
                     <p style="float: left;" class="eprogress">진행중</p>
                     <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>
                 </div>                           
-            </div>                
-        
-
-            <div  class="boxbox"> 
-                <div class='hoverimg'>
-                    <a href="./eventDetail.html?seq=">            
-                        <img class="profile"  src="../../assets/img/화면 캡처 2021-05-14 125105.jpg">
-                    </a>
-                </div> 
-                <div>
-                    <p style="float: left;" class="eprogress">진행중</p>
-                    <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>
-                </div>    
-            </div>       
-
-        
-            <div  class="boxbox">   
-                <div class='hoverimg'>
-                    <a href="./eventDetail.html?seq=">          
-                        <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 125123.jpg"> 
-                    </a>
-                </div>
-                <div>
-                    <p style="float: left;" class="eprogress">진행중</p>
-                    <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>
-                </div>
-            </div>       
-
-        
-            <div  class="boxbox">
-                <div class='hoverimg'>      
-                    <a href="./eventDetail.html?seq=">         
-                        <img class="profile" src="../../assets/img/화면 캡처 2021-05-14 125147.jpg"> 
-                    </a>
-                </div>
-                <div>
-                    <p style="float: left;" class="eprogress2">종료</p>
-                    <p style="float: right;" class="eventdate">2021/03/02 ~ 2022/03/04</p>               
-                </div>
-            </div>            
+            </div>                       
         </div>     
         <div class="col-xl-2"></div>
     </div>
@@ -188,9 +149,51 @@
 <script src="../../js/header.js"></script>
 
 <script>
+    $(document).ready(function(){
+    
     function goEventWrite(){
         location.href='eventWrite.html';
     }
+    let today = new Date();   
+    let year = today.getFullYear(); // 년도
+    let month = today.getMonth() + 1;  // 월
+    let date = today.getDate();  // 날짜
+
+    let today2 = year+"/"+month+"/"+date; // 현재 날짜
+
+    $.ajax({
+        url:"http://localhost:3000/getEventList",
+        type:"get",
+        success:function(list){
+            //alert(JSON.stringify(list));
+           
+            app = "";
+            $.each(list,function(i,val){
+                app += "<div class='boxbox'>"
+                    +"<div class='hoverimg'>"                        
+                    +"<a href='./eventDetail.html?eventSeq="+val.eventSeq+"'>"
+                    +"<div class='profile'>"       
+                    +val.eventFilename
+                    +"</div>"
+                    +"</a>"                   
+                    +"</div>"
+                    +"<div>"
+                    +"<p style='float: left;' class='eprogress2'>종료</p>"
+                    +"<p style='float: right;' class='eventdate'>"+val.eventStartDate+" ~ "+ val.eventEndDate+"</p>"
+                    +"</div>"
+                    +"</div>";
+            })  
+            $(".col-xl-8").append(app);
+        },error:function(){
+
+        }
+
+    })
+
+
+
+
+})
 </script>
 
 </html>

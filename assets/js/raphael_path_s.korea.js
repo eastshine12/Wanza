@@ -92,12 +92,12 @@ window.onload = function () {
 				switch(state) {
 					case "seoul":
 						location.href="#seoul";
-						alert("2021/05/31 ~ 2021/06/23 서울특별시의 주문건수는 400건 입니다.");
+						alert("미구현(어떻게 해야하는지 잘 모르겠음 ㅎ)");
 						current = state;
 						break;
 					case "gygg":
 						location.href="#gygg";
-						alert("2021/05/31 ~ 2021/06/23 경기도의 주문건수는 400건 입니다.");
+						alert("미구현(어떻게 해야하는지 잘 모르겠음 ㅎ)");
 						current = state;
 						break;
 					case "incheon":
@@ -106,7 +106,7 @@ window.onload = function () {
 						break;
 					case "gangwon":
 						location.href="#gangwon";
-						alert("2021/05/31 ~ 2021/06/23 강원도의 주문건수는 400건 입니다.");
+						alert("미구현(어떻게 해야하는지 잘 모르겠음 ㅎ)");
 						current = state;
 						break;
 					case "chungbuk":
