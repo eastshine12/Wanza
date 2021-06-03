@@ -80,7 +80,7 @@
 
 /* 아래 메인 */
 #store_items{
-    height: 800px;
+    /* height: 800px; */
 }
 #store_items a:hover{
     color: #424242;
@@ -101,6 +101,7 @@
 .store_head span{
     font-size: 2em;
     font-weight: 900;
+    min-width: 91px;
 }
 .subtitle{
     position: absolute;
@@ -123,19 +124,43 @@
     color: #aeaeae;
     cursor: pointer;
 }
-.store_subcategory li{
+.store_subcategory>li{
     margin: 0 15px;
     display: inherit;
+    position: relative;
+}
+.store_thirdcategor:hover,
+.store_subcategory>li:hover .store_thirdcategory{
+    display: flex;
 }
 .store_subcategory li.active,
 .store_subcategory li:hover{
     color: #424242;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 .store_subcategory div{
     height: 50%;
     border: solid 1px #aeaeae;
+    background-color: #aeaeae;
 }
+.store_thirdcategory{
+    display: none;
+    position: absolute;
+    line-height: 40px;
+    top: 20px; left: 0;
+    width: 1000%;
+    list-style: none;
+    align-items: center;
+    font-size: 1em;
+    padding: 0;
+    color: #aeaeae;
+    cursor: pointer;
+}
+.store_thirdcategory>li{
+    margin: 0 30px 0 0;
+    display: inherit;
+}
+
 
 /* 정렬버튼 */
 .right_wrap{
@@ -297,13 +322,19 @@
         <span>가구</span>
         <!-- <div class="subtitle"><span>가구</span></div> -->
         <ul class="store_subcategory">
-            <li>전체</li><div></div>
-            <li>침대/매트리스</li><div></div>
+            <!-- <li>전체</li><div></div>
+            <li>침대/매트리스
+                <ul class="store_thirdcategory">
+                    <li>침대</li>
+                    <li>매트리스</li>
+                    <li>토퍼</li>
+                </ul>
+            </li><div></div>
             <li>소파</li><div></div>
             <li>테이블</li><div></div>
             <li>화장대/거울</li><div></div>
             <li>책상/책장</li><div></div>
-            <li>의자</li>
+            <li>의자</li> -->
         </ul>
         
         <div class="col right_wrap"> <!-- 오른쪽 정렬 -->
@@ -315,7 +346,6 @@
                         <ul class="sub_content_ul">
                             <li><button type="button" class="btn_subpop" value="sort=1">평점순</button></li>
                             <li><button type="button" class="btn_subpop" value="sort=2">최신순</button></li>
-                            <li><button type="button" class="btn_subpop" value="sort=3">좋아요순</button></li>
                             <li><button type="button" class="btn_subpop" value="sort=3">판매순</button></li>
                         </ul>
                     </div>
@@ -324,7 +354,7 @@
             </div> <!-- 인기순 버튼 -->
         </div>  <!-- 오른쪽 정렬 -->
     </div>
-    
+
     <div class="store_main_head" id="today_hot">
         <h1><strong>오늘의 인기상품</strong></h1>
     </div>
@@ -353,7 +383,7 @@
 <script>
 $(document).ready(function() {
     $('.store_head').hide();
-
+    
     $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 메뉴 호버시 색
         $('.pop_content').toggleClass('active')
     });
@@ -376,19 +406,31 @@ $(document).ready(function() {
         $('.store_head span').text(b_sort);
         setCategory(b_sort)
         
-        let param = setPdata('largeCategory',b_sort)
+        let param = setPdata()
         getProductSortList(param)
-        console.log(param)  
         $('.store_head').slideDown();
     });
 
-    $(document).on('click','.store_subcategory li',function(){ //중분류 뿌리기
+    $(document).on('click','.store_subcategory>li',function(e){ //중분류 뿌리기
+        $('.store_thirdcategory').hide();
         $('.store_subcategory li').removeClass('active')
-        $(this).addClass('active')
-
-        let m_sort = $(this).text()
-        console.log(m_sort)
+        $(this).addClass('active').children().css('display','flex');
         
+        let param = setPdata()
+        getProductSortList(param)
+    });
+
+    $(document).on('click','.store_thirdcategory>li',function(e){ //소분류 뿌리기
+        $('.store_subcategory li').removeClass('active')
+        $('.store_thirdcategory>li').removeClass('active').parent().hide();
+        $(this).addClass('active')
+        $(this).parent().css('display','flex');
+        $(this).parent().parent().addClass('active')
+
+        let param = setPdata()
+        getProductSortList(param)
+
+        e.stopPropagation(); //다른 상 하위 요소 이벤트 막기
     });
 
     $('.btn_subpop').click(function(){ //순서정렬 버튼 바꾸기
@@ -397,7 +439,6 @@ $(document).ready(function() {
         $('.btn_pop').html(title_text+' <i class="fas fa-sort"></i>').val(title_val);
         setSortBtn(title_text)
     });
-
 
 
 });
@@ -460,10 +501,37 @@ function discountRate(price, discount) {
 
 //카테고리 리스트 저장
 function setCategory(param) {
-    let furniture = '<li class="active">전체</li><div></div><li>침대/매트리스</li><div></div><li>소파</li><div></div><li>테이블</li><div></div><li>화장대/거울</li><div></div><li>책상/책장</li><div></div><li>의자</li>'
-    let light = '<li class="active">전체</li><div></div><li>LED등</li><div></div><li>스탠드</li><div></div><li>무드등</li><div></div><li>센서등</li><div></div><li>형광등</li>'
-    let deco = '<li class="active">전체</li><div></div><li>플라워/식물</li><div></div><li>캔들/디퓨져</li><div></div><li>시계</li><div></div><li>인테리어소품</li>'
-    let fabric = '<li class="active">전체</li><div></div><li>침구</li><div></div><li>커튼/블라인드</li><div></div><li>카페트/러그</li><div></div><li>쿠션/방석</li>'
+    let furniture = '<li class="active">전체</li><div></div><li>침대/매트리스'
+                   +'<ul class="store_thirdcategory"><li>침대</li><li>매트리스</li><li>토퍼</li></ul>'
+                   +'</li><div></div><li>소파</li><div></div><li>테이블'
+                   +'<ul class="store_thirdcategory"><li>식탁</li><li>좌식테이블</li><li>사이드테이블</li></ul>'
+                   +'</li><div></div><li>화장대/거울'
+                   +'<ul class="store_thirdcategory"><li>일반화장대</li><li>좌식화장대</li><li>거울</li></ul>'
+                   +'</li><div></div><li>책상/책장'
+                   +'<ul class="store_thirdcategory"><li>일반책상</li><li>좌식책상</li><li>책장</li></ul>'
+                   +'</li><div></div><li>의자'
+                   +'<ul class="store_thirdcategory"><li>일반의자</li><li>좌식의자</li><li>안락의자</li></ul></li>'
+    let light = '<li class="active">전체</li><div></div><li>LED등</li><div></div><li>스탠드'
+               +'<ul class="store_thirdcategory"><li>장스탠드</li><li>단스탠드</li></ul>'
+               +'</li><div></div><li>무드등'
+               +'<ul class="store_thirdcategory"><li>무드등</li><li>네온사인</li></ul>'
+               +'</li><div></div><li>센서등</li><div></div><li>형광등</li>'
+    let deco = '<li class="active">전체</li><div></div><li>플라워/식물'
+              +'<ul class="store_thirdcategory"><li>식물</li><li>조화</li></ul>'
+              +'</li><div></div><li>캔들/디퓨져'
+              +'<ul class="store_thirdcategory"><li>캔들</li><li>디퓨져</li></ul>'
+              +'</li><div></div><li>시계'
+              +'<ul class="store_thirdcategory"><li>벽시계</li><li>탁상시계</li></ul>'
+              +'</li><div></div><li>인테리어소품'
+              +'<ul class="store_thirdcategory"><li>장식소품</li><li>기타</li></ul></li>'
+    let fabric = '<li class="active">전체</li><div></div><li>침구'
+                +'<ul class="store_thirdcategory"><li>이불</li><li>매트리스</li><li>커버</li></ul>'
+                +'</li><div></div><li>커튼/블라인드'
+                +'<ul class="store_thirdcategory"><li>커튼</li><li>암막커튼</li><li>블라인드</li></ul>'
+                +'</li><div></div><li>카페트/러그'
+                +'<ul class="store_thirdcategory"><li>카페트</li><li>러그</li><li>다용도매트</li></ul>'
+                +'</li><div></div><li>쿠션/방석'
+                +'<ul class="store_thirdcategory"><li>쿠션</li><li>방석</li></ul></li>'
     let box = '<li class="active">전체</li><div></div><li>서랍장</li><div></div><li>리빙박스</li><div></div><li>바구니</li><div></div><li>행거</li><div></div><li>선반</li><div></div><li>옷걸이</li><div></div><li>현관/신발정리</li>'
     let setData;
     switch(param){
@@ -520,16 +588,34 @@ function getProductSortList(jdata) {
 };
 
 // 분류 데이터 가져와서 json형태로 만들기
-function setPdata(k_category,v_category){
-    let param='{"'+k_category+'":"'+v_category+'",';
-    let a = $('.btn_pop').val();
-    param += '"'+a.split('=')[0]+'":"'+a.split('=')[1]+'"}'
+function setPdata(){
+    let lc = $('.store_head span').text()
+    let mc='';
+    let sc='';
+    $('.store_subcategory>li').each(function(i){
+        if($(this).hasClass('active')){
+            let tmp = $(this).html().split('<')[0];
+            if(tmp!='전체'){  mc=tmp;  }
+        }
+    });
+    $('.store_thirdcategory>li').each(function(i){
+        if($(this).hasClass('active')){
+            sc = $(this).text();
+        }
+    });
+    let sort = $('.btn_pop').val();
+
+    let param='{"largeCategory":"'+lc+'",';
+    param += '"mediumCategory":"'+mc+'",';
+    param += '"smallCategory":"'+sc+'",';
+    param += '"'+sort.split('=')[0]+'":"'+sort.split('=')[1]+'"}'
+    console.log(JSON.parse(param))
     return JSON.parse(param);
 }
 
 function setSortBtn(data){
-    let text=['인기순','평점순','최신순','좋아요순','판매순']
-    let val=['sort=0','sort=1','sort=2','sort=3','sort=4']
+    let text=['인기순','평점순','최신순','판매순']
+    let val=['sort=0','sort=1','sort=2','sort=3']
     let k=0
     $('.sub_content_ul button[class=btn_subpop]').each(function(i){
         console.log(data+','+k)
