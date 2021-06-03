@@ -148,25 +148,31 @@
     <div class="container" style="width: 1200px; margin-top: 50px;">
         <div class="row" style="width: 1200px;">
             <div class="col-md-8" style="position: relative;">
-                <ul id="miniMenu" class="nav nav-tabs" style="margin-bottom: 50px;z-index: 2;">
-                    <li class="nav-item">
-                        <div id="contentBtn" class="nav-link active" style="cursor: pointer; font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-bottom-width: 3px;border-bottom-color: rgb(244,116,76);border-left-style: none;">
-                            상품정보</div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-link" id="reviewBtn" style="cursor: pointer; color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
-                            후기 145</div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-link" id="questionBtn" style="cursor: pointer; color: rgb(99,99,99);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
-                            문의 2</div>
-                    </li>
-                    <li class="nav-item">
-                        <div class="nav-link" id="deliveryBtn" style="cursor: pointer; color: rgb(99,99,99);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
-                            배송/환불</div>
-                    </li>
-                </ul>
-                <img id="content" src="../../assets/img/longStoreDetail.jpg" style="z-index: 1;" width="750px">
+                <div>
+                    <ul id="miniMenu" class="nav nav-tabs" style="margin-bottom: 50px;z-index: 2;">
+                        <li class="nav-item">
+                            <div id="contentBtn" class="nav-link active" style="cursor: pointer; font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-bottom-width: 3px;border-bottom-color: rgb(244,116,76);border-left-style: none;">
+                                상품정보</div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link" id="reviewBtn" style="cursor: pointer; color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
+                                후기 145</div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link" id="questionBtn" style="cursor: pointer; color: rgb(99,99,99);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
+                                문의 2</div>
+                        </li>
+                        <li class="nav-item">
+                            <div class="nav-link" id="deliveryBtn" style="cursor: pointer; color: rgb(99,99,99);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
+                                배송/환불</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="content">
+                    <!-- 상품 내용 (썸머노트) 뿌려주는 곳 -->
+                </div>
+
                 <div id="review" class="row" style="margin-top: 70px; margin-bottom: 5px;">
                     <div class="col">
                         <h4><strong>후기</strong><span style="margin-left: 10px;color: rgb(119,119,119);">23</span></h4>
@@ -635,6 +641,7 @@
                     $('#rating').text(data.productRating);
                     $('#starRating').css('width', (data.productRating*20+2)+'%');
                     $('#totalPrice').text(data.productDiscount);
+                    $('#content').append(data.productContent);
 
                     if(data.productDiscount != 0) { // 할인상품이라면,
                         $('#costPrice').text(makeComma(data.productPrice)+'원');
