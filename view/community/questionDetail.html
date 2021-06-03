@@ -484,7 +484,6 @@ $(document).ready(function(){
         } 
     }
     
-
     //유저시퀀스 부여하기
     if(isEmpty(sessionId)==true){
         alert('로그인해라');
@@ -584,6 +583,23 @@ $(document).ready(function(){
                 } else {
                     ripple = '';
                 }
+
+                if(isEmpty(val.qcRef) == false || isEmpty(val.qcStep) == false || isEmpty(val.qcDepth) == false){
+                    var reply 
+                    = "<div='comment-feed-item-reply'>"
+                        + "<a href='#' class='comment-feed-item-content-author-name'>"
+                        + "<img class='comment-feed-item-content-author-image' src=' " 
+                            + pfname
+                        + "' >"
+                        + "<span class='questioncommentwriter'>" + val.nickName + "</span>"
+                        + "</a>"
+                        + "<span>"
+                            + val.qcContent
+                        + "</span>"
+                    + "</div>"
+                } else {
+                    reply = '';
+                }
                 
                 let app = "<li class='comment-feed-list-item'>"
                             + "<div class='comment-feed-item'>"
@@ -601,15 +617,17 @@ $(document).ready(function(){
                                 + "<footer class='comment-feed-item-footer'>"
                                     + "<time class='comment-feed-item-footer-time'>" + timeForToday(val.qcRegDate) + "</time>"    
                                     + "<button> 좋아요 </button>"
-                                    //+ "<button class='comment-feed-reply' >답글달기</button>"
-                                    //+ "<button onclick='commentreply(" + val.qcSeq + ")' >답글달기" + "</button>"
-                                    + ripple
+                                     + ripple //답글달기
                                     + "<span>"
                                         + "<a href='#'>신고</a>"
                                     + "</span>"
-                                    + apple
+                                    + apple //삭제하기
                                     + "<input type='hidden' value='" + val.qcSeq + "' class='hiddenseq'>"
+                                    + "<input type='hidden' value='" + val.qcRef + "' class='qcRef'>"
+                                    + "<input type='hidden' value='" + val.qcStep + "' class='qcStep'>"
+                                    + "<input type='hidden' value='" + val.qcDepth + "' class='qcDepth'>"
                                 + "</footer>"
+                                    + reply //댓글의 덧글 표기
                                 
                             + "</div>"
                         + "</li>"
@@ -655,42 +673,104 @@ $(document).ready(function(){
         });
     });
 
-    //$(document).on("click", "#_seq", function () { 
-   //var tseq=$(this).attr('value');
+    
+    //댓글에 덧글창 띄우기
      $(document).on('click','.comment-feed-item-footer .cmtreply', function(){
-        
-        alert($(this).val() + '디스발');
+        //alert($(this).val() + '디스발');
         var reqseq = $(this).parents('.comment-feed-list-item').find("input[type='hidden']").val();
         //alert($('input[type="hidden"]').val());
-        alert(reqseq);
-        //console.log($('input[type="hidden"]').val());
-        
-        
+        //alert(reqseq);
+        //한번 더 실행되었을때, 이미 적용되어있다면 초기화시켜줌.
+        $(this).parents('.comment-feed-list-item').find('.comment-reply').html('');
             let ripple  
                     = "<form class='comment-reply'>"
                         + "<div class='comment-reply-content-form'>"
                             + "<div class='comment-reply-content-input'>"    
-                                + "<input class='comment-reply-input-text' name='qcContent' id='questionCommentreply' style='outline: none;' placeholder='" + $('.questioncommentwriter').val + "'"
-                            + "</div>"
-                            + "<div>"
-                                + "<button>등록</button>"    
+                                + "<input class='comment-reply-input' name='qcContent' id='questionCommentreply' style='outline: none;' placeholder='@" + $('.questioncommentwriter').val() + "' type='text'>"
+                            //+ "</div>"
+                            //+ "<div>"
+                                + "<input type='hidden' name='qcFileName' value='123'>"
+                                + "<input type='hidden' name='userSeq' value='" + sessionId.userSeq + "'>"
+                                + "<input type='hidden' name='questionSeq' value='" + $('#questionSeq').val() + "'>"
+                                + "<input type='hidden' name='qcSeq' value='" + $('.hiddenseq').val() + "'>"
+                                + "<input type='hidden' name='qcRef' value='" + $('.qcRef').val() + "'>"
+                                + "<input type='hidden' name='qcStep' value='" + $('.qcStep').val() + "'>"
+                                + "<input type='hidden' name='qcDepth' value='" + $('.qcDepth').val() + "'>"
+                                + "<button class='comment-reply-form-submit' type='button' id='qcbtn'>등록</button>"    
                             + "</div>"
                         + "</div>"
                     + "</form>"
 
-            $(this).parents('.comment-feed-item').append(ripple);
-            //$('.comment-feed-item').append(ripple);
-        
-            
-        
+        $(this).parents('.comment-feed-item').append(ripple);
      });
 
-    
+     /*
+    let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
+        return paramPair.split(/=(.+)?/).slice(0, 2);
+    }).reduce(function(obj, pairArray) {
+        obj[pairArray[0]] = pairArray[1];
+        return obj;
+    }, {});
+
+    let seq = urlParams.seq;	// html 에서 html 이동할때 값 가져가는 그런 코드
+
+    let sessionId = JSON.parse(sessionStorage.getItem("login"));
+    //유저시퀀스 부여하기
+    if(isEmpty(sessionId)==true){
+        alert('로그인해라');
+        location.href="../login/login.html";
+        //    $('#userSeq').val(0);
+    } else {
+        $('#userSeq').val(sessionId.userSeq);
+    }
+     */
+
+     //댓글에 덧글 작성하기
+    $(document).on('click', "#qcbtn", function(list){
+        
+        var form = $('.comment-reply').serialize();
+        alert('댓글에 덧글작성하기 버튼클릭');
+        console.log(form);
+
+            $.ajax({
+            url: 'http://localhost:3000/questionCommentAnswer',
+            type: 'post',
+            data : form,
+            success:function(list){
+                alert('CommentAnswer ajax성공');
+
+                
+
+                //rejax();
+            }, error:function(list){
+                alert('CommentAnswer ajax실패');
+            }
+            })
+
+            /*
+            $.ajax({
+                url: 'http://localhost:3000/questionCommentAnswerStep',
+                type: 'post',
+                async : false,
+                success:function(list){
+                    alert('CommentAnswerStep ajax성공');
+                    //rejax();
+                }, error:function(list){
+                    alert('CommentAnswerStep ajax실패');
+                }
+                })
+            */
+
+     });
+     
+
+     
     
     
 
 }); // $(document).ready(function() 끝
 
+    
 
     //질문과답변 댓글 삭제하기
     function commentdel(commentseq){
@@ -708,63 +788,12 @@ $(document).ready(function(){
     }
 
 
-
-    //질문과답변 댓글에 덧글달기
-    
-
-/*
-    function commentreply(commentseq){
-        //alert('답글달기 버튼은 눌림?');
-        alert(commentseq);
-        alert($(".commentseq").val());
-        if(commentseq == $(".commentseq").val()){
-            alert('이프문들어옴');
-            let ripple  
-                    = "<form class='comment-reply'>"
-                        + "<div class='comment-reply-content-form'>"
-                            + "<div class='comment-reply-content-input'>"    
-                                + "<input class='comment-reply-input-text' name='qcContent' id='questionCommentreply' style='outline: none;' placeholder='" + $('.questioncommentwriter').val + "'"
-                            + "</div>"
-                            + "<div>"
-                                + "<button>등록</button>"    
-                            + "</div>"
-                        + "</div>"
-                    + "</form>"
-
-            $('.comment-feed-item').append(ripple);
-
-        } else {
-            alert('오류');
-        }
-
-    }
-*/
     //ajax 후 새로고침
     function rejax(){  
         location.reload();
     }
 
-/*
-$(document).on('click','.comment-feed-reply', function(qcSeq) {
-        alert('답글달기 버튼은 눌림?');
 
-        if(qcSeq == $("#commentseq")){
-            let ripple  
-                    = "<form class='comment-reply'>"
-                        + "<div class='comment-reply-content-form'>"
-                            + "<div class='comment-reply-content-input'>"    
-                                + "<input class='comment-reply-input-text' name='qcContent' id='questionCommentreply' style='outline: none;' placeholder='" + $('.questioncommentwriter').val + "'"
-                            + "</div>"
-                            + "<div>"
-                                + "<button>등록</button>"    
-                            + "</div>"
-                        + "</div>"
-                    + "</form>"
-
-            $('.comment-feed-item').append(ripple);
-        }
-})
-*/
    
 
 </script>
