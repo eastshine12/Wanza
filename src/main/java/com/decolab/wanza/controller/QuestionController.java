@@ -40,7 +40,7 @@ public class QuestionController {
 	public String questionWrite(
 			/* @RequestParam("questionFile")MultipartFile uploadFile, */HttpServletRequest req, QuestionDTO dto) {
 		System.out.println("QuestionController questionWrite()" + new Date());
-		System.out.println(dto);
+		System.out.println(dto.toString());
 /*			
 				// 파일 경로 /src/main/webapp/upload 폴더가 없으면 만들어야함!!!
 				String uploadPath = req.getServletContext().getRealPath("/upload");

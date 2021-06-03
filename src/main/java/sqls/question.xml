@@ -29,7 +29,7 @@
 	<!-- 질문과답변 글쓰기 -->
 	<insert id="questionWrite" parameterType="com.decolab.wanza.dto.QuestionDTO">
 		INSERT INTO QUESTION
-		VALUES(QUESTIONSEQ.NEXTVAL, #{userSeq}, #{questionTitle}, #{questionContent}, 0, SYSDATE, #{questionFileName}, 0, 0, 0, 0)
+		VALUES(QUESTIONSEQ.NEXTVAL, #{userSeq}, #{questionTitle}, #{questionContent}, 0, SYSDATE, #{questionFileName}, 0)
 	</insert>
 	
 	<!-- 질문과답변 디테일가져오기 
