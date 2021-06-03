@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class ProductOptionDTO implements Serializable {
 	
-	private int ProductSequence;
+	private int ProductSeq;
 	private int optionSeq;
 	private String optionTitle;
 	private String optionContent;
@@ -14,22 +14,22 @@ public class ProductOptionDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductOptionDTO(int productSequence, int optionSeq, String optionTitle, String optionContent,
+	public ProductOptionDTO(int productSeq, int optionSeq, String optionTitle, String optionContent,
 			String optionPrice) {
 		super();
-		ProductSequence = productSequence;
+		ProductSeq = productSeq;
 		this.optionSeq = optionSeq;
 		this.optionTitle = optionTitle;
 		this.optionContent = optionContent;
 		this.optionPrice = optionPrice;
 	}
 
-	public int getProductSequence() {
-		return ProductSequence;
+	public int getProductSeq() {
+		return ProductSeq;
 	}
 
-	public void setProductSequence(int productSequence) {
-		ProductSequence = productSequence;
+	public void setProductSeq(int productSeq) {
+		ProductSeq = productSeq;
 	}
 
 	public int getOptionSeq() {
@@ -66,9 +66,11 @@ public class ProductOptionDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProductOptionDTO [ProductSequence=" + ProductSequence + ", optionSeq=" + optionSeq + ", optionTitle="
+		return "ProductOptionDTO [ProductSeq=" + ProductSeq + ", optionSeq=" + optionSeq + ", optionTitle="
 				+ optionTitle + ", optionContent=" + optionContent + ", optionPrice=" + optionPrice + "]";
 	}
+
+
 
 
 
