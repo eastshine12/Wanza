@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.decolab.wanza.dao.AdminDAO;
 import com.decolab.wanza.dto.ProductDTO;
+import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
 
 @Service
@@ -42,5 +43,16 @@ public class AdminService {
 		return dao.deleteTag(dto);
 	}
 	
+	public int addProduct(ProductDTO dto) {
+		return dao.addProduct(dto);
+	}
+	
+	public int addProductOption(ProductOptionDTO dto) {
+		return dao.addProductOption(dto);
+	}
+	
+	public int getRecentAddProductSeq() {
+		return dao.getRecentAddProductSeq();
+	}
 
 }

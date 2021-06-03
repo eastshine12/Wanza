@@ -59,6 +59,22 @@
 	WHERE CARDSEQ=#{cardSeq} AND PRODUCTSEQ=#{productSeq}
 </delete>
 
+<insert id="addProduct" parameterType="com.decolab.wanza.dto.ProductDTO">
+	INSERT INTO PRODUCTIONS(PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING, PRODUCTDATE)
+	VALUES (SEQ_PRODUCT.NEXTVAL, #{productName}, #{productContent}, #{productPrice}, #{productDiscount}, #{productMaker}, #{productFileName}, 0, SYSDATE)
+</insert>
+
+<insert id="addProductOption" parameterType="com.decolab.wanza.dto.ProductOptionDTO">
+	INSERT INTO PRODUCTION_OPTION
+	VALUES (#{ProductSeq}, #{optionSeq}, #{optionTitle}, #{optionContent}, #{optionPrice})
+</insert>
+
+
+<select id="getRecentAddProductSeq" resultType="int">
+	SELECT PRODUCTSEQ
+	FROM (SELECT * FROM PRODUCTIONS ORDER BY PRODUCTDATE DESC)
+	WHERE ROWNUM=1
+</select>
 
 
 

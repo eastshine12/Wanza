@@ -1,6 +1,7 @@
 package com.decolab.wanza.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class ProductDTO implements Serializable {
 	
@@ -12,6 +13,7 @@ public class ProductDTO implements Serializable {
 	private String productMaker;
 	private String productFileName;
 	private float productRating;
+	private Date productDate;
 	
 	private String searchText;
 	
@@ -23,9 +25,11 @@ public class ProductDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 		
+	
+
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
-			String productMaker, String productFileName, float productRating, String searchText, String largeCategory,
-			String mediumCategory, String smallCategory) {
+			String productMaker, String productFileName, float productRating, Date productDate, String searchText,
+			String largeCategory, String mediumCategory, String smallCategory) {
 		super();
 		this.productSeq = productSeq;
 		this.productName = productName;
@@ -35,11 +39,14 @@ public class ProductDTO implements Serializable {
 		this.productMaker = productMaker;
 		this.productFileName = productFileName;
 		this.productRating = productRating;
+		this.productDate = productDate;
 		this.searchText = searchText;
 		this.largeCategory = largeCategory;
 		this.mediumCategory = mediumCategory;
 		this.smallCategory = smallCategory;
 	}
+
+
 
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating) {
@@ -160,14 +167,27 @@ public class ProductDTO implements Serializable {
 	public void setSmallCategory(String smallCategory) {
 		this.smallCategory = smallCategory;
 	}
+	
+	public Date getProductDate() {
+		return productDate;
+	}
+
+	public void setProductDate(Date productDate) {
+		this.productDate = productDate;
+	}
+
+
 
 	@Override
 	public String toString() {
 		return "ProductDTO [productSeq=" + productSeq + ", productName=" + productName + ", productContent="
 				+ productContent + ", productPrice=" + productPrice + ", productDiscount=" + productDiscount
 				+ ", productMaker=" + productMaker + ", productFileName=" + productFileName + ", productRating="
-				+ productRating + ", searchText=" + searchText + ", largeCategory=" + largeCategory
-				+ ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory + "]";
+				+ productRating + ", productDate=" + productDate + ", searchText=" + searchText + ", largeCategory="
+				+ largeCategory + ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory + "]";
 	}
+
+
+
 
 }
