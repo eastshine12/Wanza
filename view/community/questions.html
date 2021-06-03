@@ -491,14 +491,15 @@
 
   //질문하러 가기
   function questionwrite(){
-    if(sessionId == null) {
-        sessionId = '';
+    var logg = sessionStorage.getItem("login");
+
+    if(logg == null) {
         alert('로그인해주세요');
         location.href="../login/login.html";
-    } else {
-    console.log(sessionId);
-    location.href = "questionWrite.html";
+    }else{
+      location.href = "questionWrite.html";
     }
+    
   }
 
   //질문에 답변하기
