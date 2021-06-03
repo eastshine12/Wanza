@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통-->
 
 <style>
+/* html {scroll-behavior: smooth;} */
 /* 맨 위에 상자 */
 .top_slider{
     height: 500px;
@@ -81,6 +82,8 @@
 /* 아래 메인 */
 #store_items{
     /* height: 800px; */
+    /* margin: 20px 0 0 0; */
+    /* margin-top: 50px; */
 }
 #store_items a:hover{
     color: #424242;
@@ -94,7 +97,7 @@
     display: flex;
     position: relative;
     height: 100px;
-    margin: 30px 10px 30px;
+    margin: 60px 10px 30px;
     padding: 30px 10px;
     /* border-top: solid 3px #dbdbdb; */
 }
@@ -263,7 +266,9 @@
     margin-bottom: 50px;
 }
 #hotProductList{
-    justify-content: center;
+    margin: 0 0 0 30px;
+    /* justify-content: center; */
+    
 }
 
 
@@ -384,7 +389,7 @@
 $(document).ready(function() {
     $('.store_head').hide();
     
-    $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 메뉴 호버시 색
+    $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 인기순 메뉴 호버시 색
         $('.pop_content').toggleClass('active')
     });
 
@@ -406,26 +411,26 @@ $(document).ready(function() {
         $('.store_head span').text(b_sort);
         setCategory(b_sort)
         
-        let param = setPdata()
-        getProductSortList(param)
-        $('.store_head').slideDown();
+        getProductSortList(setPdata())
+        $('.store_head').show();
     });
 
     $(document).on('click','.store_subcategory>li',function(e){ //중분류 뿌리기
-        $('.store_thirdcategory').hide();
+        //$('.store_thirdcategory').hide();
         $('.store_subcategory li').removeClass('active')
-        $(this).addClass('active').children().css('display','flex');
-        
-        let param = setPdata()
-        getProductSortList(param)
+        $(this).addClass('active')
+        //$(this).addClass('active').children().css('display','flex');
+        getProductSortList(setPdata())
     });
 
     $(document).on('click','.store_thirdcategory>li',function(e){ //소분류 뿌리기
         $('.store_subcategory li').removeClass('active')
-        $('.store_thirdcategory>li').removeClass('active').parent().hide();
-        $(this).addClass('active')
-        $(this).parent().css('display','flex');
-        $(this).parent().parent().addClass('active')
+        $('.store_thirdcategory>li').removeClass('active')
+        $(this).addClass('active').parent().parent().addClass('active')
+        //$('.store_thirdcategory>li').removeClass('active').parent().hide();
+        //$(this).addClass('active').parent().parent().addClass('active')
+        //$(this).parent().css('display','flex');
+        //$(this).parent().parent().addClass('active')
 
         let param = setPdata()
         getProductSortList(param)
@@ -454,7 +459,7 @@ function getProductList() {
 
             let app = ""
             if (Object.keys(list).length == 0) {	// JSON형식의 길이
-                app += '<div style="width: 320px; margin-right: 50px;">'
+                app += '<div style="width: 320px; margin-right: 50px; height:200px;">'
                     + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
                     + "</div>";
                 $("#hotProductList").append(app);
@@ -554,7 +559,7 @@ function getProductSortList(jdata) {
             $("#hotProductList").html('');
             let app = ""
             if (Object.keys(list).length == 0) {	// JSON형식의 길이
-                app += '<div style="width: 320px; margin-right: 50px;">'
+                app += '<div style="width: 100%;height:300px; margin: 100px 0 0 0;text-align: center;">'
                     + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
                     + "</div>";
                 $("#hotProductList").append(app);
