@@ -66,14 +66,14 @@ public class QuestionController {
 
 		}
 	
-	@RequestMapping(value = "/questionDetail", method = {RequestMethod.GET,RequestMethod.POST} )
+	@RequestMapping(value = "/questionDetail", method = {RequestMethod.GET, RequestMethod.POST} )
 	public QuestionDTO questionDetail(QuestionDTO dto) {
 		System.out.println("QuestionController questionDetail()" + new Date());
 		System.out.println(service.questionDetail(dto));
 		return service.questionDetail(dto);
 	}
 	
-	@RequestMapping(value = "/questionCommentList", method = {RequestMethod.GET,RequestMethod.POST} )
+	@RequestMapping(value = "/questionCommentList", method = {RequestMethod.GET, RequestMethod.POST} )
 	public List<QuestionCommentDTO> questionCommentList(QuestionCommentDTO dto){
 		System.out.println("QuestionController questionCommentList()" + new Date());
 		System.out.println(service.questionCommentList(dto));
@@ -81,33 +81,44 @@ public class QuestionController {
 		return service.questionCommentList(dto);
 	}
 	
-	@RequestMapping(value = "/questionComment", method = {RequestMethod.GET,RequestMethod.POST} )
+	@RequestMapping(value = "/questionComment", method = {RequestMethod.GET, RequestMethod.POST} )
 	public String questionComment(QuestionCommentDTO dto, HttpServletRequest req) {
 		System.out.println("QuestionController questionComment()" + new Date());
-		
 		
 		int a = service.questionComment(dto);
 		System.out.println(a);
 		return "ss";
 	}
 	
-	@RequestMapping(value = "/questionCommentCount", method = {RequestMethod.GET,RequestMethod.POST} )
+	@RequestMapping(value = "/questionCommentCount", method = {RequestMethod.GET, RequestMethod.POST} )
 	public int questionCommentCount(QuestionCommentDTO dto) {
 		System.out.println("QuestionController questionCommentCount()" + new Date());
 		System.out.println(service.questionCommentCount(dto));
 		return service.questionCommentCount(dto);
 	}
 	
-	@RequestMapping(value = "/questionReadCountUp", method = {RequestMethod.GET,RequestMethod.POST} )
+	@RequestMapping(value = "/questionReadCountUp", method = {RequestMethod.GET, RequestMethod.POST} )
 	public int questionReadCountUp(QuestionDTO dto) {
 		System.out.println("QuestionController questionReadCountUp()" + new Date());
 		return service.questionReadCountUp(dto);
 	}
 	
-	@RequestMapping(value = "/questionCommentdel", method = {RequestMethod.GET,RequestMethod.POST} )
+	@RequestMapping(value = "/questionCommentdel", method = {RequestMethod.GET, RequestMethod.POST} )
 	public boolean questionCommentdel(QuestionCommentDTO dto) {
 		System.out.println("QuestionController questionCommentdel()" + new Date());
 		return service.questionCommentdel(dto);
+	}
+	
+	@RequestMapping(value = "/questionCommentAnswer", method = {RequestMethod.GET, RequestMethod.POST} )
+	public String questionCommentAnswer(QuestionCommentDTO dto) {
+		System.out.println("QuestionController questionCommentAnswer()" + new Date());
+		System.out.println(dto);
+		//service.questionCommentAnswer(dto);
+		System.out.println(service.questionCommentAnswer(dto));
+		System.out.println("QuestionController questionCommentAnswerStep()" + new Date());
+		//service.questionCommentAnswerStep(dto);
+		System.out.println(service.questionCommentAnswerStep(dto));
+		return "aa";
 	}
 	
 }
