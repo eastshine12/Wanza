@@ -48,4 +48,13 @@ public class QuestionService {
 	public boolean questionCommentdel(QuestionCommentDTO dto) {
 		return dao.questionCommentdel(dto);
 	}
+	
+	public int questionCommentAnswer(QuestionCommentDTO dto){
+		return dao.questionCommentAnswer(dto);
+	}
+	
+	public boolean questionCommentAnswerStep(QuestionCommentDTO dto) {
+		boolean b = dao.questionCommentAnswerStep(dto);
+		return b;
+	}
 }
