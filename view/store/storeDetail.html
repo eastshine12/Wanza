@@ -11,6 +11,10 @@
 
     <title>완벽한 자취생활, 완자</title>
     <style>
+
+
+
+
         #sidebox {
             background-color:#ffffff00;
             position: relative;
@@ -39,12 +43,166 @@
             top: 0px;
             background-color: white;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /**
+        * Variables
+        */
+        /**
+        * Base styles
+        */
+
+
+
+
+        @media only screen and (min-width: 40em) {
+            #reviewModal.modal-overlay {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 5;
+                background-color: rgba(0, 0, 0, 0.6);
+                opacity: 0;
+                visibility: hidden;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), visibility 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+            }
+            #reviewModal.modal-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+        /**
+        * Modal
+        */
+        #reviewModal .modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 0 auto;
+            background-color: #fff;
+            width: 700px;
+            max-width: 75rem;
+            height: 500px;
+            padding: 1rem;
+            border-radius: 3px;
+            opacity: 0;
+            overflow-y: auto;
+            visibility: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: scale(1.2);
+            transition: all 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+        }
+        #reviewModal .modal .close-modal {
+            position: absolute;
+            cursor: pointer;
+            top: 5px;
+            right: 15px;
+            opacity: 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), transform 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+            transition-delay: 0.3s;
+        }
+        #reviewModal .modal .close-modal svg {
+            width: 1.75em;
+            height: 1.75em;
+        }
+        #reviewModal .modal .modal-content {
+            opacity: 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+            transition-delay: 0.3s;
+        }
+        #reviewModal .modal.active {
+            visibility: visible;
+            opacity: 1;
+            transform: scale(1);
+        }
+        #reviewModal .modal.active .modal-content {
+            opacity: 1; 
+        }
+        #reviewModal .modal.active .close-modal {
+            transform: translateY(10px);
+            opacity: 1;
+        }
+        
+        /**
+        * Mobile styling
+        */
+        @media only screen and (max-width: 39.9375em) {
+
+            
+            #reviewModal .modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 0;
+                transform: scale(1.1);
+                padding: 0 !important;
+            }
+            
+            #reviewModal .close-modal {
+                right: 20px !important;
+            }
+        }
+
+
+
+
+
+
     </style>
 </head>
 <body>
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuStore.html"></nav>
     
+
+
+    
+    <!-- modal -->
+    <div id="reviewModal" class="modal-overlay">
+        <div class="modal">
+        <a class="close-modal">
+            <svg viewBox="0 0 20 20">
+            <path fill="#000000" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+            </svg>
+        </a>
+        <div class="modal-content">
+            <h3>Some content here</h3>
+            <div><input type="text"></div>
+            <div><input type="button" value="버튼"></div>
+        </div>
+        </div>
+    </div>
+
+
+
 
 
 
@@ -177,10 +335,18 @@
                     <div class="col">
                         <h4><strong>후기</strong><span style="margin-left: 10px;color: rgb(119,119,119);">23</span></h4>
                     </div>
-                    <div class="col-xl-3"><button class="btn btn-primary" type="button"
+                    <div class="col-xl-3"><button id="reviewWriteBtn" class="btn btn-primary" type="button"
                             style="width: 120px;color: rgb(244,116,76);background: rgb(255,255,255);margin-left: 45px;border-width: 1px;border-color: rgb(244,116,76);font-size: 15px;"><strong>후기</strong>
                             <strong>작성</strong></button></div>
                 </div>
+
+
+
+
+
+
+
+
                 <div class="row">
                     <div class="col">
                         <p style="font-size: 14px;">상품 구매 후, 후기 작성 시 포인트를 드립니다. (일반 후기 : 50P / 사진 후기 : 150P)</p>
@@ -706,6 +872,18 @@
     $('#deliveryBtn').click(function() {
         document.querySelector('#delivery').scrollIntoView(true);
     })
+
+    let elements = $('.modal-overlay, .modal');
+
+    $('#reviewWriteBtn').click(function(){
+        elements.addClass('active');
+    });
+    
+    $('.close-modal').click(function(){
+        elements.removeClass('active');
+    });
+
+
 
 
     </script>
