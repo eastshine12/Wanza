@@ -40,44 +40,47 @@
         
         <div class="col-xl-6">
 
+            
             <!-- 이벤트 기간 입력 -->
-        
-                <div class="form-group" style="width: 40%;">
-                    <input type="text" class="form-control" id="startDate" placeholder="이벤트 시작일을 입력해주세요 ex(2020/04/14)" >
+            <form id="eventForm">
+                <div class="form-group" style="width: 40%;" id="hideSeq">
+                    <input type="text" class="form-control" id="startDate" placeholder="이벤트 시작일을 입력해주세요 ex(2020/04/14)" name="eventStartDate">
                 </div>
                     <span>~</span>
                 <div class="form-group" style="width: 40%;">
-                    <input type="text" class="form-control" id="endDate" placeholder="이벤트 종료일을 입력해주세요 ex(2020/04/15)" >               
+                    <input type="text" class="form-control" id="endDate" placeholder="이벤트 종료일을 입력해주세요 ex(2020/04/15)" name="eventEndDate">               
                 </div>
            
 
             <!-- 이벤트 제목 입력 -->
             <div class="form-group">
-                <input type="text" class="form-control" id="eventTitle" placeholder="이벤트 제목을 입력 해 주세요">               
+                <input type="text" class="form-control" id="eventTitle" placeholder="이벤트 제목을 입력 해 주세요" name="eventTitle">               
             </div>
             <!-- 이벤트 썸네일 -->
+           
             <div style="margin-bottom: 10px;">
-                <textarea id="eventThumbnail" class="summernote" name="editordata"></textarea>
+                <input type="file" name="eventFile1">
             </div>
+            
             <!-- 이벤트 내용 사진 -->
             <div>
-                <textarea id="eventFile" class="summernote" name="editordata"></textarea>
+                <textarea id="eventFile" class="summernote" name="eventContent"></textarea>
             </div>
             <!-- 관련상품 Radio Button -->
             <div style="margin-top: 10px;">
                 <span>관련 상품을 등록하시겠습니까 ?</span>
                 <div class="form-check-inline">
                     <label class="form-check-label" for="radio1">
-                      <input type="radio" class="form-check-input" id="radioYes" name="optradio" value="yes" onclick=''>네                      
+                      <input type="radio" class="form-check-input" id="radioYes" name="optradio" value="yes">예                      
                     </label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label" for="radio2">
-                      <input type="radio" class="form-check-input" id="radioNo" name="optradio" value="no" checked >아녕
+                      <input type="radio" class="form-check-input" id="radioNo" name="optradio" value="no" checked >아니오
                     </label>
                 </div> 
             </div>
-
+        </form>
            
 
             <!-- 상품 이름 검색 -->
@@ -89,15 +92,17 @@
             <div class="row" style="text-align: center;" id="_productListUp">  
                                      
             </div>
-
+        
             
 
              <!-- 글쓰기 완료 버튼 -->
              <div class="row" style="margin-top: 50px;">
                 <button id="eventWriteBtn" class="btn" type="button" onclick="completeEvent()">이벤트 작성</button>
             </div>
-        </div>
 
+        
+        </div>
+  
         
 
 
@@ -131,8 +136,7 @@
                         app+="<div class='card' style='width: 22%; margin: 1%; padding: 3px;'>"
                             +"<img class='card-img-top' src='http://localhost:3000/upload/"+val.productFileName+"' alt='Card image cap' width='110px' height='150px' style='object-fit: cover;'>"
                             +"<div class='card-img-top'>"
-                            +"<h5 class='card-title'>"+val.productName+"</h5>"
-                            +"<p class='card-text'>"+val.productContent+"</p>"
+                            +"<h5 class='card-title'>"+val.productName+"</h5>"                            
                             +"<button class='btn btn-primary' onclick='addProduct("+val.productSeq+")'>product add</button>"
                             +"</div>"
                             +"</div>";                        
@@ -148,15 +152,21 @@
 
     // 이벤트 작성 완료
     function completeEvent(){
-        $.ajax({
+        var form = $('#eventForm').serialize();
+        alert(form);
+
+         $.ajax({
             url:"http://localhost:3000/eventWrite",
-            type:'post',
-            data:{eventTitle:$("#eventTitle").val(), eventContent: $("#eventFile").val(), eventStartDate:$("#startDate").val(),
-                eventEndDate:$("#endDate").val(), eventFilename:$("#eventThumbnail").val(),  productSeq:$("#_productSeq").val()
-            },
+            type:'post',           
+            data:new FormData($('#eventForm')[0]),
+            enctype:"multipart/form-data",
+			processData:false,
+			contentType:false,
+			cache:false,
             success:function(str){
                 if(str=="suc"){
                     alert("이벤트 등록 성공");
+                    location.href='event.html';
                 }else{
                     alert("이벤트 등록실패");
                 }
@@ -164,7 +174,7 @@
                 alert("error");
             }
 
-        })
+        }) 
        
     }
 
@@ -188,19 +198,20 @@
             isDisabled = true; 
             $.ajax({
                 url:"http://localhost:3000/getProductDetail",
-                type:'get',
+                type:'post',
                 data:{productSeq:seq},
                 success:function(dto){   
                     app="<div class='input-group mb-3' style='width: 50%;' id='_addProduct'>"
                         +"<input type='text' class='form-control' readonly value='"+dto.productName+"'>"
                         +"<div class='input-group-append'>"
                         +"<button class='btn btn-outline-secondary' type='button' onclick='addCancel()'><i class='fa fa-times' aria-hidden='true'></i></button>"
-                        +"</div>"
-                        +"<input type='hidden' id='_productSeq' value="+dto.productSeq+">"
-                        +"</div>";
-                         
-
+                        +"</div>"                        
+                        +"</div>"; 
+                    // form을 걸었을때 의도치 않은 오류로 시퀀스를 다른곳에 숨겼음                    
+                    proSeq = "<input type='hidden' name='productSeq' value='"+dto.productSeq+"'>" ;
+                    $("#hideSeq").append(proSeq);      
                     $("#productNameInput").after(app);
+
                 },error:function(){
                     alert("에러");
                 }
@@ -213,24 +224,6 @@
 
     $("#productNameInput").hide();
 
-
-    //썸네일 서머노트
-      $('#eventThumbnail').summernote({
-          height: 200,                 // 에디터 높이
-          minHeight: 150,             // 최소 높이
-          maxHeight: null,             // 최대 높이
-          focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-          lang: "ko-KR",					// 한글 설정
-          placeholder: '이벤트 썸네일 사진 첨부(사진만 가능)',	//placeholder 설정
-          toolbar: [   
-          //툴바설정
-			    // [groupName, [list of button]]
-			    ['style', ['bold', 'italic', 'underline','strikethrough']],
-			    ['insert',['picture']],
-			    ['view', [ 'help']]
-			    ],
-        
-	  });
 
     // 이벤 내용 서머노트
     $('#eventFile').summernote({
