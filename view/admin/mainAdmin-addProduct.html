@@ -655,6 +655,7 @@ $(document).on('click', '.write_btn', function() {
         success: function (data) {
             console.log(data)
             if (data == "suc") {
+                alert('글 작성 완료');
                 console.log('옵션 작성 완료');
             } else {
                 console.log('옵션 작성 실패');
