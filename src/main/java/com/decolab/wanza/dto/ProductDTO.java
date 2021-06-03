@@ -41,24 +41,6 @@ public class ProductDTO implements Serializable {
 		this.smallCategory = smallCategory;
 	}
 
-
-	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
-			String productMaker, String productFileName, float productRating, String searchText, String largeCategory,
-			String mediumCategory, String smallCategory) {
-		this.productSeq = productSeq;
-		this.productName = productName;
-		this.productContent = productContent;
-		this.productPrice = productPrice;
-		this.productDiscount = productDiscount;
-		this.productMaker = productMaker;
-		this.productFileName = productFileName;
-		this.productRating = productRating;
-		this.searchText = searchText;
-		this.largeCategory = largeCategory;
-		this.mediumCategory = mediumCategory;
-		this.smallCategory = smallCategory;
-	}
-
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating) {
 		super();
