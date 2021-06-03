@@ -481,6 +481,7 @@ $(document).ready(function() {
         }
     });
 
+    // 썸머노트 설정
     $('#_productContent').summernote({
         toolbar:[
                 ['fontname', ['fontname']],
@@ -499,10 +500,47 @@ $(document).ready(function() {
         width: 750,
         minHeight: 400,             // 최소 높이
         maxHeight: null,             // 최대 높이
-        focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
+        focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
         lang: "ko-KR",					// 한글 설정
-        placeholder: "상품 설명 (이미지 첨부)"
+        placeholder: "상품 설명 (이미지 첨부)",
+        //콜백 함수
+        callbacks : { 
+                        onImageUpload : function(files) {
+                            // 파일 업로드(다중업로드를 위해 반복문 사용)
+                                uploadSummernoteImageFile(files[0], this);  
+                        },
+                        onPaste: function (e) {
+                            var clipboardData = e.originalEvent.clipboardData;
+                            if (clipboardData && clipboardData.items && clipboardData.items.length) {
+                                var item = clipboardData.items[0];
+                                if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+                                    e.preventDefault();
+                                }
+                            }
+                        }
+                    }
     });
+
+    // 썸머노트 업로드 이미지 저장
+    function uploadSummernoteImageFile(file, el) {
+        data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            url : "http://192.168.0.231:3000/uploadSummernoteImageFile",
+            data : data,
+            type : "POST",
+            contentType : false,
+            enctype : 'multipart/form-data',
+            processData : false,
+            success : function(data) {
+                console.log('suc');
+                $(el).summernote('editor.insertImage', JSON.parse(data).url);
+            },
+            error: function() {
+                console.log("err");
+            }
+        });
+    }
 
     // 이미지 클릭 시 파일 업로드
     $('.uploadImg').click(function(e) {
@@ -511,19 +549,33 @@ $(document).ready(function() {
         $('#_file').click();
     })
 
-
+    // 상품 옵션 추가
     $('#addOption').click(function() {
 
         let name = $('#optionName').val();
+        if(name == "") {
+            alert('추가할 옵션 이름을 작성해주세요.');
+            return;
+        }
+        for(let i=1; i<=$('input[name=optionTitle]').length; i++) {
+            if($('#optionTitle_'+i).val() == name) {
+                alert('이미 추가된 옵션입니다. ');
+                $('#optionName').val("");
+                return;
+            }
+        }
+
         let seq = $('input[name=addSubOption]').length + 1;
         let app = '<tr id="option_'+seq+'">'
             + '<th scope="row"><input type="hidden" id="optionSeq" name="optionSeq" value="1"></th>'
-            + '<td><h5 style="text-align: center;"><b>'+name+'</b></h5><input type="hidden" name="optionTitle" value="'+name+'"></td>'
+            + '<td><h5 style="text-align: center;"><b>'+name+'</b></h5><input type="hidden" id="optionTitle_'+seq+'" name="optionTitle" value="'+name+'"></td>'
             + '<td><input type="text" class="form-control" name="optionContent" placeholder="옵션항목"></td>'
             + '<td><input type="text" class="form-control" name="optionPrice" placeholder="옵션가격"></td>'
             + '<td><input type="button" id="addSubOption" class="tab_btn" name="addSubOption" seq="'+seq+'" value="+"></td>'
             + '</tr>';            
         $('#option').before(app);
+
+        $('#optionName').val("");
     });
 
 
@@ -532,12 +584,14 @@ $(document).ready(function() {
 });
 
 
+// 상품 옵션항목 추가
 $(document).on('click', "input[name=addSubOption]", function() {
     let seq = $(this).attr('seq');
     let subSeq = $('th[name=countSubOption_'+seq+']').length;
+    let opTitle = $('#optionTitle_'+seq).val();
     let app = '<tr id="subOption_'+seq+'_'+subSeq+'">'
             + '<th name="countSubOption_'+seq+'" scope="row"></th>'
-            + '<td><input type="hidden" name="optionTitle" value="색상"></td>'
+            + '<td><input type="hidden" name="optionTitle" value="'+opTitle+'"></td>'
             + '<td><input type="text" class="form-control" name="optionContent" placeholder="옵션항목"></td>'
             + '<td><input type="text" class="form-control" name="optionPrice" placeholder="옵션가격"></td>'
             + '<td></td>'
@@ -554,43 +608,56 @@ $(document).on('click', "input[name=addSubOption]", function() {
 
     
 $(document).on('click', '.write_btn', function() { 
-    /*
+    
+
     $.ajax({
         url: "http://192.168.0.231:3000/writeProduct",
         type: "post",
         data: new FormData($('#upload_frm')[0]),
         enctype:"multipart/form-data",
+        async: false,
         processData:false,
         contentType:false,
         cache:false,
         success: function (data) {
             console.log(data)
             if (data == "suc") {
-                alert('작성완료.');
+                console.log('글작성 완료');
             } else {
-                alert('작성실패');
+                console.log('글작성 실패');
             }
         },
         error: function () {
             alert('addProduct error');
         }
     });
-    */
+    
+    let opTitleLen = $('input[name=optionTitle]').length;   // 추가된 옵션 총 길이
+    //alert(opTitleLen);
+    let optionList = new Array(); // 옵션들을 담을 리스트 생성
+    for(let i=0; i<opTitleLen; i++) {
+        let data = new Object();    // JSON 형식
+        data.optionSeq = $('input[name=optionSeq]').eq(i).val();
+        data.optionTitle = $('input[name=optionTitle]').eq(i).val();
+        data.optionContent = $('input[name=optionContent]').eq(i).val();
+        data.optionPrice = $('input[name=optionPrice]').eq(i).val()!=""?$('input[name=optionPrice]').eq(i).val():0;
+        optionList.push(data);
+    }
 
-
+    let jsonData = JSON.stringify(optionList);
+    //alert(jsonData);
 
     $.ajax({
         url: "http://192.168.0.231:3000/writeProductOption",
-        type: "post",
-        data: {
-            optionTitle : $('input[name=optionTitle]').val()
-        },
+        method: "post",
+        data: jsonData,
+        contentType : "application/json; charset=UTF-8",
         success: function (data) {
             console.log(data)
             if (data == "suc") {
-                alert('작성완료.');
+                console.log('옵션 작성 완료');
             } else {
-                alert('작성실패');
+                console.log('옵션 작성 실패');
             }
         },
         error: function () {
@@ -598,6 +665,7 @@ $(document).on('click', '.write_btn', function() {
         }
     });
     
+
 
 });
 
@@ -689,6 +757,7 @@ function changeMedium(e) {
     }  
 
 }
+
 
 function changeSmall(e) {
     
