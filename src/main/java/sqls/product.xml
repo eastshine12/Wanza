@@ -34,9 +34,9 @@
 	       LARGECATEGORY, MEDIUMCATEGORY,SMALLCATEGORY
 	FROM PRODUCTIONS P, PRODUCTION_TAG T
 	WHERE P.PRODUCTSEQ=T.PRODUCTSEQ
-	<if test='largeCategory neq null'>AND LARGECATEGORY=#{largeCategory}</if>
-	<if test='mediumCategory neq null'>AND MEDIUMCATEGORY=#{mediumCategory}</if>
-	<if test='smallCategory neq null'>AND SMALLCATEGORY=#{smallCategory}</if>
+	<if test='largeCategory neq null and largeCategory neq ""'>AND LARGECATEGORY=#{largeCategory}</if>
+	<if test='mediumCategory neq null and mediumCategory neq ""'>AND MEDIUMCATEGORY=#{mediumCategory}</if>
+	<if test='smallCategory neq null and smallCategory neq ""'>AND SMALLCATEGORY=#{smallCategory}</if>
 	ORDER BY PRODUCTSEQ DESC
 </select>
   
