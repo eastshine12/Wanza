@@ -20,16 +20,15 @@ public class ProductDTO implements Serializable {
 	private String largeCategory;
 	private String mediumCategory;
 	private String smallCategory;
+	private int sort;
 	
 	public ProductDTO() {
 		// TODO Auto-generated constructor stub
 	}
-		
 	
-
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating, Date productDate, String searchText,
-			String largeCategory, String mediumCategory, String smallCategory) {
+			String largeCategory, String mediumCategory, String smallCategory, int sort) {
 		super();
 		this.productSeq = productSeq;
 		this.productName = productName;
@@ -44,9 +43,8 @@ public class ProductDTO implements Serializable {
 		this.largeCategory = largeCategory;
 		this.mediumCategory = mediumCategory;
 		this.smallCategory = smallCategory;
+		this.sort = sort;
 	}
-
-
 
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating) {
@@ -176,7 +174,13 @@ public class ProductDTO implements Serializable {
 		this.productDate = productDate;
 	}
 
+	public int getSort() {
+		return sort;
+	}
 
+	public void setSort(int sort) {
+		this.sort = sort;
+	}
 
 	@Override
 	public String toString() {
@@ -184,10 +188,7 @@ public class ProductDTO implements Serializable {
 				+ productContent + ", productPrice=" + productPrice + ", productDiscount=" + productDiscount
 				+ ", productMaker=" + productMaker + ", productFileName=" + productFileName + ", productRating="
 				+ productRating + ", productDate=" + productDate + ", searchText=" + searchText + ", largeCategory="
-				+ largeCategory + ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory + "]";
+				+ largeCategory + ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory + ", sort=" + sort + "]";
 	}
-
-
-
 
 }
