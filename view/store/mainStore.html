@@ -408,6 +408,11 @@ $(document).ready(function() {
     $('#navcol-2 .down_list').click(function(){ //카테고리 이동
         $('.top_slider, .store_main_head, .submenu_wrap').hide();        
         let b_sort = $(this).text().trim()
+        console.log(b_sort)
+        if(b_sort==''){
+            b_sort = $(this).parents('.nav-item').text().split(' ')[0].trim()
+        }
+        console.log(b_sort)
         $('.store_head span').text(b_sort);
         setCategory(b_sort)
         
@@ -609,7 +614,7 @@ function setPdata(){
         }
     });
     let sort = $('.btn_pop').val();
-
+    console.log(mc+sc)
     let param='{"largeCategory":"'+lc+'",';
     param += '"mediumCategory":"'+mc+'",';
     param += '"smallCategory":"'+sc+'",';
