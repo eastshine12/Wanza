@@ -54,33 +54,6 @@
         color: #757575;
     }
 
-    button{
-      border: none;
-      color: white;
-      padding: 16px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      transition-duration: 0.4s;
-      cursor: pointer;
-      
-    }
-
-    .eventBtn {
-      background-color: white; 
-      color: coral; 
-      border: 2px solid coral;
-      font-weight: bold;
-      border-radius: 10px;
-    }
-
-    .eventBtn:hover {
-      background-color: coral;
-      color: white;
-      border-radius: 10px;
-    }
 
     
 </style>
@@ -94,10 +67,7 @@
         
         <div class="col-xl-8">
 
-            <!-- 관리자만 보이게.. 설정할 것 -->
-            <div align='right' style="margin: 2%;" onclick="goEventWrite()">
-            <button class="eventBtn">이벤트 등록</button>
-            </div>
+
             <!-- 이벤트 썸네일 div -->
 
         
@@ -115,34 +85,34 @@
 
 <script>
     $(document).ready(function(){
-    
-    function goEventWrite(){
-        location.href='eventWrite.html';
-    }
-    let today = new Date();   
-    let year = today.getFullYear(); // 년도
-    let month = today.getMonth() + 1;  // 월
-    let date = today.getDate();  // 날짜
 
-    let today2 = year+"/"+month+"/"+date; // 현재 날짜
-
-    
+        // 현재 날짜 설정
+        let today = new Date();   
+        let year = today.getFullYear(); // 년도
+        let month = today.getMonth() + 1;  // 월
+        let date = today.getDate();  // 날짜
+        let today2 = year+"/"+month+"/"+date; // 현재 날짜
 
     $.ajax({
         url:"http://localhost:3000/getEventList",
         type:"get",
-        success:function(list){           
+        success:function(list){          
             app = "";
             $.each(list,function(i,val){
                 app += "<div class='boxbox'>"
                     +"<div class='hoverimg'>"                        
-                    +"<a href='./eventDetail.html?eventSeq="+val.eventSeq+"'>"    
+                    +"<a href='./eventDetail.html?eventSeq="+val.eventSeq+"&productSeq="+val.productSeq+"'>"    
                     +"<img class='profile' src='http://localhost:3000/upload/"+val.eventFilename+"'>"
                     +"</a>"                   
                     +"</div>"
-                    +"<div>"
-                    +"<p style='float: left;' class='eprogress2'>종료</p>"
-                    +"<p style='float: right;' class='eventdate'>"+val.eventStartDate+" ~ "+ val.eventEndDate+"</p>"
+                    +"<div>";
+                    // 현재 날짜보다 이벤트종료일이 크다면    
+                    if(new Date(val.eventEndDate) > new Date(today2) == true){
+                    app+="<p style='float: left;' class='eprogress'>진행중</p>";
+                    }else{
+                    app += "<p style='float: left;' class='eprogress2'>종료</p>";                    
+                    }                    
+                    app+="<p style='float: right;' class='eventdate'>"+val.eventStartDate+" ~ "+ val.eventEndDate+"</p>"
                     +"</div>"
                     +"</div>";
             })  
@@ -154,14 +124,6 @@
 
     })
 
-    
-    //$(".boxbox .hoverimg p img").addClass("profile");
-    //$(".boxbox .hoverimg img").addClass("profile");
-    $('div .hoverimg').find('img').attr('class','profile');
-
-    //$('.hoverimg').find('img').addClass('profile');
-    //$('.hoverimg').children(' a img ').addClass('profile');
-    //console.log($(".boxbox .hoverimg img").attr('class','profile'));
  
 
 

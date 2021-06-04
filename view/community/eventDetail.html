@@ -16,6 +16,21 @@
 
         object-fit: cover;
     }
+    .star-rating {
+            width:100px; 
+        }
+        .star-rating,.star-rating span { 
+            display:inline-block; 
+            height:18px; 
+            overflow:hidden; 
+            background:url(../../assets/img/star.png)no-repeat; 
+            background-size: 100px;
+        }
+        .star-rating span{ 
+            background-position:left bottom; 
+            line-height:0; 
+            vertical-align:top; 
+        }
     </style>
 
 
@@ -32,25 +47,47 @@
 
         <div class="col-xl-6">
 
-            <div align='center'>
-                <img class='eventdetail' src="../../assets/img/161733895461692149.jpg">
-            </div>
+                <div class="row" style="margin-top: 50px; margin-bottom: 50px; margin-left: 1px; margin-right: 3px;">
+                    <div class="col-md-7">
+                        <a href="" id="imgHref"><img class="rProduct" src="" width="500px" height="300px" style="object-fit: fill; border-radius: 5px;" ></a>
+                    </div>
+                    <div class="col-md-5" style="text-align: left;">
+                        <h5><strong>관련상품</strong></h5>
+                        <div class="row">
+                            <div class="col"
+                                style="font-family: 'Noto Sans KR', sans-serif;height: 128px;width: 250px;margin-top: 14px;border-bottom: 1px none rgb(99,99,99) ;" algin='center'>
+                                <h5 id="maker" style="font-size: 15px; color: rgb(104, 104, 104);"><!--제품회사이름-->얼라</h5>
+                                <a href="" style="color: black;" id="titleHref"><h1 id="title" style="font-size: 28px;"><!--제목-->상품이름</h1></a>
+                                <div>
+                                    <span class="star-rating">
+                                        <span id="starRating"></span>
+                                    </span>
+                                    <span id="rating" style="font-size: 20px; margin-left: 10px;"><!--별점--></span>                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div style="border-bottom: 1px solid rgb(99,99,99);height: 70px;font-family: 'Noto Sans KR', sans-serif;text-align: left;">
+                                    <span style="font-size: 17px;width: auto;color: rgb(99,99,99);">
+                                        <span id="costPrice" style="text-decoration: line-through;"><!--정가--></span>
+                                        <span id="sellPrice" style="margin: 10px;font-size: 27px;margin-left: 17px;color: rgb(0,0,0);margin-top: 10px;padding: 0px;padding-top: 0px;">
+                                            <strong id="discountPrice"><!--판매가--></strong>원
+                                        </span>
+                                    </span>
+                                    <span style="margin: 10px;font-size: 24px;margin-left: 0px;color: rgb(244,116,76);margin-top: 10px;padding: 0px;padding-top: 0px;">
+                                    <strong id="discountRate"><!--할인율--></strong></span>
+                                </div>
+                            </div>
+                        </div>
 
-            <div align='center'>
-                <img class='eventdetail' src="../../assets/img/161733896409095039.jpg">
-            </div>
+                    </div>
+                </div>
+             
 
-            <div align='center'>
-                <img class='eventdetail' src="../../assets/img/161733897226544577.jpg">
-            </div>
 
-            <div align='center'>
-                <img class='eventdetail' src="../../assets/img/161733897611447480.jpg">
-            </div>
 
-            <div align='center'>
-                <img class='eventdetail' src="../../assets/img/161733898400042825.jpg">
-            </div>
+
         </div>
 
         <div class="col-xl-3"></div>
@@ -63,4 +100,97 @@
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
+
+<script>
+$(document).ready(function(){
+
+     //할인 퍼센테이지 계산
+     function discountRate(price, discount) {
+        return Math.ceil(discount / price * 100);
+    };
+      // 금액 콤마 삽입 정규식
+      function makeComma(str) {
+
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    };
+
+
+    // event.html -> eventDetail 로 넘긴 parameter
+    let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
+    return paramPair.split(/=(.+)?/).slice(0, 2);
+        }).reduce(function(obj, pairArray) {
+            obj[pairArray[0]] = pairArray[1];
+            return obj;
+        }, {});
+
+        //alert(urlParams.eventSeq);
+
+
+
+    $.ajax({
+        url:"http://localhost:3000/eventDetail",
+        type:"post",
+        data:{eventSeq:urlParams.eventSeq},
+        success:function(list){
+            let app ="<div align='center'>"
+                    +list.eventContent
+                    +"</div>";
+    
+                $(".col-xl-6").prepend(app);
+        },
+        error:function(){
+            alert("event Detail error");
+        }        
+    })
+    // 관련 상품 보여주기
+    $.ajax({
+        url:"http://localhost:3000/getProductDetail",
+        type:"post",
+        data:{productSeq:urlParams.productSeq},
+        success:function(data){
+            $("#titleHref").attr("href","../store/storeDetail.html?seq="+data.productSeq);
+            $(".rProduct").attr("src","http://localhost:3000/upload/"+data.productFileName)
+            $("#imgHref").attr("href","../store/storeDetail.html?seq="+data.productSeq);
+            $("#maker").text(data.productMaker);
+            $("#title").text(data.productName);
+            $('#starRating').css('width', (data.productRating*20+2)+'%');           
+            $("#rating").text(data.productRating);
+            if(data.productDiscount != 0){ // 할인상품이라면
+                $("#costPrice").text(data.productPrice);
+                $("#discountPrice").text(data.productDiscount);
+                $("#discountRate").text(discountRate(data.productPrice,data.productDiscount)+"%");               
+            }else{
+                $("#discountPrice").text(data.productPrice);
+            }
+
+            
+
+            
+          
+
+
+
+        },
+        error:function(){
+            alert("product error");
+        }
+
+    })
+
+
+
+
+
+
+
+
+
+
+})
+
+</script>
+
+
+
 </html>
