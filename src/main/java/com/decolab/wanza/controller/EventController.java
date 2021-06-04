@@ -51,12 +51,9 @@ public class EventController {
 		
 		System.out.println("filepath :" + filepath);
 		dto.setEventFilename(newFilename);
-
-		System.out.println("dto 들어오나 : "+dto.toString());
 		
 		try {
 			BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-			System.out.println("11111111111111111111111111 ");
 			os.write(eventFilename.getBytes());
 			os.close();
 		} catch (Exception e) {
@@ -64,18 +61,9 @@ public class EventController {
 			e.printStackTrace();
 			return "file upload fail";
 		}
-		System.out.println("2222222222222222222222222222222");
+
 		 return service.eventWrite(dto)>0?"suc":"err";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -84,4 +72,13 @@ public class EventController {
 		System.out.println("EventController getEventList() " + new Date());
 		return service.getEventList(dto);
 	}
+	
+	@RequestMapping(value = "/eventDetail", method = {RequestMethod.GET,RequestMethod.POST})
+	public EventDTO eventDetail(EventDTO dto) {
+		System.out.println("EventController eventDetail() " + new Date());
+		
+		return service.eventDetail(dto);		
+	}
+	
+	
 }

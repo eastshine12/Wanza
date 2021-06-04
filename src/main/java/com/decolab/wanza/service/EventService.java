@@ -24,4 +24,7 @@ public class EventService {
 		return dao.getEventList(dto);
 	}
 
+	public EventDTO eventDetail(EventDTO dto) {
+		return dao.eventDetail(dto);
+	}
 }
