@@ -120,7 +120,7 @@
 <!-- purchase_product 테이블 DB 삽입 -->
 <insert id="addPurchase" parameterType="com.decolab.wanza.dto.OrderDTO">
 	INSERT INTO PURCHASE_PRODUCT
-	VALUES (SEQ_PURC_PROD.NEXTVAL, #{orderSeq}, #{productSeq}, #{userSeq}, #{selectOption}, #{quantity}, #{price})
+	VALUES (SEQ_PURC_PROD.NEXTVAL, #{orderSeq}, #{productSeq}, #{userSeq}, #{selectOption}, #{quantity}, #{price}, SYSDATE)
 </insert>
 
 
