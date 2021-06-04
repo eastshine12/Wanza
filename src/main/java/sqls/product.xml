@@ -9,8 +9,12 @@
 
 <!-- 메인 상품글 리스트 가져오기 -->
 <select id="getProductList" resultType="com.decolab.wanza.dto.ProductDTO">
-	SELECT PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING
-	FROM PRODUCTIONS
+	SELECT P.PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING,
+         NVL((SELECT COUNT(*) 
+          FROM PRODUCTION_REVIEW R 
+          WHERE R.PRODUCTSEQ=P.PRODUCTSEQ 
+          GROUP BY R.PRODUCTSEQ), 0) AS REVIEWCOUNT
+	FROM PRODUCTIONS P
 	ORDER BY PRODUCTSEQ DESC
 </select>
 
@@ -47,5 +51,48 @@
 		<otherwise> ORDER BY PRODUCTSEQ DESC</otherwise>
 	</choose>
 </select>
-  
+
+
+<!-- 유저가 구매한 상품인지 조회 & 구매 상품 정보,옵션 가져오기 -->
+<select id="getUserPurchase" parameterType="com.decolab.wanza.dto.PurchaseProductDTO" resultType="com.decolab.wanza.dto.PurchaseProductDTO">
+	SELECT *
+	FROM (SELECT * FROM PURCHASE_PRODUCT WHERE REVIEWSTATUS=0 ORDER BY PURCHASESEQ)
+	WHERE PRODUCTSEQ=#{productSeq} AND USERSEQ=#{userSeq} AND ROWNUM=1
+</select>
+
+
+<!-- 상품 리뷰 글 작성 -->
+<insert id="addProductReview" parameterType="com.decolab.wanza.dto.ProductReviewDTO">
+	INSERT INTO PRODUCTION_REVIEW
+	VALUES(SEQ_PRODUCT_REV.NEXTVAL, #{productSeq}, #{userSeq}, #{purchaseSeq}, #{productRevContent}, #{productRevFileName}, SYSDATE, 0, #{productRevRating})
+</insert>
+
+<!-- 리뷰 status 1로 변경 -->
+<update id="updateReviewStatus" parameterType="com.decolab.wanza.dto.ProductReviewDTO">
+	UPDATE PURCHASE_PRODUCT
+	SET REVIEWSTATUS=1
+	WHERE PURCHASESEQ=#{purchaseSeq}
+</update>
+
+
+<!-- 해당 상품의 모든 리뷰글 가져오기 -->
+<select id="getProductReviewList" parameterType="com.decolab.wanza.dto.ProductReviewDTO" resultType="com.decolab.wanza.dto.ProductReviewDTO">
+	SELECT PRODUCTREVCONTENT, PRODUCTREVFILENAME, PRODUCTREVDATE, PRODUCTREVRATING, NICKNAME
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY PRODUCTREVDATE DESC) AS RNUM, USERSEQ, PRODUCTREVCONTENT, PRODUCTREVFILENAME, PRODUCTREVDATE, PRODUCTREVRATING FROM PRODUCTION_REVIEW WHERE PRODUCTSEQ=#{productSeq} AND PRODUCTREVDEL=0) R, USERS U
+	WHERE R.USERSEQ=U.USERSEQ AND RNUM&gt;=1+4*#{productRevPageNum} AND RNUM&lt;=4+4*#{productRevPageNum}
+	ORDER BY PRODUCTREVDATE DESC
+</select>
+
+
+<!-- 리뷰 총 개수 -->
+<select id="getProductReviewCount" parameterType="com.decolab.wanza.dto.ProductReviewDTO" resultType="int">
+	SELECT NVL(COUNT(*), 0)
+	FROM PRODUCTION_REVIEW
+	WHERE PRODUCTSEQ=#{productSeq} AND PRODUCTREVDEL = 0
+</select>
+
+
+<!-- 리뷰 삭제 -->
+
+
 </mapper>
