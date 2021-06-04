@@ -14,5 +14,7 @@ public interface EventDAO {
 	public int eventWrite(EventDTO dto);
 	
 	public List<EventDTO> getEventList(EventDTO dto);
+	
+	public EventDTO eventDetail(EventDTO dto);
 
 }

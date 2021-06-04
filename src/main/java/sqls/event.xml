@@ -17,6 +17,12 @@
 	ORDER BY EVENTENDDATE DESC,EVENTSTARTDATE DESC
 </select>
 
+<select id="eventDetail" resultType="com.decolab.wanza.dto.EventDTO" parameterType="com.decolab.wanza.dto.EventDTO">
+	SELECT EVENTSEQ, EVENTTITLE,EVENTCONTENT,EVENTREADCOUNT,EVENTDATE,EVENTSTARTDATE,EVENTENDDATE,EVENTFILENAME,EVENTDEL,PRODUCTSEQ
+	FROM EVENT
+	WHERE EVENTSEQ = #{eventSeq}
+</select>
+
 
 
 </mapper>
