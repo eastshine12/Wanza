@@ -96,7 +96,6 @@ $(document).ready(function() {
         sessionStorage.removeItem('login');
         location.href = '../../index.html';
     });
-        
 
     // 실시간 검색어 슬라이드
     function tick() {
