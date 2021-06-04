@@ -224,7 +224,7 @@
 
     //할인 퍼센테이지 계산
     function discountRate(price, discount) {
-        return Math.ceil(discount/price*100);
+        return Math.ceil(100- (discount/price*100));
     };
 
     // '인기 상품' 리스트
@@ -265,7 +265,7 @@
                             app += '<span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span>';
                         }
 
-                        app += '<div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 5px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰</b> </div>'
+                        app += '<div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 5px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰 </b>' + val.reviewCount + '</div>'
                             +  '</article>'
                             +  '</div >';
 

@@ -11,6 +11,10 @@
 
     <title>완벽한 자취생활, 완자</title>
     <style>
+
+
+
+
         #sidebox {
             background-color:#ffffff00;
             position: relative;
@@ -39,12 +43,309 @@
             top: 0px;
             background-color: white;
         }
+
+
+
+
+
+
+
+        /**
+        * Variables
+        */
+        /**
+        * Base styles
+        */
+        @media only screen and (min-width: 40em) {
+            #reviewModal.modal-overlay {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 5;
+                background-color: rgba(0, 0, 0, 0.6);
+                opacity: 0;
+                visibility: hidden;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), visibility 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+            }
+            #reviewModal.modal-overlay.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+        /**
+        * Modal
+        */
+        #reviewModal .modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.267);
+            width: 835px;
+            max-width: 75rem;
+            height: 760px;
+            padding: 1.2rem;
+            border-radius: 3px;
+            opacity: 0;
+            overflow-y: auto;
+            visibility: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: scale(1.2);
+            transition: all 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+        }
+        #reviewModal .modal .close-modal {
+            position: absolute;
+            cursor: pointer;
+            top: 5px;
+            right: 15px;
+            opacity: 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), transform 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+            transition-delay: 0.3s;
+        }
+        #reviewModal .modal .close-modal svg {
+            width: 1.75em;
+            height: 1.75em;
+        }
+        #reviewModal .modal .modal-content {
+            opacity: 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+            transition-delay: 0.3s;
+            background-color: rgb(255, 255, 255);
+            padding: 30px;
+        }
+        #reviewModal .modal.active {
+            visibility: visible;
+            opacity: 1;
+            transform: scale(1);
+        }
+        #reviewModal .modal.active .modal-content {
+            opacity: 1; 
+        }
+        #reviewModal .modal.active .close-modal {
+            transform: translateY(10px);
+            opacity: 1;
+        }
+        
+        /**
+        * Mobile styling
+        */
+        @media only screen and (max-width: 39.9375em) {
+
+            
+            #reviewModal .modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 0;
+                transform: scale(1.1);
+                padding: 0 !important;
+            }
+            
+            #reviewModal .close-modal {
+                right: 20px !important;
+            }
+        }
+
+
+
+        /* star rating */
+
+        
+        .star-label {
+            cursor: pointer;
+            font-size: 40px;
+            color: rgb(244,116,76);
+            display: block;
+            width: 49px;
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+            float: left;
+            -moz-transition: all 0.2s;
+            -o-transition: all 0.2s;
+            -webkit-transition: all 0.2s;
+            transition: all 0.2s;
+            text-shadow: 0 4px 4px #6c778896;
+        }
+        .star-label:hover {
+            font-size: 50px;
+            color: rgb(240, 177, 158);;
+            text-shadow: 0 0 5px #b9c9d8;
+        }
+
+        .star-label:active {
+            color: rgb(243, 96, 51);
+            transform: translateY(3px);
+        }
+
+
+
+
+
+        .star-label:before {
+            display: inline;
+            width: auto;
+            height: auto;
+            line-height: normal;
+            vertical-align: baseline;
+            margin-top: 0;
+            font-family: FontAwesome;
+            font-weight: normal;
+            font-style: normal;
+            text-decoration: inherit;
+            -webkit-font-smoothing: antialiased;
+            content: "\f005";
+        }
+        
+        input:checked + .star-label ~ .star-label:before {
+            content: "\f006";
+        }
+        
+        #wrapper {
+            display: inline-block;
+            text-align: center;
+        }
+        
+        #wrapper:hover .star-label:before {
+            content: "\f005";
+        } 
+
+        #wrapper:hover .star-label:hover ~ .star-label:before {
+            content: "\f006";
+        }
+
+
+        .uploadImg {
+            height:230px;
+            width: 230px;
+            filter: brightness(105%);
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .uploadImg:hover {
+            filter: brightness(85%);
+        }
+        .uploadImg:active {
+            filter: brightness(115%);
+            transform: translateY(2px);
+        }
+
+
+
+        /* 결제 버튼 */
+        .review_write_btn{
+            width: 140px;
+            height: 45px;
+            margin: 10px 0;
+            border-radius: 5px;
+            color: white;
+            border: none;
+            background-color: #f4744c;
+            font: 1.2em bold;
+        }
+        .review_write_btn:hover{
+            color: #f4744c;
+            background-color: white;
+            border: 0.5px solid #f4744c;
+        }
+
     </style>
 </head>
 <body>
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuStore.html"></nav>
     
+
+
+    
+    <!-- modal -->
+    <div id="reviewModal" class="modal-overlay">
+        <div class="modal">
+        <a class="close-modal">
+            <svg viewBox="0 0 20 20">
+            <path fill="#000000" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+            </svg>
+        </a>
+        <div class="modal-content">
+            <form id="upload_frm">
+                <input type="hidden" id="purchaseSeq" name="purchaseSeq">
+                <input type="hidden" id="reviewProductSeq" name="productSeq">
+                <input type="hidden" id="reviewUserSeq" name="userSeq">
+                <div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col" style="margin-top: 20px; margin-bottom: 1px;">
+                            <p style="font-size: 30px; font-weight: 500;">해당 상품이 마음에 드셨나요? 상품을 평가해주세요.</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="margin:25px 0px;">
+                        <div class="col-xl-2" style="margin-top: 20px;">
+                            <img id="reviewProductImg" src="../../assets/img/1582386824.jpg" style="width: 90px; height: 90px; border-radius: 5px; margin-left: 3px;">
+                        </div>
+                        <div class="col-xl-4 offset-xl-0" style="padding-top: 7px; padding-left: 30px;">
+                            <div class="row">
+                                <p id="reviewProductTitle" style="font-size: 19px;" style="display : flex; align-items:center; font-weight: 500;">모노 서랍장 3/4/5단 서랍장</p>
+                            </div>
+                            <div class="row">
+                                <p style="font-size: 13px;"><span id="opKey">옵션명</span><span> : </span><span id="opValue">옵션항목</span><span>&ensp;&ensp;개수 : </span><span id="productCount">0</span><span>개</span></p>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 offset-xl-1">
+                            <div id="wrapper" style="width: 250px; margin-top: 30px; margin-left: 30px;">
+                                <input type="radio" id="star1" class="star-rating-icon" name="productRevRating" style="display: none;" value="1" checked/>
+                                <label for="star1" class="star-label"></label>
+                                <input type="radio" id="star2" class="star-rating-icon" name="productRevRating" style="display: none;" value="2"/>
+                                <label for="star2" class="star-label"></label>
+                                <input type="radio" id="star3" class="star-rating-icon" name="productRevRating" style="display: none;" value="3"/>
+                                <label for="star3" class="star-label"></label>
+                                <input type="radio" id="star4" class="star-rating-icon" name="productRevRating" style="display: none;" value="4"/>
+                                <label for="star4" class="star-label"></label>
+                                <input type="radio" id="star5" class="star-rating-icon" name="productRevRating" style="display: none;" value="5"/>
+                                <label for="star5" class="star-label"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="margin-top: 25px; margin-bottom: 10px;">   
+                        <div class="col">
+                            <textarea id="reviewContent" name="productRevContent" style="width: 435px; height: 230px; resize: none; background-color: #ececec; border: none; border-radius: 8px; padding: 15px;" placeholder="상품에 대한 리뷰를 남겨주세요. 상품 사진을 추가하시면 적립포인트 100P를 추가로 드립니다. "></textarea>
+                        </div>
+                        <div class="col">
+                            <img src="../../assets/img/imgUpload.png" id="_uploadImg" class="uploadImg">
+                            <input type="file" id="_file" name="fileName" style="display:none;">
+                            <input type="hidden" id="_target_url" name="target_url">
+                        </div>
+                    </div> 
+                    
+                    <div class="row" style="float: right; margin-right: 10px;">
+                        <input type="button" class="review_write_btn" value="작성하기">
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <!-- modal end -->
+
+
 
 
 
@@ -79,7 +380,7 @@
                             <span id="starRating"></span>
                         </span>
                         <span id="rating" style="font-size: 20px;margin-left: 14px;"><!--별점-->></span>
-                        <span style="margin-left: 20px;font-size: 14px;color: rgb(99,99,99);">후기 145</span>
+                        <span style="margin-left: 20px;font-size: 14px;color: rgb(99,99,99);">후기 <span name="reviewCount"></span></span>
                     </div>
                 </div>
             </div>
@@ -156,7 +457,7 @@
                         </li>
                         <li class="nav-item">
                             <div class="nav-link" id="reviewBtn" style="cursor: pointer; color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
-                                후기 145</div>
+                                후기 <span name="reviewCount"></span></div>
                         </li>
                         <li class="nav-item">
                             <div class="nav-link" id="questionBtn" style="cursor: pointer; color: rgb(99,99,99);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
@@ -175,12 +476,20 @@
 
                 <div id="review" class="row" style="margin-top: 70px; margin-bottom: 5px;">
                     <div class="col">
-                        <h4><strong>후기</strong><span style="margin-left: 10px;color: rgb(119,119,119);">23</span></h4>
+                        <h4><strong>후기</strong><span name="reviewCount" style="margin-left: 10px;color: rgb(119,119,119);">23</span></h4>
                     </div>
-                    <div class="col-xl-3"><button class="btn btn-primary" type="button"
+                    <div class="col-xl-3"><button id="reviewWriteBtn" class="btn btn-primary" type="button"
                             style="width: 120px;color: rgb(244,116,76);background: rgb(255,255,255);margin-left: 45px;border-width: 1px;border-color: rgb(244,116,76);font-size: 15px;"><strong>후기</strong>
                             <strong>작성</strong></button></div>
                 </div>
+
+
+
+
+
+
+
+
                 <div class="row">
                     <div class="col">
                         <p style="font-size: 14px;">상품 구매 후, 후기 작성 시 포인트를 드립니다. (일반 후기 : 50P / 사진 후기 : 150P)</p>
@@ -285,41 +594,47 @@
                         </div>
                     </div>
                 </div>
-                <div class="row"
-                    style="padding-top: 10px;padding-left: 0px;padding-bottom: 20px;border-bottom: 1px solid rgb(150,150,150) ;">
+
+                <div id="productReview"></div>
+                <!-- 리뷰 글 리스트 -->
+
+                <!-- <div class="row" style="padding-top: 18px;padding-left: 0px;padding-bottom: 20px;border-bottom: 1px solid rgb(150,150,150) ;">
                     <div class="col">
                         <div class="row">
-                            <div class="col"><span style="font-size: 17px;">★★★★★</span><span
-                                    style="margin-left: 10px;font-size: 15px;">nickname01</span><span
-                                    style="margin-left: 5px;">&nbsp;·&nbsp;</span><span
-                                    style="margin-left: 10px;font-size: 13px;">2021.01.01</span></div>
+                            <div class="col"><span style="font-size: 17px;">★★★★★</span>
+                                <span style="margin-left: 10px;font-size: 15px;">nickname01</span>
+                                <span style="margin-left: 5px;">&nbsp;·&nbsp;</span>
+                                <span style="margin-left: 10px;font-size: 13px;">2021.01.01</span>
+                            </div>
                         </div>
                         <div class="row">
-                            <div class="col"><span style="font-size: 14px;"><br>우리집 고영희가 좋아해요. 그럼 다 된거에요. 이만한 가성비 오지는 제품이 없습니다. 판매자님 많이
-                                    팔아 부자되시고 건강하십시오.<br><br></span></div>
+                            <div class="col" style="margin: 25px 0px;">
+                                <span style="font-size: 14px;">
+                                    우리집 고영희가 좋아해요. 그럼 다 된거에요. 이만한 가성비 오지는 제품이 없습니다. 판매자님 많이
+                                    팔아 부자되시고 건강하십시오.
+                                </span>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col"><img src="../../assets/img/1582386824.jpg" width="130px" style="border-radius: 10px;"></div>
                         </div>
                     </div>
-                </div>
-                <div class="row" style="padding-top: 15px;">
-                    <div class="col offset-xl-4">
-                        <nav>
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span
-                                            aria-hidden="true">«</span></a></li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span
-                                            aria-hidden="true">»</span></a></li>
-                            </ul>
+                </div> -->
+
+
+
+                <!-- Pagination -->
+                <div class="row" style="margin-top: 20px;" style="justify-content:center;">
+                    <div class="col offset-xl-3">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination" id="pagination"></ul>
                         </nav>
                     </div>
                 </div>
+
+
+
+
                 <div id="question" class="row"
                     style="padding-top: 20px;padding-bottom: 20px;border-bottom: 1px solid rgb(101,101,101);margin-top: 70px;">
                     <div class="col">
@@ -516,13 +831,14 @@
             results = regex.exec(location.search);
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
-    let seq = getParameter("seq");
+    const productSeq = getParameter("seq");
 
     //로그인한 계정 닉네임 가져오기
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
     if (sessionId == null) {
         sessionId = '';
     };
+    const userSeq = sessionId.userSeq;
 
     // 금액 콤마 삽입 정규식
     function makeComma(str) {
@@ -534,7 +850,7 @@
 
     //할인 퍼센테이지 계산
     function discountRate(price, discount) {
-        return Math.ceil(discount / price * 100);
+        return Math.ceil(100- (discount/price*100));
     };
 
     // 장바구니 버튼 부트스트랩
@@ -584,7 +900,7 @@
 
         let selectItem = $('#selectItem').val();
         let itemCount = $('#itemCount').val();
-        location.href = "order.html?seq="+seq+"&selectItem=" +selectItem+"&itemCount="+itemCount;
+        location.href = "order.html?seq="+productSeq+"&selectItem=" +selectItem+"&itemCount="+itemCount;
     };
     
     // 장바구니 담기
@@ -596,7 +912,7 @@
             data: {
                 "cartClassify":"CT-"+sessionId.userSeq,
                 "userSeq": sessionId.userSeq,
-                "productSeq":seq,
+                "productSeq":productSeq,
                 "selectOption":"{\""+$('#selectKey').text()+"\":\""+$('#selectItem').val()+"\"}",
                 "quantity":$('#itemCount').val(),
                 "price":$('#sellPrice').text().replace(/[^0-9]/g, '')
@@ -632,12 +948,13 @@
                 url: "http://192.168.0.231:3000/getProductDetail",
                 type: "get",
                 data: {
-                    "productSeq": seq
+                    "productSeq": productSeq
                 },
                 success: function (data) {
                     console.log(data);
                     $('#maker').text(data.productMaker);
                     $('#title').text(data.productName);
+                    $('#reviewProductTitle').text(data.productName);
                     $('#rating').text(data.productRating);
                     $('#starRating').css('width', (data.productRating*20+2)+'%');
                     $('#totalPrice').text(data.productDiscount);
@@ -658,7 +975,7 @@
                         $('#totalPrice_side').text(makeComma(data.productPrice)+'원');
                     };
 
-                    
+                    $('#reviewProductImg').attr('src', 'http://192.168.0.231:3000/upload/' + data.productFileName);
                     $('#mainImg').attr('src', 'http://192.168.0.231:3000/upload/' + data.productFileName);
                 },
                 error: function () {
@@ -666,9 +983,6 @@
                 }
             });
         };
-
-
-
 
         // 사이드 결제창 스크롤 따라 이동
         $(window).scroll(function () {
@@ -690,6 +1004,19 @@
             };
             */
         });
+
+        // 이미지 클릭 시 파일 업로드
+        $('.uploadImg').click(function(e) {
+            $('#_target_url').val(document.getElementById('_uploadImg').src);
+            e.preventDefault();
+            $('#_file').click();
+        })
+
+
+
+
+
+
     });
 
 
@@ -706,6 +1033,219 @@
     $('#deliveryBtn').click(function() {
         document.querySelector('#delivery').scrollIntoView(true);
     })
+
+    let elements = $('.modal-overlay, .modal');
+
+
+
+
+    // 리뷰 모달창 버튼
+    $(document).on('click', '#reviewWriteBtn', function(){
+
+        $.ajax({
+            url: "http://192.168.0.231:3000/getUserPurchase",
+            type: "get",
+            data: {
+                "productSeq": productSeq,
+                "userSeq": userSeq
+            },
+            success: function (data) {
+                console.log(data);
+
+                // 구매한 물품이 아닌 경우 리뷰 못쓰게 막는다.
+                if(data=="") {
+                    alert('구매 후에 리뷰 작성이 가능합니다.');
+                    return;
+                }
+
+                let opValue = JSON.parse(data.selectOption);
+                $('#purchaseSeq').val(data.purchaseSeq);
+                $('#reviewProductSeq').val(productSeq);
+                $('#reviewUserSeq').val(userSeq);
+                $('#productCount').text(data.quantity);
+
+                elements.addClass('active');
+            },
+            error: function(){
+            }
+        });
+        
+    });
+    
+    $('.close-modal').click(function(){
+        elements.removeClass('active');
+    });
+
+    // 리뷰 작성 완료 버튼
+    $('.review_write_btn').click(function() {
+
+        $.ajax({
+            url: "http://192.168.0.231:3000/addProductReview",
+            type: "post",
+            data: new FormData($('#upload_frm')[0]),
+            enctype:"multipart/form-data",
+            processData:false,
+            contentType:false,
+            cache:false,
+            success: function (data) {
+                console.log(data)
+                if (data == "suc") {
+                    alert("리뷰가 성공적으로 작성되었습니다.");
+                    elements.removeClass('active');
+                } else {
+                    console.log('리뷰 작성 실패');
+                }
+            },
+            error: function () {
+                alert('addProductReview error');
+            }
+        });
+    });
+
+
+
+    // 파일 업로드 이미지 미리보기
+    let sel_file;
+    $(document).on('change', '#_file', function(e) {
+        let files = e.target.files;
+        let filesArr = Array.prototype.slice.call(files);
+
+        filesArr.forEach(function(f) {
+            if(!f.type.match("image.*")) {
+                alert('이미지 확장자만 가능합니다. ');
+                return;
+            }
+
+            sel_file = f;
+
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                $('#_uploadImg').attr("src", e.target.result);
+            }
+            reader.readAsDataURL(f);
+        })
+    });
+
+
+    // 리뷰 리스트 가져오기
+    getProductReviewList(0);
+    function getProductReviewList(pageNum) {
+        $.ajax({
+            url: "http://192.168.0.231:3000/getProductReviewList",
+            type: "post",
+            data: {
+                "productSeq": productSeq,
+                "productRevPageNum": pageNum
+            },
+            success: function (list) {
+                console.log(list);
+
+                let app = "";
+
+                $('#productReview').children().remove();
+
+                if (Object.keys(list).length == 0) {
+
+                    app += '<div class="reviews" style="width: 600px; margin-right: 50px;">'
+                        + '<h3 style="font-size: 16px; margin-top: 30px;">작성된 후기가 없습니다. 첫번째 후기를 남겨주세요! <br><br></h3>'
+                        + "</div>";
+
+                    $("#productReview").append(app);
+
+                } else {
+                    $.each(list, function (i, val) {
+                        app += '<div class="row" style="padding-top: 18px;padding-left: 0px;padding-bottom: 20px;border-bottom: 1px solid rgb(150,150,150) ;">'
+                            +        '<div class="col">'
+                            +            '<div class="row">'
+                            +                '<div class="col"><span style="font-size: 18px; color:rgb(244,116,76);">';
+
+                        for(let i=0; i<5; i++) {
+                            if(i < val.productRevRating) {
+                                app += '★';
+                            } else {
+                                app += '☆';
+                            }
+                        };
+
+                        app +=                   '</span><span style="margin-left: 10px;font-size: 15px;">'+val.nickname+'</span>'
+                            +                    '<span style="margin-left: 5px;">&nbsp;·&nbsp;</span>'
+                            +                    '<span style="margin-left: 10px;font-size: 13px;">'+val.productRevDate.substring(0,10)+'</span>'
+                            +                '</div>'
+                            +            '</div>'
+                            +            '<div class="row">'
+                            +                '<div class="col" style="margin: 25px 0px;">'
+                            +                    '<span style="font-size: 14px;">'+val.productRevContent+'</span>'
+                            +                '</div>'
+                            +            '</div>'
+                            +            '<div class="row">'
+                            +                '<div class="col"><img src="http://192.168.0.231:3000/upload/'+val.productRevFileName+'" width="130px" style="border-radius: 10px;"></div>'
+                            +            '</div>'
+                            +        '</div>'
+                            +    '</div>';
+                    });
+                    $('#productReview').append(app);
+                };    
+
+            },
+            error: function(){
+            }
+        });
+    };
+
+
+    // 리뷰 총 수 가져오기
+    getProductReviewCount()
+    function getProductReviewCount() {
+
+        $.ajax({
+            url: "http://192.168.0.231:3000/getProductReviewCount",
+            type: "get",
+            data: {
+                "productSeq": productSeq
+            },
+            success: function (totalCount) {
+                console.log(totalCount);
+                $('span[name=reviewCount]').text(totalCount);
+                loadPage(totalCount);
+            },
+            error: function () {
+                alert('getProductReviewCount() error');
+            }
+        });
+
+    };
+
+
+    // 리뷰 페이징 처리
+    function loadPage(totalCount) {
+
+        let pageSize = 4;
+        let nowPage = 1;
+        let _totalPages = Math.floor(totalCount / pageSize);
+        if (totalCount % pageSize > 0) {
+            _totalPages++;
+        }
+
+        $("#pagination").twbsPagination('destroy');	// 데이터가 갱신되면 페이징 갱신
+
+
+        $("#pagination").twbsPagination({
+            //	startPage: 1,
+            totalPages: _totalPages,
+            visiblePages: 10,
+            first: '<span aria-hidden="true">«</span>',
+            prev: false,
+            next: false,
+            last: '<span aria-hidden="true">»</span>',
+            initiateStartPageClick: false,		// onPageClick 자동 실행되지 않도록 한다
+            onPageClick: function (event, page) {
+                nowPage = page;
+                getProductReviewList(page-1);
+            },
+        });
+
+    };
+
 
 
     </script>

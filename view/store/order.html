@@ -861,6 +861,10 @@ $(document).ready(function() {
             return;       
         };
 
+        if($('#_point').val() == '') {
+            $('#_point').val(0);
+        }
+
 
         let formorder1 = decodeURIComponent($('#form_order').serialize());
         let formorder = formorder1.split('&');
