@@ -18,7 +18,7 @@
 #st .container{
     position: relative;
 }
-#st .submenu_wrap{
+/* #st .submenu_wrap{
     position: absolute;
     top: 25px; left: 20px;
     padding: 5px;
@@ -28,15 +28,36 @@
     height: 0;
     opacity: 0;
     transition: all .3s;
+} */
+.nav-item{
+    position: relative;
 }
-#navcol-2 .submenu_wrap:hover,
+#st .submenu_wrap{
+    position: absolute;
+    top: 31px; left: -15px;
+    padding: 5px;
+    z-index: 10;
+    background-color: transparent;
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    transition: all .3s;
+}
+/* #navcol-2 .submenu_wrap:hover,
 #navcol-2 ul:hover+.submenu_wrap{
     top: 45px;
     height:auto;
     opacity: 1;
     transition: all .3s;
+} */
+#navcol-2 .submenu_wrap:hover,
+#navcol-2 .nav-item:hover .submenu_wrap{
+    top: 41px;
+    height:auto;
+    opacity: 1;
+    transition: all .3s;
 }
-#st .submenu_box{
+/* #st .submenu_box{
     margin: 5px;
     border: solid 1px #ededed;
     height: 160px;
@@ -45,9 +66,22 @@
     background-color: rgb(255 255 255 / 94%);
     box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
     z-index: 10;
+} */
+#st .submenu_box{
+    display: flex;
+    margin: 5px 0 0;
+    border: solid 1px #ededed;
+    height: 100px;
+    width: 150px;
+    border-radius: 8px;
+    background-color: rgb(255 255 255 / 94%);
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+    z-index: 10;
+    align-items: center;
+    justify-content: space-evenly;
 }
 #st .submenu_box .figure{
-    margin: 15px 20px 30px;
+    margin: 5px;
     cursor: pointer;
     text-align: center;
     font-size: 17px;
@@ -57,10 +91,16 @@
     font-weight: 900;
 }
 #st .submenu_box .figure img{
-    width: 100px;
+    width: 60px;
 }
 #st .submenu_box .figure a:hover{
     text-decoration: none;
+}
+#st .submenu_box ul{
+    list-style: none;
+    font-size: 7px;
+    padding: 0 10px 0 8px;
+    cursor: pointer;
 }
 </style>
 <nav id="st" class="navbar navbar-light navbar-expand-md">
@@ -76,14 +116,35 @@
                 <ul class="navbar-nav" style="font-family: 'Noto Sans KR', sans-serif;font-size: 20px;color: rgb(0,0,0); margin-left: 20px;">
                     <li class="nav-item"><a class="nav-link nav_a" href="../../index.html">홈</a></li>
                     <li class="nav-item"><a class="nav-link nav_a" href="#today_hot">인기상품</a></li>
-                    <li class="nav-item"><a class="nav-link nav_a down_list" href="#">가구</a></li>
+                    
+                    <li class="nav-item"><a class="nav-link nav_a down_list" href="#">가구</a>
+                        <div class="submenu_wrap d-md-block d-none">
+                        <div class="submenu_box">
+                            <figure class="figure">
+                                <a href="#" class="down_list">
+                                    <img src="../../assets/img/가구.png"><figcaption class="figure-caption"></figcaption>
+                                </a>
+                            </figure>
+                            <ul>
+                                <li>침대/매트리스</li>
+                                <li>소파</li>
+                                <li>테이블</li>
+                                <li>화장대/거울</li>
+                                <li>책상/책장</li>
+                                <li>의자</li>
+                            </ul>
+                        </div>
+                        </div>
+                    </li>
+
                     <li class="nav-item"><a class="nav-link nav_a down_list" href="#">조명</a></li>
                     <li class="nav-item"><a class="nav-link nav_a down_list" href="#">홈데코</a></li>
                     <li class="nav-item"><a class="nav-link nav_a down_list" href="#">패브릭</a></li>
                     <li class="nav-item"><a class="nav-link nav_a down_list" href="#">수납정리</a></li>
                 </ul>
-            
+                
                 <!-- 메뉴 호버 -->
+                <!--
                 <div class="submenu_wrap d-md-block d-none">
                     <div class="submenu_box">
                         <div class="row">
@@ -115,7 +176,9 @@
                             
                         </div>
                     </div>
-                </div> <!--메뉴 호버 끝-->
+                </div>
+                -->
+                <!--메뉴 호버 끝-->
             </div> <!-- 네비바 끝 -->
 
         </div><!-- 컨테이너 끝 -->

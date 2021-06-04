@@ -186,31 +186,18 @@
     //let sessionId = JSON.parse(sessionStorage.getItem("login"));
     //console.log(sessionId);
 
-    // function fnMove(seq){
-    //     var offset = $("#div" + seq).offset();
-    //     $('html, body').animate({scrollTop : offset.top}, 400);
-    // }
+
+    //화면 인기글이동
     let page_url = window.location.href;
     let page_id = page_url.substring(page_url.lastIndexOf("l") + 1);
-    console.log(page_id)
-
     if(page_id=='#'){
         let oset = $("#hotCard").offset();
-        //oset = oset.top + 1000
-        console.log(oset)
-        $('html, body').animate({
-            scrollTop: oset.top-70
-        }, 500);
+        $('html, body').animate({ scrollTop: oset.top+730 }, 500);
     }
-
     $('#navcol-2 .nav_a').click(function(){//인기글 이동  
         if($(this).text()=='인기글'){
             let oset = $("#hotCard").offset();
-            //oset = oset.top + 1000
-            console.log(oset)
-            $('html, body').animate({
-                scrollTop: oset.top-70
-            }, 500);
+            $('html, body').animate({ scrollTop: oset.top-70 }, 500);
             return false;
         }
     });
