@@ -141,6 +141,17 @@ public class QuestionDTO implements Serializable{
 	public void setAuth(int auth) {
 		this.auth = auth;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "QuestionDTO [questionSeq=" + questionSeq + ", userSeq=" + userSeq + ", questionTitle=" + questionTitle
+				+ ", questionContent=" + questionContent + ", questionReadcount=" + questionReadcount
+				+ ", questionRegDate=" + questionRegDate + ", questionFileName=" + questionFileName + ", questionDel="
+				+ questionDel + ", userName=" + userName + ", nickName=" + nickName + ", profileName=" + profileName
+				+ ", auth=" + auth + "]";
+	}
 	
 	
 

@@ -132,6 +132,7 @@ public class OrderController {
 		} else if(dto.getOrderMessage().equals("4")) {
 			dto.setOrderMessage(dto.getOrderMessage_free());
 		};
+				
 		
 		//적립포인트 (상품금액 * 0.01)
 		dto.setSaveMileage((int)Math.ceil(dto.getProductAmount()*0.01));

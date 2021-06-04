@@ -22,13 +22,17 @@ public class ProductDTO implements Serializable {
 	private String smallCategory;
 	private int sort;
 	
+	private int reviewCount;
+	
 	public ProductDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating, Date productDate, String searchText,
-			String largeCategory, String mediumCategory, String smallCategory, int sort) {
+			String largeCategory, String mediumCategory, String smallCategory, int sort, int reviewCount) {
 		super();
 		this.productSeq = productSeq;
 		this.productName = productName;
@@ -44,7 +48,9 @@ public class ProductDTO implements Serializable {
 		this.mediumCategory = mediumCategory;
 		this.smallCategory = smallCategory;
 		this.sort = sort;
+		this.reviewCount = reviewCount;
 	}
+
 
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating) {
@@ -182,13 +188,28 @@ public class ProductDTO implements Serializable {
 		this.sort = sort;
 	}
 
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "ProductDTO [productSeq=" + productSeq + ", productName=" + productName + ", productContent="
 				+ productContent + ", productPrice=" + productPrice + ", productDiscount=" + productDiscount
 				+ ", productMaker=" + productMaker + ", productFileName=" + productFileName + ", productRating="
 				+ productRating + ", productDate=" + productDate + ", searchText=" + searchText + ", largeCategory="
-				+ largeCategory + ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory + ", sort=" + sort + "]";
+				+ largeCategory + ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory + ", sort="
+				+ sort + ", reviewCount=" + reviewCount + "]";
 	}
+
+
+
+
 
 }

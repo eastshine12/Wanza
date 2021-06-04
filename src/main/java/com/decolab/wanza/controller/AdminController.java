@@ -106,6 +106,11 @@ public class AdminController {
 		}
 		
 		service.addProduct(dto);
+		int productSeq = service.getRecentAddProductSeq();
+		System.out.println(productSeq);
+		dto.setProductSeq(productSeq);
+		service.addProductTag(dto);
+		
 		
 		return "suc";
 	}
