@@ -5,13 +5,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.decolab.wanza.dto.ProductDTO;
+import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductReviewDTO;
 import com.decolab.wanza.dto.PurchaseProductDTO;
 import com.decolab.wanza.service.ProductService;
@@ -48,6 +47,13 @@ public class ProductController {
 		System.out.println(dto.toString());
 		return service.getProductDetail(dto);
 	}
+	
+	@RequestMapping(value = "/getProductOptionList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<ProductOptionDTO> getProductOptionList(ProductOptionDTO dto) {
+		System.out.println("ProductController getProductOptionList() " + new Date());
+		return service.getProductOptionList(dto);
+	}
+	
 	
 	@RequestMapping(value = "/getSearchProduct", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<ProductDTO> getSearchProduct(ProductDTO dto){
@@ -96,8 +102,9 @@ public class ProductController {
 		
 		int a = service.addProductReview(dto);
 		int b = service.updateReviewStatus(dto);
+		int c = service.updateRating(dto);
 		
-		return a+b>1?"suc":"err";
+		return a+b+c>2?"suc":"err";
 	}
 	
 	@RequestMapping(value = "/getProductReviewList", method = {RequestMethod.GET,RequestMethod.POST})
