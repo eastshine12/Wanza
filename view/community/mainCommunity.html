@@ -186,18 +186,23 @@
     //let sessionId = JSON.parse(sessionStorage.getItem("login"));
     //console.log(sessionId);
 
-
     //화면 인기글이동
-    let page_url = window.location.href;
-    let page_id = page_url.substring(page_url.lastIndexOf("l") + 1);
-    if(page_id=='#'){
-        let oset = $("#hotCard").offset();
-        $('html, body').animate({ scrollTop: oset.top+730 }, 500);
-    }
+    $(document).ready(function(){
+        let page_url = window.location.href;
+        let page_id = page_url.substring(page_url.lastIndexOf("l") + 1);
+
+        $(document).ajaxComplete(function(){
+            if(page_id=='#'){
+                $('html, body').animate({ scrollTop: $("#hotCard").offset().top-70 }, 500);
+            }
+        })
+    });
+
     $('#navcol-2 .nav_a').click(function(){//인기글 이동  
         if($(this).text()=='인기글'){
             let oset = $("#hotCard").offset();
-            $('html, body').animate({ scrollTop: oset.top-70 }, 500);
+            console.log(oset)
+            $('html, body').animate({ scrollTop: $("#hotCard").offset().top-70 }, 500);
             return false;
         }
     });
@@ -207,7 +212,6 @@
         str = String(str);
         return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
     };
-
 
     //할인 퍼센테이지 계산
     function discountRate(price, discount) {
@@ -222,20 +226,14 @@
             type: "get",
             success: function (list) {
                 console.log(list);
-
                 let app = ""
                 if (Object.keys(list).length == 0) {	// JSON형식의 길이
-
                     app += '<div style="width: 320px; margin-right: 50px;">'
                         + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
                         + "</div>";
-
                     $("#hotProductList").append(app);
-
                 } else {
-
                     $.each(list, function (i, val) {
-                        
                         app += '<div style="width: 350px; height: 400px;">'
                             +  '<article article class="project2_wrap" >'
                             +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
@@ -243,7 +241,7 @@
                             +  '<span></span>'
                             +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
                             +  '</div>'
-                            +  '<h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; margin-top: 15px; margin-bottom: -5px; height: 32px;">' + val.productName + '</h3>';
+                            +  '<div style="padding:0 50px; margin:10px 0 -5px 0;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px;">' + val.productName + '</h3></div>';
 
                         if(val.productDiscount != 0) {
                             app += '<span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
@@ -255,19 +253,13 @@
                         app += '<div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 5px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰 </b>' + val.reviewCount + '</div>'
                             +  '</article>'
                             +  '</div >';
-
                     });
                     $("#hotProductList").append(app);
                 }
-
             },
-            error: function () {
-                alert('error');
-            }
+            error: function () { alert('error'); }
         });
     };
-
-
     
     // '인기 인테리어 사진' 리스트
     getCardList();
@@ -276,22 +268,15 @@
             url: "http://192.168.0.231:3000/getCardList",
             type: "get",
             success: function (list) {
-
                 console.log(list);
-
                 let app = ""
                 if (Object.keys(list).length == 0) {	// JSON형식의 길이
-
                     app += '<div style="width: 320px; margin-right: 50px;">'
                         + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
                         + "</div>";
-
                     $("#hotCardList").append(app);
-
                 } else {
-
                     $.each(list, function (i, val) {
-
                         app += '<div style="width: 320px; margin-right: 50px;">'
                             +   '<article article class="project_wrap" >'
                             +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
@@ -308,16 +293,11 @@
                     });
                     $("#hotCardList").append(app);
                 }
-
             },
-            error: function () {
-                alert('error');
-            }
+            error: function () {  alert('error');  }
         });
     };
 
 </script>
-
-
 
 </html>
