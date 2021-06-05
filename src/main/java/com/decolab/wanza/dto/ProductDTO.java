@@ -20,7 +20,8 @@ public class ProductDTO implements Serializable {
 	private String largeCategory;
 	private String mediumCategory;
 	private String smallCategory;
-	private int sort;
+	private int sort; //최신,평점순 등 정렬때 사용
+	private int recentPeriod ; //인기순 정렬때 최근 판매순 기간설정
 	
 	private int reviewCount;
 	
@@ -28,11 +29,10 @@ public class ProductDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating, Date productDate, String searchText,
-			String largeCategory, String mediumCategory, String smallCategory, int sort, int reviewCount) {
+			String largeCategory, String mediumCategory, String smallCategory, int sort, int recentPeriod,
+			int reviewCount) {
 		super();
 		this.productSeq = productSeq;
 		this.productName = productName;
@@ -48,9 +48,9 @@ public class ProductDTO implements Serializable {
 		this.mediumCategory = mediumCategory;
 		this.smallCategory = smallCategory;
 		this.sort = sort;
+		this.recentPeriod = recentPeriod;
 		this.reviewCount = reviewCount;
 	}
-
 
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating) {
@@ -196,7 +196,13 @@ public class ProductDTO implements Serializable {
 		this.reviewCount = reviewCount;
 	}
 
+	public int getRecentPeriod() {
+		return recentPeriod;
+	}
 
+	public void setRecentPeriod(int recentPeriod) {
+		this.recentPeriod = recentPeriod;
+	}
 
 	@Override
 	public String toString() {
@@ -205,11 +211,7 @@ public class ProductDTO implements Serializable {
 				+ ", productMaker=" + productMaker + ", productFileName=" + productFileName + ", productRating="
 				+ productRating + ", productDate=" + productDate + ", searchText=" + searchText + ", largeCategory="
 				+ largeCategory + ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory + ", sort="
-				+ sort + ", reviewCount=" + reviewCount + "]";
+				+ sort + ", recentPeriod=" + recentPeriod + ", reviewCount=" + reviewCount + "]";
 	}
-
-
-
-
 
 }

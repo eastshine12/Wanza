@@ -35,14 +35,11 @@
 <!-- 상품글 리스트 분류하여 가져오기 -->
 <select id="getProductSortList" parameterType="com.decolab.wanza.dto.ProductDTO" resultType="com.decolab.wanza.dto.ProductDTO">
 	SELECT P.PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING,
-	       LARGECATEGORY, MEDIUMCATEGORY,SMALLCATEGORY,PURCHASECOUNT
-	FROM PRODUCTIONS P, PRODUCTION_TAG T, (SELECT PRODUCTSEQ,
-							<choose>
-								<when test="sort neq 0">COUNT(*) PURCHASECOUNT</when>
-								<otherwise>COUNT(CASE WHEN PURCHASEDATE > SYSDATE-30 THEN 0 END) PURCHASECOUNT</otherwise>
-							</choose>
-                                           FROM PURCHASE_PRODUCT
-                                           GROUP BY PRODUCTSEQ) C
+	       LARGECATEGORY, MEDIUMCATEGORY, SMALLCATEGORY, DECODE(PCOUNT, NULL, 0, PCOUNT) PURCHASECOUNT,
+	       												 DECODE(MCOUNT, NULL, 0, MCOUNT) MONTHPURCHASECOUNT
+	FROM PRODUCTIONS P, PRODUCTION_TAG T, (SELECT PRODUCTSEQ, COUNT(*) PCOUNT,
+										   COUNT(CASE WHEN PURCHASEDATE >= SYSDATE-#{recentPeriod} THEN 1 END) MCOUNT
+                                           FROM PURCHASE_PRODUCT GROUP BY PRODUCTSEQ) C
 	WHERE P.PRODUCTSEQ=T.PRODUCTSEQ AND P.PRODUCTSEQ=C.PRODUCTSEQ(+)
 	<if test='largeCategory neq null and largeCategory neq ""'>AND LARGECATEGORY=#{largeCategory}</if>
 	<if test='mediumCategory neq null and mediumCategory neq ""'>AND MEDIUMCATEGORY=#{mediumCategory}</if>
@@ -51,7 +48,7 @@
 		<when test="sort eq 1"> ORDER BY PRODUCTRATING DESC</when>
 		<when test="sort eq 2"> ORDER BY PRODUCTDATE DESC</when>
 		<when test="sort eq 3"> ORDER BY PURCHASECOUNT DESC</when>
-		<otherwise> ORDER BY PRODUCTSEQ DESC</otherwise>
+		<otherwise>ORDER BY MONTHPURCHASECOUNT DESC, PURCHASECOUNT DESC, PRODUCTRATING DESC</otherwise>
 	</choose>
 </select>
 
