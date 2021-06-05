@@ -38,14 +38,29 @@
             line-height:0; 
             vertical-align:top; 
         }
+
+        .star-rating2 {
+            width:200px; 
+        }
+        .star-rating2,.star-rating2 span { 
+            display:inline-block; 
+            height:33px; 
+            overflow:hidden; 
+            background:url(../../assets/img/star.png)no-repeat; 
+            background-size: 185px;
+        }
+        .star-rating2 span{ 
+            background-position:left bottom; 
+            line-height:0; 
+            vertical-align:top; 
+        }
+
         .jbFixed {
             position: fixed;
             top: 0px;
-            background-color: white;
+            background-color: rgb(255, 255, 255);
+            z-index: 2;
         }
-
-
-
 
 
 
@@ -368,23 +383,29 @@
                 </div>
             </div>            
         </div>
+
+
+        <!-- 오른쪽 상품 정보란 -->
         <div class="col" style="width: 400px;">
             <div class="row">
                 <div class="col"
-                    style="margin: 17px 0px 0px 16px;margin-left: 16px;font-family: 'Noto Sans KR', sans-serif;height: 128px;width: 250px;margin-top: 14px;border-bottom: 1px none rgb(99,99,99) ;">
+                    style="margin: 17px 0px 0px 16px;margin-left: 16px;font-family: 'Noto Sans KR', sans-serif;width: 250px;margin-top: 14px;border-bottom: 1px none rgb(99,99,99) ;">
                     <h5 id="maker" style="font-size: 15px;margin-top: 10px;margin-left: 10px;"><!--제품회사이름--></h5>
                     <h1 id="title" style="font-size: 30px;margin: 10px;"><!--제목--></h1>
-                    <div style="margin: 10px;">
-                        <!-- <i class="fa fa-star" style="font-size: 18px;color: rgb(244,116,76);margin-left: 2px;"></i> -->
-                        <span class="star-rating">
-                            <span id="starRating"></span>
-                        </span>
-                        <span id="rating" style="font-size: 20px;margin-left: 14px;"><!--별점-->></span>
-                        <span style="margin-left: 20px;font-size: 14px;color: rgb(99,99,99);">후기 <span name="reviewCount"></span></span>
-                    </div>
+                    
                 </div>
             </div>
-            <div class="row" style="padding-top: 25px;">
+            <div class="row"  style="margin:0px 0px 0px 16px;">
+                <div style="margin: 10px;">
+                    <!-- <i class="fa fa-star" style="font-size: 18px;color: rgb(244,116,76);margin-left: 2px;"></i> -->
+                    <span class="star-rating">
+                        <span id="starRating"></span>
+                    </span>
+                    <span id="rating" style="font-size: 20px;margin-left: 14px;"><!--별점-->></span>
+                    <span style="margin-left: 20px;font-size: 14px;color: rgb(99,99,99);">후기 <span name="reviewCount"></span></span>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col">
                     <div style="border-bottom: 1px solid rgb(99,99,99);height: 70px; margin-left: 20px;font-family: 'Noto Sans KR', sans-serif;text-align: left;">
                         <span style="margin: 10px;font-size: 17px;width: auto;color: rgb(99,99,99);margin-top: 10px;padding: 0px;padding-top: 0px;">
@@ -404,28 +425,22 @@
                     <span style="margin: 15px;color: rgb(101,101,101);"><strong>회원적립</strong></span><span
                         style="margin: 15px;"><strong id="point">267</strong>P<strong> </strong>적립</span></div>
             </div>
-            <div class="row">
+            <div class="row" style="margin-top: -3px;">
                 <div class="col"
                     style="margin-top: 10px;margin-bottom: 15px;font-family: 'Noto Sans KR', sans-serif;padding-left: 25px;">
                     <span style="margin: 15px;color: rgb(101,101,101);"><strong>배송비</strong></span><span
                         style="margin: 15px;margin-left: 30px;color: rgb(99,99,99);font-family: 'Noto Sans KR', sans-serif;">2,500원
                         (5만원 이상 무료)</span></div>
             </div>
-            <div class="row" style="margin-left: 10px;"><span
-                    style="margin: 15px;color: rgb(101,101,101);margin-left: 15px;font-family: 'Noto Sans KR', sans-serif;"><strong id="selectKey">색상</strong></span>
-                <div class="col">
-                    <select id="selectItem" name="selectItem" class="shadow-sm custom-select custom-select-sm"
-                        style="margin-top: 12px;width: 135.547px;text-align: left;margin-left: 25px;">
-                        <option value="월넛">월넛</option>
-                        <option value="오크">오크</option>
-                        <option value="고무나무">고무나무</option>
-                    </select></div>
+            <div id="optionList">
             </div>
+            <!-- 옵션 리스트 뿌려지는 곳 -->
+            
             <div class="row"
                 style="margin-left: 10px;border-bottom: 1px solid rgb(99,99,99);padding-bottom: 13px;width: 355px;"><span
                     style="margin: 15px;color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;"><strong>개수</strong></span>
                 <div class="col">
-                    <input id="itemCount" class="border rounded-0 form-control-sm" type="number" min="1" max="10" placeholder="1" value="1" style="margin-top: 12px;height: 33px;width: 88px;margin-left: 25px;">
+                    <input id="itemCount" class="border rounded-0 form-control-sm" type="number" min="1" max="10" placeholder="1" value="1" style="margin-top: 12px;height: 33px;width: 88px;margin-left: 28px;">
                 </div>
             </div>
             <div class="row" style="margin-top: 26px;">
@@ -449,28 +464,28 @@
     <div class="container" style="width: 1200px; margin-top: 50px;">
         <div class="row" style="width: 1200px;">
             <div class="col-md-8" style="position: relative;">
-                <div>
-                    <ul id="miniMenu" class="nav nav-tabs" style="margin-bottom: 50px;z-index: 2;">
+                <div id="miniMenu">
+                    <ul class="nav nav-tabs" style="z-index: 2; width: 770px;">
                         <li class="nav-item">
-                            <div id="contentBtn" class="nav-link active" style="cursor: pointer; font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-bottom-width: 3px;border-bottom-color: rgb(244,116,76);border-left-style: none;">
+                            <div id="contentBtn" name="miniMenu" class="nav-link" style="cursor: pointer; font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-bottom-width: 3px;border-bottom-color: rgb(244,116,76);border-left-style: none;">
                                 상품정보</div>
                         </li>
                         <li class="nav-item">
-                            <div class="nav-link" id="reviewBtn" style="cursor: pointer; color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
+                            <div class="nav-link" name="miniMenu" id="reviewBtn" style="cursor: pointer; color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
                                 후기 <span name="reviewCount"></span></div>
                         </li>
                         <li class="nav-item">
-                            <div class="nav-link" id="questionBtn" style="cursor: pointer; color: rgb(99,99,99);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
+                            <div class="nav-link" name="miniMenu" id="questionBtn" style="cursor: pointer; color: rgb(99,99,99);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
                                 문의 2</div>
                         </li>
                         <li class="nav-item">
-                            <div class="nav-link" id="deliveryBtn" style="cursor: pointer; color: rgb(99,99,99);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
+                            <div class="nav-link" name="miniMenu" id="deliveryBtn" style="cursor: pointer; color: rgb(99,99,99);font-family: 'Noto Sans KR', sans-serif;width: 150px;text-align: center;border-top-style: none;border-right-style: none;border-left-style: none;">
                                 배송/환불</div>
                         </li>
                     </ul>
                 </div>
 
-                <div id="content">
+                <div id="content" style="margin-top: 50px;">
                     <!-- 상품 내용 (썸머노트) 뿌려주는 곳 -->
                 </div>
 
@@ -499,16 +514,13 @@
                     <div class="col-xl-5">
                         <div class="row">
                             <div class="col-xl-12" style="text-align: center;margin-top: 16px;">
-                                <h1>4.4 / 5</h1>
+                                <h1><span id="productRating">4.4</span> / 5</h1>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col" style="text-align: center;"><i class="fa fa-star"
-                                    style="color: rgb(244,116,76);font-size: 26px;"></i><i class="fa fa-star"
-                                    style="color: rgb(244,116,76);font-size: 26px;"></i><i class="fa fa-star"
-                                    style="color: rgb(244,116,76);font-size: 26px;"></i><i class="fa fa-star"
-                                    style="color: rgb(244,116,76);font-size: 26px;"></i><i class="fa fa-star"
-                                    style="color: rgb(244,116,76);font-size: 26px;"></i></div>
+                            <span class="star-rating2" style="margin:0 auto;">
+                                <span id="starRating2"></span>
+                            </span>
                         </div>
                     </div>
                     <div class="col-xl-7">
@@ -585,12 +597,18 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row" style="height: 80px;">
                     <div class="col" style="text-align: right;padding-top: 15px;border-bottom: 1px solid rgb(99,99,99);height: 70px;">
                         <div class="dropdown"><button class="btn dropdown-toggle" aria-expanded="false" data-toggle="dropdown"
                                 type="button">별점&nbsp;</button>
-                            <div class="dropdown-menu"><a class="dropdown-item" href="#">First Item</a><a class="dropdown-item"
-                                    href="#">Second Item</a><a class="dropdown-item" href="#">Third Item</a></div>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#" style="color: #f4744c;">★★★★★</a>
+                                <a class="dropdown-item" href="#" style="color: #f4744c;">★★★★</a>
+                                <a class="dropdown-item" href="#" style="color: #f4744c;">★★★</a>
+                                <a class="dropdown-item" href="#" style="color: #f4744c;">★★</a>
+                                <a class="dropdown-item" href="#" style="color: #f4744c;">★</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -769,23 +787,19 @@
             </div>
 
 
+
+            <!-- 스크롤 따라다니는 div -->
             <div id="sidebox" class="col-md-4">
-                <div class="row" style="margin-left: 10px;"><span
-                        style="margin: 15px;color: rgb(101,101,101);margin-left: 15px;font-family: 'Noto Sans KR', sans-serif;"><strong>색상</strong></span>
-                    <div class="col">
-                        <select id="selectItem_side" name="selectItem" class="shadow-sm custom-select custom-select-sm"
-                            style="margin-top: 12px;width: 135.547px;text-align: left;margin-left: 25px;">
-                            <option value="월넛">월넛</option>
-                            <option value="오크">오크</option>
-                            <option value="고무나무">고무나무</option>
-                        </select></div>
+                <div id="optionList_side">
                 </div>
-                <div class="row"
-                    style="margin-left: 10px;border-bottom: 1px solid rgb(99,99,99);padding-bottom: 13px;width: 355px;">
-                    <span
-                        style="margin: 15px;color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;"><strong>개수</strong></span>
-                    <div class="col">
-                        <input id="itemCount_side" class="border rounded-0 form-control-sm" type="number" min="1" max="10" placeholder="1" value="1" style="margin-top: 12px;height: 33px;width: 88px;margin-left: 25px;">
+                <!-- 옵션 리스트 뿌려지는 곳 -->
+
+                <div class="row" style="margin-left: 10px;border-bottom: 1px solid rgb(99,99,99);padding-bottom: 13px;width: 355px;">
+                    <div class="col-md-5">
+                        <span style="color: rgb(101,101,101);font-family: 'Noto Sans KR', sans-serif;"><strong>개수</strong></span>
+                    </div>
+                    <div class="col-md-5">
+                        <input id="itemCount_side" class="border rounded-0 form-control-sm" type="number" min="1" max="10" placeholder="1" value="1" style="height: 33px;width: 88px;margin-left: 5px;">
                     </div>
                 </div>
                 <div class="row" style="margin-top: 26px;">
@@ -821,6 +835,9 @@
     <script src="../../js/includeHTML.js"></script>
     <script src="../../js/header.js"></script>
     <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
 
     <script>
 
@@ -862,12 +879,32 @@
 
 
     // 상품 옵션, 개수 사이드바와 연동 (개수 조절 시 총금액 변동)
+    /*
     $('#selectItem').change(function () {
         $('#selectItem_side').val($(this).val()).attr('selected');
     });
     $('#selectItem_side').change(function () {
         $('#selectItem').val($(this).val()).attr('selected');
     });
+    */
+
+    $(document).on('change', 'select[name=selectItem_1]', function() {
+        $('select[name=selectItem_1]').val($(this).val()).attr('selected');
+    });
+    $(document).on('change', 'select[name=selectItem_2]', function() {
+        $('select[name=selectItem_2]').val($(this).val()).attr('selected');
+    });
+    $(document).on('change', 'select[name=selectItem_3]', function() {
+        $('select[name=selectItem_3]').val($(this).val()).attr('selected');
+    });
+    $(document).on('change', 'select[name=selectItem_4]', function() {
+        $('select[name=selectItem_4]').val($(this).val()).attr('selected');
+    });
+    $(document).on('change', 'select[name=selectItem_5]', function() {
+        $('select[name=selectItem_5]').val($(this).val()).attr('selected');
+    });
+
+
     $('#itemCount').change(function() {
         if($(this).val() < 1) {
             $(this).val(1)
@@ -956,7 +993,9 @@
                     $('#title').text(data.productName);
                     $('#reviewProductTitle').text(data.productName);
                     $('#rating').text(data.productRating);
+                    $('#productRating').text(data.productRating);
                     $('#starRating').css('width', (data.productRating*20+2)+'%');
+                    $('#starRating2').css('width', (data.productRating*20-5)+'%');
                     $('#totalPrice').text(data.productDiscount);
                     $('#content').append(data.productContent);
 
@@ -984,11 +1023,66 @@
             });
         };
 
+
+        // 상품 옵션 리스트 가져오기
+        getProductOptionList()
+        function getProductOptionList() {
+            $.ajax({
+                url: "http://192.168.0.231:3000/getProductOptionList",
+                type: "get",
+                data: {
+                    "productSeq": productSeq
+                },
+                success: function (list) {
+                    console.log(list);
+                    let app = "";
+                    let seq = 1;
+                    let title = "";
+                    for(let i = 0; i < list.length; i++) {
+                        
+                        if(title != "" && list[i].optionTitle != title) {
+                            app += '</select></div></div>';
+                            seq++;
+                        }
+
+                        if(list[i].optionSeq == 1) {
+                            app+=   '<div class="row" style="margin: 0px 0px 7px 9px;">'
+                                +        '<div class="col-md-3"><span style="color: rgb(101,101,101);font-family: \'Noto Sans KR\';">'
+                                +            '<strong id="selectKey">'+list[i].optionTitle+'</strong>'
+                                +        '</span></div>'
+                                +    '<div class="col-md-5">'
+                                +        '<select name="selectItem_'+seq+'" class="shadow-sm custom-select custom-select-sm"'
+                                +            'style=";width: 180px;">';
+                        }
+                        
+                        app += '<option value="'+list[i].optionContent+'">'+list[i].optionContent+'</option>'
+                        
+                        title = list[i].optionTitle;
+                    }
+
+                    app += '</select></div></div>';
+
+                    $("#optionList").append(app);
+                    $("#optionList_side").append(app);
+                    
+                    
+
+                },
+                error: function () {
+                    alert('getProductOptionList() error');
+                }
+            });
+        };
+
+
+
+
         // 사이드 결제창 스크롤 따라 이동
+        let menuOffset = $('#miniMenu').offset();
         $(window).scroll(function () {
 
-            var position = $(window).scrollTop();
-            var menuOffset = $('#miniMenu').offset();
+            let position = $(window).scrollTop();
+            
             if ($(this).scrollTop() > 800 && $(this).scrollTop() < $(document).height() - 1400) {
                 $("#sidebox").css('position', 'fixed');
             }
@@ -996,48 +1090,58 @@
                 $("#sidebox").css('position', 'relative');
             };
 
-            /*
-            if ($(this).scrollTop() > menuOffset.top) {
+            if ($(this).scrollTop() >= menuOffset.top) {
                 $('#miniMenu').addClass('jbFixed');
             } else {
                 $('#miniMenu').removeClass('jbFixed');
-            };
-            */
+            }
+            
+            
         });
 
         // 이미지 클릭 시 파일 업로드
+        
         $('.uploadImg').click(function(e) {
             $('#_target_url').val(document.getElementById('_uploadImg').src);
             e.preventDefault();
             $('#_file').click();
         })
-
-
-
-
-
-
+        
     });
 
 
     // 미니 네비게이션 스크롤 이동
     $('#contentBtn').click(function() {
         document.querySelector('#content').scrollIntoView(true);
+        $('div[name=miniMenu]').css('border-bottom-color', '');
+        $(this).css('border-bottom-color', 'rgb(244,116,76)');
+        $(this).css('border-bottom-width', '3px');
+        
     })
     $('#reviewBtn').click(function() {
         document.querySelector('#review').scrollIntoView(true);
+        $('div[name=miniMenu]').css('border-bottom-color', '');
+        $(this).css('border-bottom-color', 'rgb(244,116,76)');
+        $(this).css('border-bottom-width', '3px');
     })
     $('#questionBtn').click(function() {
         document.querySelector('#question').scrollIntoView(true);
+        $('div[name=miniMenu]').css('border-bottom-color', '');
+        $(this).css('border-bottom-color', 'rgb(244,116,76)');
+        $(this).css('border-bottom-width', '3px');
     })
     $('#deliveryBtn').click(function() {
         document.querySelector('#delivery').scrollIntoView(true);
+        $('div[name=miniMenu]').css('border-bottom-color', '');
+        $(this).css('border-bottom-color', 'rgb(244,116,76)');
+        $(this).css('border-bottom-width', '3px');
     })
 
+
+
+
+
     let elements = $('.modal-overlay, .modal');
-
-
-
 
     // 리뷰 모달창 버튼
     $(document).on('click', '#reviewWriteBtn', function(){
@@ -1091,6 +1195,8 @@
                 console.log(data)
                 if (data == "suc") {
                     alert("리뷰가 성공적으로 작성되었습니다.");
+                    getProductDetail();
+                    getProductReviewList(0);
                     elements.removeClass('active');
                 } else {
                     console.log('리뷰 작성 실패');
@@ -1178,7 +1284,7 @@
                             +                '</div>'
                             +            '</div>'
                             +            '<div class="row">'
-                            +                '<div class="col"><img src="http://192.168.0.231:3000/upload/'+val.productRevFileName+'" width="130px" style="border-radius: 10px;"></div>'
+                            +                '<div class="col"><a href="http://192.168.0.231:3000/upload/'+val.productRevFileName+'" data-toggle="lightbox" data-gallery="example-gallery"><img class="reviewImg" src="http://192.168.0.231:3000/upload/'+val.productRevFileName+'" width="130px" style="border-radius: 10px;"></a></div>'
                             +            '</div>'
                             +        '</div>'
                             +    '</div>';
@@ -1214,6 +1320,13 @@
         });
 
     };
+
+    //리뷰 사진 클릭 시 원본 사진 보여주기
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
+    
 
 
     // 리뷰 페이징 처리
