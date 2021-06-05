@@ -234,7 +234,7 @@
                     $("#hotProductList").append(app);
                 } else {
                     $.each(list, function (i, val) {
-                        app += '<div style="width: 350px; height: 400px;">'
+                        app += '<div style="width: 350px; height: 400px; margin: 3px;">'
                             +  '<article article class="project2_wrap" >'
                             +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
                             +  '<div class="project2_item">'
@@ -244,13 +244,13 @@
                             +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">' + val.productName + '</h3></div><div class="row">';
 
                         if(val.productDiscount != 0) {
-                            app += '<span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
-                                + '<span style="font-family: \'Noto Sans KR\';font-size: 18px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span>';
+                            app += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
+                                + '<span style="font-family: \'Noto Sans KR\';font-size: 17px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span></p>';
                         } else {
-                            app += '<span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span>';
+                            app += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span></p>';
                         }
 
-                        app += '<div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 5px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰 </b>' + val.reviewCount + '</div>'
+                        app += '</div><div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 7px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰 </b>' + val.reviewCount + '</div>'
                             +  '</article>'
                             +  '</div >';
                     });

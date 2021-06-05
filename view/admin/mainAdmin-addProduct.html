@@ -228,6 +228,21 @@ body{
     transition: all .33s cubic-bezier(.685,.0473,.346,1)
 }
 
+.tab_btn2{
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgb(253, 54, 54);
+    border-radius: 4px;
+    color: red;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+
+.tab_btn2:active{
+    background: radial-gradient(#ab3535,#c05656);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1)
+}
+
 .write_btn{
     width: 90%;
     height: 47px;
@@ -571,7 +586,8 @@ $(document).ready(function() {
             + '<td><h5 style="text-align: center;"><b>'+name+'</b></h5><input type="hidden" id="optionTitle_'+seq+'" name="optionTitle" value="'+name+'"></td>'
             + '<td><input type="text" class="form-control" name="optionContent" placeholder="옵션항목"></td>'
             + '<td><input type="text" class="form-control" name="optionPrice" placeholder="옵션가격"></td>'
-            + '<td><input type="button" id="addSubOption" class="tab_btn" name="addSubOption" seq="'+seq+'" value="+"></td>'
+            + '<td><input type="button" id="addSubOption" class="tab_btn" name="addSubOption" seq="'+seq+'" value="+">'
+            + '<input type="button" id="deleteSubOption" class="tab_btn2" name="deleteSubOption" seq="'+seq+'" value="-" style="margin-left: 10px;"></td>'
             + '</tr>';            
         $('#option').before(app);
 
