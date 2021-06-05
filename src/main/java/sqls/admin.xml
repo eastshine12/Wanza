@@ -64,11 +64,15 @@
 	VALUES (SEQ_PRODUCT.NEXTVAL, #{productName}, #{productContent}, #{productPrice}, #{productDiscount}, #{productMaker}, #{productFileName}, 0, SYSDATE)
 </insert>
 
-<insert id="addProductOption" parameterType="com.decolab.wanza.dto.ProductOptionDTO">
-	INSERT INTO PRODUCTION_OPTION
-	VALUES (#{ProductSeq}, #{optionSeq}, #{optionTitle}, #{optionContent}, #{optionPrice})
+<insert id="addProductTag" parameterType="com.decolab.wanza.dto.ProductDTO">
+	INSERT INTO PRODUCTION_TAG
+	VALUES (#{productSeq}, #{largeCategory}, #{mediumCategory}, #{smallCategory})
 </insert>
 
+<insert id="addProductOption" parameterType="com.decolab.wanza.dto.ProductOptionDTO">
+	INSERT INTO PRODUCTION_OPTION
+	VALUES (#{productSeq}, #{optionSeq}, #{optionTitle}, #{optionContent}, #{optionPrice})
+</insert>
 
 <select id="getRecentAddProductSeq" resultType="int">
 	SELECT PRODUCTSEQ

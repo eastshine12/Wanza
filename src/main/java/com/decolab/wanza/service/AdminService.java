@@ -47,6 +47,10 @@ public class AdminService {
 		return dao.addProduct(dto);
 	}
 	
+	public int addProductTag(ProductDTO dto) {
+		return dao.addProductTag(dto);
+	}
+	
 	public int addProductOption(ProductOptionDTO dto) {
 		return dao.addProductOption(dto);
 	}

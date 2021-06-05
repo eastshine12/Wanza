@@ -27,6 +27,8 @@ public interface AdminDAO {
 	
 	public int addProduct(ProductDTO dto);
 	
+	public int addProductTag(ProductDTO dto);
+	
 	public int addProductOption(ProductOptionDTO dto);
 
 	public int getRecentAddProductSeq();
