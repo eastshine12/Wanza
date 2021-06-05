@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.decolab.wanza.dao.ProductDAO;
 import com.decolab.wanza.dto.ProductDTO;
+import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductReviewDTO;
 import com.decolab.wanza.dto.PurchaseProductDTO;
 
@@ -28,6 +29,10 @@ public class ProductService {
 		return dao.getProductDetail(dto);
 	}
 	
+	public List<ProductOptionDTO> getProductOptionList(ProductOptionDTO dto) {
+		return dao.getProductOptionList(dto);
+	}
+	
 	public List<ProductDTO> getSearchProduct(ProductDTO dto){
 		return dao.getSearchProduct(dto);
 	}
@@ -42,6 +47,10 @@ public class ProductService {
 	
 	public int addProductReview(ProductReviewDTO dto) {
 		return dao.addProductReview(dto);
+	}
+	
+	public int updateRating(ProductReviewDTO dto) {
+		return dao.updateRating(dto);
 	}
 	
 	public int updateReviewStatus(ProductReviewDTO dto) {

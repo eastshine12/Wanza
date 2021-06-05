@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.decolab.wanza.dto.ProductDTO;
+import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductReviewDTO;
 import com.decolab.wanza.dto.PurchaseProductDTO;
 
@@ -20,6 +21,8 @@ public interface ProductDAO {
 	
 	public ProductDTO getProductDetail(ProductDTO dto);
 	
+	public List<ProductOptionDTO> getProductOptionList(ProductOptionDTO dto);
+	
 	public List<ProductDTO> getSearchProduct(ProductDTO dto);
 	
 	public List<ProductDTO> getProductSortList(ProductDTO dto);
@@ -27,6 +30,8 @@ public interface ProductDAO {
 	public PurchaseProductDTO getUserPurchase(PurchaseProductDTO dto);
 	
 	public int addProductReview(ProductReviewDTO dto);
+	
+	public int updateRating(ProductReviewDTO dto);
 	
 	public int updateReviewStatus(ProductReviewDTO dto);
 	
