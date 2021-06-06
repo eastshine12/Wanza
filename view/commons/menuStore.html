@@ -15,94 +15,69 @@
 #st .navbar-nav li:first-of-type a{
     min-width: 30px;
 }
+.nav-item,
 #st .container{
     position: relative;
 }
-/* #st .submenu_wrap{
-    position: absolute;
-    top: 25px; left: 20px;
-    padding: 5px;
-    z-index: 10;
-    background-color: transparent;
-    overflow: hidden;
-    height: 0;
-    opacity: 0;
-    transition: all .3s;
-} */
-.nav-item{
-    position: relative;
+#navcol-2 .nav-item:hover a{
+    color: #f4744c;
+    font-weight: bold;
 }
 #st .submenu_wrap{
     position: absolute;
-    top: 31px; left: -15px;
-    padding: 5px;
-    z-index: 10;
+    top: 45px; left: 0px;
+    padding: 3px 0 0 0;
+    z-index: 11;
     background-color: transparent;
     overflow: hidden;
-    height: 0;
+    height: 0; width: 80px;
     opacity: 0;
-    transition: all .3s;
+    transition: height .3s, opacity .3s;
 }
-/* #navcol-2 .submenu_wrap:hover,
-#navcol-2 ul:hover+.submenu_wrap{
-    top: 45px;
-    height:auto;
-    opacity: 1;
-    transition: all .3s;
-} */
 #navcol-2 .submenu_wrap:hover,
-#navcol-2 .nav-item:hover .submenu_wrap{
-    top: 41px;
-    height:auto;
+#navcol-2 .nav-item a:hover+.submenu_wrap{
+    left: -15px;
+    height:auto; width: auto;
     opacity: 1;
-    transition: all .3s;
+    transition: height .3s, opacity .3s;
 }
-/* #st .submenu_box{
-    margin: 5px;
-    border: solid 1px #ededed;
-    height: 160px;
-    width: 700px;
-    border-radius: 8px;
-    background-color: rgb(255 255 255 / 94%);
-    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
-    z-index: 10;
-} */
+#navcol-2 .submenu_wrap:hover .submenu_box,
+#navcol-2 .nav-item a:hover+.submenu_wrap .submenu_box{
+    margin: 4px;
+}
 #st .submenu_box{
     display: flex;
-    margin: 5px 0 0;
+    margin: -4px 4px 4px 4px;
+    padding: 0 10px;
     border: solid 1px #ededed;
     height: 100px;
-    width: 150px;
     border-radius: 8px;
-    background-color: rgb(255 255 255 / 94%);
+    background-color: rgb(255 255 255 / 96%);
     box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
-    z-index: 10;
+    z-index: 11;
     align-items: center;
     justify-content: space-evenly;
+    transition: all .3s;
 }
 #st .submenu_box .figure{
     margin: 5px;
     cursor: pointer;
     text-align: center;
-    font-size: 17px;
+    font-size: 14px;
 }
-#st .submenu_box .figure:hover strong{
+#st .submenu_box .figure:hover .figure-caption{
     color: #f4744c;
-    font-weight: 900;
+    font-weight: 700;
 }
 #st .submenu_box .figure img{
-    width: 60px;
+    width: 55px;
+    margin: 5px 10px;
 }
 #st .submenu_box .figure a:hover{
     text-decoration: none;
 }
-#st .submenu_box ul{
-    list-style: none;
-    font-size: 7px;
-    padding: 0 10px 0 8px;
-    cursor: pointer;
-}
 </style>
+
 <nav id="st" class="navbar navbar-light navbar-expand-md">
     <div class="container-fluid" style="padding-bottom: 5px;">
         <div class="container">
@@ -117,30 +92,68 @@
                     <li class="nav-item"><a class="nav-link nav_a" href="../../index.html">홈</a></li>
                     <li class="nav-item"><a class="nav-link nav_a" href="../store/mainStore.html?#today_hot">인기상품</a></li>
                     
-                    <li class="nav-item"><a class="nav-link nav_a down_list" href="../store/mainStore.html?category=가구">가구</a>
+                    <li class="nav-item">
+                        <a class="nav-link nav_a down_list" href="../store/mainStore.html?category=가구">가구</a>
                         <div class="submenu_wrap d-md-block d-none">
-                        <div class="submenu_box">
-                            <figure class="figure">
-                                <a href="#" class="down_list">
-                                    <img src="../../assets/img/가구.png"><figcaption class="figure-caption"></figcaption>
-                                </a>
-                            </figure>
-                            <ul>
-                                <li>침대/매트리스</li>
-                                <li>소파</li>
-                                <li>테이블</li>
-                                <li>화장대/거울</li>
-                                <li>책상/책장</li>
-                                <li>의자</li>
-                            </ul>
-                        </div>
+                            <div class="submenu_box">
+                                <figure class="figure"><a href="../store/mainStore.html?category=가구&subCategory=1" class="down_list"><img src="../../assets/img/침대.png"><figcaption class="figure-caption">침대/매트리스</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=가구&subCategory=2" class="down_list"><img src="../../assets/img/소파.png"><figcaption class="figure-caption">소파</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=가구&subCategory=3" class="down_list"><img src="../../assets/img/테이블.png"><figcaption class="figure-caption">테이블</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=가구&subCategory=4" class="down_list"><img src="../../assets/img/거울.png"><figcaption class="figure-caption">화장대/거울</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=가구&subCategory=5" class="down_list"><img src="../../assets/img/책장.png"><figcaption class="figure-caption">책상/책장</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=가구&subCategory=6" class="down_list"><img src="../../assets/img/의자.png"><figcaption class="figure-caption">의자</figcaption></a></figure>
+                            </div>
                         </div>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link nav_a down_list" href="../store/mainStore.html?category=조명">조명</a></li>
-                    <li class="nav-item"><a class="nav-link nav_a down_list" href="../store/mainStore.html?category=홈데코">홈데코</a></li>
-                    <li class="nav-item"><a class="nav-link nav_a down_list" href="../store/mainStore.html?category=패브릭">패브릭</a></li>
-                    <li class="nav-item"><a class="nav-link nav_a down_list" href="../store/mainStore.html?category=수납정리">수납정리</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link nav_a down_list" href="../store/mainStore.html?category=조명">조명</a>
+                        <div class="submenu_wrap d-md-block d-none">
+                            <div class="submenu_box">
+                                <figure class="figure"><a href="../store/mainStore.html?category=조명&subCategory=1" class="down_list"><img src="../../assets/img/LED등.png"><figcaption class="figure-caption">LED등</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=조명&subCategory=2" class="down_list"><img src="../../assets/img/스탠드.png"><figcaption class="figure-caption">스탠드</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=조명&subCategory=3" class="down_list"><img src="../../assets/img/무드등.png"><figcaption class="figure-caption">무드등</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=조명&subCategory=4" class="down_list"><img src="../../assets/img/센서등.png"><figcaption class="figure-caption">센서등</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=조명&subCategory=5" class="down_list"><img src="../../assets/img/형광등.png"><figcaption class="figure-caption">형광등</figcaption></a></figure>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav_a down_list" href="../store/mainStore.html?category=홈데코">홈데코</a>
+                        <div class="submenu_wrap d-md-block d-none">
+                            <div class="submenu_box">
+                                <figure class="figure"><a href="../store/mainStore.html?category=홈데코&subCategory=1" class="down_list"><img src="../../assets/img/식물.png"><figcaption class="figure-caption">플라워/식물</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=홈데코&subCategory=2" class="down_list"><img src="../../assets/img/디퓨져.png"><figcaption class="figure-caption">캔들/디퓨져</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=홈데코&subCategory=3" class="down_list"><img src="../../assets/img/데코.png"><figcaption class="figure-caption">시계</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=홈데코&subCategory=4" class="down_list"><img src="../../assets/img/소품.png"><figcaption class="figure-caption">인테리어소품</figcaption></a></figure>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav_a down_list" href="../store/mainStore.html?category=패브릭">패브릭</a>
+                        <div class="submenu_wrap d-md-block d-none">
+                            <div class="submenu_box">
+                                <figure class="figure"><a href="../store/mainStore.html?category=패브릭&subCategory=1" class="down_list"><img src="../../assets/img/침구.png"><figcaption class="figure-caption">침구</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=패브릭&subCategory=2" class="down_list"><img src="../../assets/img/커튼.png"><figcaption class="figure-caption">커튼/블라인드</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=패브릭&subCategory=3" class="down_list"><img src="../../assets/img/러그.png"><figcaption class="figure-caption">카페트/러그</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=패브릭&subCategory=4" class="down_list"><img src="../../assets/img/패브릭.png"><figcaption class="figure-caption">쿠션/방석</figcaption></a></figure>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav_a down_list" href="../store/mainStore.html?category=수납정리">수납정리</a>
+                        <div class="submenu_wrap d-md-block d-none">
+                            <div class="submenu_box">
+                                <figure class="figure"><a href="../store/mainStore.html?category=수납정리&subCategory=1" class="down_list"><img src="../../assets/img/서랍장.png"><figcaption class="figure-caption">서랍장</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=수납정리&subCategory=2" class="down_list"><img src="../../assets/img/리빙박스.png"><figcaption class="figure-caption">리빙박스</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=수납정리&subCategory=3" class="down_list"><img src="../../assets/img/바구니.png"><figcaption class="figure-caption">바구니</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=수납정리&subCategory=4" class="down_list"><img src="../../assets/img/행거.png"><figcaption class="figure-caption">행거</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=수납정리&subCategory=5" class="down_list"><img src="../../assets/img/선반.png"><figcaption class="figure-caption">선반</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=수납정리&subCategory=6" class="down_list"><img src="../../assets/img/옷걸이.png"><figcaption class="figure-caption">옷걸이</figcaption></a></figure>
+                                <figure class="figure"><a href="../store/mainStore.html?category=수납정리&subCategory=7" class="down_list"><img src="../../assets/img/현관.png"><figcaption class="figure-caption">현관/신발정리</figcaption></a></figure>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
                 
                 <!-- 메뉴 호버 -->
