@@ -380,7 +380,9 @@
 <script>
 $(document).ready(function() {
     const category = getParameter("category")
+    const subCategory = getParameter("subCategory")
     console.log(category)
+    console.log(subCategory)
 
     if(category=='' || category==null){
         $('.top_slider, .store_main_head, .submenu_wrap').show();
@@ -392,9 +394,17 @@ $(document).ready(function() {
         setCategory(category)
         getProductSortList(setPdata(3))
         $('.store_head').show();
-        console.log('디스플레이:' +$('.top_slider').css('display'))
     }
     moveHotmenu('#today_hot') //인기상품 이동
+
+    if(subCategory!='' && subCategory!=null){
+        console.log('1212')
+        $('.store_subcategory li').removeClass('active')
+        console.log($('.store_subcategory li').eq(subCategory))
+        $('.store_subcategory>li').eq(subCategory).addClass('active')
+        getProductSortList(setPdata(3)) //인기순:최근3일판매량
+    }
+
      
     $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 인기순 메뉴 호버시 색
         $('.pop_content').toggleClass('active')
@@ -424,6 +434,7 @@ $(document).ready(function() {
     $(document).on('click','.store_subcategory>li',function(e){ //중분류 뿌리기
         //$('.store_thirdcategory').hide();
         $('.store_subcategory li').removeClass('active')
+        console.log($('.store_subcategory li').eq(1).html())
         $(this).addClass('active')
         //$(this).addClass('active').children().css('display','flex');
         getProductSortList(setPdata(3)) //인기순:최근3일판매량
@@ -556,7 +567,7 @@ function getProductSortList(jdata) {
                 $("#hotProductList").append(app);
             }
         },
-        error: function () { alert('error'); }
+        error: function () { console.log('error'); }
     });
 };
 
