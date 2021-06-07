@@ -74,8 +74,9 @@ $(document).ready(function() {
     if (sessionId != null) {
         let auth = JSON.parse(sessionId).auth
         if(auth==3){
-            let admin = '<a href="../admin/mainAdmin.html"><i class="fas fa-file-signature"></i> 관리자페이지</a>'
+            let admin = '<i class="fas fa-file-signature"></i> 관리자페이지'
             $('#myp').html(admin)
+            $('#myp').attr('onclick', 'location.href="../admin/mainAdmin.html"')
             $('.cart').remove()
             $('#goLogin').html('<b>관리자 </b> <i class="fa fa-sort-down"></i>');
         }
