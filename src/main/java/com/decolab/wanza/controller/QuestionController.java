@@ -20,6 +20,8 @@ import com.decolab.wanza.dto.QuestionCommentDTO;
 import com.decolab.wanza.dto.QuestionDTO;
 import com.decolab.wanza.service.QuestionService;
 
+import util.NewFileName;
+
 @RestController
 public class QuestionController {
 	
@@ -38,18 +40,20 @@ public class QuestionController {
 	
 	@RequestMapping(value = "/questionWrite", method = {RequestMethod.GET,RequestMethod.POST} )
 	public String questionWrite(
-			/* @RequestParam("questionFile")MultipartFile uploadFile, */HttpServletRequest req, QuestionDTO dto) {
+			 @RequestParam("questionFileName1")MultipartFile uploadFile, HttpServletRequest req, QuestionDTO dto) {
 		System.out.println("QuestionController questionWrite()" + new Date());
 		System.out.println(dto.toString());
-/*			
+		
 				// 파일 경로 /src/main/webapp/upload 폴더가 없으면 만들어야함!!!
 				String uploadPath = req.getServletContext().getRealPath("/upload");
 				//String uploadPath = "d:\\tmp"; 
 				
 				String filename = uploadFile.getOriginalFilename();
-				String filepath = uploadPath + File.separator + filename;
+				String newFilename = NewFileName.getNewFileName(filename);
+				String filepath = uploadPath + File.separator + newFilename;
 				
 				System.out.println("filepath: " + filepath);
+				dto.setQuestionFileName(newFilename);
 				
 				try {
 					BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
@@ -58,7 +62,7 @@ public class QuestionController {
 				} catch (Exception e) {
 					e.printStackTrace();
 					return "file upload fail";
-				}*/
+				}
 //		return service.questionWrite(dto)>0?"yes":"no";
 
 		service.questionWrite(dto);
