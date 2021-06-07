@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.decolab.wanza.dto.ProductDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
+import com.decolab.wanza.dto.ProductQuestionDTO;
 import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
 
 @Mapper
@@ -32,5 +33,9 @@ public interface AdminDAO {
 	public int addProductOption(ProductOptionDTO dto);
 
 	public int getRecentAddProductSeq();
+	
+	public List<ProductQuestionDTO> getProductQuestionList();
+	
+	public int addProductAnswer(ProductQuestionDTO dto);
 	
 }

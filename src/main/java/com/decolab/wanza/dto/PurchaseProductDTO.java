@@ -34,6 +34,12 @@ public class PurchaseProductDTO implements Serializable {
 		this.reviewStatus = reviewStatus;
 	}
 
+	
+	public PurchaseProductDTO(int productSeq, int userSeq) {
+		super();
+		this.productSeq = productSeq;
+		this.userSeq = userSeq;
+	}
 
 
 	public int getPurchaseSeq() {

@@ -114,4 +114,40 @@
 <!-- 리뷰 삭제 -->
 
 
+
+
+<!-- 상품 문의글 작성 -->
+<insert id="addProductQnA" parameterType="com.decolab.wanza.dto.ProductQuestionDTO">
+	INSERT INTO PRODUCTION_QUESTION (PRODUCTQNASEQ, PRODUCTSEQ, USERSEQ, PURCHASESEQ, PRODUCTQCONTENT, PRODUCTQNADATE, PRODUCTQNADEL)
+	VALUES(SEQ_PRODUCT_QNA.NEXTVAL, #{productSeq}, #{userSeq}, #{purchaseSeq}, #{productQContent}, SYSDATE, 0)
+</insert>
+
+
+<!-- 문의글 작성 유저 구매한 상품인지 조회 -->
+<select id="purchaseStatus" parameterType="com.decolab.wanza.dto.ProductQuestionDTO" resultType="com.decolab.wanza.dto.ProductQuestionDTO">
+	SELECT PURCHASESEQ
+	FROM (SELECT * FROM PURCHASE_PRODUCT ORDER BY PURCHASESEQ DESC)
+	WHERE PRODUCTSEQ=#{productSeq} AND USERSEQ=#{userSeq} AND ROWNUM=1
+</select>
+
+
+<!-- 해당 상품의 모든 문의글 가져오기 -->
+<select id="getProductQnAList" parameterType="com.decolab.wanza.dto.ProductQuestionDTO" resultType="com.decolab.wanza.dto.ProductQuestionDTO">
+	SELECT PRODUCTQNASEQ, PRODUCTSEQ, Q.USERSEQ, PURCHASESEQ, PRODUCTQCONTENT, PRODUCTACONTENT, PRODUCTQNADATE, PRODUCTQNADEL, NICKNAME
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY PRODUCTQNADATE DESC) AS RNUM, 
+			PRODUCTQNASEQ, PRODUCTSEQ, USERSEQ, PURCHASESEQ, PRODUCTQCONTENT, PRODUCTACONTENT, PRODUCTQNADATE, PRODUCTQNADEL 
+			FROM PRODUCTION_QUESTION WHERE PRODUCTSEQ=#{productSeq} AND PRODUCTQNADEL=0) Q, USERS U
+	WHERE Q.USERSEQ=U.USERSEQ AND RNUM&gt;=1+4*#{productQnAPageNum} AND RNUM&lt;=4+4*#{productQnAPageNum}
+	ORDER BY PRODUCTQNADATE DESC
+</select>
+
+<!-- 문의글 총 개수 -->
+<select id="getProductQnACount" parameterType="com.decolab.wanza.dto.ProductQuestionDTO" resultType="int">
+	SELECT NVL(COUNT(*), 0)
+	FROM PRODUCTION_QUESTION
+	WHERE PRODUCTSEQ=#{productSeq} AND PRODUCTQNADEL = 0
+</select>
+
+
+
 </mapper>
