@@ -49,7 +49,13 @@
                 login_text="Your Text"></div>
         </div>
         <div class="row" style="min-width: auto;text-align: left;font-family: 'Noto Sans KR', sans-serif;margin-bottom: -10px;">
-            <div class="col" style="text-align: center;padding: 0px;"><button class="btn btn-lg" type="button" style="width: 330px;height: 57px;color: #000000;background: #fef01b;border-radius: 0px;font-family: 'Noto Sans KR', sans-serif;font-size: 17px;margin: 10px;margin-left: 10px;"><img class="my-auto" src="../../assets/img/kakaotalk_black_logo_icon_147117.png" width="23px" style="margin-top: -5px;margin-right: 0px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;margin-left: -47px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 카카오톡 계정 로그인</button></div>
+            <div class="col" style="text-align: center;padding: 0px;">
+                <button class="btn btn-lg" type="button" onclick="loginWithKakao()" style="width: 330px;height: 57px;color: #000000;background: #fef01b;border-radius: 0px;font-family: 'Noto Sans KR', sans-serif;font-size: 17px;margin: 10px;margin-left: 10px;">
+                
+                    <img class="my-auto" src="../../assets/img/kakaotalk_black_logo_icon_147117.png" width="23px" style="margin-top: -5px;margin-right: 0px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;margin-left: -47px;">
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 카카오톡 계정 로그인
+                    </button>
+            </div>
         </div>
         <div class="row">
             <div class="col" style="text-align: center;padding: 0px;">
@@ -169,10 +175,45 @@
 
 
     // 카카오 로그인 API
+    // https://injekim97.tistory.com/137
+    // https://developers.kakao.com/sdk/reference/js/release/Kakao.API.html#.request
+    function loginWithKakao() {
+        alert('로긴카카오 클릭됨');
+
+        location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/community/mainCommunity.html&response_type=code"
+        lonsole.log(시발왜안되는거야)
+    }
+
+    /*
+    displayToken()
+    function displayToken() {
+        const token = getCookie('authorize-access-token')
+        if(token) {
+        Kakao.Auth.setAccessToken(token)
+        Kakao.Auth.getStatusInfo(({ status }) 
+        => {
+                if(status === 'connected') {
+                    document.getElementById('token-result').innerText = 'login success. token: ' + Kakao.Auth.getAccessToken()
+                } else {
+                    Kakao.Auth.setAccessToken(null)
+                }
+            })
+        }
+    }
+    */
+
+    function getCookie(name) {
+        const value = "; " + document.cookie;
+        const parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+    
+   
+
 
 
     // 네이버 로그인 API
-    var naver_id_login = new naver_id_login("dSA9KIZOunKpoBfOJdB9", "http://localhost:8090/view/collback.html");
+    var naver_id_login = new naver_id_login("dSA9KIZOunKpoBfOJdB9", "http://localhost:8090/collback.html");
     var state = naver_id_login.getUniqState();
     naver_id_login.setButton("green", 3, 70);
     naver_id_login.setDomain("http://localhost:8090/index.html");
