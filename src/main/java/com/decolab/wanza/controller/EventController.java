@@ -44,8 +44,7 @@ public class EventController {
 		String uploadPath = req.getServletContext().getRealPath("/upload");
 		//String uploadPath = "d:\\tmp";
 		
-		String filename = eventFilename.getOriginalFilename();
-		
+		String filename = eventFilename.getOriginalFilename();		
 		String newFilename = NewFileName.getNewFileName(filename);
 		String filepath = uploadPath + File.separator + newFilename;
 		

@@ -23,7 +23,7 @@
 		WHERE 1=1
 		AND QUESTIONDEL = 0
 		AND Q.USERSEQ = U.USERSEQ
-		ORDER BY QUESTIONSEQ DESC
+		ORDER BY QUESTIONREGDATE DESC
 	</select>
 	
 	<!-- 질답게시판 제목 검색해서 가져오기 -->
@@ -89,7 +89,7 @@
 		AND Q.USERSEQ = U.USERSEQ 
 		AND Q.QCDEL = 0
 		AND Q.QUESTIONSEQ = #{questionSeq}
-		ORDER BY QCSEQ DESC, QCREF ASC
+		ORDER BY QCREGDATE ASC, QCREF ASC
 	</select>
 	
 	<!-- 질문과답변 댓글리스트와 덧글리스트 전부 가져오기 -->
@@ -113,11 +113,11 @@
 		FROM QUESTION Q, USERS U, Q_COMMENT QC
 		WHERE 1=1 
 		AND Q.USERSEQ = U.USERSEQ 
-		AND Q.USERSEQ = QC.USERSEQ
+		AND Q.QUESTIONSEQ = QC.QUESTIONSEQ
 		AND Q.QCDEL = 0
 		AND Q.QUESTIONSEQ = #{questionSeq}
 		ORDER BY QCSEQ DESC, QCREF ASC
-	</select>
+	</select>	
 	
 	<!-- 질문과답변 댓글쓰기 -->
 	<insert id="questionComment" parameterType="com.decolab.wanza.dto.QuestionCommentDTO">
@@ -147,7 +147,7 @@
 		SELECT NVL(COUNT(*), 0) 
 		FROM Q_COMMENT
 		WHERE  1=1
-		AND QUESTIONSEQ = #{questionSeq}
+		AND QUESTIONSEQ = #{questionSeq} AND QCDEL = 0
 	</select>
 	
 	<!-- 질문과답변 댓글에 답글 -->
