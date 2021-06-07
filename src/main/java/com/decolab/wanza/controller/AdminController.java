@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.decolab.wanza.dto.ProductDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
+import com.decolab.wanza.dto.ProductQuestionDTO;
 import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
 import com.decolab.wanza.service.AdminService;
 import com.google.gson.JsonObject;
@@ -168,6 +169,21 @@ public class AdminController {
 		String a = jsonObject.toString();
 		System.out.println(a);
 		return a;
+	}
+	
+	@RequestMapping(value = "/getProductQuestionList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<ProductQuestionDTO> getProductQuestionList() {
+		System.out.println("AdminController getProductQuestionList() " + new Date());		
+		
+		return service.getProductQuestionList();
+	}
+	
+	
+	@RequestMapping(value = "/addProductAnswer", method = {RequestMethod.GET,RequestMethod.POST})
+	public String addProductAnswer(ProductQuestionDTO dto) {
+		System.out.println("AdminController addProductAnswer() " + new Date());		
+		
+		return service.addProductAnswer(dto)>0?"suc":"err";
 	}
 
 }
