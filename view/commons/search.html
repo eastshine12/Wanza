@@ -11,7 +11,16 @@
 <link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통-->
 
 <style>
-
+.search_head{
+    margin: 60px 0;
+}
+.search_story_main{
+    justify-content: center;
+}
+.search_store,.search_story,.search_questions{
+    min-height: 180px;
+    border-top: solid 1px #dbdbdb;
+}
 </style>
 
 </head>
@@ -20,24 +29,24 @@
     <nav include-html="../commons/menuComm.html"></nav>
 
 
-<div class="container" style="border:solid;">
-    <div class="search_head" style="border:solid; height: 100px;">
-        <h5><strong><span>'화이트'</span>에 대한 통합검색 결과 <span>16개</span></strong></h5>
+<div class="container" id="searchResult">
+    <div class="search_head">
+        <h5><strong>'<span></span>'에 대한 통합검색 결과 <span></span>개</strong></h5>
     </div>
 
-    <div class="search_store" style="border:solid; height: 500px;">
-        <h4><strong>스토어 <span>16개</span></strong></h4>
-        <div class="row search_store_main"></div>
+    <div class="search_store p-5">
+        <h4><strong>스토어 <span></span></strong></h4>
+        <div class="row search_store_main my-5"></div>
     </div>
 
-    <div class="search_story" style="border:solid; height: 500px;">
-        <h4><strong>스토리 <span>16개</span></strong></h4>
-        <div class="row search_story_main"></div>
+    <div class="search_story p-5">
+        <h4><strong>스토리 <span></span></strong></h4>
+        <div class="row search_story_main my-5"></div>
     </div>
 
-    <div class="search_questions" style="border:solid; height: 500px;">
-        <h4><strong>질문과 답변 <span>16개</span></strong></h4>
-        <div class="row search_question_main"></div>
+    <div class="search_questions p-5">
+        <h4><strong>질문과 답변 <span></span></strong></h4>
+        <div class="row search_question_main my-5"></div>
     </div>
     
 </div>
@@ -54,57 +63,79 @@
 
 <script>
 $(document).ready(function() {
-    getTotalSearch('서랍');
+    const searchWord = getParameter('searchWord');
+    //console.log(searchWord)
+    getTotalSearch(searchWord);
+
+    
 });
 
-// '인기 상품' 리스트
+// 검색 리스트 출력
 function getTotalSearch(word) {
     $.ajax({
         url: "http://localhost:3000/getTotalSearch",
         type: "post",
         data: {searchWord:word},
         success: function (map) {
-            console.log(map);
-            $(".search_store_main").html('');
-            let app='';
-            if (Object.keys(map.store).length == 0) {	// 상품 검색 결과
-                app += '<div style="width: 100%;height:300px; margin: 100px 0 0 0;text-align: center;">'
-                    + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
-                    + "</div>";
-                $(".search_store_main").append(app);
+            let storeNum = Object.keys(map.store).length
+            let storyNum = Object.keys(map.story).length
+            let questionNum = Object.keys(map.question).length
+            setDisplySearch(word,storeNum,storyNum,questionNum); //검색갯수 삽입
+
+            let storeApp='', storyApp='', questionApp='';
+            $(".search_store_main, search_story_main, search_question_main").html(''); //초기화
+
+            // 상품 검색 결과
+            if (storeNum == 0) {
+                storeApp += '<div style="width: 100%;height:300px; margin: 100px 0 0 0;text-align: center;">'
+                         +  '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                         +  '</div>';
             } else {
                 $.each(map.store, function (i, val) {
-                    app += '<div style="width: 350px; height: 400px; margin: 3px;">'
-                        +  '<article article class="project2_wrap" >'
-                        +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
-                        +  '<div class="project2_item">'
-                        +  '<span></span>'
-                        +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
-                        +  '</div>'
-                        +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">' + val.productName + '</h3></div><div class="row">';
+                    storeApp += '<div style="width: 350px; height: 400px; margin: 3px;">'
+                             +  '<article article class="project2_wrap" >'
+                             +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
+                             +  '<div class="project2_item">'
+                             +  '<span></span>'
+                             +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
+                             +  '</div>'
+                             +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">' + val.productName + '</h3></div><div class="row">';
                     if(val.productDiscount != 0) {
-                        app += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
-                            + '<span style="font-family: \'Noto Sans KR\';font-size: 17px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span></p>';
+                        storeApp += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
+                                 +  '<span style="font-family: \'Noto Sans KR\';font-size: 17px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span></p>';
                     } else {
-                        app += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span></p>';
+                        storeApp += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span></p>';
                     }
-
-                    app += '</div><div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 7px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰 </b>' + val.reviewCount + '</div>'
-                        +  '</article>'
-                        +  '</div >';
+                    storeApp += '</div><div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 7px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰 </b>' + val.reviewCount + '</div>'
+                             +  '</article>'
+                             +  '</div >';
                 });
-                $(".search_store_main").append(app);
             }
-
-            if (Object.keys(map.story).length == 0) {	// 스토리 검색 결과
-                
+            
+            // 스토리 검색 결과
+            if (storyNum == 0) {
+                storyApp += '<div style="width: 320px; margin-right: 50px;text-align: center;">'
+                         +  '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                         +  '</div>';
             } else {
                 $.each(map.story, function (i, val) {
-
+                    storyApp += '<div style="width: 320px; margin-right: 50px;">'
+                             +   '<article article class="project_wrap" >'
+                             +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
+                             +     '<div class="project_item">'
+                             +      '<span></span>'
+                             +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                             +     '</div>'
+                             +     '<h3 style="font-family: \'Noto Sans KR\'; font-size: 16px; margin-top: 15px; height: 32px;"><b>'+val.cardTitle+'</b></h3>'
+                             +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.nickName+'</b></span>'
+                             +    '<div style="font-family: \'Noto Sans KR\'; font-size: 13px;margin-top: 5px;"><i class="fa fa-heart" style="font-size: 13px;color: rgb(244,116,76);margin-left: 2px;"></i> '+val.likeCount+'&ensp;│&ensp;<b>조회</b> '+val.cardReadCount+'</div>'
+                             +   '</article>'
+                             +  '</div >'
                 });
             }
-
-            if (Object.keys(map.question).length == 0) {	// 질문답변 검색 결과
+            
+            // 질문답변 검색 결과
+            if (questionNum == 0) {
                 
             } else {
                 $.each(map.question, function (i, val) {
@@ -113,11 +144,22 @@ function getTotalSearch(word) {
             }
 
 
-
+            $(".search_store_main").append(storeApp);
+            $(".search_story_main").append(storyApp);
+            $(".search_question_main").append(questionApp);
         },
         error: function () { console.log('error'); }
     });
 };
+//검색단어랑 수 셋팅
+function setDisplySearch(word,storeCount,storyCount,questionCount) {
+    $('.search_head span:first').html(word);
+    $('.search_head span:last').html(storeCount+storyCount+questionCount);
+    $('.search_store span').html(storeCount);
+    $('.search_story span').html(storyCount);
+    $('.search_questions span').html(questionCount);
+}
+
 // 금액 콤마 삽입 정규식
 function makeComma(str) {
     str = String(str);
@@ -128,5 +170,11 @@ function makeComma(str) {
 function discountRate(price, discount) {
     return Math.ceil(100- (discount/price*100));
 };
-
+//파라미터값 가져오도록 하는 함수
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 </script>

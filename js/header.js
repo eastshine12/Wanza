@@ -36,7 +36,7 @@ $(document).on('click', '#search-icon', function () {
             },
             error:function(){ console.log("검색error"); }
         });
-        location.href = "../commons/search.html"
+        location.href = "../commons/search.html?searchWord="+searchVal
     }
 });
 
