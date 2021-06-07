@@ -27,6 +27,8 @@ public interface ProductDAO {
 	
 	public List<ProductDTO> getProductSortList(ProductDTO dto);
 	
+	public int getProductSortCount(ProductDTO dto);
+	
 	public PurchaseProductDTO getUserPurchase(PurchaseProductDTO dto);
 	
 	public int addProductReview(ProductReviewDTO dto);

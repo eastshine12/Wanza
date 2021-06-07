@@ -41,6 +41,10 @@ public class ProductService {
 		return dao.getProductSortList(dto);
 	}
 	
+	public int getProductSortCount(ProductDTO dto){
+		return dao.getProductSortCount(dto);
+	}
+	
 	public PurchaseProductDTO getUserPurchase(PurchaseProductDTO dto) {
 		return dao.getUserPurchase(dto);
 	}

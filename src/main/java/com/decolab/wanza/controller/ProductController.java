@@ -68,6 +68,12 @@ public class ProductController {
 		return service.getProductSortList(dto);
 	}
 	
+	@RequestMapping(value = "/getProductSortCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public int getProductSortCount(ProductDTO dto) { //분류한 리스트 총 갯수 가져오기
+		System.out.println("ProductController getProductSortList() " + new Date());
+		System.out.println(dto.toString());
+		return service.getProductSortCount(dto);
+	}
 	
 	@RequestMapping(value = "/getUserPurchase", method = {RequestMethod.GET,RequestMethod.POST})
 	public PurchaseProductDTO getUserPurchase(PurchaseProductDTO dto) {
@@ -108,14 +114,14 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/getProductReviewList", method = {RequestMethod.GET,RequestMethod.POST})
-	public List<ProductReviewDTO> getProductReviewList(ProductReviewDTO dto) { //분류하여 리스트로 가져오기
+	public List<ProductReviewDTO> getProductReviewList(ProductReviewDTO dto) { 
 		System.out.println("ProductController getProductReviewList() " + new Date());
 		System.out.println(dto.toString());
 		return service.getProductReviewList(dto);
 	}
 	
 	@RequestMapping(value = "/getProductReviewCount", method = {RequestMethod.GET,RequestMethod.POST})
-	public int getProductReviewCount(ProductReviewDTO dto) { //분류하여 리스트로 가져오기
+	public int getProductReviewCount(ProductReviewDTO dto) { 
 		System.out.println("ProductController getProductReviewCount() " + new Date());
 		System.out.println(dto.toString());
 		return service.getProductReviewCount(dto);
