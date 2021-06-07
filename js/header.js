@@ -11,57 +11,34 @@ $(document).on('click', '#_logo', function () {
     location.href = '../../index.html';
 })
 
-$(document).on('click', '#goCommunity', function () {
-    //alert('커뮤이동');
-})
-
-$(document).on('click', '#goStore', function () {
-    //alert('스토어이동');
-})
-
-
 $(document).on('click', '#goCart', function () {
     location.href = "../store/cart.html";
 })
-
-/*
-$(document).on('mouseover', '#_realTime', function () {
-
-    alert('마우스오버');
-
-})
-
-$(document).on('mouseleave', '#_realTime', function () {
-    alert('마우스나감');
-})
-*/
-
 
 $(document).on('attr', '#headerSearch', function () {
     location.href = "../login/login.html"
 })
 // 검색 아이콘 클릭시 검색어 DB저장
 $(document).on('click', '#search-icon', function () {
+    let searchVal = $("#headerSearch").val().trim();
     // 검색어가 없는경우 placeholder값으로 입력
-    if($("#headerSearch").val()==""){
+    if(searchVal==""){
         document.getElementById("headerSearch").setAttribute("value",$("#headerSearch").attr('placeholder'))
     }
+    else{
         $.ajax({
             url:"http://localhost:3000/searchWrite",
             type:"get",
-            data:{searchWord:$("#headerSearch").val()},
+            data:{searchWord:String(searchVal)},
             success:function(data) {
-                if(data=="suc"){
-                    alert("검색어등록성공");
-                }else{
-                    //alert("검색어등록실패");
-                }
+                if(data=="suc"){ console.log("검색어등록성공"); }
+                else           { console.log("검색어등록실패"); }
             },
-            error:function(){
-                //alert("검색error");
-            }
-        })
-})
+            error:function(){ console.log("검색error"); }
+        });
+        location.href = "../commons/search.html"
+    }
+});
 
 
 
@@ -118,7 +95,7 @@ $(document).ready(function() {
         return item[Math.floor(Math.random() * item.length)];
     };
     let choiceText = randomItem(eventSearchText);
-    console.log(choiceText);
+    //console.log(choiceText);
     document.getElementById('headerSearch').setAttribute('placeholder', choiceText);
     
     // 실시간 검색순위 리스트

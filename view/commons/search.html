@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>완벽한 자취생활, 완자</title>
+
+<link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon"> <!-- 브라우저 탭 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
+<!-- <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css"> -->
+<!-- 부트스트랩 -->
+<link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통-->
+
+<style>
+
+</style>
+
+</head>
+<body>
+    <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav>
+
+
+<div class="container" style="border:solid;">
+    <div class="search_head" style="border:solid; height: 100px;">
+        <h5><strong><span>'화이트'</span>에 대한 통합검색 결과 <span>16개</span></strong></h5>
+    </div>
+
+    <div class="search_store" style="border:solid; height: 500px;">
+        <h4><strong>스토어 <span>16개</span></strong></h4>
+        <div class="row search_store_main"></div>
+    </div>
+
+    <div class="search_story" style="border:solid; height: 500px;">
+        <h4><strong>스토리 <span>16개</span></strong></h4>
+        <div class="row search_story_main"></div>
+    </div>
+
+    <div class="search_questions" style="border:solid; height: 500px;">
+        <h4><strong>질문과 답변 <span>16개</span></strong></h4>
+        <div class="row search_question_main"></div>
+    </div>
+    
+</div>
+
+
+    <footer include-html="../commons/footer.html"></footer>
+
+</body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
+
+<script>
+$(document).ready(function() {
+    getTotalSearch('서랍');
+});
+
+// '인기 상품' 리스트
+function getTotalSearch(word) {
+    $.ajax({
+        url: "http://localhost:3000/getTotalSearch",
+        type: "post",
+        data: {searchWord:word},
+        success: function (map) {
+            console.log(map);
+            $(".search_store_main").html('');
+            let app='';
+            if (Object.keys(map.store).length == 0) {	// 상품 검색 결과
+                app += '<div style="width: 100%;height:300px; margin: 100px 0 0 0;text-align: center;">'
+                    + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                    + "</div>";
+                $(".search_store_main").append(app);
+            } else {
+                $.each(map.store, function (i, val) {
+                    app += '<div style="width: 350px; height: 400px; margin: 3px;">'
+                        +  '<article article class="project2_wrap" >'
+                        +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
+                        +  '<div class="project2_item">'
+                        +  '<span></span>'
+                        +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
+                        +  '</div>'
+                        +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">' + val.productName + '</h3></div><div class="row">';
+                    if(val.productDiscount != 0) {
+                        app += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
+                            + '<span style="font-family: \'Noto Sans KR\';font-size: 17px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span></p>';
+                    } else {
+                        app += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span></p>';
+                    }
+
+                    app += '</div><div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 7px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰 </b>' + val.reviewCount + '</div>'
+                        +  '</article>'
+                        +  '</div >';
+                });
+                $(".search_store_main").append(app);
+            }
+
+            if (Object.keys(map.story).length == 0) {	// 스토리 검색 결과
+                
+            } else {
+                $.each(map.story, function (i, val) {
+
+                });
+            }
+
+            if (Object.keys(map.question).length == 0) {	// 질문답변 검색 결과
+                
+            } else {
+                $.each(map.question, function (i, val) {
+
+                });
+            }
+
+
+
+        },
+        error: function () { console.log('error'); }
+    });
+};
+// 금액 콤마 삽입 정규식
+function makeComma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+};
+
+//할인 퍼센테이지 계산
+function discountRate(price, discount) {
+    return Math.ceil(100- (discount/price*100));
+};
+
+</script>
