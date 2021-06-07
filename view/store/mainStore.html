@@ -274,8 +274,21 @@
     /* justify-content: center; */
     
 }
-
-
+/* 상품 리스트 페이징 */
+.store_page{
+    margin: 20px 0 100px;
+}
+#store_items .pagination{
+    justify-content: center;
+}
+#store_items .page-item.active .page-link{
+    background-color: #f4744c;
+    border-color: #f4744c;
+    color: white;
+}
+#store_items .page-link:focus{
+    box-shadow: none;
+}
 </style>
 
 </head>
@@ -325,7 +338,7 @@
 </div> <!-- 슬라이더 상자 끝 -->
 
 <!-- 상품파트 -->
-<div class="container" id="store_items">
+<div class="container mb-5" id="store_items">
     
     <div class="store_head">
         <span></span>
@@ -360,10 +373,12 @@
         <div id="hotProductList" class="row">
         
             <!-- 상품 리스트 생성되는 곳 -->
-
         </div>
     </div>
-
+    
+    <div class="store_page">
+        <!-- 상품리스트 페이지 번호 -->
+    </div>
 </div>
 
 
@@ -376,6 +391,7 @@
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
+<script src="../../js/jquery.twbsPagination.min.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -387,24 +403,22 @@ $(document).ready(function() {
     if(category=='' || category==null){
         $('.top_slider, .store_main_head, .submenu_wrap').show();
         $('.top_slider').css('visibility','visible');
-        getProductSortList(setPdata(0))
+        getProductSortList(setPdata(0));
         $('.store_head').hide();
     }else{
         $('.store_head span').text(category);
-        setCategory(category)
-        getProductSortList(setPdata(3))
+        setCategory(category);
+        getProductSortList(setPdata(3));
         $('.store_head').show();
+        getProductSortCount(setPdata(3)); //페이징
     }
     moveHotmenu('#today_hot') //인기상품 이동
-
+    
     if(subCategory!='' && subCategory!=null){
-        console.log('1212')
         $('.store_subcategory li').removeClass('active')
-        console.log($('.store_subcategory li').eq(subCategory))
         $('.store_subcategory>li').eq(subCategory).addClass('active')
         getProductSortList(setPdata(3)) //인기순:최근3일판매량
     }
-
      
     $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 인기순 메뉴 호버시 색
         $('.pop_content').toggleClass('active')
@@ -415,21 +429,6 @@ $(document).ready(function() {
         $('.top_slider, .store_main_head').show();
         moveHotmenu('#today_hot')
     });
-    
-    // $('#navcol-2 .down_list').click(function(){ //카테고리 이동
-    //     $('.top_slider, .store_main_head, .submenu_wrap').hide();
-    //     let b_sort = $(this).text().trim()
-    //     console.log(b_sort)
-    //     if(b_sort==''){
-    //         b_sort = $(this).parents('.nav-item').text().split(' ')[0].trim()
-    //     }
-    //     console.log(b_sort)
-    //     $('.store_head span').text(b_sort);
-    //     setCategory(b_sort)
-        
-    //     getProductSortList(setPdata(3))
-    //     $('.store_head').show();
-    // });
 
     $(document).on('click','.store_subcategory>li',function(e){ //중분류 뿌리기
         //$('.store_thirdcategory').hide();
@@ -438,6 +437,7 @@ $(document).ready(function() {
         $(this).addClass('active')
         //$(this).addClass('active').children().css('display','flex');
         getProductSortList(setPdata(3)) //인기순:최근3일판매량
+        getProductSortCount(setPdata(3)); //페이징
     });
 
     $(document).on('click','.store_thirdcategory>li',function(e){ //소분류 뿌리기
@@ -450,6 +450,7 @@ $(document).ready(function() {
         //$(this).parent().parent().addClass('active')
 
         getProductSortList(setPdata(3)) //인기순:최근3일판매량
+        getProductSortCount(setPdata(3)); //페이징
         e.stopPropagation(); //다른 상 하위 요소 이벤트 막기
     });
 
@@ -571,11 +572,53 @@ function getProductSortList(jdata) {
     });
 };
 
+//글의 총 수를 구하는 함수
+function getProductSortCount(jdata) {
+	$.ajax({
+		url:"http://localhost:3000/getProductSortCount",
+		type:"get",
+		data:jdata,
+		success:function(count){ console.log(count); loadPage(count); },
+		error:function(){ alert('error'); }
+	});
+}
+//페이지 처리를 하는 함수
+function loadPage(totalCount) {
+	let pageSize = 9;
+	let nowPage = 1;
+	
+	let _totalPages = totalCount / pageSize;
+	console.log("페이지수:"+_totalPages);
+	
+	if(totalCount % pageSize > 0){
+		//_totalPages = Math.ceil(_totalPages);
+		_totalPages++;
+	}
+	//$(".store_page").twbsPagination("destroy"); //초기화
+	$(".store_page").twbsPagination({
+		startPage: 1,
+		totalPages: _totalPages,
+		visiblePages:5, //페이지번호를 몇개까지 보일건가
+		first:'<span sria-hidden="true">«</span>',
+		prev:"이전",
+		next:"다음",
+		last:'<span sria-hidden="true">»</span>',
+		initiateStartPageClick:false, //온 페이지 클릭이 자동실행여부 결정
+		onPageClick:function(event,page){
+			nowPage = page;
+			console.log('nowPage : '+page);
+            getProductSortList(setPdata(3));
+            $('html').scrollTop(0)
+            //$('html').scrollTop( $('#store_items').offset().top );
+		}
+	});
+    $(".store_page").twbsPagination("changeTotalPages",_totalPages,nowPage);
+}
+
 // 분류 데이터 가져와서 json형태로 만들기
 function setPdata(date){
     let lc = $('.store_head span').text()
-    let mc='';
-    let sc='';
+    let mc='', sc='', pNum=0;
     $('.store_subcategory>li').each(function(i){
         if($(this).hasClass('active')){
             let tmp = $(this).html().split('<')[0];
@@ -588,12 +631,18 @@ function setPdata(date){
         }
     });
     let sort = $('.btn_pop').val();
-    console.log(mc+sc)
+    $('.pagination>li').each(function(i){
+        if($(this).hasClass('active')){
+            pNum = $(this).text()-1;
+        }
+    });
     let param='{"largeCategory":"'+lc+'",';
     param += '"mediumCategory":"'+mc+'",';
     param += '"smallCategory":"'+sc+'",';
     param += '"recentPeriod":"'+date+'",';
-    param += '"'+sort.split('=')[0]+'":"'+sort.split('=')[1]+'"}'
+    param += '"'+sort.split('=')[0]+'":"'+sort.split('=')[1]+'",'
+    param += '"startNum":'+ (pNum*9+1) +','
+    param += '"endNum":'+ (pNum*9+9) +'}';
     console.log(JSON.parse(param))
     return JSON.parse(param);
 }
