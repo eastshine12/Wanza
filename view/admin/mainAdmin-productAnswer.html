@@ -503,6 +503,102 @@ select::-ms-expand{
     border-color: #82a593;
 }
 
+
+
+
+.hiddenRow {
+    padding: 0 !important;
+}
+
+
+
+
+#marker {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transition: all 0.1s ease-in-out;
+}
+
+#marker:hover {
+    transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+
+#marker:hover #markerMessage{
+    display:block;
+    transform-origin: 100% 0%;
+    -webkit-animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#marker #markerMessage{
+    display: none;
+    text-align: left;
+    background-color: #fff5e2a1;
+    padding: 8px;
+    padding-top: 15px;
+    width: 300px;
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px rgba(248, 139, 14, 0.418);
+    right: -120px;
+    top: 50px;
+    color: rgb(197, 99, 99);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+#marker #markerMessage:before{
+    position: absolute;
+    content: '';
+    width:0;
+    height: 0;
+    border:6px solid transparent;
+    border-bottom-color:#F4744C;
+    right:134px;
+    top:-12px;
+}
+
+#marker #markerMessage:after{
+    width:100%;
+    height:40px;
+    content:'';
+    position: absolute;
+    top:-40px;
+    left:0;
+}
+
+@-webkit-keyframes fadeIn {
+    0% { 
+        opacity:0; 
+        transform: scale(0.6);
+    }
+    100% {
+        opacity:100%;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:100%; }
+}​ 
+
+
+
+
+
+
+
+
+
+
 </style>
 
 </head>
@@ -608,102 +704,37 @@ select::-ms-expand{
 
             </div>
         </div>
-        
+
         <!-- 테이블박스 -->
         <div class="table_wrap" id="table1">
             <div class="head_tab">
-                <div class="custom-checkbox mx-5 my-3" id="checkbox_all">
-                    <input type="checkbox" class="custom-control-input" id="cb">
-                    <label for="cb" class="custom-control-label"></label>
-                    <span>전체체크</span>
-                </div>
+                
                 <div class="select_status">
                     <label for="sele1"><select name="dly_status" id="sele1">
-                        <option>-주문상태-</option>
-                        <option value="1">결제대기</option>
-                        <option value="2">결제완료</option>
-                        <option value="3">배송준비</option>
-                        <option value="4">배송중</option>
-                        <option value="5">배송완료</option>
-                        <option value="6">환불대기</option>
-                        <option value="7">환불완료</option>
+                        <option>-작성상태-</option>
+                        <option value="1">입력대기</option>
+                        <option value="2">입력완료</option>
                     </select><i class="fas fa-sort-down"></i></label>
-
-                    <button type="button" class="tab_btn">변 경</button>
                 </div>
             </div>
 
             <table class="table table-hover text-center">
                 <colgroup>
-                    <col width="56"><col width="100"><col width="86"><col width="96">
-                    <col width="auto"><col width="56"><col width="86"><col width="75">
-                    <col width="160"><col width="110"><col width="105"><col width="86">
+                    <col width="56"><col width="120"><col width="86">
+                    <col width="500"><col width="auto"><col width="100">
+                    <col width="90"><col width="150">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>체크</th><th>주문번호</th><th>주문상태</th><th>주문일시</th>
-                        <th>제품명</th><th>수량</th><th>배송지역</th><th>주문자</th>
-                        <th>전화번호</th><th>금액</th><th>사용포인트</th><th>결제수단</th>
+                        <th>번호</th><th>QnA번호</th><th>작성상태</th>
+                        <th>상품명</th><th>질문내용</th><th>작성자</th>
+                        <th>구매여부</th><th>작성일</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="1" name="chk">
-                                <label for="1" class="custom-control-label"></label>
-                            </div>
-                        </td>
-                        <td>210529-50902-00</td>
-                        <td>배송중</td>
-                        <td>21/05/27 12:17:34</td>
-                        <td>이탈리아 의자 외 1</td>
-                        <td>1개</td>
-                        <td>서울</td>
-                        <td>홍길동</td>
-                        <td>010-1234-5678</td>
-                        <td>138,700원</td>
-                        <td>120p</td>
-                        <td>카드</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="2" name="chk">
-                                <label for="2" class="custom-control-label"></label>
-                            </div>
-                        </td>
-                        <td>210529-50902-00</td>
-                        <td>배송중</td>
-                        <td>21/05/27 12:17:34</td>
-                        <td>이탈리아 의자 외 1</td>
-                        <td>1개</td>
-                        <td>서울</td>
-                        <td>홍길동</td>
-                        <td>010-1234-5678</td>
-                        <td>138,700원</td>
-                        <td>120p</td>
-                        <td>카드</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="3" name="chk">
-                                <label for="3" class="custom-control-label"></label>
-                            </div>
-                        </td>
-                        <td>210529-50902-00</td>
-                        <td>배송중</td>
-                        <td>21/05/27 12:17:34</td>
-                        <td>이탈리아 의자 외 1</td>
-                        <td>1개</td>
-                        <td>서울</td>
-                        <td>홍길동</td>
-                        <td>010-1234-5678</td>
-                        <td>138,700원</td>
-                        <td>120p</td>
-                        <td>카드</td>
-                    </tr>
+                <tbody id="productQuestionList">
+                
+                    <!-- 리스트 뿌려지는 곳 -->
+
                 </tbody>
             </table>
         </div>
@@ -721,17 +752,22 @@ select::-ms-expand{
 
 </div>
 
-
 </body>
 
 <script src="../../assets/js/jquery.min.js"></script>
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script><!-- jQuery UI 라이브러리 -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> <!-- 날짜 포맷 라이브러리 -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ko.js"></script> <!-- 날짜 포맷 라이브러리 -->
+
 <!-- <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script> -->
 
 <script>
 $(document).ready(function() {
+
+    $('div[name=itemDetail]').hide();
+
     $('.menu_header').click( function() { //사이드 메뉴 활성화
         $('.menu_header').removeClass('active')
         $(this).addClass('active');
@@ -810,7 +846,159 @@ $(document).ready(function() {
         }   
     });
 
+    
+
+    // '문의 글' 리스트
+    getProductQuestionList();
+    function getProductQuestionList() {
+        $.ajax({
+            url: "http://192.168.0.231:3000/getProductQuestionList",
+            type: "get",
+            success: function (list) {
+
+                console.log(list);
+                $("#productQuestionList").children().remove();
+                let app = ""
+                if (Object.keys(list).length == 0) {
+
+                    app += '<div style="width: 320px; margin-right: 50px;">'
+                        + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                        + "</div>";
+
+                    $("#productQuestionList").append(app);
+
+                } else {
+
+                    let seq = -1;
+
+                    $.each(list, function (i, val) {
+
+                        if(val.productQnASeq == seq) {
+                            return true;
+                        }
+
+                        seq = val.productQnASeq;
+                        let answer = '';
+
+                        
+                        app +=   '<tr data-toggle="collapse" data-target="#collapse'+(i+1)+'" class="accordion-toggle" seq="'+seq+'">'
+                            +    '<td>'+(i+1)+'</td>'
+                            +    '<td id="qnaSeq_'+(i+1)+'">'+val.productQnASeq+'</td>'
+                            +    '<td>';
+
+                        if(val.productAContent != null) {
+                            answer = val.productAContent;
+                            app += '<span style="color: #9c9b9b;">입력완료<span>';
+                        } else {
+                            app += '입력대기';                    
+                        }
+                        app +=   '</td>'
+                            +    '<td>';
+
+                        if(val.productName.length > 30) {
+                            app += (val.productName).substr(0,30)+'...';                   
+                        } else {
+                            app += val.productName;
+                        }
+
+                        app +=   '</td>'
+                            +    '<td>';
+                        
+                        if(val.productQContent.length > 22) {
+                            app += (val.productQContent).substr(0,22)+'...';                   
+                        } else {
+                            app += val.productQContent;
+                        }
+                                
+                        app +=   '</td>'
+                            +    '<td>'+val.nickname+'</td>'
+                            +    '<td>';
+                        if(val.purchaseSeq > 0) {
+                            app += '구매'
+                        } else {
+                            app += '비구매'
+                        }
+                        app +=   '</td>'
+                            +    '<td>'+moment(val.productQnADate).format("LLL")+'</td>'
+                            +    '</tr>'
+                            +    '<tr>'
+                            +    '<td colspan="8" class="hiddenRow"><div id="collapse'+(i+1)+'" class="accordian-body collapse">'
+                            +'<div class="row" style="margin: 20px 0px;">'
+                            +    '<div class="col">'
+                            +        '<div class="row" style="height: 50px; margin:20px 0px;">'
+                            +            '<div class="col d-flex justify-content-center align-items-center"><p style="font-size: 18px;"><b>- 질문 내용</b></p></div>'
+                            +        '</div>'
+                            +        '<div class="row" style="height: 84px;">'
+                            +            '<div class="col"><span>'+val.productQContent+'</span></div>'
+                            +        '</div>'
+                            +        '<div class="row" style="height: 50px; margin-top:20px 0px;">'
+                            +            '<div class="col d-flex justify-content-center align-items-center"><p style="font-size: 18px;"><b>- 답변 내용</b></p></div>'
+                            +        '</div>'
+                            +        '<div class="row" style="height: 400px;">'
+                            +            '<div class="col""><textarea id="productAContent_'+val.productQnASeq+'" style="width: 700px;height: 400px;resize: none;">'+answer+'</textarea></div>'
+                            +        '</div>'
+                            +        '<div class="row" style="height: 170px;">'
+                            +            '<div class="col d-flex justify-content-center align-items-center"><button id="insertAnswerBtn_'+val.productQnASeq+'" seq="'+val.productQnASeq+'" name="insertAnswerBtn" class="tab_btn" type="button" style="width: 180px; height: 50px; font-size: 20px;">답변등록</button></div>'
+                            +        '</div>'
+                            +    '</div>'
+
+                            +    '</div></td>'
+                            +    '</tr>';
+                    });
+                    $("#productQuestionList").append(app);
+                }
+
+            },
+            error: function () {
+                alert('error');
+            }
+        });
+    };
+
+
+
+    $(document).on('click', 'button[name=insertAnswerBtn]', function() {
+        let qnaNum = $(this).attr('seq');
+        let answer = $('#productAContent_'+qnaNum).val();
+    
+        if(confirm("답글을 등록하시겠습니까?") == true) {
+    
+            $.ajax({
+                url: "http://192.168.0.231:3000/addProductAnswer",
+                type: "post",
+                data: {
+                    productQnASeq: qnaNum,
+                    productAContent: answer
+                },
+                success: function(data) {
+                    if(data == "suc") {
+                        alert('답변이 등록되었습니다.');
+                        getProductQuestionList();
+                    } else {
+                        alert('오류가 발생했습니다.');
+                    }
+                },
+                error: function() {
+                    alert('addProductAnswer error');
+                }
+            })
+    
+        }
+        else {
+            return;
+        }
+    
+    });
+    
+
 });
+
+// 금액 콤마 삽입 정규식
+function makeComma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+};
+
 
 function autoCheck() {
     let chkLength = $('input:checkbox[name="chk"]');
@@ -824,6 +1012,19 @@ function autoCheck() {
         $('#checkbox_all').find('span').text('전체체크');
     }
 };
+
+
+
+
+//테이블 로우 클릭 시
+$(document).on('click', '.accordion-toggle', function(event) {
+
+    //let cardSeq = $(this).attr('seq');
+    //getProductTag(cardSeq);
+});
+
+
+
 
 
 </script>

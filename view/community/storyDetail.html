@@ -152,13 +152,16 @@
                 <div class="row">
                     <div class="col"><span style="color: rgb(244, 116, 76);">조회 </span><span id="readCount" style="color: rgb(244, 116, 76);"></span><span>&nbsp;&nbsp;·&nbsp;댓글 </span><span id="reviewCount"></span></div>
                 </div>
-                <div class="row" style="margin-top: 45px; height: 95px;">
+                <div class="row" style="margin-top: 35px; height: 90px;">
                     <div class="col"><span id="cardContent"></span></div>
                 </div>
-                <div class="row" style="margin-top: 10px;margin-bottom: 25px;">
+                <div class="row" style="margin-top: 7px;margin-bottom: 15px;">
                     <div class="col"><button id="likeBtn" class="btn" type="button" style="width: 150px;height: 45px;background: rgb(244, 116, 76);color: rgb(255,255,255);"></button></div>
                 </div>
-                <div class="row" style="margin-top: 5px;width: 350px;margin-right: 10px;margin-left: -5px;margin-bottom: 0px;padding-right: 5px;">  
+                <div class="row">
+                    <div class="col" style="margin-bottom: -10px;"><p style="font-size: 14px; color:#9e9e9e;"><span id="nickName" style="color: rgb(244, 116, 76);font-weight: bold;"></span> 님의 다른 인테리어 사진</p></div>
+                </div>
+                <div class="row" style="width: 350px;margin-right: 10px;margin-left: -5px;margin-bottom: 0px;padding-right: 5px;">  
                     
                     <!-- 유저의 다른 업로드 사진 리스트 -->
 
@@ -417,6 +420,7 @@
                     $('#readCount').text(data.cardReadCount);
                     $('#mainImg').attr('src', 'http://192.168.0.231:3000/upload/'+data.cardFileName);
                     $('#cardNickName').html('<strong>' + data.nickName + '</strong>');
+                    $('#nickName').text(data.nickName);
                     $('#cardContent').text(data.cardContent);
                 },
                 error: function () {
