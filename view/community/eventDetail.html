@@ -106,7 +106,7 @@ $(document).ready(function(){
 
      //할인 퍼센테이지 계산
      function discountRate(price, discount) {
-        return Math.ceil(discount / price * 100);
+        return Math.ceil(100- (discount/price*100));
     };
       // 금액 콤마 삽입 정규식
       function makeComma(str) {

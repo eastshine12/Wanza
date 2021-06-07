@@ -322,6 +322,7 @@
 
                         <ul class="comment-feed-list" id="comment-feed-list" style="list-style: none;">
                             <!-- 테스트댓글1 -->
+                            <!--
                             <li class="comment-feed-list-item">
                                 <div class="comment-feed-item">
                                     <p class="comment-feed-item-content" >
@@ -335,14 +336,15 @@
                                     <footer class="comment-feed-item-footer">
                                         <time class="comment-feed-item-footer-time">10분전</time>
                                         <button class="">좋아요</button>
-                                        <!-- <button class="comment-feed-reply">답글달기</button> -->
+                                         <button class="comment-feed-reply">답글달기</button> 
                                         <button class="">답글달기</button>
                                         <span style="color: gainsboro"><a href="#" >신고</a></span>
                                     </footer>
                                 </div>
                             </li>
-
+                            -->
                         </ul>
+                      
                     
 
                     <ul class="list-paginator">
@@ -483,16 +485,7 @@ $(document).ready(function(){
         return false 
         } 
     }
-    
-    //유저시퀀스 부여하기
-    if(isEmpty(sessionId)==true){
-        alert('로그인해라');
-        location.href="../login/login.html";
-        //    $('#userSeq').val(0);
-    } else {
-        $('#userSeq').val(sessionId.userSeq);
-    }
-    
+
     
     //질문글의 댓글 수 카운팅해서 가져오기
     var qccount;
@@ -654,10 +647,27 @@ $(document).ready(function(){
             alert('CommentList ajax 실패');
         }
     });
+    // 댓글 입력란 클릭 시 
+    $("#questionCommentContent").on('click',function(){
+    if(isEmpty(sessionId)==true){
+        location.href="../login/login.html";
+        return;
+    }else{
+        $('#userSeq').val(sessionId.userSeq);
+    }
+    })
+
+
+
 
     //질문과답변 댓글 작성하기
-    $('.comment-feed-form-submit').on('click', function(list) {
-      //alert('되냐이거?');
+    $('.comment-feed-form-submit').on('click', function(list) {    
+
+      if($("#questionCommentContent").val()==""){
+          alert("댓글을 입력 해 주세요");
+          return;
+      }
+      
       var form = $('#comment-feed-form').serialize();
       console.log(form);
         $.ajax({
@@ -672,7 +682,6 @@ $(document).ready(function(){
           }
         });
     });
-
     
     //댓글에 덧글창 띄우기
      $(document).on('click','.comment-feed-item-footer .cmtreply', function(){
@@ -704,26 +713,17 @@ $(document).ready(function(){
         $(this).parents('.comment-feed-item').append(ripple);
      });
 
-     /*
-    let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
-        return paramPair.split(/=(.+)?/).slice(0, 2);
-    }).reduce(function(obj, pairArray) {
-        obj[pairArray[0]] = pairArray[1];
-        return obj;
-    }, {});
+     // 질문하러가기 클릭
+     $(".q-button").click(function(){
 
-    let seq = urlParams.seq;	// html 에서 html 이동할때 값 가져가는 그런 코드
+        if(isEmpty(sessionId)==true){
+            location.href="../login/login.html";
+            return;
+        }else{
+            location.href = "questionWrite.html";
+        }
+    })
 
-    let sessionId = JSON.parse(sessionStorage.getItem("login"));
-    //유저시퀀스 부여하기
-    if(isEmpty(sessionId)==true){
-        alert('로그인해라');
-        location.href="../login/login.html";
-        //    $('#userSeq').val(0);
-    } else {
-        $('#userSeq').val(sessionId.userSeq);
-    }
-     */
 
      //댓글에 덧글 작성하기
     $(document).on('click', "#qcbtn", function(list){
@@ -738,8 +738,6 @@ $(document).ready(function(){
             data : form,
             success:function(list){
                 alert('CommentAnswer ajax성공');
-
-                
 
                 //rejax();
             }, error:function(list){
