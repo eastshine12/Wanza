@@ -14,7 +14,8 @@ public interface CardDAO {
 
 	public List<CardDTO> getCardList();
 	public List<CardDTO> getCardSortList(CardDTO dto);
-
+	public List<CardDTO> getSearchCard(CardDTO dto);
+	
 	public CardDTO getCardDetail(CardDTO dto);
 	
 	public int cardWrite(CardDTO dto);

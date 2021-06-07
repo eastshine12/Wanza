@@ -26,6 +26,15 @@
 		ORDER BY QUESTIONREGDATE DESC
 	</select>
 	
+	<!-- 질답게시판 제목 검색해서 가져오기 -->
+	<select id="getSearchQuestion" parameterType="com.decolab.wanza.dto.QuestionDTO" resultType="com.decolab.wanza.dto.QuestionDTO">
+		SELECT QUESTIONSEQ, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONREADCOUNT, QUESTIONREGDATE, QUESTIONFILENAME, QUESTIONDEL,
+	       	   Q.USERSEQ, USERNAME, NICKNAME, PROFILENAME, AUTH
+		FROM QUESTION Q, USERS U
+		WHERE QUESTIONDEL=0 AND Q.USERSEQ=U.USERSEQ AND (QUESTIONTITLE LIKE'%'||#{questionTitle}||'%' OR QUESTIONCONTENT LIKE'%'||#{questionTitle}||'%')
+		ORDER BY QUESTIONSEQ DESC
+	</select>
+	
 	<!-- 질문과답변 글쓰기 -->
 	<insert id="questionWrite" parameterType="com.decolab.wanza.dto.QuestionDTO">
 		INSERT INTO QUESTION

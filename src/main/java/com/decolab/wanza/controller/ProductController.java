@@ -69,6 +69,12 @@ public class ProductController {
 		return service.getProductSortList(dto);
 	}
 	
+	@RequestMapping(value = "/getProductSortCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public int getProductSortCount(ProductDTO dto) { //분류한 리스트 총 갯수 가져오기
+		System.out.println("ProductController getProductSortList() " + new Date());
+		System.out.println(dto.toString());
+		return service.getProductSortCount(dto);
+	}
 	
 	@RequestMapping(value = "/getUserPurchase", method = {RequestMethod.GET,RequestMethod.POST})
 	public PurchaseProductDTO getUserPurchase(PurchaseProductDTO dto) {
@@ -109,19 +115,18 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/getProductReviewList", method = {RequestMethod.GET,RequestMethod.POST})
-	public List<ProductReviewDTO> getProductReviewList(ProductReviewDTO dto) {
+	public List<ProductReviewDTO> getProductReviewList(ProductReviewDTO dto) { 
 		System.out.println("ProductController getProductReviewList() " + new Date());
 		System.out.println(dto.toString());
 		return service.getProductReviewList(dto);
 	}
 	
 	@RequestMapping(value = "/getProductReviewCount", method = {RequestMethod.GET,RequestMethod.POST})
-	public int getProductReviewCount(ProductReviewDTO dto) {
+	public int getProductReviewCount(ProductReviewDTO dto) { 
 		System.out.println("ProductController getProductReviewCount() " + new Date());
 		System.out.println(dto.toString());
 		return service.getProductReviewCount(dto);
 	}
-	
 	
 	@RequestMapping(value = "/addProductQnA", method = {RequestMethod.GET,RequestMethod.POST})
 	public String addProductQnA(ProductQuestionDTO dto) {
@@ -137,14 +142,12 @@ public class ProductController {
 		return service.addProductQnA(dto)>0?"suc":"err";
 	}
 	
-	
 	@RequestMapping(value = "/getProductQnAList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<ProductQuestionDTO> getProductQnAList(ProductQuestionDTO dto) {
 		System.out.println("ProductController getProductQnAList() " + new Date());
 		System.out.println(dto.toString());
 		return service.getProductQnAList(dto);
 	}
-	
 	
 	@RequestMapping(value = "/getProductQnACount", method = {RequestMethod.GET,RequestMethod.POST})
 	public int getProductQnACount(ProductQuestionDTO dto) {
