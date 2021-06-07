@@ -103,9 +103,9 @@
     line-height: inherit;
   }
   .questions-content, .questions-content p{
-    color: black;
+    color: #636363;
     text-align: start; 
-    font-size: 22.5px;
+    font-size: 15px;
   }
   .questions-item-footer{
     font-size: 15;
@@ -240,29 +240,12 @@
                 </a>        
               </li>
           </ul>
-        </div>
+        </div>      
 
-      <!-- <div id="questions-body">
-        <table style="width: 85%; border:  1cm;">
-            <colgroup>
-                <col style="width: 70;">
-                <col style="width: auto;">
-                <col style="width: 100;">
-                <col style="width: 80;">
-            </colgroup>
-            <tr>
-                <th>번호</th><th>제목</th><th>작성자</th><th>조회수</th>
-            </tr>
-            <tr>
-              <td>test</td><td>test</td><td>test</td><td>test</td>
-            </tr>
-        </table>
-      </div> -->
-
-      
       <div class="questions-list-container" id="questions-list-container" >
 
           <!-- 테스트글1 -->
+            <!--
               <div class="questions-item">
                 <a class="questions-item-link" href="questionDetail.html"  >
                   <div class="questions-block">
@@ -270,8 +253,8 @@
                       <img class="questions-head-image" src="../image/ddda.gif" >
                     </div>
                     <div class="questions-head" >
-                      <h2 class="questions-title"  >어떻게 해야 할까요?</h2> <!-- 질문제목 -->
-                      <p class="questions-content" >붙박이장 어케 할까요?</p> <!-- 질문내용 -->
+                      <h2 class="questions-title"  >어떻게 해야 할까요?</h2>  질문제목 
+                      <p class="questions-content" >붙박이장 어케 할까요?</p>  질문내용 
                     </div>
                   </div>
                 </a>
@@ -279,7 +262,7 @@
                     <span class="questions-item-footer-author">
                         <span class="questions-item-footer-writer-img">
                             <img class="questions-item-footer-writer-image" src="../image/wdg.gif" 
-                            onerror="this.src='../image.avatar.png'"><!-- 프로필사진 -->
+                            onerror="this.src='../image.avatar.png'"> 프로필사진 
                         </span>
                         <span class="questions-item-footer-writer" >현성이배통통</span>
                     </span>
@@ -308,6 +291,7 @@
                     </ul>
                 </footer>
               </div>
+            -->
             
 
       </div>
@@ -364,15 +348,18 @@
       url:"http://localhost:3000/getAllQuestionList",
       type: "get",
       success:function(list){
-        alert('getAllQuestionList 성공')
-        //console.log(list);
-        //alert(list)
+
         $.each(list, function(i, val){
+          
           var pfname = val.profileName;
           if(pfname == 0 || pfname == null ){
             pfname = '../image/avatar.png';
           }
           var qfname = val.questionFileName;
+
+          // 썸머 노트로 사진과 내용을 같이 담다 보니 이미지 내용을 불러 올수 없음.
+          // qfname == 썸머노트 사진 + 내용 
+
           if(qfname == 0 || qfname == null){
             qfname = '../image/wanza.png';
           }
@@ -408,10 +395,7 @@
                     + "'>"
                     + "<div class='questions-block'>"
                     + "<div class='questions-head-img'>"
-                    + "<img class='questions-head-image'" 
-                    + "src='"
-                    + qfname
-                    + "'>"
+                    + "<img class='questions-head-image' src='http://localhost:3000/upload/"+qfname+"' >" 
                     + "</div>"
                     + "<div class='questions-head'>"
                     + "<h2 class='questions-title'>"
@@ -513,15 +497,6 @@
     location.href = "questionanswer.html";
     }
   }
-
-  //해당 시퀀스 질문글로 이동
-/*  function whatquestion(){
-    $.ajax({
-      url=""
-    });
-  }
-*/
-  
 
   </script>
 <script src="../../assets/js/jquery.min.js"></script>

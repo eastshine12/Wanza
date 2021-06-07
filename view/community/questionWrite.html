@@ -136,14 +136,16 @@
                   
                   <input type="hidden" id="userSeq" name="userSeq" >
 
-                  <textarea id="summernote" name="questionContent" class="summernote" name="editordata" ></textarea>
+                  <input type="file" name="questionFileName1" style="margin-bottom: 10px;">
 
-                  <input type="hidden" name="questionFileName" value="123">
+                  <textarea id="summernote" name="questionContent" class="summernote"></textarea>
+
+                  
 
                   <div class="row" style="align-items: center; ">
                     <div class="col-xl-3"></div>
                     <div class="col-xl-6" style="display: flex;" >
-                        <button type="button" id="" class="w3_button" style="margin: 0 auto; margin-top: 30px;" >질문하기</button>
+                        <button type="button" id="" class="w3_button" style="margin: 0 auto; margin-top: 30px;" onclick="questionBtnClick()">질문하기</button>
                     </div>
                     <div class="col-xl-3"></div>
                   </div>
@@ -206,8 +208,40 @@
     <script src="../../css/summernote/summernote-ko-KR.js"></script>
 
     <script>
+
+      function questionBtnClick() {        
+//      alert('되냐이거?');
+      if($("#questionTitle").val()==""){
+        alert("제목을 입력해주세요");
+      }else if($("#summernote").val()==""){
+        alert("내용을 입력해주세요");
+      }else{  
+      var form = $('#question-form').serialize();
+      // form = decodeURIComponent(form);
+      // alert(form);
+      // var form1 = JSON.parse(form);
+      // alert(form1);
+        $.ajax({
+          url: 'http://localhost:3000/questionWrite',
+          type: 'post',
+          data : new FormData($('#question-form')[0]),
+          enctype:"multipart/form-data",
+          processData:false,
+          contentType:false,
+          cache:false,
+          success:function(list){
+            alert('ajax성공');
+            //alert(list);
+            location.href="http://localhost:8090/view/community/questions.html";
+          }, error:function(list){
+            alert('ajax실패');
+          }
+        })
+      //alert('안됨');
+      }
+    }
+
     $(document).ready(function() {
-    //ㅇㅅㅇ
 
     //로그인한 계정 닉네임 가져오기
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
@@ -215,18 +249,6 @@
 
 
     $('#userSeq').val(sessionId.userSeq);
-
-    // if(sessionId == null) {
-    //     sessionId = '';
-    //     alert('로그인해주세요');
-    //     location.href="../login/login.html"
-    // }
-    // console.log(sessionId);
-      
-    // if(sessionId.userSeq == '' || sessionId.userSeq == null){
-      
-    // }
-
 
     $('#summernote').summernote({
         height: 400,                 // 에디터 높이
@@ -243,32 +265,26 @@
         ['insert',['picture']],
         ['view', [ 'help']]
         ],
+        callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+					onImageUpload : function(files) {
+						uploadSummernoteImageFile(files[0],this);
+					},
+					onPaste: function (e) {
+						var clipboardData = e.originalEvent.clipboardData;
+						if (clipboardData && clipboardData.items && clipboardData.items.length) {
+							var item = clipboardData.items[0];
+							if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+								e.preventDefault();
+							}
+						}
+					}
+				}
 	  });
 
     
     
 
-    $('.w3_button').on('click', function(list) {
-      //alert('되냐이거?');
-      var form = $('#question-form').serialize();
-      // form = decodeURIComponent(form);
-      // alert(form);
-      // var form1 = JSON.parse(form);
-      // alert(form1);
-        $.ajax({
-          url: 'http://localhost:3000/questionWrite',
-          type: 'post',
-          data : form,
-          success:function(list){
-            alert('ajax성공');
-            //alert(list);
-            location.href="http://localhost:8090/view/community/questions.html"
-          }, error:function(list){
-            alert('ajax실패');
-          }
-        })
-      //alert('안됨');
-    });
+    
 
     /*
     $.ajax({
