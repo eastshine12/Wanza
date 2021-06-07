@@ -25,6 +25,9 @@ public class ProductDTO implements Serializable {
 	
 	private int reviewCount;
 	
+	private int startNum; // 페이징 할때 시작과 끝 숫자
+	private int endNum;
+	
 	public ProductDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -32,7 +35,7 @@ public class ProductDTO implements Serializable {
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
 			String productMaker, String productFileName, float productRating, Date productDate, String searchText,
 			String largeCategory, String mediumCategory, String smallCategory, int sort, int recentPeriod,
-			int reviewCount) {
+			int reviewCount, int startNum, int endNum) {
 		super();
 		this.productSeq = productSeq;
 		this.productName = productName;
@@ -50,6 +53,8 @@ public class ProductDTO implements Serializable {
 		this.sort = sort;
 		this.recentPeriod = recentPeriod;
 		this.reviewCount = reviewCount;
+		this.startNum = startNum;
+		this.endNum = endNum;
 	}
 
 	public ProductDTO(int productSeq, String productName, String productContent, int productPrice, int productDiscount,
@@ -204,6 +209,22 @@ public class ProductDTO implements Serializable {
 		this.recentPeriod = recentPeriod;
 	}
 
+	public int getStartNum() {
+		return startNum;
+	}
+
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+
+	public int getEndNum() {
+		return endNum;
+	}
+
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductDTO [productSeq=" + productSeq + ", productName=" + productName + ", productContent="
@@ -211,7 +232,8 @@ public class ProductDTO implements Serializable {
 				+ ", productMaker=" + productMaker + ", productFileName=" + productFileName + ", productRating="
 				+ productRating + ", productDate=" + productDate + ", searchText=" + searchText + ", largeCategory="
 				+ largeCategory + ", mediumCategory=" + mediumCategory + ", smallCategory=" + smallCategory + ", sort="
-				+ sort + ", recentPeriod=" + recentPeriod + ", reviewCount=" + reviewCount + "]";
+				+ sort + ", recentPeriod=" + recentPeriod + ", reviewCount=" + reviewCount + ", startNum=" + startNum
+				+ ", endNum=" + endNum + "]";
 	}
 
 }

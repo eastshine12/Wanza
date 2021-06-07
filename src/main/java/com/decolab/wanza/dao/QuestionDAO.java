@@ -14,6 +14,8 @@ public interface QuestionDAO {
 	
 	public List<QuestionDTO> getAllQuestionList();
 	
+	public List<QuestionDTO> getSearchQuestion(QuestionDTO dto);
+	
 	public int questionWrite(QuestionDTO dto);
 	
 	public QuestionDTO questionDetail(QuestionDTO dto);
@@ -31,4 +33,6 @@ public interface QuestionDAO {
 	public int questionCommentAnswer(QuestionCommentDTO dto);
 	
 	public boolean questionCommentAnswerStep(QuestionCommentDTO dto);
+	
+	public List<QuestionDTO> waitForComment(QuestionCommentDTO dto);
 }

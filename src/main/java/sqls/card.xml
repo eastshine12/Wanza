@@ -16,11 +16,11 @@
 	ORDER BY C.CARDDATE DESC
 </select>
 
-<!-- 스토리 인기글 목록 가져오기 -->
-<select id="getCardHotList" resultType="com.decolab.wanza.dto.CardDTO">
+<!-- 스토리 글 검색해서 가져오기 -->
+<select id="getSearchCard" parameterType="com.decolab.wanza.dto.CardDTO" resultType="com.decolab.wanza.dto.CardDTO">
 	SELECT C.CARDSEQ, C.CARDTITLE, C.CARDCONTENT, U.USERSEQ, C.CARDREADCOUNT, C.CARDDATE, CARDFILENAME, CARDDEL, U.NICKNAME, F.LIKECOUNT  
 	FROM USERS U, CARD_COLLECTIONS C, (SELECT CARDSEQ, NVL(COUNT(*), 0) LIKECOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ) F
-	WHERE U.USERSEQ=C.USERSEQ AND C.CARDSEQ=F.CARDSEQ(+)
+	WHERE U.USERSEQ=C.USERSEQ AND C.CARDSEQ=F.CARDSEQ(+) AND CARDTITLE LIKE'%'||#{cardTitle}||'%'
 	ORDER BY F.LIKECOUNT DESC NULLS LAST
 </select>
 

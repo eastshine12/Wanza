@@ -25,6 +25,10 @@ public class CardService {
 		return dao.getCardSortList(dto);
 	}
 	
+	public List<CardDTO> getSearchCard(CardDTO dto) {
+		return dao.getSearchCard(dto);
+	}
+	
 	public CardDTO getCardDetail(CardDTO dto) {
 		return dao.getCardDetail(dto);
 	}
