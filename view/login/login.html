@@ -179,9 +179,30 @@
     // https://developers.kakao.com/sdk/reference/js/release/Kakao.API.html#.request
     function loginWithKakao() {
         alert('로긴카카오 클릭됨');
+        
 
+
+        
+        $.ajax({
+            url: "http://localhost:3000/login/getKakaoAuthUrl",
+            type: "post",
+            data: JSON,
+            async: false,
+            dataType: 'text',
+            success:function(res){
+                alert("kakao ajax 성공");
+                alert(res);
+                location.href = res;
+            }, error:function(res){
+                alert("kakao ajax 실패");
+            }
+        });
+        
+
+        /*
         location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/community/mainCommunity.html&response_type=code"
         lonsole.log(시발왜안되는거야)
+        */
     }
 
     /*
