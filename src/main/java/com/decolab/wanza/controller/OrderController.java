@@ -138,7 +138,8 @@ public class OrderController {
 		dto.setSaveMileage((int)Math.ceil(dto.getProductAmount()*0.01));
 		
 		System.out.println(dto.toString());
-		service.addOrder(dto);
+		int a = service.addOrder(dto);
+		int b = service.purchaseMileage(dto);
 		
 		//OrderSeq 가져오기
 		int orderSeq = service.getOrderSeq(dto);
@@ -158,7 +159,7 @@ public class OrderController {
 			service.checkedOrder(c);
 		};
 		
-		return "suc";
+		return a+b>0?"suc":"err";
 	}
 	
 	

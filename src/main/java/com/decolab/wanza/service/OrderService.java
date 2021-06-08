@@ -83,4 +83,8 @@ public class OrderService {
 		return dao.getOrderSeq(dto);
 	}
 	
+	public int purchaseMileage(OrderDTO dto) {
+		return dao.purchaseMileage(dto);
+	}
+	
 }

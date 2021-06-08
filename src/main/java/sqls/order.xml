@@ -124,6 +124,16 @@
 </insert>
 
 
+<!-- 유저 포인트 적립, 사용 -->
+<update id="purchaseMileage" parameterType="com.decolab.wanza.dto.OrderDTO">
+	UPDATE USERS
+	SET MILEAGE=MILEAGE+#{saveMileage}
+	<if test="useMileage>0">
+	-#{useMileage}
+	</if>
+	WHERE USERSEQ=#{userSeq}
+</update>
+
 
 
 
