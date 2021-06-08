@@ -43,6 +43,8 @@ public interface OrderDAO {
 	
 	public int getOrderSeq(OrderDTO dto);
 	
+	public int purchaseMileage(OrderDTO dto);
+	
 	
 	
 }

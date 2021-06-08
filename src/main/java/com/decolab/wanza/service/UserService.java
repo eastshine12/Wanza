@@ -30,7 +30,7 @@ public class UserService {
 		return dao.getUserInfo(userSeq);
 	}
 	
-	public UserDTO kakaologin(UserDTO dto) {
+	public String kakaologin(UserDTO dto) {
 		return dao.kakaologin(dto);
 	}
 	

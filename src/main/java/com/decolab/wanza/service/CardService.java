@@ -49,6 +49,17 @@ public class CardService {
 		return dao.addCardTag(dto);
 	}
 	
+	public int cardDelete(CardDTO dto) {
+		return dao.cardDelete(dto);
+	}
+	
+	public int cardUpdate(CardDTO dto) {
+		int a = dao.cardUpdate(dto);
+		int b = dao.cardTagUpdate(dto);
+		return a+b;
+	}
+	
+	
 	public int getLikeCount(CardDTO dto) {
 		return dao.getLikeCount(dto);
 	}

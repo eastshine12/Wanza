@@ -26,6 +26,11 @@ public interface CardDAO {
 	
 	public int addCardTag(CardDTO dto);
 	
+	public int cardDelete(CardDTO dto);
+	
+	public int cardUpdate(CardDTO dto);
+	public int cardTagUpdate(CardDTO dto);
+	
 	public int getLikeCount(CardDTO dto);
 	public int boolLike(CardDTO dto);
 	public int addCardLikeCount(CardDTO dto);
