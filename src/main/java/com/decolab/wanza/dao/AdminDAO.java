@@ -8,11 +8,14 @@ import org.springframework.stereotype.Repository;
 import com.decolab.wanza.dto.ProductDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
+import com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO;
 import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
 
 @Mapper
 @Repository
 public interface AdminDAO {
+	
+	public List<AdminDeliveryStatusDTO> getDeliveryStatusList();
 	
 	public List<AdminStoryTagDTO> getStoryTagList();
 	

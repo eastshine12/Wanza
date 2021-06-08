@@ -7,11 +7,13 @@ public class AdminDeliveryStatusDTO implements Serializable {
 	
 	private int orderSeq;
 	private int purchaseStatus;
+	private Date orderDate;
 	private String productName;
+	private int productQuantity;
 	private int totalQuantity;
 	private String deliveryAddress;
-	private Date orderDate;
 	private String userName;
+	private String nickName;
 	private String phone;
 	private int totalAmount;
 	private int useMileage;
@@ -21,17 +23,18 @@ public class AdminDeliveryStatusDTO implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AdminDeliveryStatusDTO(int orderSeq, int purchaseStatus, String productName, int totalQuantity,
-			String deliveryAddress, Date orderDate, String userName, String phone, int totalAmount, int useMileage,
-			String amountType) {
-		super();
+	public AdminDeliveryStatusDTO(int orderSeq, int purchaseStatus, Date orderDate, String productName,
+			int productQuantity, int totalQuantity, String deliveryAddress, String userName, String nickName,
+			String phone, int totalAmount, int useMileage, String amountType) {
 		this.orderSeq = orderSeq;
 		this.purchaseStatus = purchaseStatus;
+		this.orderDate = orderDate;
 		this.productName = productName;
+		this.productQuantity = productQuantity;
 		this.totalQuantity = totalQuantity;
 		this.deliveryAddress = deliveryAddress;
-		this.orderDate = orderDate;
 		this.userName = userName;
+		this.nickName = nickName;
 		this.phone = phone;
 		this.totalAmount = totalAmount;
 		this.useMileage = useMileage;
@@ -54,12 +57,28 @@ public class AdminDeliveryStatusDTO implements Serializable {
 		this.purchaseStatus = purchaseStatus;
 	}
 
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
 	public String getProductName() {
 		return productName;
 	}
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public int getProductQuantity() {
+		return productQuantity;
+	}
+
+	public void setProductQuantity(int productQuantity) {
+		this.productQuantity = productQuantity;
 	}
 
 	public int getTotalQuantity() {
@@ -78,20 +97,20 @@ public class AdminDeliveryStatusDTO implements Serializable {
 		this.deliveryAddress = deliveryAddress;
 	}
 
-	public Date getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
-	}
-
 	public String getUserName() {
 		return userName;
 	}
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getPhone() {
@@ -128,12 +147,11 @@ public class AdminDeliveryStatusDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "AdminDeliveryStatusDTO [orderSeq=" + orderSeq + ", purchaseStatus=" + purchaseStatus + ", productName="
-				+ productName + ", totalQuantity=" + totalQuantity + ", deliveryAddress=" + deliveryAddress
-				+ ", orderDate=" + orderDate + ", userName=" + userName + ", phone=" + phone + ", totalAmount="
-				+ totalAmount + ", useMileage=" + useMileage + ", amountType=" + amountType + "]";
+		return "AdminDeliveryStatusDTO [orderSeq=" + orderSeq + ", purchaseStatus=" + purchaseStatus + ", orderDate="
+				+ orderDate + ", productName=" + productName + ", productQuantity=" + productQuantity
+				+ ", totalQuantity=" + totalQuantity + ", deliveryAddress=" + deliveryAddress + ", userName=" + userName
+				+ ", nickName=" + nickName + ", phone=" + phone + ", totalAmount=" + totalAmount + ", useMileage="
+				+ useMileage + ", amountType=" + amountType + "]";
 	}
-	
-	
 
 }

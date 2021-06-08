@@ -10,6 +10,7 @@ import com.decolab.wanza.dao.AdminDAO;
 import com.decolab.wanza.dto.ProductDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
+import com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO;
 import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
 
 @Service
@@ -19,6 +20,10 @@ public class AdminService {
 	
 	@Autowired
 	AdminDAO dao;
+	
+	public List<AdminDeliveryStatusDTO> getDeliveryStatusList(){
+		return dao.getDeliveryStatusList();
+	}
 	
 	public List<AdminStoryTagDTO> getStoryTagList(){
 		return dao.getStoryTagList();
