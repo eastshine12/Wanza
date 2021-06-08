@@ -32,6 +32,20 @@
 	WHERE USERSEQ=#{userSeq}
 </select>
 
+<select id="getUserNickname" parameterType="com.decolab.wanza.dto.UserDTO" resultType="com.decolab.wanza.dto.UserDTO">
+	SELECT USERSEQ, EMAIL, PWD, USERNAME, NICKNAME, PROFILENAME, PHONE, USERDATE, MILEAGE, DEFAULTADDRESS
+	FROM USERS
+	WHERE EMAIL=#{email}
+</select>
+
+<update id="newPwd" parameterType="com.decolab.wanza.dto.UserDTO">
+	UPDATE USERS
+	SET PWD = #{pwd}
+	WHERE USERSEQ = #{userSeq}
+</update>
+
+
+
   
   
 </mapper>
