@@ -15,7 +15,7 @@
     margin: 60px 0;
 }
 .search_story_main{
-    justify-content: center;
+    /* justify-content: center; */
 }
 .search_store,.search_story,.search_questions{
     min-height: 180px;
@@ -29,22 +29,22 @@
     <nav include-html="../commons/menuComm.html"></nav>
 
 
-<div class="container" id="searchResult">
+<div class="container mb-5" id="searchResult">
     <div class="search_head">
         <h5><strong>'<span></span>'에 대한 통합검색 결과 <span></span>개</strong></h5>
     </div>
 
-    <div class="search_store p-5">
+    <div class="search_store py-5 pl-4">
         <h4><strong>스토어 <span></span></strong></h4>
         <div class="row search_store_main my-5"></div>
     </div>
 
-    <div class="search_story p-5">
+    <div class="search_story py-5 pl-4">
         <h4><strong>스토리 <span></span></strong></h4>
-        <div class="row search_story_main my-5"></div>
+        <div class="row search_story_main my-5 pl-2"></div>
     </div>
 
-    <div class="search_questions p-5">
+    <div class="search_questions py-5 pl-4">
         <h4><strong>질문과 답변 <span></span></strong></h4>
         <div class="row search_question_main my-5"></div>
     </div>
@@ -80,14 +80,14 @@ function getTotalSearch(word) {
             let storeNum = Object.keys(map.store).length
             let storyNum = Object.keys(map.story).length
             let questionNum = Object.keys(map.question).length
-            setDisplySearch(word,storeNum,storyNum,questionNum); //검색갯수 삽입
+            setDisplySearch(word,storeNum,storyNum,questionNum); //검색갯수, 단어 화면 표시
 
             let storeApp='', storyApp='', questionApp='';
             $(".search_store_main, search_story_main, search_question_main").html(''); //초기화
 
             // 상품 검색 결과
             if (storeNum == 0) {
-                storeApp += '<div style="width: 100%;height:300px; margin: 100px 0 0 0;text-align: center;">'
+                storeApp += '<div style="width: 100%;text-align: center;">'
                          +  '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
                          +  '</div>';
             } else {
@@ -114,12 +114,12 @@ function getTotalSearch(word) {
             
             // 스토리 검색 결과
             if (storyNum == 0) {
-                storyApp += '<div style="width: 320px; margin-right: 50px;text-align: center;">'
+                storyApp += '<div style="width: 100%;text-align: center;">'
                          +  '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
                          +  '</div>';
             } else {
                 $.each(map.story, function (i, val) {
-                    storyApp += '<div style="width: 320px; margin-right: 50px;">'
+                    storyApp += '<div style="width: 320px; margin-left: 40px;">'
                              +   '<article article class="project_wrap" >'
                              +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
                              +     '<div class="project_item">'
@@ -136,13 +136,14 @@ function getTotalSearch(word) {
             
             // 질문답변 검색 결과
             if (questionNum == 0) {
-                
+                questionApp += '<div style="width: 100%;text-align: center;">'
+                            +  '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                            +  '</div>';
             } else {
                 $.each(map.question, function (i, val) {
 
                 });
             }
-
 
             $(".search_store_main").append(storeApp);
             $(".search_story_main").append(storyApp);
@@ -151,6 +152,7 @@ function getTotalSearch(word) {
         error: function () { console.log('error'); }
     });
 };
+
 //검색단어랑 수 셋팅
 function setDisplySearch(word,storeCount,storyCount,questionCount) {
     $('.search_head span:first').html(word);
@@ -170,6 +172,7 @@ function makeComma(str) {
 function discountRate(price, discount) {
     return Math.ceil(100- (discount/price*100));
 };
+
 //파라미터값 가져오도록 하는 함수
 function getParameter(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -177,4 +180,5 @@ function getParameter(name) {
         results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
+
 </script>
