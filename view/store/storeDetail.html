@@ -1001,33 +1001,33 @@
     })
 
 
-    // 상품 옵션, 개수 사이드바와 연동 (개수 조절 시 총금액 변동)
-    /*
-    $('#selectItem').change(function () {
-        $('#selectItem_side').val($(this).val()).attr('selected');
-    });
-    $('#selectItem_side').change(function () {
-        $('#selectItem').val($(this).val()).attr('selected');
-    });
-    */
 
+    // 상품 옵션 선택
     $(document).on('change', 'select[name=selectItem_1]', function() {
         $('select[name=selectItem_1]').val($(this).val()).attr('selected');
+        let price = $(this).find("option:selected").data("price");
+        calculatePrice();
     });
     $(document).on('change', 'select[name=selectItem_2]', function() {
         $('select[name=selectItem_2]').val($(this).val()).attr('selected');
+        calculatePrice();
     });
     $(document).on('change', 'select[name=selectItem_3]', function() {
         $('select[name=selectItem_3]').val($(this).val()).attr('selected');
+        calculatePrice();
     });
     $(document).on('change', 'select[name=selectItem_4]', function() {
         $('select[name=selectItem_4]').val($(this).val()).attr('selected');
+        calculatePrice();
     });
     $(document).on('change', 'select[name=selectItem_5]', function() {
         $('select[name=selectItem_5]').val($(this).val()).attr('selected');
+        calculatePrice();
     });
 
 
+
+    // 개수 변동
     $('#itemCount').change(function() {
         if($(this).val() < 1) {
             $(this).val(1)
@@ -1039,7 +1039,7 @@
             $(this).val(Math.floor($(this).val()));
         };
         $('#itemCount_side').val($(this).val());
-        $('#totalPrice, #totalPrice_side').text(makeComma($('#discountPrice').text().replace(',', '') * $(this).val()) + '원');
+        calculatePrice();
     });
     $('#itemCount_side').change(function() {
         if ($(this).val() < 1) {
@@ -1052,8 +1052,28 @@
             $(this).val(Math.floor($(this).val()));
         };
         $('#itemCount').val($(this).val());
-        $('#totalPrice, #totalPrice_side').text(makeComma($('#discountPrice').text().replace(',', '') * $(this).val()) + '원');
+        calculatePrice();
     });
+
+
+
+    // 옵션, 개수를 계산한 총 상품금액
+    function calculatePrice() {
+
+        let option_count = $('p[name=selectKey]').length/2;
+
+        let prod_price = parseInt($('#sellPrice').text().replace(/[^0-9]/g, ''));
+        let prod_count = parseInt($('#itemCount').val());
+        let option_price = 0;
+        for(let i = 0; i < option_count; i++) {
+            option_price += parseInt($('select[name=selectItem_'+(i+1)+']').find("option:selected").data("price"));
+        }
+
+        let resultPrice = (prod_price + option_price) * prod_count;
+        $('#totalPrice, #totalPrice_side').text(makeComma(resultPrice) + '원');
+    }
+
+
 
     // 바로구매 기능
     function directPurchase() {
@@ -1081,7 +1101,8 @@
         for(let i=0; i<optionLength; i++) {
             let data = new Object();
             data.optionTitle = $('p[name=selectKey]').eq(i).text();
-            data.optionContent =  $('select[name=selectItem_'+(i+1)+']').val();
+            data.optionContent = $('select[name=selectItem_'+(i+1)+']').val();
+            data.optionPrice = $('select[name=selectItem_'+(i+1)+']').find("option:selected").data("price")
             opArr.push(data);
         }
         
@@ -1196,10 +1217,17 @@
                                 +        '</span></div>'
                                 +    '<div class="col-md-5">'
                                 +        '<select name="selectItem_'+seq+'" class="shadow-sm custom-select custom-select-sm"'
-                                +            'style=";width: 180px;">';
+                                +            'style=";width: 180px;">'
+                                +            '<option data-price="0">옵션선택</option>';
                         }
                         
-                        app += '<option value="'+list[i].optionContent+'">'+list[i].optionContent+'</option>'
+                        app += '<option value="'+list[i].optionContent+'" data-price="'+list[i].optionPrice+'">'+list[i].optionContent;
+                            
+                        if(list[i].optionPrice > 0) {
+                            app += " (+" + makeComma(list[i].optionPrice) + "원)";
+                        }    
+                            
+                        app +='</option>';
                         
                         title = list[i].optionTitle;
                     }
@@ -1342,13 +1370,16 @@
                     alert("리뷰가 성공적으로 작성되었습니다.");
                     getProductDetail();
                     getProductReviewList(0, 0);
-                    elements.removeClass('active');
+                    
                 } else {
                     console.log('리뷰 작성 실패');
                 }
             },
             error: function () {
                 alert('addProductReview error');
+            },
+            complete: function() {
+                elements.removeClass('active');
             }
         });
     });

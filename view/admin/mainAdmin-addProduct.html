@@ -662,7 +662,18 @@ $(document).on('click', "input[name=deleteSubOption]", function() {
 
 // 상품 올리기 버튼 클릭
 $(document).on('click', '.write_btn', function() { 
+
+    if($('#_productName').val() == "" || $('#_productMaker').val() == "" || $('#_productPrice').val() == "" 
+            || $('#_file').val() == "" || $('#_productContent').val() == "") {
+        alert('필수 항목을 입력해주세요. ');
+        return;
+    };
+
+    if($('#_productDiscount').val() == "") {
+        $('#_productDiscount').val(0)
+    };
     
+    let thisSeq;
 
     $.ajax({
         url: "http://192.168.0.231:3000/writeProduct",
@@ -675,17 +686,16 @@ $(document).on('click', '.write_btn', function() {
         cache:false,
         success: function (data) {
             console.log(data)
-            if (data == "suc") {
-                console.log('글작성 완료');
-            } else {
-                console.log('글작성 실패');
-            }
+            thisSeq = data;
         },
         error: function () {
             alert('addProduct error');
         }
     });
     
+
+    
+
     let opTitleLen = $('input[name=optionTitle]').length;   // 추가된 옵션 총 길이
     //alert(opTitleLen);
     let optionList = new Array(); // 옵션들을 담을 리스트 생성
@@ -707,21 +717,22 @@ $(document).on('click', '.write_btn', function() {
         data: jsonData,
         contentType : "application/json; charset=UTF-8",
         success: function (data) {
-            console.log(data)
-            if (data == "suc") {
-                alert('글 작성 완료');
-                console.log('옵션 작성 완료');
-            } else {
-                console.log('옵션 작성 실패');
+            console.log('옵션 작성 완료');
+            if(data == "suc") {
+                if(confirm("상품이 정상적으로 추가되었습니다. 확인하시겠습니까?") == true) {
+                    window.open('../store/storeDetail.html?seq='+thisSeq);
+                } else {
+                    return;
+                }
             }
         },
         error: function () {
             alert('writeProductOption error');
+        },
+        complete: function() {
+            location.reload();
         }
     });
-    
-
-
 });
 
 

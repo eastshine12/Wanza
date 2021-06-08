@@ -279,7 +279,7 @@ function getCartList() {
                     let optionJSON = JSON.parse(val.selectOption);
                     for(let i=0; i<optionJSON.length; i++) {
                         app += '<div class="cart_item_option" style="margin-bottom: 8px;">'
-                            + '<div class="col-md-8"><span>' + optionJSON[i].optionTitle+ ' : '+optionJSON[i].optionContent+'</span></div>'
+                            + '<div class="col-md-8"><span>' + optionJSON[i].optionTitle+ '</span> : '+optionJSON[i].optionContent+' (+ <span>'+makeComma(optionJSON[i].optionPrice)+'</span>원)</div>'
                             + '<div class="col-md-6"><button class="button opt_btn" onclick="optproduct()" style="padding:0px 5px;">옵션변경</button></div>'
                             + '</div>'
                     }
