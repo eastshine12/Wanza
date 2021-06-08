@@ -88,6 +88,22 @@ public class CardController {
 		return "suc"; 
 	}
 	
+	
+	@RequestMapping(value = "/cardDelete", method = {RequestMethod.GET,RequestMethod.POST})
+	public String cardDelete(CardDTO dto) {		
+		System.out.println("CardController cardDelete() " + new Date());
+		return service.cardDelete(dto)>0?"suc":"err";
+	}
+	
+	@RequestMapping(value = "/cardUpdate", method = {RequestMethod.GET,RequestMethod.POST})
+	public String cardUpdate(CardDTO dto) {		
+		System.out.println("CardController cardUpdate() " + new Date());
+		System.out.println(dto.toString());
+		return service.cardUpdate(dto)>0?"suc":"err";
+	}
+	
+	
+	
 	@RequestMapping(value = "/addCardReadCount", method = {RequestMethod.GET,RequestMethod.POST})
 	public String addCardReadCount(CardDTO dto) {		
 		System.out.println("CardController addCardReadCount() " + new Date());
