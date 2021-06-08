@@ -11,11 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.decolab.wanza.dto.UserDTO;
 import com.decolab.wanza.service.UserService;
 
+import util.KakaoLogin;
+
+
 @RestController
 public class UserController {
 
 	@Autowired
 	UserService service;
+	
+	@Autowired
+	KakaoLogin Kakao;
 	
 	
 	@RequestMapping(value = "/regi", method = {RequestMethod.GET,RequestMethod.POST})
@@ -49,6 +55,9 @@ public class UserController {
 		System.out.println("UserController kakaologin() " + new Date() );
 		System.out.println(dto.toString());
 		System.out.println("code" + code);
+		
+		String accesstoken = Kakao.getAccessToken(code);
+		System.out.println("accesstoken" + accesstoken);
 		
 		return service.kakaologin(dto);
 	}
