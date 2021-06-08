@@ -565,7 +565,7 @@ $(document).ready(function(){
                 }
                 console.log(val)
 
-                if(sessionId.auth == 3 || sessionId.userSeq == val.userSeq){
+                if(sessionId != undefined && sessionId.userSeq == val.userSeq){
                     var apple = "<button onclick='commentdel(" + val.qcSeq + ")' > 삭제" + "</button>"
                 } else {
                     apple = '';
