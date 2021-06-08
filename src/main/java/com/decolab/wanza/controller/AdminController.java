@@ -5,8 +5,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.decolab.wanza.dto.ProductDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
+import com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO;
 import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
 import com.decolab.wanza.service.AdminService;
 import com.google.gson.JsonObject;
@@ -36,13 +40,28 @@ public class AdminController {
 	@Autowired
 	AdminService service;
 	
+	@RequestMapping(value = "/getDeliveryStatusList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<AdminDeliveryStatusDTO> getDeliveryStatusList() {
+		System.out.println("AdminController getDeliveryStatusList() " + new Date());		
+		return service.getDeliveryStatusList();
+	}
+	
+	@RequestMapping(value = "/changeDeliveryStatus", method = {RequestMethod.GET,RequestMethod.POST})
+	public String changeDeliveryStatus( @RequestParam(value="orderSeq[]") int arr[], AdminDeliveryStatusDTO dto) {
+		System.out.println("AdminController changeDeliveryStatus() " + new Date());
+		System.out.println(dto.toString()+","+Arrays.toString(arr));
+		for (int i : arr) {
+			
+		}
+		return "sc";
+	}
+	
 	@RequestMapping(value = "/getStoryTagList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<AdminStoryTagDTO> getStoryTagList() {
 		System.out.println("AdminController getStoryTagList() " + new Date());		
 		
 		return service.getStoryTagList();
 	}
-	
 	
 	@RequestMapping(value = "/getSearchProductionList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<ProductDTO> getSearchProductionList(ProductDTO dto) {
