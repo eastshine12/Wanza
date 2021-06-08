@@ -742,7 +742,7 @@ $(document).ready(function() {
                 let app = ""
                 
                 if (Object.keys(list).length == 0) {
-                    app += '<div style="width: 1800px; margin:50px 0px;padding:0 450px;display: flex; align-items:center;">'
+                    app += '<div style="width: 1800px; margin:50px 0px;padding:0 50px;display: flex; align-items:center;">'
                         + '<h3 style="font-size: 20px; margin-top: 10px;"><b>결제할 상품이 없습니다.</b></h3>'
                         + "</div>";
                     $("#itemList").append(app);
@@ -764,13 +764,18 @@ $(document).ready(function() {
                             +            '<div class="col offset-md-1">'
                             +                '<h5 id="itemTitle" name="_itemTitle">'+val.productName+'</h5>'
                             +            '</div>'
-                            +        '</div>'
-                            +        '<div class="row">'
-                            +            '<div class="col offset-md-1" style="font-size: 15px; color: #707070;">'
-                            +                '<span>'+Object.keys(key)+'</span><span>&ensp;</span><span id="selectItem">'+key[value]+'</span>'
-                            +            '</div>'
-                            +        '</div>'
-                            +    '</div>'
+                            +        '</div>';
+
+                            let optionJSON = JSON.parse(val.selectOption);
+                            for(let i=0; i<optionJSON.length; i++) {
+                                app +=       '<div class="row" style="margin-top: 3px;margin-bottom: 3px;">'
+                                    +            '<div class="col offset-md-1" style="font-size: 13px; color: #707070;">'
+                                    +                '<span><b>'+optionJSON[i].optionTitle+'</b></span><span>&ensp;</span><span id="selectItem">'+optionJSON[i].optionContent+'</span>'
+                                    +            '</div>'
+                                    +        '</div>';
+                            }
+
+                        app +=   '</div>'
                             +    '<div class="col">'
                             +        '<p id="itemCount">'+val.quantity+'개</p>'
                             +    '</div>'
@@ -1187,7 +1192,7 @@ function totalPrice() {
         $('#sideDeliveryCharge').text("2,500원");
         $('#_deliveryAmount').val(2500);
         $('#orderPrice').text(makeComma(item_price + 2500) + '원');
-        $('#_productAmount').val(item_price + 2500);
+        $('#_productAmount').val(item_price);
         $('#sideResultPrice').text(makeComma(item_price + 2500 - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원'); //포인트 차감
         $('#sidePaymentBtn').text(makeComma(item_price + 2500 - $('#sideUsePoint').text().replace(/[^0-9]/g, '')) + '원 결제하기'); //포인트 차감
         $('#_totalAmount').val(item_price + 2500 - $('#sideUsePoint').text().replace(/[^0-9]/g, '')); //포인트 차감

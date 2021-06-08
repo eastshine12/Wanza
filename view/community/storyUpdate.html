@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>완벽한 자취생활, 완자</title>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  제이쿼리 -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 제이쿼리 -->
+    <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon"> <!-- 브라우저 탭 아이콘 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- 폰트어썸아이콘 -->
+    <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css"> <!-- 부트스트랩 -->
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통 -->
+    <style>
+    /* 스토리 sort 메뉴 */
+    .pop_wrap {
+        margin: 0;
+        height: 50px;
+    }
+
+    .btn_pop {
+        /* 제목 버튼 */
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 1PX;
+        border: solid 0.5px #757575;
+        border-radius: 4px;
+        color: #424242;
+        background-color: white;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+    }
+
+    .btn_pop.change {
+        justify-content: start;
+    }
+
+    .pop_box {
+        position: relative;
+        overflow: hidden;
+        margin-left: -19px;
+        padding: 0px 16px 0px 16px;
+        width: 130%;
+        height: 0px;
+        z-index: 3;
+        opacity: 1;
+        transition: height .3s, opacity .3s;
+        /* transition: all .3s; */
+    }
+
+    .pop_box:hover,
+    .btn_pop:hover+.pop_box {
+        /* 마우스 이벤트 */
+        opacity: 1;
+        height: auto;
+        padding: 13px 16px 16px 16px;
+        transition: all .3s;
+    }
+
+    .pop_content {
+        /* 내용박스 */
+        position: relative;
+        border-radius: 4px;
+        background-color: white;
+        z-index: 3;
+        box-shadow: 0 -1px 16px rgb(0 0 0 / 20%);
+    }
+
+    .pop_content::before {
+        /* 박스 위 꼬다리 */
+        content: "";
+        position: absolute;
+        background: white;
+        z-index: -1;
+        width: 15px;
+        height: 15px;
+        top: -8px;
+        left: 40%;
+        transform: rotate(45deg);
+    }
+
+    .pop_content.active::before {
+        background: wheat;
+    }
+
+    .sub_content_ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .btn_subpop {
+        /* 세부내용 버튼 */
+        width: 100%;
+        height: 100%;
+        border: none;
+        /* border-radius: 4px; */
+        color: #424242;
+        background-color: white;
+        padding: 15px;
+        text-align: left;
+    }
+
+    .sub_content_ul li:first-of-type .btn_subpop {
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+    .sub_content_ul li:last-of-type .btn_subpop {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .btn_subpop:hover {
+        background-color: wheat;
+    }
+
+    .color_wrap {
+        display: flex;
+        align-items: center;
+    }
+
+    .color_circle {
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        margin: 0 10px 0 2px;
+    }
+
+    .gy {
+        background-color: gray;
+    }
+
+    .wh {
+        background-color: white;
+        border: gray 0.5px solid;
+    }
+
+    .bl {
+        background-color: black;
+    }
+
+    .mi {
+        background-color: rgb(154, 230, 213);
+    }
+
+    .bu {
+        background-color: blue;
+    }
+
+    .pi {
+        background-color: pink;
+    }
+
+    .gr {
+        background-color: green;
+    }
+
+    .br {
+        background-color: brown;
+    }
+
+    .ye {
+        background-color: yellow;
+    }
+
+    .re {
+        background-color: red;
+    }
+
+
+
+    .sort_clear {
+        display: none;
+        border: none;
+        background-color: transparent;
+        color: #f4744c;
+        font-size: 12pt;
+        font-weight: 900;
+    }
+
+    .sort_clear:hover {
+        color: #f1aa94;
+    }
+
+    .uploadImg {
+        height:230px;
+        width: 230px;
+        object-fit: cover;
+        margin: 15px;
+    }
+
+
+    .update_btn {
+        width: 100px;
+        height: 50px;
+        border-radius: 5px;
+        color: #f4744c;
+        background-color: white;
+        border: 0.5px solid #f4744c;
+        font: 1.2em bold;
+    }
+
+    .update_btn:hover {
+        color: white;
+        border: none;
+        background-color: #f4744c;
+    }
+    </style>
+</head>
+    
+<body>
+    <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav>
+
+
+    <div class="container">
+
+        <div id="type_menu">
+            <div class="row m-5">
+        
+                <div class="col-md-2 pop_wrap">
+                    <button type="button" id="homeType" class="btn_pop" value="tagHometype=0">주거형태 <i class="fas fa-sort"></i></button>
+                    
+                    <div class="pop_box">
+                        <div class="pop_content">
+                            <ul class="sub_content_ul">
+                                <li><button type="button" class="btn_subpop" value="tagHometype=원룸">원룸</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHometype=투룸">투룸</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHometype=오피스텔">오피스텔</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagHometype=아파트">아파트</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>  <!-- 주거형태 -->
+
+                <div class="col-md-2 pop_wrap">
+                    <button type="button" id="style" class="btn_pop" value="tagStyle=0">스타일 <i class="fas fa-sort"></i></button>
+                    
+                    <div class="pop_box">
+                        <div class="pop_content">
+                            <ul class="sub_content_ul style">
+                                <li><button type="button" class="btn_subpop" value="tagStyle=모던">모던</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=미니멀">미니멀</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=네츄럴">네츄럴</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=빈티지">빈티지</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=북유럽">북유럽</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=유니크">유니크</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=로맨틱">로맨틱</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagStyle=엔틱">엔틱</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> <!-- 스타일 -->
+
+                <div class="col-md-2 pop_wrap">
+                    <button type="button" id="color" class="btn_pop" value="tagColor=0"><span>색상</span><i class="fas fa-sort"></i></button>
+                    
+                    <div class="pop_box">
+                        <div class="pop_content">
+                            <ul class="sub_content_ul color">
+                                <li><button type="button" class="btn_subpop" value="tagColor=grey">
+                                    <div class="color_wrap"><div class="color_circle gy"></div>그레이</div></button></li>
+                                <li><button type="button" class="btn_subpop" value="tagColor=white">
+                                    <div class="color_wrap"><div class="color_circle wh"></div>화이트</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagColor=black">
+                                    <div class="color_wrap"><div class="color_circle bl"></div>블랙</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagColor=brown">
+                                    <div class="color_wrap"><div class="color_circle br"></div>브라운</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagColor=blue">
+                                    <div class="color_wrap"><div class="color_circle bu"></div>블루</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagColor=pink">
+                                    <div class="color_wrap"><div class="color_circle pi"></div>핑크</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagColor=green">
+                                    <div class="color_wrap"><div class="color_circle gr"></div>그린</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagColor=red">
+                                    <div class="color_wrap"><div class="color_circle re"></div>레드</button></li>
+                                <li><button type="button" class="btn_subpop" value="tagColor=yellow">
+                                    <div class="color_wrap"><div class="color_circle ye"></div>옐로우</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> <!-- 색상 -->
+        
+                <button class="sort_clear">초기화</button>
+
+            </div> <!-- row -->
+        </div> <!-- type menu 끝 -->
+
+        <form id="upload_frm">
+            <input type="hidden" id="_userSeq" name="userSeq">
+            <input type="hidden" id="_cardSeq" name="cardSeq">
+            <input type="hidden" id="_tagColor" name="tagColor">
+            <input type="hidden" id="_tagHomeType" name="tagHomeType">
+            <input type="hidden" id="_tagStyle" name="tagStyle">
+            <div class="row">
+                <div class="col-xl-3 offset-xl-2">
+                    <img src="../../assets/img/imgUpload.png" id="_uploadImg" class="uploadImg">
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-xl-12" style="padding: 15px;"><input type="text" id="_cardTitle" name="cardTitle" style="width: 400px;height: 35px;" placeholder="제목">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><textarea id="_cardContent" name="cardContent" style="width: 400px;height: 180px;resize: none;" placeholder="사진에 대해 설명해주세요.&#13;&#10;(50자 이내 작성)"></textarea></div>
+                    </div>
+                    <div id="text_cnt">(0 / 50)</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center" style="margin: 20px;"><button class="update_btn" type="button">수정하기</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+    <footer include-html="../commons/footer.html"></footer>
+</body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
+
+<script>
+
+//파라미터값 가져오도록 하는 함수
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+const cardSeq = getParameter("seq");
+$('#_cardSeq').val(cardSeq);
+
+
+//로그인한 계정 닉네임 가져오기
+let sessionId = JSON.parse(sessionStorage.getItem("login"));
+if(sessionId == null) {
+    sessionId = '';
+};
+const userSeq = sessionId.userSeq;
+$('#_userSeq').val(userSeq);
+
+
+let tagData;
+
+
+$(document).ready(function () {
+
+    // 디테일 정보 가져오기
+    getCardDetail()
+    function getCardDetail() {
+        $.ajax({
+            url: "http://192.168.0.231:3000/getCardDetail",
+            type: "get",
+            data: {
+                "cardSeq": cardSeq
+            },
+            success: function (data) {
+                console.log(data);
+                $('#_cardTitle').val(data.cardTitle);
+                $('#_cardContent').val(data.cardContent);
+                $('#text_cnt').html("(" + data.cardContent.length + " / 50)");
+                $('#_uploadImg').attr('src', 'http://192.168.0.231:3000/upload/'+data.cardFileName);
+
+                $('#homeType').html(data.tagHomeType+' <i class="fas fa-sort"></i>')
+                $('#homeType').val('tagHometype='+data.tagHomeType);
+                $('#style').html(data.tagStyle+' <i class="fas fa-sort"></i>')
+                $('#style').val('tagStyle='+data.tagStyle);
+                $('#color').html(data.tagColor+' <i class="fas fa-sort"></i>')
+                $('#color').val('tagColor='+data.tagColor);
+                tagData = setJdata();
+            },
+            error: function () {
+                alert('getCardDetail() error');
+            }
+        });
+    };
+
+})
+
+
+
+$('.sub_content_ul li:first-of-type .btn_subpop').hover(function () { // 메뉴 호버시 색
+    $('.pop_content').toggleClass('active')
+});
+
+$('.btn_subpop').click(function () { //선택한 걸로 제목 바꾸기
+    let val = $(this).val()
+    if($(this).children().hasClass('color_wrap')){
+        $(this).parents('.pop_wrap').children().first().html( $(this).children().html()+'<i class="fas fa-sort"></i>');
+        $(this).parents('.pop_wrap').children().first().val(val);
+    }else{
+        $(this).parents('.pop_wrap').children('.btn_pop').html($(this).text()+' <i class="fas fa-sort"></i>')
+        $(this).parents('.pop_wrap').children('.btn_pop').val(val);
+    }
+    tagData = setJdata();
+    console.log( tagData );
+    $('.sort_clear').show();
+});
+
+
+//초기화
+let menu = ['주거형태', '스타일', '색상'];
+let initVal = ['tagHometype=0', 'tagStyle=0', 'tagColor=0'];
+$('.sort_clear').click( function() {
+    $('button[class=btn_pop]').each(function(i){
+        $(this).html(menu[i]+' <i class="fas fa-sort"></i>');
+        $(this).val(initVal[i])
+    });
+    $(this).css('display','none');
+    tagData = setJdata();
+    console.log( tagData );
+});
+
+
+
+$('.update_btn').click(function() {
+    
+    if(tagData==null || tagData.tagHometype == 0 || tagData.tagStyle == 0 || tagData.tagColor == 0) {
+        alert('분류를 선택해주세요. ');
+        return;
+    } else {
+        $('#_tagColor').val(tagData.tagColor);
+        $('#_tagHomeType').val(tagData.tagHometype);
+        $('#_tagStyle').val(tagData.tagStyle);
+    };
+    if($('#_cardTitle').val() == "") {
+        alert('제목을 입력해주세요.');
+        return;
+    };
+    if($('#_cardContent').val() == "") {
+        alert('내용을 입력해주세요.');
+        return;
+    };
+
+    if(confirm("수정하시겠습니까?") == true) {
+        $.ajax({
+            url: "http://192.168.0.231:3000/cardUpdate",
+            type: "post",
+            data: {
+                cardSeq: cardSeq,
+                userSeq: userSeq,
+                cardTitle: $('#_cardTitle').val(),
+                cardContent: $('#_cardContent').val(),
+                tagColor: $('#_tagColor').val(),
+                tagHomeType: $('#_tagHomeType').val(),
+                tagStyle: $('#_tagStyle').val()
+            },
+            success: function (data) {
+                console.log(data)
+                if (data == "suc") {
+                    alert('수정이 완료되었습니다.');
+                } else {
+                    alert('수정실패');
+                }
+            },
+            error: function () {
+                alert('storyWrite error');
+            },
+            complete: function() {
+                location.href = "storyDetail.html?seq="+cardSeq;
+            }
+        });
+    }
+    else {
+        return;
+    }
+    
+});
+    
+
+
+// 글자수 제한 카운트 (50자)
+$('#_cardContent').on('keyup', function(e) {
+    
+    $('#text_cnt').html("(" + $(this).val().length + " / 50)");
+
+    if ($(this).val().length > 50) {
+        $(this).val($(this).val().substring(0, 50));
+        $('#text_cnt').html("(50 / 50)");
+    }
+});
+
+// 분류 데이터 가져와서 json형태로 만들기
+function setJdata(){
+    let param='{';
+    $('button[class=btn_pop]').each(function(i){
+        let a = $(this).val();
+        param += '"';
+        param += a.split('=')[0];
+        param += '":"';
+        param += a.split('=')[1];
+        param += '",';
+    });
+    param = param.substring(0,param.length-1);
+    param += '}';
+    return JSON.parse(param);
+}
+
+
+
+
+
+
+
+</script>
+
+</html>

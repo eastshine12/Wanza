@@ -139,9 +139,13 @@
         <div class="row">
             <div class="col-xl-3">
                 <div class="row" style="height: 150px;"></div>
-                <div class="row">
-                    <div class="col" style="margin-bottom: 10px;">
+                <div class="row"  style="margin-bottom: 10px;">
+                    <div class="col-xl-8">
                         <h4 id="cardNickName" style="font-size: 19px;"><strong>nickname</strong></h4>
+                    </div>
+                    <div id="updateDelete" class="col-xl-4">
+                        <a href="javascript:goUpdate()" style="font-weight: 100; color: #6e6e6e;">수정</a> 
+                        <a href="javascript:deleteStory()" style="font-weight: 100; color: #fd3b3b;">삭제</a>
                     </div>
                 </div>
                 <div class="row">
@@ -217,7 +221,7 @@
 
                         <!-- 메인 사진 마커 -->
 
-                       <!--  <div style="position: absolute;">
+                    <!--<div style="position: absolute;">
                             <div id="marker" style="position: relative; top: 300px;left: 660px;">
                                 <img src="../../assets/img/marker.png" style="width: 40px;">
                                 <div id="markerMessage">
@@ -402,6 +406,8 @@
 
     $(document).ready(function() {
 
+        $('#updateDelete').hide();
+
         // 디테일 정보 가져오기
         getCardDetail()
         function getCardDetail() {
@@ -422,6 +428,9 @@
                     $('#cardNickName').html('<strong>' + data.nickName + '</strong>');
                     $('#nickName').text(data.nickName);
                     $('#cardContent').text(data.cardContent);
+                    if(data.userSeq == sessionId.userSeq) {
+                        $('#updateDelete').show();
+                    }
                 },
                 error: function () {
                     alert('getCardDetail() error');
@@ -846,8 +855,44 @@
             return;
         }
         
+    }
 
-        
+    function deleteStory() {
+
+
+        if(confirm("정말 삭제하시겠습니까?") == true) {
+            $.ajax({
+                url: "http://192.168.0.231:3000/cardDelete",
+                type: "post",
+                data: {
+                    "cardSeq": seq,
+                    "userSeq": sessionId.userSeq
+                },
+                success: function (data) {
+                    if (data == "suc") {
+                        alert('게시글이 삭제되었습니다.');
+                    }
+                    else {
+                        alert("삭제 실패");
+                    }
+
+                },
+                error: function () {
+                    alert("cardDelete() error");
+                },
+                complete: function() {
+                    location.href = "story.html";
+                }
+            });
+        } else {
+            return;
+        }
+
+    }
+
+    function goUpdate() {
+
+        location.href = "storyUpdate.html?seq="+seq;
     }
 
 

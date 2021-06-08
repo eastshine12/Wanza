@@ -916,8 +916,25 @@ function getStoryTagList() {
 
                     app +=   '</td>'
                         +    '<td>'+val.tagCount+'</td>'
-                        +    '<td>'+val.cardTitle+'</td>'
-                        +    '<td>'+val.cardContent+'</td>'
+                        +    '<td>';
+                        
+                    
+                    if(val.cardTitle.length > 21) {
+                        app += val.cardTitle.substr(0,21)+ '...';
+                    } else {
+                        app += val.cardTitle;
+                    }    
+                    
+                    app +=   '</td>'
+                        +    '<td>';
+                            
+                    if(val.cardContent.length > 13) {
+                        app += val.cardContent.substr(0,13)+ '...';
+                    } else {
+                        app += val.cardContent;
+                    }      
+
+                    app +=   '</td>'
                         +    '<td>'+val.nickName+'</td>'
                         +    '<td>'+val.cardReadCount+'</td>'
                         +    '<td>'+val.likeCount+'</td>'

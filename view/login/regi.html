@@ -84,7 +84,12 @@
         <div class="row">
             <div class="col" style="text-align: center;"><button id="regiBtn" class="btn btn-lg" type="button" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 330px;font-size: 18px;margin-top: 12px;">회원가입</button></div>
         </div>
+        <div class="row">
+            <div class="col" style="text-align: center;"><button id="auth" class="btn btn-lg" type="button" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 330px;font-size: 18px;margin-top: 12px;">이메일인증</button></div>
+        </div>
     </div>
+
+
 
     <footer include-html="../commons/footer.html"></footer>
 
@@ -237,6 +242,30 @@
                 alert("가입에러");
             }
         });
+    });
+
+
+    $(document).on('click', '#auth', function() {
+
+        let mail = $('#email1').val() +'@'+ $('#email2').val(); //사용자의 이메일 입력값. 
+		
+		if (mail == "") {
+			alert("메일 주소가 입력되지 않았습니다.");
+		} else {
+			//mail = mail+"@"+$(".domain").val(); //셀렉트 박스에 @뒤 값들을 더함.
+			$.ajax({
+				type : 'post',
+				url : 'http://192.168.0.231:3000/CheckMail',
+				data : {
+					mail:mail
+					},
+				dataType :'json',
+
+			});
+			alert("인증번호가 전송되었습니다.") 
+			isCertification=true; //추후 인증 여부를 알기위한 값
+            
+		}
     });
 
 
