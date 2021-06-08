@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>완벽한 자취생활, 완자</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    </head>
+<style>
+    html, body {
+    height: 100%;
+    margin: 0;
+    }
+
+    #password_form .form-control:focus{
+        border-color: rgba(255, 128, 0, 0.8);
+        box-shadow: 0 1px 1px #f38766 inset, 0 0 8px rgba(255, 191, 0, 0.6);
+        outline: 0 none;
+    }
+
+    #password_form {
+    margin: 50px auto;
+    padding: 30px;
+    max-width: 360px;
+    width: 100%;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%);
+    }
+
+    .write_btn{
+        width: 100%;
+        height: 40px;
+        border-radius: 5px;
+        color: white;
+        border: none;
+        background-color: #f4744c;
+    }
+    .write_btn:hover{
+        color: #f4744c;
+        background-color: white;
+        border: 0.5px solid #f4744c;
+    }
+</style>
+<body>
+    <a href="../../view/community/mainCommunity.html">
+        <img src="../../assets/img/wanza-Icon.ico" width="75px" height="75px" style="margin-left: 20%; margin-top: 2%;">
+    </a>
+    <div class="container" style=" margin-bottom: 20%;">    
+        <div class="row">
+            
+            <div class="col-xl-4"></div>
+    
+            <div class="col-xl-4" align='center' style="margin-top: 3%;">
+                <div id="password_form">
+                    <a href="../../view/community/mainCommunity.html">
+                        <img src="../../assets/img/wanza logo.png" width="250px" height="175px">                           
+                    </a>
+                    <p style="font-size: 20px; font-weight: bold; text-align: left; color: #868686;">비밀번호 변경</p>    
+                    <div>
+                        <input type="password" class="form-control"id="inputPwd1"placeholder="새 비밀번호" >
+                    </div>
+                    <br>
+                    <div>
+                        <input type="password" class="form-control" id="inputPwd2"placeholder="새 비밀번호 확인">
+                    </div>
+                    <br>
+                    <div>
+                        <button type="button" class="write_btn" id="newPwd" onclick="goNewPwd()">비밀번호 재설정</button>
+                    </div>
+                </div>  
+            </div>
+            <div class="col-xl-4">
+            </div>
+            
+        </div>
+    </div>
+    <footer include-html="../commons/footer.html"></footer>
+</body>
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
+<script>
+
+
+$(document).ready(function(){
+
+    let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
+    return paramPair.split(/=(.+)?/).slice(0, 2);
+        }).reduce(function(obj, pairArray) {
+            obj[pairArray[0]] = pairArray[1];
+            return obj;
+        }, {});
+
+    $("#newPwd").click(function(){
+        if($("#inputPwd1").val() != $("#inputPwd2").val()){
+            alert("비밀번호가 일치하지 않습니다.");
+        }else if($("#inputPwd1").val()==""||$("#inputPwd2").val()==""){
+        alert("새 비밀번호를 입력해주세요");
+        }else{
+        //alert("정상!");
+
+            $.ajax({
+                url:"http://localhost:3000/newPwd",
+                data:{userSeq : urlParams.userSeq, pwd:$("#inputPwd2").val()},
+                type:"post",
+                success:function(data){
+                    if(data=="suc"){
+                        alert("비밀번호가 정상적으로 변경되었습니다.");
+                    location.href="../community/mainCommunity.html";  
+                    }              
+                    },error:function(){
+
+                }  
+            })
+        }
+    }) 
+
+})
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

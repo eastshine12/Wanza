@@ -115,9 +115,9 @@ $(document).ready(function(){
             data:{email:$("#userEmail").val()},
             type:"get",
             success:function(){
-
+                alert("메일이 발송되었습니다.");
             },error:function(){
-                
+                alert("찾으시는 이메일로 가입된 정보가 없습니다.");
             }
         })
     })
