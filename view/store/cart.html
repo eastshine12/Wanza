@@ -261,10 +261,6 @@ function getCartList() {
             } else {
                 $.each(list, function (i, val) {
 
-                    let key = JSON.parse(val.selectOption);
-                    let value = Object.keys(key);
-                    console.log(value.length);
-
                     app += '<div class="row cart_body" id="cart" name="_cart">'
                         + '<!-- 장바구니항목 시작 -->'
                         + '<div class="col-xl-6 d-flex">'
@@ -278,12 +274,17 @@ function getCartList() {
                         + '<div class="cart_item_img"><img src="http://192.168.0.231:3000/upload/' + val.productFileName + '"></div>'
                         + '<div class="cart_item_title">'
                         + '<h6>' + val.productMaker + '</h6>'
-                        + '<h3>' + val.productName + '</h3>'
-                        + '<div class="cart_item_option">'
-                        + '<span>' + Object.keys(key)+ ' : '+key[value]+'</span>'
-                        + '<button class="button opt_btn" onclick="optproduct()">옵션변경</button>'
-                        + '</div>'
-                        + '</div>'
+                        + '<h3 style="margin-bottom: 15px;">' + val.productName + '</h3>';
+
+                    let optionJSON = JSON.parse(val.selectOption);
+                    for(let i=0; i<optionJSON.length; i++) {
+                        app += '<div class="cart_item_option" style="margin-bottom: 8px;">'
+                            + '<div class="col-md-8"><span>' + optionJSON[i].optionTitle+ ' : '+optionJSON[i].optionContent+'</span></div>'
+                            + '<div class="col-md-6"><button class="button opt_btn" onclick="optproduct()" style="padding:0px 5px;">옵션변경</button></div>'
+                            + '</div>'
+                    }
+                        
+                    app += '</div>'
                         + '</div>'
                         + '<!-- 장바구니항목 끝 -->'
                         + '<!-- 가격 -->'

@@ -233,14 +233,30 @@ body{
     height: 40px;
     border: 1px solid rgb(253, 54, 54);
     border-radius: 4px;
-    color: red;
-    background-color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 71, 71);
     box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
 }
 
 .tab_btn2:active{
     background: radial-gradient(#ab3535,#c05656);
     transition: all .33s cubic-bezier(.685,.0473,.346,1)
+}
+
+.tab_btn3{
+    width: 37px;
+    height: 37px;
+    border: 1px solid rgb(253, 54, 54);
+    border-radius: 4px;
+    color: rgb(255, 0, 0);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+
+.tab_btn3:active{
+    background: radial-gradient(#fd3030,#ff7171);
+    color: rgb(255, 255, 255);
+    transition: all .100s cubic-bezier(.685,.0473,.346,1)
 }
 
 .write_btn{
@@ -433,7 +449,7 @@ body{
                     <tr>
                         <th scope="row">상품옵션</th>
                         <td><input type="text" id="optionName" class="form-control" placeholder="옵션이름 (선택)"></td>
-                        <td><input type="button" id="addOption" class="tab_btn" value="+"></td>
+                        <td><input type="button" id="addOption" class="tab_btn" value="┿"></td>
                     </tr>
 
                     <!-- 옵션 뿌려주는 곳 -->
@@ -515,7 +531,7 @@ $(document).ready(function() {
         width: 750,
         minHeight: 400,             // 최소 높이
         maxHeight: null,             // 최대 높이
-        focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+        focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
         lang: "ko-KR",					// 한글 설정
         placeholder: "상품 설명 (이미지 첨부)",
         //콜백 함수
@@ -581,13 +597,13 @@ $(document).ready(function() {
         }
 
         let seq = $('input[name=addSubOption]').length + 1;
-        let app = '<tr id="option_'+seq+'">'
+        let app = '<tr id="option_'+seq+'" name="option_'+seq+'">'
             + '<th scope="row"><input type="hidden" id="optionSeq" name="optionSeq" value="1"></th>'
             + '<td><h5 style="text-align: center;"><b>'+name+'</b></h5><input type="hidden" id="optionTitle_'+seq+'" name="optionTitle" value="'+name+'"></td>'
             + '<td><input type="text" class="form-control" name="optionContent" placeholder="옵션항목"></td>'
             + '<td><input type="text" class="form-control" name="optionPrice" placeholder="옵션가격"></td>'
-            + '<td><input type="button" id="addSubOption" class="tab_btn" name="addSubOption" seq="'+seq+'" value="+">'
-            + '<input type="button" id="deleteSubOption" class="tab_btn2" name="deleteSubOption" seq="'+seq+'" value="-" style="margin-left: 10px;"></td>'
+            + '<td><input type="button" id="addSubOption" class="tab_btn" name="addSubOption" seq="'+seq+'" value="┿">'
+            + '<input type="button" id="deleteOption" class="tab_btn2" name="deleteOption" seq="'+seq+'" value="―" style="margin-left: 10px;"></td>'
             + '</tr>';            
         $('#option').before(app);
 
@@ -605,12 +621,13 @@ $(document).on('click', "input[name=addSubOption]", function() {
     let seq = $(this).attr('seq');
     let subSeq = $('th[name=countSubOption_'+seq+']').length;
     let opTitle = $('#optionTitle_'+seq).val();
-    let app = '<tr id="subOption_'+seq+'_'+subSeq+'">'
+    let app = '<tr id="subOption_'+seq+'_'+subSeq+'" name="option_'+seq+'">'
             + '<th name="countSubOption_'+seq+'" scope="row"></th>'
             + '<td><input type="hidden" name="optionTitle" value="'+opTitle+'"></td>'
             + '<td><input type="text" class="form-control" name="optionContent" placeholder="옵션항목"></td>'
             + '<td><input type="text" class="form-control" name="optionPrice" placeholder="옵션가격"></td>'
-            + '<td></td>'
+            + '<td><input type="button" id="deleteSubOption" class="tab_btn3" name="deleteSubOption" seq="'+seq+'" subSeq="'+subSeq+'" value="―"></td>'
+            //+ '<td></td>'
             + '</tr>';
     
     if(subSeq == 0) {
@@ -621,8 +638,29 @@ $(document).on('click', "input[name=addSubOption]", function() {
 });
 
 
+// 상품 옵션 삭제
+$(document).on('click', "input[name=deleteOption]", function() {
+    if(confirm("해당 옵션을 삭제하시겠습니까?") == true) {
+        let seq = $(this).attr('seq');
+        $('tr[name=option_'+seq+']').remove();
+    } else {
+        return;
+    }
+})
 
-    
+
+
+// 상품 옵션항목 개별 삭제
+$(document).on('click', "input[name=deleteSubOption]", function() {
+    let seq = $(this).attr('seq');
+    let subSeq = $(this).attr('subSeq');
+    $('#subOption_'+seq+'_'+subSeq).remove();
+})
+
+
+
+
+// 상품 올리기 버튼 클릭
 $(document).on('click', '.write_btn', function() { 
     
 

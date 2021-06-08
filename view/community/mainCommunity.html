@@ -132,7 +132,7 @@
                 </figure>
                 <figure class="figure" style="margin-right: 15px;margin-left: 15px; cursor: pointer;"><img class="img-fluid figure-img"
                         src="../../assets/img/수납.png" width="150px">
-                    <figcaption class="figure-caption" style="text-align: center;font-size: 17px;"><strong>수납/정리</strong>
+                    <figcaption class="figure-caption" style="text-align: center;font-size: 17px;"><strong>수납정리</strong>
                     </figcaption>
                 </figure>
             </div>
@@ -298,6 +298,13 @@
         });
     };
 
+
+    //카테고리 이동
+    $(document).on('click','.figure', function() {
+        location.href = "../store/mainStore.html?category="+$(this).children().text();
+    })
+
+    
 </script>
 
 </html>
