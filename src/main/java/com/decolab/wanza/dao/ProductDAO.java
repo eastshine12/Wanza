@@ -49,5 +49,7 @@ public interface ProductDAO {
 	public List<ProductQuestionDTO> getProductQnAList(ProductQuestionDTO dto);
 	
 	public int getProductQnACount(ProductQuestionDTO dto);
+	
+	public int addReviewPoint(ProductReviewDTO dto);
 }
 

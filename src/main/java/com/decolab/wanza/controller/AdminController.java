@@ -132,7 +132,7 @@ public class AdminController {
 		service.addProductTag(dto);
 		
 		
-		return "suc";
+		return productSeq+"";
 	}
 	
 	
@@ -156,7 +156,6 @@ public class AdminController {
 			//System.out.println(list.get(i).toString());
 			service.addProductOption(list.get(i));
 		}
-		
 		
 		return "suc";
 	}
