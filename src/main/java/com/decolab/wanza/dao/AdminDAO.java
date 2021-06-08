@@ -17,6 +17,8 @@ public interface AdminDAO {
 	
 	public List<AdminDeliveryStatusDTO> getDeliveryStatusList();
 	
+	public int changeDeliveryStatus(AdminDeliveryStatusDTO dto);
+		
 	public List<AdminStoryTagDTO> getStoryTagList();
 	
 	public List<ProductDTO> getSearchProductionList(ProductDTO dto);
