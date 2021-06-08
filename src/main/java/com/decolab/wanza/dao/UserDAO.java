@@ -15,6 +15,6 @@ public interface UserDAO {
 	
 	public UserDTO getUserInfo(int userSeq);
 
-	public UserDTO kakaologin(UserDTO dto);
+	public String kakaologin(UserDTO dto);
 	
 }
