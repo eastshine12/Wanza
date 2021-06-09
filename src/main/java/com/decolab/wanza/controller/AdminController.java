@@ -42,7 +42,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/getDeliveryStatusList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<AdminDeliveryStatusDTO> getDeliveryStatusList() {
-		System.out.println("AdminController getDeliveryStatusList() " + new Date());		
+		System.out.println("AdminController getDeliveryStatusList() " + new Date());
 		return service.getDeliveryStatusList();
 	}
 	
@@ -50,10 +50,16 @@ public class AdminController {
 	public String changeDeliveryStatus( @RequestParam(value="orderSeq[]") int arr[], AdminDeliveryStatusDTO dto) {
 		System.out.println("AdminController changeDeliveryStatus() " + new Date());
 		System.out.println(dto.toString()+","+Arrays.toString(arr));
+		int chk = 0;
 		for (int i : arr) {
-			
+			System.out.println(i);
+			dto.setOrderSeq(i);
+			chk = service.changeDeliveryStatus(dto);
+			if(chk==0) {
+				return "failed : index="+i+", orderSeq="+dto.getOrderSeq();
+			}
 		}
-		return "sc";
+		return "success";
 	}
 	
 	@RequestMapping(value = "/getStoryTagList", method = {RequestMethod.GET,RequestMethod.POST})
@@ -132,7 +138,7 @@ public class AdminController {
 		service.addProductTag(dto);
 		
 		
-		return "suc";
+		return productSeq+"";
 	}
 	
 	
@@ -156,7 +162,6 @@ public class AdminController {
 			//System.out.println(list.get(i).toString());
 			service.addProductOption(list.get(i));
 		}
-		
 		
 		return "suc";
 	}

@@ -34,5 +34,13 @@ public class UserService {
 		return dao.kakaologin(dto);
 	}
 	
+	public UserDTO getUserNickname(UserDTO dto) {
+		return dao.getUserNickname(dto);
+	}
+	
+	public int newPwd(UserDTO dto) {
+		return dao.newPwd(dto);
+	}
+	
 	
 }

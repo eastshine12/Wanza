@@ -87,31 +87,37 @@ public class ProductController {
 	@RequestMapping(value = "/addProductReview", method = {RequestMethod.GET,RequestMethod.POST})
 	public String addProductReview(@RequestParam("fileName")MultipartFile fileName, ProductReviewDTO dto,  HttpServletRequest req) {
 		System.out.println("ProductController addProductReview() " + new Date());
-		
 		String uploadPath = req.getServletContext().getRealPath("/upload");
 		String filename = fileName.getOriginalFilename();
-		String newFilename = NewFileName.getNewFileName(filename);
-		String filepath = uploadPath + File.separator + newFilename;
-		
-		System.out.println("filepath :" + filepath);
-		dto.setProductRevFileName(newFilename);
-		System.out.println(dto.toString());
-		
-		try {
-			BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-			os.write(fileName.getBytes());
-			os.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "file upload fail";
+
+		if(filename != "" && filename != null) {
+			String newFilename = NewFileName.getNewFileName(filename);
+			String filepath = uploadPath + File.separator + newFilename;
+			
+			System.out.println("filepath :" + filepath);
+			dto.setProductRevFileName(newFilename);
+			System.out.println(dto.toString());
+			
+			try {
+				BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+				os.write(fileName.getBytes());
+				os.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "file upload fail";
+			}
+		} else {
+			dto.setProductRevFileName(filename);
 		}
 		
 		int a = service.addProductReview(dto);
 		int b = service.updateReviewStatus(dto);
 		int c = service.updateRating(dto);
+		int d = service.addReviewPoint(dto);
 		
-		return a+b+c>2?"suc":"err";
+		
+		return a+b+c+d>3?"suc":"err";
 	}
 	
 	@RequestMapping(value = "/getProductReviewList", method = {RequestMethod.GET,RequestMethod.POST})
