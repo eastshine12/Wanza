@@ -6,15 +6,18 @@
     }
 }
 #st .nav_a{
-    min-width: 80px;
+    /* min-width: 80px; */
     color: rgb(0,0,0);
     font-size: 19px;
+    /* margin-right: 20px;
+    margin-left: 0; */
+}
+#st .navbar-nav>li{
     margin-right: 20px;
-    margin-left: 0;
 }
-#st .navbar-nav li:first-of-type a{
+/* #st .navbar-nav li:first-of-type a{
     min-width: 30px;
-}
+} */
 .nav-item,
 #st .container{
     position: relative;
@@ -25,7 +28,7 @@
 }
 #st .submenu_wrap{
     position: absolute;
-    top: 45px; left: 0px;
+    top: 40px; left: 0px;
     padding: 3px 0 0 0;
     z-index: 11;
     background-color: transparent;
@@ -36,7 +39,7 @@
 }
 #navcol-2 .submenu_wrap:hover,
 #navcol-2 .nav-item a:hover+.submenu_wrap{
-    left: -15px;
+    left: -5px;
     height:auto; width: auto;
     opacity: 1;
     transition: height .3s, opacity .3s;
@@ -79,7 +82,7 @@
 </style>
 
 <nav id="st" class="navbar navbar-light navbar-expand-md">
-    <div class="container-fluid" style="padding-bottom: 5px;">
+    <div class="container-fluid">
         <div class="container">
 
             <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-2">
