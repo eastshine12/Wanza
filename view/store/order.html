@@ -173,7 +173,7 @@ select::-ms-expand{
 .textlimit{
     position: relative;
     color: #dbdbdb;
-    left: 266px;
+    left: 250px;
     bottom: 20px;
     height: 0;
 }
@@ -467,7 +467,7 @@ select::-ms-expand{
                                     <div id="_dlvy_req3">
                                         <label for="_dlvy_req2">
                                         <input type="text" id="_dlvy_req2" name="orderMessage_free" placeholder="배송요청사항을 입력해주세요" value="">
-                                        <div class="textlimit">0<span>/50</span></div></label>
+                                        <div class="textlimit">0/20</div></label>
                                     </div>
                                     <label class="dlvy_req1" for="_dlvy_req1">
                                     <select name="orderMessage" id="_dlvy_req1">
@@ -652,6 +652,19 @@ function getParameter(name) {
 let seq = getParameter("seq");
 let selectItem = getParameter("selectItem");
 let itemCount = getParameter("itemCount");
+let direct = getParameter("directPayment");
+
+// 옵션 값 JSON 형식으로 변환
+let optionTitleParam = "";
+let num = 1;
+let oppArr = new Array();
+while(getParameter("optionTitle"+num) != "") {
+    let object = new Object();
+    object.opTitle = getParameter("optionTitle"+num);
+    object.opContent = getParameter("optionContent"+num);
+    oppArr.push(object);
+    num++;
+}
 
 
 //로그인한 계정 닉네임 가져오기
@@ -727,9 +740,114 @@ $(document).ready(function() {
     };
 
 
+    // 바로결제, 장바구니결제 마다 리스트 다르게 가져옴
+    if(direct == "true" && seq != "" && itemCount != "") {
+        directPayment();
+    } else if (direct == "false" && seq == "" && itemCount == "") {
+        getPaymentList();
+    } else {
+        alert('잘못된 접근입니다.');
+        history.back();
+    }
+
+
+    // 바로구매용 아이템 디테일 & 선택옵션 가져오기
+    function directPayment() {
+
+        let productMaker = "";
+        let productName = "";
+        let productFileName = "";
+        let productPrice = 0;
+        let optionList = "";
+
+        $.ajax({
+            url: "http://192.168.0.231:3000/getProductDetail",
+            type: "get",
+            data: {
+                "productSeq": seq
+            },
+            async: false,
+            success: function(data) {
+                productMaker = data.productMaker;
+                productName = data.productName;
+                productFileName = data.productFileName;
+                if(data.productDiscount != 0) {
+                    productPrice = data.productDiscount;
+                } else {
+                    productPrice = data.productPrice;
+                }
+            },
+            error: function() {
+                alert('directPayment() getProductDetail error');
+            }
+        });
+        
+        $.ajax({
+            url: "http://192.168.0.231:3000/getProductOptionList",
+            type: "get",
+            data: {
+                "productSeq": seq
+            },
+            async: false,
+            success: function(data) {
+                console.log("옵션리스트" +JSON.stringify(data));
+                optionList = data;
+            },
+            error: function() {
+                alert('directPayment() getProductOptionList error');
+            }
+        });
+
+
+        let app = '<div class="row" name="_item" style="padding-bottom: 10px; border-bottom: 1px solid rgb(129, 129, 129); display: flex; align-items:center;">'
+            +    '<div class="col" style="text-align: center;"><img id="itemImg" style="width: 130px; height: 130px; border-radius: 10px;" alt="" src="http://192.168.0.231:3000/upload/'+productFileName+'"></div>'
+            +    '<div class="col-md-6">'
+            +        '<div class="row" style="margin: 5px 0;">'
+            +            '<div class="col offset-md-1">'
+            +                '<p id="itemMaker" style="font-size: 12px;">'+productMaker+'</p>'
+            +            '</div>'
+            +        '</div>'
+            +        '<div class="row" style="margin: 5px 0;">'
+            +            '<div class="col offset-md-1">'
+            +                '<h5 id="itemTitle" name="_itemTitle">'+productName+'</h5>'
+            +            '</div>'
+            +        '</div>';
+
+            
+            let optionJSON = optionList;
+            let op_total_price = 0;
+            for(let i = 0; i < optionJSON.length; i++) {
+                for(let j = 0; j < oppArr.length; j++) {
+                    if(oppArr[j].opTitle == optionJSON[i].optionTitle && oppArr[j].opContent == optionJSON[i].optionContent) {
+                        app +=       '<div class="row" style="margin-top: 3px;margin-bottom: 3px;">'
+                            +            '<div class="col offset-md-1" style="font-size: 13px; color: #707070;">'
+                            +                '<span><b>'+optionJSON[i].optionTitle+'</b></span><span>&ensp;</span><span id="selectItem">'+optionJSON[i].optionContent+'</span><span> (+'+makeComma(optionJSON[i].optionPrice)+'원)</span>'
+                            +            '</div>'
+                            +        '</div>';
+                        op_total_price += optionJSON[i].optionPrice;
+                    }
+                }
+            }
+            
+            
+        app +=   '</div>'
+            +    '<div class="col">'
+            +        '<p id="itemCount">'+itemCount+'개</p>'
+            +    '</div>'
+            +    '<div class="col-md-2">'
+            +        '<p id="itemPrice">'+makeComma(productPrice)+'원</p>'
+            +    '</div>'
+            +    '<div><input type="hidden" id="itemPrice_1" value="'+((productPrice+parseInt(op_total_price))*itemCount)+'"></div>'
+            +'</div>';
+            $("#itemList").append(app);
+            totalPrice();
+    }
+
+
+
+    
 
     // 구매물품 장바구니 리스트 가져오기
-    getPaymentList()
     function getPaymentList() {
         $.ajax({
             url: "http://192.168.0.231:3000/getPaymentList",
@@ -755,34 +873,36 @@ $(document).ready(function() {
                         app += '<div class="row" name="_item" style="padding-bottom: 10px; border-bottom: 1px solid rgb(129, 129, 129); display: flex; align-items:center;">'
                             +    '<div class="col" style="text-align: center;"><img id="itemImg" style="width: 130px; height: 130px; border-radius: 10px;" alt="" src="http://192.168.0.231:3000/upload/'+val.productFileName+'"></div>'
                             +    '<div class="col-md-6">'
-                            +        '<div class="row">'
+                            +        '<div class="row" style="margin: 5px 0;">'
                             +            '<div class="col offset-md-1">'
                             +                '<p id="itemMaker" style="font-size: 12px;">'+val.productMaker+'</p>'
                             +            '</div>'
                             +        '</div>'
-                            +        '<div class="row">'
+                            +        '<div class="row" style="margin: 5px 0;">'
                             +            '<div class="col offset-md-1">'
                             +                '<h5 id="itemTitle" name="_itemTitle">'+val.productName+'</h5>'
                             +            '</div>'
                             +        '</div>';
 
                             let optionJSON = JSON.parse(val.selectOption);
+                            let op_total_price = 0;
                             for(let i=0; i<optionJSON.length; i++) {
                                 app +=       '<div class="row" style="margin-top: 3px;margin-bottom: 3px;">'
                                     +            '<div class="col offset-md-1" style="font-size: 13px; color: #707070;">'
-                                    +                '<span><b>'+optionJSON[i].optionTitle+'</b></span><span>&ensp;</span><span id="selectItem">'+optionJSON[i].optionContent+'</span>'
+                                    +                '<span><b>'+optionJSON[i].optionTitle+'</b></span><span>&ensp;</span><span id="selectItem">'+optionJSON[i].optionContent+'</span><span> (+'+makeComma(optionJSON[i].optionPrice)+'원)</span>'
                                     +            '</div>'
                                     +        '</div>';
+                                op_total_price += optionJSON[i].optionPrice;
                             }
 
                         app +=   '</div>'
                             +    '<div class="col">'
                             +        '<p id="itemCount">'+val.quantity+'개</p>'
                             +    '</div>'
-                            +    '<div class="col">'
+                            +    '<div class="col-md-2">'
                             +        '<p id="itemPrice">'+makeComma(val.price)+'원</p>'
                             +    '</div>'
-                            +    '<div><input type="hidden" id="itemPrice_'+(i+1)+'" value="'+(val.price*val.quantity)+'"></div>'
+                            +    '<div><input type="hidden" id="itemPrice_'+(i+1)+'" value="'+((val.price+parseInt(op_total_price))*val.quantity)+'"></div>'
                             +'</div>';
 
                     });
@@ -1211,6 +1331,18 @@ function execDaumPostcode() {
     }).open();
 };
 
+
+
+// 요청사항 글자수 제한 카운트 (20자)
+$('#_dlvy_req2').on('keyup', function(e) {
+    
+    $('.textlimit').html($(this).val().length + "/20");
+
+    if ($(this).val().length > 20) {
+        $(this).val($(this).val().substring(0, 20));
+        $('.textlimit').html("20/20");
+    }
+});
 
 
 

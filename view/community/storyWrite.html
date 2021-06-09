@@ -212,6 +212,23 @@
         border: none;
         background-color: #f4744c;
     }
+
+    .textlimit{
+        position: relative;
+        color: #dbdbdb;
+        left: 350px;
+        bottom: 23px;
+        height: 0;
+    }
+
+    .textlimit2{
+        position: relative;
+        color: #dbdbdb;
+        left: 350px;
+        bottom: 31px;
+        height: 0;
+    }
+
     </style>
 </head>
     
@@ -306,13 +323,17 @@
                 </div>
                 <div class="col">
                     <div class="row">
-                        <div class="col-xl-12" style="padding: 15px;"><input type="text" id="_cardTitle" name="cardTitle" style="width: 400px;height: 35px;" placeholder="제목">
+                        <div class="col-xl-12" style="padding: 15px;">
+                            <input type="text" id="_cardTitle" name="cardTitle" style="width: 400px;height: 35px;" placeholder="제목">
+                            <div class="textlimit">0/20</div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col"><textarea id="_cardContent" name="cardContent" style="width: 400px;height: 180px;resize: none;" placeholder="사진에 대해 설명해주세요.&#13;&#10;(50자 이내 작성)"></textarea></div>
+                        <div class="col">
+                            <textarea id="_cardContent" name="cardContent" style="width: 400px;height: 180px;resize: none;" placeholder="사진에 대해 설명해주세요.&#13;&#10;(50자 이내 작성)"></textarea>
+                            <div class="textlimit2">0/50</div>
+                        </div>
                     </div>
-                    <div id="text_cnt">(0 / 50)</div>
                 </div>
             </div>
             <div class="row">
@@ -458,14 +479,27 @@ $(document).on('change', '#_file', function(e) {
     })
 });
 
-// 글자수 제한 카운트 (50자)
+
+
+// 제목 글자수 제한 카운트 (30자)
+$('#_cardTitle').on('keyup', function(e) {
+    
+    $('.textlimit').html($(this).val().length + "/20");
+
+    if ($(this).val().length > 20) {
+        $(this).val($(this).val().substring(0, 20));
+        $('.textlimit').html("20/20");
+    }
+});
+
+// 내용 글자수 제한 카운트 (50자)
 $('#_cardContent').on('keyup', function(e) {
     
-    $('#text_cnt').html("(" + $(this).val().length + " / 50)");
+    $('.textlimit2').html($(this).val().length + "/50");
 
     if ($(this).val().length > 50) {
         $(this).val($(this).val().substring(0, 50));
-        $('#text_cnt').html("(50 / 50)");
+        $('.textlimit2').html("50/50");
     }
 });
 

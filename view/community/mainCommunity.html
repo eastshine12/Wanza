@@ -241,8 +241,15 @@
                             +  '<span></span>'
                             +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
                             +  '</div>'
-                            +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">' + val.productName + '</h3></div><div class="row">';
-
+                            +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">';
+                            
+                            if(val.productName.length > 48) {
+                                app += val.productName.substr(0,48)+'...';
+                            } else {
+                                app += val.productName;
+                            }     
+                            
+                        app += '</h3></div><div class="row">';
                         if(val.productDiscount != 0) {
                             app += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
                                 + '<span style="font-family: \'Noto Sans KR\';font-size: 17px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span></p>';

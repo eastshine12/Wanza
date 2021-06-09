@@ -307,11 +307,16 @@ body{
 .uploadImg {
     height:300px;
     width: 300px;
+    border-radius: 5px;
     object-fit: cover;
 }
 
 .uploadImg:hover {
     filter: brightness(85%);
+}
+
+.uploadImg:active {
+    filter: brightness(55%);
 }
 
 </style>
@@ -400,6 +405,9 @@ body{
                 <tbody>
                     <form id="upload_frm">
                     <tr>
+                        <td colspan="5"><h2 style="margin-bottom: 20px;"><b>상품 등록</b></h2></td>
+                    </tr>
+                    <tr>
                         <th scope="row">상품명</th>
                         <td><input type="text" class="form-control" id="_productName" name="productName" placeholder="상품명을 입력하세요. (필수)"></td>
                     </tr>
@@ -437,12 +445,12 @@ body{
                         </td>
                         <td>
                             <select class="form-control" id="_mediumCategory" name="mediumCategory" onchange="changeSmall(this)">
-                                <option>중분류</option>
+                                <option value="0">중분류</option>
                             </select>
                         </td>
                         <td>
                             <select class="form-control" id="_smallCategory" name="smallCategory">
-                                <option>소분류</option>
+                                <option value="0">소분류</option>
                             </select>
                         </td>
                     </tr>
@@ -668,6 +676,11 @@ $(document).on('click', '.write_btn', function() {
         alert('필수 항목을 입력해주세요. ');
         return;
     };
+
+    if($('#_largeCategory').select().val() == 0 || $('#_mediumCategory').select().val() == 0) {
+        alert('분류를 선택해주세요.');
+        return;
+    }
 
     if($('#_productDiscount').val() == "") {
         $('#_productDiscount').val(0)
