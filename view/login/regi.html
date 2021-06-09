@@ -7,6 +7,87 @@
     <title>완벽한 자취생활, 완자 - 회원가입</title>
     <script src="../../js/includeHTML.js"></script>
 </head>
+<style>
+    
+    .article{
+        margin:1%;
+        padding:20px;
+        max-width:98%;
+        background:white;
+        border:1px solid #bdbdbd;
+        white-space:pre-wrap
+        }
+
+        @media only screen and (min-width: 1280px){
+            .article{
+                max-width:1024px;margin:10px auto
+            }
+        }
+
+    body.lock{
+	overflow: hidden;
+}
+.popup{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden; 
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.8s ease 0s;
+}
+.popup.open{
+  opacity: 1;
+  visibility: visible;
+  z-index: 100;
+}
+.popup.open .popup__content{
+  transform: perspective(600px) translate(0px, 0%) rotateX(0deg);
+  opacity: 1;
+}
+.popup__body{
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 10px;
+  transition: all 0.8s ease 0s;
+}
+.popup__content{
+  position: relative;
+  background: #fff;
+  color: #000;
+  max-width: 900px;
+  padding: 30px;
+  transition: all 0.8s ease 0s;
+  opacity: 0;
+  transform: perspective(600px) translate(0px, -100%) rotateX(45deg);
+  z-index: 100;
+}
+.popup__content_image{
+  padding: 0;
+}
+.popup__image img{
+  max-width: 100%;
+  vertical-align: top;
+}
+.popup__close{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  color: #000;
+  text-decoration: none;
+}
+.popup__title{
+  font-size: 40px;
+  margin: 0px 0px 1em 0px;
+}
+</style>
 
 <body>
     <header include-html="../commons/header.html"></header>
@@ -40,7 +121,7 @@
         </div>
         <div class="row">
             <div class="col" style="text-align: center;">
-                <p id="pwd1Check" style="font-size: 12px; margin-right: 150px;"></p>
+                <p id="pwd1Check" style="font-size: 12px; margin-right: 130px;"></p>
             </div>
         </div>
         <div class="row" style="margin-bottom: -15px;">
@@ -77,22 +158,168 @@
 
         <div class="row" style="text-align: center;">
             <div class="col"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 123px;margin-left: -145px;"><strong>약관 동의</strong></label>
-                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;padding: 0px;"><input id="agree1" type="checkbox" style="margin-right: 10px;">서비스 이용약관 동의<a href="#" style="margin-left: 8px;">보기</a></h5>
-                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;padding: 0px;margin-bottom: 11px;margin-right: 0px;margin-left: 10px;"><input id="agree2" type="checkbox" style="margin-right: 10px;">개인정보취급방침&nbsp;동의<a href="#" style="margin-left: 8px;">보기</a></h5>
+                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;padding: 0px;"><input id="agree1" type="checkbox" style="margin-right: 10px;">서비스 이용약관 동의<a href="#popup2" class="popup-link" target="_blank" style="margin-left: 8px;">보기</a></h5>
+                <h5 style="color: rgb(101,101,101);font-size: 15px;font-family: 'Noto Sans KR', sans-serif;padding: 0px;margin-bottom: 11px;margin-right: 0px;margin-left: 10px;"><input id="agree2" type="checkbox" style="margin-right: 10px;">개인정보취급방침&nbsp;동의<a href="#popup" class="popup-link" style="margin-left: 8px;">보기</a></h5>
             </div>
         </div>
         <div class="row">
             <div class="col" style="text-align: center;"><button id="regiBtn" class="btn btn-lg" type="button" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 330px;font-size: 18px;margin-top: 12px;">회원가입</button></div>
         </div>
-        <div class="row">
-            <div class="col" style="text-align: center;"><button id="auth" class="btn btn-lg" type="button" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 330px;font-size: 18px;margin-top: 12px;">이메일인증</button></div>
-        </div>
     </div>
 
+    <div class="wrapper">
+    </div>
 
+      <div id="popup" class="popup">
+        <div class="popup__body">
+          <div class="popup__content">
+            <a href="#" class="popup__close close-popup">x</a>
+            <!--  <div class="popup__title" ><p style="font-size: 30px;">개인정보 취급 방침</p></div>-->
+            <div class="popup__text">   
+            <table class="privacy_table" style="-webkit-tap-highlight-color: transparent; border-collapse: collapse; border-spacing: 0px; width: 836px; color: #424242; font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic', sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+            <thead style="-webkit-tap-highlight-color: transparent;">
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <th class="first start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; font-style: normal; font-weight: normal; text-align: center; background: #f1f2f2; width: 115px; border: 1px solid #bdbdbd;">수집방법</th>
+            <th class="second" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; font-style: normal; font-weight: normal; text-align: center; border-top: 1px solid #bdbdbd; background: #f1f2f2; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; width: 198px;">수집항목</th>
+            <th class="third" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; font-style: normal; font-weight: normal; text-align: center; border-top: 1px solid #bdbdbd; background: #f1f2f2; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; width: 239px;">수집 및 이용목적</th>
+            <th class="forth" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; font-style: normal; font-weight: normal; text-align: center; border-top: 1px solid #bdbdbd; background: #f1f2f2; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; width: 239px;">보유 및 이용기간</th>
+            </tr>
+            </thead>
+            <tbody style="-webkit-tap-highlight-color: transparent;">
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">회원가입(필수)</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">닉네임, 이메일 주소, 비밀번호</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">서비스 이용 및 상담을 위한 이용자 식별</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;" rowspan="4">목적 달성 후 파기합니다.<br style="-webkit-tap-highlight-color: transparent;" />단, 전자상거래 등에서의 소비자보호에 관한 법률 등 관련 법령의 규정에 따라 거래 관계 확인을 위해 개인정보를 일정기간 보유 할 수 있습니다.<br style="-webkit-tap-highlight-color: transparent;" />또한 회원에서 탈퇴한 후 회원 재가입, 임의해지 등을 반복적으로 행하여 회사가 제공하는 할인쿠폰, 이벤트 혜택 등으로 경제상의 이익을 취하는 것을 방지 하고자 회원 탈퇴 후에도 구매 인증 시 입력한 정보는 1개월 동안 보관합니다.</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;" rowspan="2">회원가입(선택)</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">페이스북, 카카오톡, 네이버 사용자 ID</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">페이스북, 카카오톡, 네이버 등 SNS 계정을 통한 간편 가입시</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">프로필사진, 생년월일, 성별, 거주지 유형 및 크기, 인테리어 관심사, 이용자 홈페이지 주소, 가족 구성</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">맞춤형 콘텐츠 및 상품 추천 등 마케팅 활용</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">휴대전화 인증</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">휴대전화 번호</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">상품 구매 및 포인트(적립금) 지급 시 본인 인증, 이벤트 및 마케팅 정보 수신</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">상품구매</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">1) 구매자정보(이름, 휴대전화 번호, 이메일 주소)<br style="-webkit-tap-highlight-color: transparent;" />2) 수령인정보(이름, 휴대전화 번호, 이메일 주소, 배송지)<br style="-webkit-tap-highlight-color: transparent;" />3) 개인통관고유부호(해외 구매시)</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">상품 배송 및 계약이행</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;" rowspan="7">목적 달성 후 파기합니다.<br style="-webkit-tap-highlight-color: transparent;" />단, 전자상거래 등에서의 소비자보호에 관한 법률 등 관련 법령의 규정에 따라 거래 관계 확인을 위해 개인정보를 일정기간 보유 할 수 있습니다.</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">비회원 환불 서비스 제공</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">결제 정보 (카드사, 카드번호, 은행명, 결제계좌번호)</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">민원상담 및 환불처리</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">전문가 회원<br style="-webkit-tap-highlight-color: transparent;" />상담신청 및 서비스 제공</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">이름, 아이디(이메일), 비밀번호, 휴대전화번호, 지역, 주거유형</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">이용자 식별, 회원관리, 본인여부 확인, 서비스 민원사항 고충 처리 결과 안내</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">전문가 회원 결제 정보</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">계좌정보(은행명, 계좌번호, 예금주 이름),<br style="-webkit-tap-highlight-color: transparent;" />정산 신청자 정보(이름, 전화번호, 이메일 주소)</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">현금 환불 처리, 관련 법령에 따른 보존 의무 이행</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">고객센터 서비스 제공</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">이름, 아이디, 휴대전화번호, 업체명, 업체주소, 은행계좌정보 등</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">완자 서비스 이용 고객 상담</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">이벤트 참여</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">완자 닉네임 및 아이디, 소셜미디어 아이디<br style="-webkit-tap-highlight-color: transparent;" /><br style="-webkit-tap-highlight-color: transparent;" />※ 이벤트 참여 회원이라 함은 완자에서 운영하는 소셜미디어(페이스북, 카카오스토리, 인스타그램, 블로그 등) 및 완자 사이트 및 앱 등을 통하여 진행하는 이벤트에 참여한 회원을 의미합니다.</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">이벤트 참여자 식별 및 당첨자 선정</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">이벤트 당첨</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">이름, 휴대전화 번호, 이메일 주소, 주소</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">이벤트 당첨에 따른 경품 전달</td>
+            </tr>
+            </tbody>
+            </table>
+            <p><span style="color: #424242; font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic', sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><br />단, 전자상거래 등에서의 소비자보호에 관한 법률 등 관련 법령의 규정에 따라 거래 관계 확인을 위해 개인정보를 일정기간 보유 할 수 있습니다. </span></p>
+            <table class="privacy_table" style="-webkit-tap-highlight-color: transparent; border-collapse: collapse; border-spacing: 0px; width: 836px; color: #424242; font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic', sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">
+            <thead style="-webkit-tap-highlight-color: transparent;">
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <th class="first start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; font-style: normal; font-weight: normal; text-align: center; background: #f1f2f2; width: 168px; border: 1px solid #bdbdbd;">법령</th>
+            <th class="second" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; font-style: normal; font-weight: normal; text-align: center; border-top: 1px solid #bdbdbd; background: #f1f2f2; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; width: 287px;">항목</th>
+            <th class="third" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; font-style: normal; font-weight: normal; text-align: center; border-top: 1px solid #bdbdbd; background: #f1f2f2; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; width: 347px;">기간</th>
+            </tr>
+            </thead>
+            <tbody style="-webkit-tap-highlight-color: transparent;">
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;" rowspan="3">전자상거래 등에서의 소비자보호에 관한 법률</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">계약 또는 청약철회 등에 관한 기록</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">5년</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">대금결제 및 재화 등의 공급에 관한 기록</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">5년</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">소비자의 불만 또는 분쟁 처리에 관한 기록</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">3년</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">위치정보의 보호 및 이용 등에 관한 법률</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">개인위치정보에 관한 기록</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">6개월</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">전자금융거래법</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">전자금융 거래에 관한 기록</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">5년</td>
+            </tr>
+            <tr style="-webkit-tap-highlight-color: transparent;">
+            <td class="start" style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd; border-left: 1px solid #bdbdbd;">통신비밀보호법</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">서비스 이용 관련 개인정보(로그기록)</td>
+            <td style="-webkit-tap-highlight-color: transparent; margin: 0px; padding: 5px; border-right: 1px solid #bdbdbd; border-bottom: 1px solid #bdbdbd;">3개월</td>
+            </tr>
+            </tbody>
+            </table>
+            <p><strong style="-webkit-tap-highlight-color: transparent; color: #424242; font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic', sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><br />동의를 거부할 권리 및 거부 경우의 불이익</strong><span style="color: #424242; font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic', sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"> <br /></span><span style="color: #424242; font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', '맑은 고딕', 'Malgun Gothic', sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">귀하께서는 완자가 위와 같이 수집하는 개인정보에 대해 동의하지 않거나 개인정보를 기재하지 않음으로써 거부할 수 있습니다. 다만, 이때 회원에게 제공되는 서비스가 제한될 수 있습니다. </span></p></div></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <!-- ------ -->
+     <div id="popup2" class="popup">
+        <div class="popup__body">
+          <div class="popup__content">
+            <a href="#" class="popup__close close-popup">X</a>
+            <!--  <div class="popup__title"><p style="font-size: 30px;">서비스 이용 약관</p></div>-->
+            <div class="popup__text">
+                <div class="article"><!-- 입력하는대로 보임 -->                   
+제 25조 (청약철회 등)
+① 회사와 재화 등의 구매에 관한 계약을 체결한 이용자는 수신확인의 통지를 받은 날로부터 7일 이내에는 청약의 철회를 할 수 있습니다. 다만, 통지를 받은 때보다 공급이 늦게 이루어진 경우에는 재화 등의 공급을 받은 날로부터 7일 이내에 청약 철회를 할 수 있습니다.
+② 이용자는 재화 등을 배송 받은 경우 다음 각 호의 어느 하나에 해당하는 경우에는 반품 및 교환을 할 수 없습니다.
+1. 이용자에게 책임이 있는 사유로 재화 등이 멸실 또는 훼손된 경우. 다만 재화 등의 내용 확인을 위하여 포장 등을 훼손한 경우는 제외합니다.
+2. 이용자의 사용 또는 일부 소비에 의하여 재화 등의 가치가 현저히 감소한 경우
+3. 시간의 경과에 의하여 재판매가 불가능할 정도로 재화 등의 가치가 현저히 감소한 경우
+4. 같은 성능을 지닌 상품으로 복제가 가능한 경우 그 원본인 재화 등의 포장을 훼손한 경우
+5. 그 밖의 거래의 안전을 위하여 대통령령이 정하는 경우
+③ 제 2항 제 2호 내지 제 4호의 경우 회사가 사전에 청약철회 등이 제한되는 사실을 이용자가 쉽게 알 수 있는 곳에 명시하거나 사용 상품을 제공하는 등의 조치를 하지 않았다면 이용자의 청약철회 등이 제한되지 않습니다.
+④ 이용자는 제 1항 및 제 2항의 규정에도 불구하고 재화 등의 내용이 표시, 광고 내용과 다르거나 계약내용과 다르게 이행된 경우에는 당해 재화 등을 공급받은 날로부터 3 개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터 30 일 이내에 청약철회를 할 수 있습니다.                   
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+
+    
 
     <footer include-html="../commons/footer.html"></footer>
-
+</body>
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../js/header.js"></script>
@@ -267,7 +494,132 @@
             
 		}
     });
+/// 모달
+    const popupLinks = document.querySelectorAll('.popup-link');
+const body = document.querySelector('body');
+// class look-padding for fixed elements
+const lockPadding = document.querySelectorAll('.look-padding');
 
+let unlock = true;
+
+const timeout = 800;
+
+if(popupLinks.length > 0){
+  for (let index = 0; index < popupLinks.length; index++){
+    const popupLink = popupLinks[index];
+    popupLink.addEventListener("click", function(e){
+      const popupName = popupLink.getAttribute("href").replace('#','');
+      const curentPopup = document.getElementById(popupName);
+      popupOpen(curentPopup);
+      e.preventDefault();
+    });
+  }
+}
+
+const popupCloseIcon = document.querySelectorAll('.close-popup');
+if(popupCloseIcon.length > 0){
+  for (let index = 0; index < popupCloseIcon.length; index++){
+    const el = popupCloseIcon[index];
+    el.addEventListener('click', function(e){
+      popupClose(el.closest('.popup'));
+      e.preventDefault();
+    });
+  }
+}
+
+function popupOpen(curentPopup){
+  if(curentPopup && unlock){
+    const popupActive = document.querySelector('.popup.open');
+    if(popupActive){
+      popupClose(popupActive, false);
+    }else{
+      bodyLock();
+    }
+    curentPopup.classList.add('open');
+    curentPopup.addEventListener("click", function(e){
+      if (!e.target.closest('.popup__content')){
+        popupClose(e.target.closest('.popup'));
+      }
+    });
+  }
+}
+
+function popupClose(popupActive, doUnlock = true){
+  if(unlock){
+    popupActive.classList.remove('open');
+    if(doUnlock){
+      bodyUnLock();
+    }
+  }
+}
+
+function bodyLock(){
+  const lockPaddingValue = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
+   if (lockPadding.length > 0){
+	  for (let index = 0; index < lockPadding.length; index++){
+	    const el = lockPadding[index];
+	    el.style.paddingRight = lockPaddingValue;
+	  }
+	}
+  body.style.paddingRight = lockPaddingValue;
+  body.classList.add('lock');
+  
+  unlock = false;
+  setTimeout(function(){
+    unlock = true;
+  }, timeout);
+}
+
+function bodyUnLock() {
+	setTimeout(function(){
+	   if (lockPadding.length > 0){
+			for(let index = 0; index < lockPadding.length; index++){
+				const el = lockPadding[index];
+				el.style.paddingRight = '0px';
+			}
+		}
+		body.style.paddingRight = '0px';
+		body.classList.remove('lock');
+	}, timeout);
+
+	unlock = false;
+	  setTimeout(function(){
+	    unlock = true;
+	  }, timeout);
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.which ===27){
+    const popupActive = document.querySelector('.popup.open');
+    popupClose(popupActive);
+  }
+});
+
+(function() {
+  // проверяем поддержку
+  if (!Element.prototype.closest) {
+    // реализуем
+    Element.prototype.closest = function(css) {
+      var node = this;
+
+      while (node) {
+        if (node.matches(css)) return node;
+        else node = node.parentElement;
+      }
+      return null;
+    };
+  }
+})();
+(function() {
+  // проверяем поддержку
+  if (!Element.prototype.matches) {
+    // определяем свойство
+    Element.prototype.matches = Element.prototype.matchesSelector ||
+      Element.prototype.webkitMatchesSelector ||
+      Element.prototype.mozMatchesSelector ||
+      Element.prototype.msMatchesSelector;
+  }
+})();
 
 
 </script>
