@@ -475,8 +475,25 @@ select::-ms-expand{
     transition: all .33s cubic-bezier(.685,.0473,.346,1)
 }
 
-
-
+/* 페이징 */
+.admin_page{
+    min-height: 100px;
+    margin: 30px 0;
+}
+#admin_items .pagination{
+    justify-content: center;
+}
+#admin_items .page-item.active .page-link{
+    background-color: #35ab6f;
+    border-color: #35ab6f;
+    color: white;
+}
+#admin_items a{
+    color: #424242;
+}
+#admin_items .page-link:focus{
+    box-shadow: none;
+}
 /* 체크박스 색 바꾸기 */
 #table1 .custom-checkbox{
     margin-left: 30px;
@@ -560,7 +577,7 @@ select::-ms-expand{
     </div> <!-- 사이드바 메뉴 끝 -->
 
     <!-- 메인화면 -->
-    <div class="main_panel" style="height: 800px;">
+    <div class="main_panel">
         <div class="p-4" style="height: 150px; border: solid;"><!-- 헤드 -->
             <!-- 사이드바 토글 버튼 -->
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#side_accordion">
@@ -589,7 +606,7 @@ select::-ms-expand{
                 <!-- 카테고리 -->
                 <div class="select_category">
                     <label class="move_label">검색종류</label>
-                    <label for="sele2"><select name="search_category" id="sele2">
+                    <label for="sele2"><select name="sort" id="sele2">
                         <option value="0"></option>
                         <option value="1">주문번호</option>
                         <option value="2">제품명</option>
@@ -626,6 +643,7 @@ select::-ms-expand{
                         <option value="4">결제완료</option>
                         <option value="5">환불대기</option>
                         <option value="6">환불완료</option>
+                        <option value="7">판매완료</option>
                     </select><i class="fas fa-sort-down"></i></label>
 
                     <button type="button" class="tab_btn" id="status_change">변 경</button>
@@ -635,7 +653,7 @@ select::-ms-expand{
             <table class="table table-hover text-center">
                 <colgroup>
                     <col width="56"><col width="100"><col width="86"><col width="96">
-                    <col width="auto"><col width="56"><col width="86"><col width="75">
+                    <col width="auto"><col width="56"><col width="86"><col width="80">
                     <col width="160"><col width="110"><col width="105"><col width="86">
                 </colgroup>
                 <thead>
@@ -651,7 +669,7 @@ select::-ms-expand{
             </table>
         </div>
 
-        <div class="admin_page">
+        <div class="admin_page" id="admin_items">
             <!-- 배송현황 페이지 번호 -->
         </div>
         
@@ -671,52 +689,28 @@ select::-ms-expand{
 
 <script>
 $(document).ready(function() {
-    getDeliveryList()//전체 리스트 불러오기
-    
-    
+    //getDeliveryList()//전체 리스트 불러오기
+    getDeliveryStatusCount(getFormData());
+
     $('.search_btn').click( function() { // 검색버튼
-        
-        let a = $('#search_form').serialize()
-        console.log(a)
-        //let formorder1 =  decodeURIComponent($('#search_form').serialize());
-        //let formorder = formorder1.split('&');
-        
-        //모든 데이터 json형태로
-        // let fdata = '{'
-        // formorder.forEach(e => {
-        //     let j = e.split('=');
-        //     fdata += '"'+j[0]+'":"'
-        //     fdata += j[1]+'",'
-        // });
-        // fdata = fdata.slice(0,-1)
-        // fdata += '}';
-        // let jdata = JSON.parse(fdata)
-
-
-        // $.ajax({
-        //     url: "http://localhost:3000/changeDeliveryStatus",
-        //     type: "post",
-        //     data: ,
-        //     success: function(msg) { 
-        //         console.log(msg)
-        //     },
-        //     error: function() { console.log('error'); }
-        // });
+        getDeliveryStatusCount(getFormData());
     });
 
     $('#status_change').click( function() { //상태변경버튼
         let jdata = getCheckData()
         let status = $('#sele1 option:selected').val()
-        $.ajax({
-            url: "http://localhost:3000/changeDeliveryStatus",
-            type: "get",
-            data: {orderSeq:jdata,orderStatus:status},
-            success: function(msg) { 
-                console.log(msg)
-                getDeliveryList();
-            },
-            error: function() { console.log('error'); }
-        });
+        if(status>-1){
+            $.ajax({
+                url: "http://localhost:3000/changeDeliveryStatus",
+                type: "get",
+                data: {orderSeq:jdata,orderStatus:status},
+                success: function(msg) { 
+                    console.log(msg)
+                    getDeliveryStatusCount(getFormData());
+                },
+                error: function() { console.log('error'); }
+            });
+        }
     });
 
     $('.menu_header').click( function() { //사이드 메뉴 활성화
@@ -750,9 +744,11 @@ $(document).ready(function() {
             $('.move_label').removeClass('active')
         }
     });
-    $('.search input').keypress( function() {
+    $('.search input').keypress( function(k) {
         console.log( $(this).val())
-        $('.search_btn').click()
+        if (k.keyCode == 13) {
+            $('.search_btn').click()
+        }
     });
     //$('#table1 tbody tr').click( function() {
     $(document).on('click','#table1 tbody tr', function() { //테이블 누르면 체크
@@ -814,10 +810,11 @@ function autoCheck() {
 };
 
 // 배송현황 리스트
-function getDeliveryList() {
+function getDeliveryList(fdata) {
     $.ajax({
         url: "http://localhost:3000/getDeliveryStatusList",
         type: "post",
+        data: fdata,
         success: function (list) {
             console.log(list)
             let app=''
@@ -843,7 +840,7 @@ function getDeliveryList() {
                     
                     app +='<td>'+val.phone+'</td>'
                         + '<td>'+makeComma(val.totalAmount)+'원</td>'
-                        + '<td>'+val.useMileage+' p</td>'
+                        + '<td>'+val.useMileage+' P</td>'
                         + '<td>'+val.amountType.toUpperCase()+'</td>'
                 });
 
@@ -855,9 +852,9 @@ function getDeliveryList() {
 };
 
 //글의 총 수를 구하는 함수
-function getProductSortCount(jdata) {
+function getDeliveryStatusCount(jdata) {
 	$.ajax({
-		url:"http://localhost:3000/getProductSortCount",
+		url:"http://localhost:3000/getDeliveryStatusCount",
 		type:"get",
 		data:jdata,
 		success:function(count){ console.log(count); loadPage(count); },
@@ -867,17 +864,17 @@ function getProductSortCount(jdata) {
 
 //페이지 처리를 하는 함수
 function loadPage(totalCount) {
-	let pageSize = 9;
+	let pageSize = 7;
 	let nowPage = 1;
 	
 	let _totalPages = totalCount / pageSize;
 	console.log("페이지수:"+_totalPages);
 	
-	if(totalCount % pageSize > 0){
-		//_totalPages = Math.ceil(_totalPages);
-		_totalPages++;
+	if(totalCount%pageSize > 0){
+		_totalPages = Math.ceil(_totalPages);
+		//_totalPages++;
 	}
-	//$(".store_page").twbsPagination("destroy"); //초기화
+	//$(".admin_page").twbsPagination("destroy"); //초기화
 	$(".admin_page").twbsPagination({
 		startPage: 1,
 		totalPages: _totalPages,
@@ -890,10 +887,28 @@ function loadPage(totalCount) {
 		onPageClick:function(event,page){
 			nowPage = page;
 			console.log('nowPage : '+page);
-            //$('html').scrollTop(0)
+            getDeliveryList(getFormData())
 		}
 	});
-    $(".admin_page").twbsPagination("changeTotalPages",_totalPages,nowPage);
+    if(_totalPages>0){
+        $(".admin_page").twbsPagination("changeTotalPages",_totalPages,nowPage);
+    }else{
+        $(".admin_page").twbsPagination("changeTotalPages",1,1);
+    }
+}
+
+//페이지 번호와 폼 데이터 가져오기
+function getFormData() {
+    let fdata = decodeURIComponent($('#search_form').serialize());
+    let pNum = 0;
+    $('.pagination>li').each(function(i){
+        if($(this).hasClass('active')){
+            pNum = $(this).text()-1;
+        }
+    });
+    fdata += '&startNum='+(pNum*7+1)+'&endNum='+(pNum*7+7)
+    console.log(fdata);
+    return fdata
 }
 
 // 금액 콤마 삽입 정규식
@@ -910,9 +925,6 @@ function makeDate(str) {
 // 테이블 배송상태 입력
 function makeStatus(num) {
     let status = ['배송준비','배송중','배송완료','결제대기','결제완료','환불대기','환불완료']
-    // console.log(num)
-    // console.log(typeof(num))
-    // console.log(isNaN(Number(num)))
     if(!isNaN(Number(num))){ return status[num] }
     else{           return '확인불가' }
 };

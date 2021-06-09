@@ -222,8 +222,9 @@
     getProductList();
     function getProductList() {
         $.ajax({
-            url: "http://192.168.0.231:3000/getProductList",
+            url: "http://localhost:3000/getProductSortList", //getProductSortList getProductList
             type: "get",
+            data:{recentPeriod:3,startNum:1,endNum:9},
             success: function (list) {
                 console.log(list);
                 let app = ""

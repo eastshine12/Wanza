@@ -139,10 +139,10 @@
                 <div class="profile_img">
                     <span><i class="fa fa-user-circle-o fa-5x"></i></span>
                 </div>
-                <span>유저 닉네임</span>
-                <div>
-                    <div><span>포인트</span><span>363P</span></div>
-                    <div><span>구매등급</span><span>일반</span></div>
+                <span class="profile_name">유저 닉네임</span>
+                <div class="profile_category">
+                    <div><span>포인트 : </span><span> 363</span>P</div>
+                    <div><span>구매등급 : </span><span></span></div>
                 </div>
                 <button type="button" class="btn_profile">회원정보 수정</button>
             </div>
@@ -241,7 +241,20 @@
 <script src="../../js/header.js"></script>
 
 <script>
+//로그인한 계정 닉네임 가져오기
+let sessionId = JSON.parse(sessionStorage.getItem("login"));
+console.log(sessionId);
 
+$(document).ready(function() {
+    //유저정보입력
+    if(sessionId.profileName != '0'){
+        console.log(sessionId.profileNam);
+    }
+    $('.profile_name').text(sessionId.nickname);
+    $('.profile_category span:eq(1)').text( sessionId.mileage);
+    $('.profile_category span:eq(3)').text('일반');
+
+});
 
 </script>
 
