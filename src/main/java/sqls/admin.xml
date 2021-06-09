@@ -4,10 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.decolab.wanza.dao.AdminDAO">
-
-<select id="getDeliveryStatusList" resultType="com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO">
+<!-- 배송현황, 페이징, 검색 -->
+<select id="getDeliveryStatusList" parameterType="com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO" resultType="com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO">
 	SELECT * FROM(
-	SELECT O.ORDERSEQ, ORDERSTATUS, ORDERDATE, PRODUCTNAME, PRODUCTQUANTITY, TOTALQUANTITY, SUBSTR(ADDRESS,1,INSTR(ADDRESS,' ',1,2)-1) DELIVERYADDRESS, USERNAME, NICKNAME, PHONE, TOTALAMOUNT, USEMILEAGE, AMOUNTTYPE
+	SELECT ROW_NUMBER() OVER(ORDER BY ORDERDATE DESC)RNUM, O.ORDERSEQ, ORDERSTATUS, ORDERDATE, PRODUCTNAME, PRODUCTQUANTITY, TOTALQUANTITY,
+		   SUBSTR(ADDRESS,1,INSTR(ADDRESS,' ',1,2)-1) DELIVERYADDRESS, USERNAME, NICKNAME, PHONE, TOTALAMOUNT, USEMILEAGE, AMOUNTTYPE
 	FROM ORDERS O, ADDRESS A, USERS U, 
          (SELECT ORDERSEQ, PRODUCTNAME, TOTALQUANTITY, PRODUCTQUANTITY
           FROM PRODUCTIONS P,(SELECT PRODUCTSEQ, ORDERSEQ, ROW_NUMBER() OVER(PARTITION BY ORDERSEQ ORDER BY PRICE) RNUM,
@@ -19,20 +20,54 @@
 	<if test='startDate neq null and startDate neq "" and endDate neq null and endDate neq ""'>
 		AND (ORDERDATE BETWEEN #{startDate} AND TO_DATE(#{endDate})+0.99999)
 	</if>
-	<choose>
-		<when test="sort eq 1"> AND O.ORDERSEQ LIKE'%'||#{word}||'%'</when>
-		<when test="sort eq 2"> AND PRODUCTNAME LIKE'%'||#{word}||'%'</when>
-		<when test="sort eq 3"> AND ORDERSTATUS LIKE'%'||#{word}||'%'</when>
-		<when test="sort eq 4"> AND (USERNAME || NICKNAME) LIKE'%'||#{word}||'%'</when>
-		<when test="sort eq 5"> AND PHONE LIKE'%'||#{word}||'%'</when>
-		<otherwise>AND (ORDERSTATUS || O.ORDERSEQ || PRODUCTNAME || USERNAME || NICKNAME || PHONE) LIKE '%'||#{word}||'%';</otherwise>
-	</choose>
-	ORDER BY ORDERDATE DESC, ORDERSTATUS)
+	<if test='word neq null and word neq ""'>
+		<choose>
+			<when test="sort eq 1"> AND O.ORDERSEQ LIKE'%'||#{word}||'%'</when>
+			<when test="sort eq 2"> AND PRODUCTNAME LIKE'%'||#{word}||'%'</when>
+			<when test="sort eq 4"> AND (USERNAME || NICKNAME) LIKE'%'||#{word}||'%'</when>
+			<when test="sort eq 5"> AND PHONE LIKE'%'||#{word}||'%'</when>
+		</choose>
+	</if>
+	ORDER BY ORDERDATE DESC, ORDERSTATUS) WHERE 1=1
+	<if test='word neq null and word neq ""'>
+		<choose>
+			<when test="sort eq 3"> AND DELIVERYADDRESS LIKE'%'||#{word}||'%'</when>
+			<when test="sort eq 0"> AND (ORDERSTATUS || ORDERSEQ || PRODUCTNAME || DELIVERYADDRESS || USERNAME || NICKNAME || PHONE) LIKE '%'||#{word}||'%'</when>
+		</choose>
+	</if>
 	<if test='startNum neq null and startNum neq "" and endNum neq null and endNum neq ""'>
-		WHERE RNUM BETWEEN #{startNum} AND #{endNum}
+		AND RNUM BETWEEN #{startNum} AND #{endNum}
 	</if>
 </select>
 
+<!-- 분류한 배송현황 총 갯수 가져오기 -->
+<select id="getDeliveryStatusCount" parameterType="com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO" resultType="int">
+	SELECT NVL(COUNT(*),0)
+	FROM (SELECT O.ORDERSEQ, ORDERSTATUS, ORDERDATE, PRODUCTNAME, SUBSTR(ADDRESS,1,INSTR(ADDRESS,' ',1,2)-1) DELIVERYADDRESS, USERNAME, NICKNAME, PHONE
+	      FROM ORDERS O, ADDRESS A, USERS U, 
+	           (SELECT ORDERSEQ, PRODUCTNAME
+	            FROM PRODUCTIONS P,(SELECT PRODUCTSEQ, ORDERSEQ, ROW_NUMBER() OVER(PARTITION BY ORDERSEQ ORDER BY PRICE) RNUM FROM PURCHASE_PRODUCT) R
+	            WHERE P.PRODUCTSEQ=R.PRODUCTSEQ AND RNUM=1) R
+	      WHERE O.ADDRESSSEQ=A.ADDRESSSEQ AND O.USERSEQ=U.USERSEQ AND O.ORDERSEQ=R.ORDERSEQ)
+	WHERE 1=1
+	<if test='startDate neq null and startDate neq "" and endDate neq null and endDate neq ""'>
+		AND (ORDERDATE BETWEEN #{startDate} AND TO_DATE(#{endDate})+0.99999)
+	</if>
+	<if test='orderStatus neq null and orderStatus neq "" and orderStatus neq "-1"'>
+		AND ORDERSTATUS=#{orderStatus}
+	</if>
+	<if test='word neq null and word neq ""'>
+		<choose>
+			<when test="sort eq 1"> AND ORDERSEQ LIKE'%'||#{word}||'%'</when>
+			<when test="sort eq 2"> AND PRODUCTNAME LIKE'%'||#{word}||'%'</when>
+			<when test="sort eq 3"> AND DELIVERYADDRESS LIKE'%'||#{word}||'%'</when>
+			<when test="sort eq 4"> AND (USERNAME || NICKNAME) LIKE'%'||#{word}||'%'</when>
+			<when test="sort eq 5"> AND PHONE LIKE'%'||#{word}||'%'</when>
+			<otherwise> AND (ORDERSTATUS || ORDERSEQ || PRODUCTNAME || DELIVERYADDRESS || USERNAME || NICKNAME || PHONE) LIKE '%'||#{word}||'%'</otherwise>
+		</choose>
+	</if>
+</select>
+<!-- 배송현황 바꿔주는 -->
 <update id="changeDeliveryStatus" parameterType="com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO">
 	UPDATE ORDERS SET ORDERSTATUS=#{orderStatus} WHERE ORDERSEQ=#{orderSeq}
 </update>

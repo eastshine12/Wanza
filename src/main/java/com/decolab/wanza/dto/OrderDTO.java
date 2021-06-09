@@ -15,7 +15,7 @@ public class OrderDTO implements Serializable {
 	private String amountType;
 	private Date orderDate;
 	private int useMileage;
-	private int saveMileage;
+	private int saveMileage;	// 주문상태 ( 0:배송준비, 1:배송중, 2: 배송완료, 3: 결제대기, 4: 결제완료, 5: 환불대기, 6: 환불완료, 7: 판매완료 )
 	private int orderStatus;	// 주문상태 ( 0:결제완료, 1:상품준비, 2: 배송중, 3: 배송완료 )
 	private String orderMessage;
 	private String orderMessage_free;

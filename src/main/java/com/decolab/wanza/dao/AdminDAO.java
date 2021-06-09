@@ -15,7 +15,9 @@ import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
 @Repository
 public interface AdminDAO {
 	
-	public List<AdminDeliveryStatusDTO> getDeliveryStatusList();
+	public List<AdminDeliveryStatusDTO> getDeliveryStatusList(AdminDeliveryStatusDTO dto);
+	
+	public int getDeliveryStatusCount(AdminDeliveryStatusDTO dto);
 	
 	public int changeDeliveryStatus(AdminDeliveryStatusDTO dto);
 		

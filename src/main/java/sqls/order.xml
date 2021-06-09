@@ -134,7 +134,10 @@
 	WHERE USERSEQ=#{userSeq}
 </update>
 
-
+<!-- 주문현황 카운트하여 가져오기-->
+<select id="getOrderStatus" parameterType="com.decolab.wanza.dto.OrderDTO" resultType="com.decolab.wanza.dto.OrderDTO">
+	SELECT ORDERSTATUS, ORDERSEQ FROM ORDERS WHERE USERSEQ=#{userSeq} ORDER BY ORDERSTATUS, ORDERSEQ
+</select>
 
 
 </mapper>

@@ -21,8 +21,12 @@ public class AdminService {
 	@Autowired
 	AdminDAO dao;
 	
-	public List<AdminDeliveryStatusDTO> getDeliveryStatusList(){
-		return dao.getDeliveryStatusList();
+	public List<AdminDeliveryStatusDTO> getDeliveryStatusList(AdminDeliveryStatusDTO dto){
+		return dao.getDeliveryStatusList(dto);
+	}
+	
+	public int getDeliveryStatusCount(AdminDeliveryStatusDTO dto){
+		return dao.getDeliveryStatusCount(dto);
 	}
 	
 	public int changeDeliveryStatus(AdminDeliveryStatusDTO dto){
