@@ -199,13 +199,26 @@
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
     let code = getParameter("code");
+    //alert(code); 코드는 잘 가져옴
     
+    Gokakao(code);
 
-    Gokakao();
     function Gokakao(code){
         if (isEmpty(code) == false){
             alert("작동함?");
-            alert(code);
+            //alert(code);
+            $.ajax({
+                url: "http://localhost:3000/kakaologin",
+                type: "post",
+                data: data,
+                dataType: 'text',
+                success:function(code){
+                    alert("kakao ajax 성공");
+                    
+                }, error:function(code){
+                    alert("kakao ajax 실패");
+                }
+            })
         } else {
             alert("작동안함");
         }
