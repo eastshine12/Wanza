@@ -277,9 +277,9 @@ function getCartList() {
                         + '<h3 style="margin-bottom: 15px;">' + val.productName + '</h3>';
 
                     let optionJSON = JSON.parse(val.selectOption);
-                    for(let i=0; i<optionJSON.length; i++) {
+                    for(let j=0; j<optionJSON.length; j++) {
                         app += '<div class="cart_item_option" style="margin-bottom: 8px;">'
-                            + '<div class="col-md-8"><span>' + optionJSON[i].optionTitle+ '</span> : '+optionJSON[i].optionContent+' (+ <span>'+makeComma(optionJSON[i].optionPrice)+'</span>원)</div>'
+                            + '<div class="col-md-8"><span>' + optionJSON[j].optionTitle+ '</span><span> : '+optionJSON[j].optionContent+' (+ </span><span class="optionPrice_'+(i+1)+'" name="optionPrice_'+(i+1)+'_'+(j+1)+'">'+makeComma(optionJSON[j].optionPrice)+'</span>원)</div>'
                             + '<div class="col-md-6"><button class="button opt_btn" onclick="optproduct()" style="padding:0px 5px;">옵션변경</button></div>'
                             + '</div>'
                     }
@@ -392,7 +392,11 @@ function chkItem() {
     for (let i = 1; i <= itemLength; i++) {
         if ($('#chk_' + i).prop('checked')) {
             chkItemLength += 1;
-            item_price += parseInt($('#itemPrice_' + i).text().replace(/[^0-9]/g, '')) * $('#itemCount_' + i).val();
+            let optionPrice = 0;
+            for(let j = 0; j < $('.optionPrice_'+i).length; j++) {
+                optionPrice += parseInt($('span[name=optionPrice_'+i+'_'+(j+1)+']').text().replace(/[^0-9]/g, ''));
+            }
+            item_price += (parseInt($('#itemPrice_' + i).text().replace(/[^0-9]/g, '')) + optionPrice) * $('#itemCount_' + i).val();
         };
     };
     $('.w3_button').text(chkItemLength + '개 상품 구매하기');
@@ -442,7 +446,7 @@ function goPayment() {
         },
         success: function (data) {
             if(data == "suc") {
-                location.href = "order.html";
+                location.href = "order.html?directPayment=false";
             } else {
                 console.log('장바구니 체크 DB 저장 안됨');
             }
@@ -469,6 +473,8 @@ function autoCheck() {
         $('#checkbox-item-all').prop("checked", false);
     }
 };
+
+
 
 
 

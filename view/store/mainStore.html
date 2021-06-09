@@ -397,6 +397,7 @@
 $(document).ready(function() {
     const category = getParameter("category")
     const subCategory = getParameter("subCategory")
+    const downCategory = getParameter("downCategory")
     console.log(category)
     console.log(subCategory)
 
@@ -419,7 +420,12 @@ $(document).ready(function() {
         $('.store_subcategory>li').eq(subCategory).addClass('active')
         getProductSortList(setPdata(3)) //인기순:최근3일판매량
     }
-     
+    
+    // 분류 클릭 링크를 통해 넘어온 경우
+    if(downCategory!='' && downCategory!=null) {
+        goCategory(downCategory);
+    }
+
     $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 인기순 메뉴 호버시 색
         $('.pop_content').toggleClass('active')
     });
@@ -483,40 +489,73 @@ function discountRate(price, discount) {
     return Math.ceil(100- (discount/price*100));
 };
 
+
+//storeDetail에서 분류 클릭 시 이동해옴
+function goCategory(downCategory) { 
+    let targetTag;
+    //targetTag = $('.store_subcategory>li:contains("'+downCategory+'")');
+    
+    $('.store_subcategory>li').each(function() {
+        if($(this).attr('class') == downCategory) {
+            targetTag = $(this);
+            targetTag.addClass('active');
+            return false;
+        }
+    });
+    
+    
+    $('.store_thirdcategory>li').each(function() {
+        let text = $(this).text();
+        if(text == downCategory) {
+            targetTag = $(this);
+            targetTag.addClass('active').parent().parent().addClass('active');
+            return false;
+        }
+    });
+    
+    
+    
+    getProductSortList(setPdata(3)) //인기순:최근3일판매량
+    getProductSortCount(setPdata(3)); //페이징
+}
+
+
+
+
 //카테고리 리스트 저장
 function setCategory(param) {
-    let furniture = '<li class="active">전체</li><div></div><li>침대/매트리스'
+    let furniture = '<li class="active">전체</li><div></div><li class="침대/매트리스">침대/매트리스'
                    +'<ul class="store_thirdcategory"><li>침대</li><li>매트리스</li><li>토퍼</li></ul>'
-                   +'</li><div></div><li>소파</li><div></div><li>테이블'
+                   +'</li><div></div><li class="소파">소파</li><div></div><li class="테이블">테이블'
                    +'<ul class="store_thirdcategory"><li>식탁</li><li>좌식테이블</li><li>사이드테이블</li></ul>'
-                   +'</li><div></div><li>화장대/거울'
+                   +'</li><div></div><li class="화장대/거울">화장대/거울'
                    +'<ul class="store_thirdcategory"><li>일반화장대</li><li>좌식화장대</li><li>거울</li></ul>'
-                   +'</li><div></div><li>책상/책장'
+                   +'</li><div></div><li class="책상/책장">책상/책장'
                    +'<ul class="store_thirdcategory"><li>일반책상</li><li>좌식책상</li><li>책장</li></ul>'
-                   +'</li><div></div><li>의자'
+                   +'</li><div></div><li class="의자">의자'
                    +'<ul class="store_thirdcategory"><li>일반의자</li><li>좌식의자</li><li>안락의자</li></ul></li>'
-    let light = '<li class="active">전체</li><div></div><li>LED등</li><div></div><li>스탠드'
+    let light = '<li class="active">전체</li><div></div><li class="LED등">LED등</li><div></div><li class="스탠드">스탠드'
                +'<ul class="store_thirdcategory"><li>장스탠드</li><li>단스탠드</li></ul>'
-               +'</li><div></div><li>무드등'
+               +'</li><div></div><li class="무드등">무드등'
                +'<ul class="store_thirdcategory"><li>무드등</li><li>네온사인</li></ul>'
-               +'</li><div></div><li>센서등</li><div></div><li>형광등</li>'
-    let deco = '<li class="active">전체</li><div></div><li>플라워/식물'
+               +'</li><div></div><li class="센서등">센서등</li><div></div><li class="형광등">형광등</li>'
+    let deco = '<li class="active">전체</li><div></div><li class="플라워/식물">플라워/식물'
               +'<ul class="store_thirdcategory"><li>식물</li><li>조화</li></ul>'
-              +'</li><div></div><li>캔들/디퓨져'
+              +'</li><div></div><li class="캔들/디퓨져">캔들/디퓨져'
               +'<ul class="store_thirdcategory"><li>캔들</li><li>디퓨져</li></ul>'
-              +'</li><div></div><li>시계'
+              +'</li><div></div><li class="시계">시계'
               +'<ul class="store_thirdcategory"><li>벽시계</li><li>탁상시계</li></ul>'
-              +'</li><div></div><li>인테리어소품'
+              +'</li><div></div><li class="인테리어소품">인테리어소품'
               +'<ul class="store_thirdcategory"><li>장식소품</li><li>기타</li></ul></li>'
-    let fabric = '<li class="active">전체</li><div></div><li>침구'
+    let fabric = '<li class="active">전체</li><div></div><li class="침구">침구'
                 +'<ul class="store_thirdcategory"><li>이불</li><li>매트리스</li><li>커버</li></ul>'
-                +'</li><div></div><li>커튼/블라인드'
+                +'</li><div></div><li class="커튼/블라인드">커튼/블라인드'
                 +'<ul class="store_thirdcategory"><li>커튼</li><li>암막커튼</li><li>블라인드</li></ul>'
-                +'</li><div></div><li>카페트/러그'
+                +'</li><div></div><li class="카페트/러그">카페트/러그'
                 +'<ul class="store_thirdcategory"><li>카페트</li><li>러그</li><li>다용도매트</li></ul>'
-                +'</li><div></div><li>쿠션/방석'
+                +'</li><div></div><li class="쿠션/방석">쿠션/방석'
                 +'<ul class="store_thirdcategory"><li>쿠션</li><li>방석</li></ul></li>'
-    let box = '<li class="active">전체</li><div></div><li>서랍장</li><div></div><li>리빙박스</li><div></div><li>바구니</li><div></div><li>행거</li><div></div><li>선반</li><div></div><li>옷걸이</li><div></div><li>현관/신발정리</li>'
+    let box = '<li class="active">전체</li><div></div><li class="서랍장">서랍장</li><div></div><li class="리빙박스">리빙박스</li><div></div><li class="바구니">바구니</li><div></div><li class="행거">행거</li><div></div><li class="선반">선반</li><div></div><li class="옷걸이">옷걸이</li><div></div><li class="현관/신발정리">현관/신발정리</li>'
     let setData;
     switch(param){
         case '가구':setData=furniture; break;
@@ -552,7 +591,16 @@ function getProductSortList(jdata) {
                         +  '<span></span>'
                         +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
                         +  '</div>'
-                        +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">' + val.productName + '</h3></div><div class="row">';
+                        +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">';
+                            
+                            if(val.productName.length > 48) {
+                                app += val.productName.substr(0,48)+'...';
+                            } else {
+                                app += val.productName;
+                            }     
+                            
+                        app += '</h3></div><div class="row">';
+                        
                     if(val.productDiscount != 0) {
                         app += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
                             + '<span style="font-family: \'Noto Sans KR\';font-size: 17px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span></p>';
