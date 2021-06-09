@@ -1,6 +1,15 @@
 package com.decolab.wanza.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -18,8 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.decolab.wanza.dto.UserDTO;
 import com.decolab.wanza.service.UserService;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import util.KakaoLogin;
+
 
 
 @RestController
@@ -28,8 +40,8 @@ public class UserController {
 	@Autowired
 	UserService service;
 	
-	
-	KakaoLogin Kakao;
+	@Autowired
+    private JavaMailSender mailSender;
 	
 	
 	@RequestMapping(value = "/regi", method = {RequestMethod.GET,RequestMethod.POST})
@@ -60,47 +72,31 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/kakaologin", method = {RequestMethod.GET,RequestMethod.POST})
-	public String kakaologin(@RequestParam(value="code", required=false) String code, UserDTO dto) {
+	public UserDTO kakaologin(@RequestParam(value="code", required=false) String code, UserDTO dto) {
 		System.out.println("UserController kakaologin() " + new Date() );
 		System.out.println(dto.toString());
-		System.out.println("code" + code);
+		System.out.println("code : " + code);
 		
-		String accesstoken = Kakao.getAccessToken(code);
+		String accesstoken = getAccessToken(code);
 		System.out.println("accesstoken : " + accesstoken);
 		
+		HashMap<String, Object> userInfo = getUserInfo(accesstoken);
+	    System.out.println("login Controller : " + userInfo);
+	    
+	    /*
+	    if (userInfo.get("email") != null) {
+	        session.setAttribute("userId", userInfo.get("email"));
+	        session.setAttribute("access_Token", accesstoken);
+	    }
+		*/
 		return service.kakaologin(dto);
 	}
 	
 	/*이거로가
 	http://localhost:8090/view/community/mainCommunity.html?
     code=BdrNoix4NyV5IaxqLXquzKFr5LhBN7ZPw1VGpaQuMvoVGOv88cMr2KQN3ueUPnGZ0ASrLQo9c-sAAAF56togMg
-    
-	@RequestMapping(value = "/view/login/login.html", method = {RequestMethod.GET,RequestMethod.POST})
-	public String kakaologin(@RequestParam(value = "code") String code) {
-		System.out.println("UserController kakaologin() " + new Date() );
-		//System.out.println(dto.toString());
-		System.out.println("code" + code);
-		
-		//String accesstoken = Kakao.getAccessToken(code);
-		//System.out.println("accesstoken : " + accesstoken);
-		
-		return "??";
-	}
 	*/
-	/*
-	@RequestMapping(value = "/login/getKakaoAuthUrl", method = {RequestMethod.GET,RequestMethod.POST})
-	public String kakaologin(@RequestParam("code") String code, HttpServletRequest req, HttpServletResponse resp, UserDTO dto) {
-		String kakaoApiKey = "e55eb67c927feac9076da403729a23f8";
-		String kakaoAuthUrl = "https://kauth.kakao.com";
-		String redirectURI = "http://localhost:8090/view/community/mainCommunity.html";
-		String reqUrl = kakaoAuthUrl + "/oauth/authorize?client_id=" + kakaoApiKey + "&redirect_uri="+ redirectURI + "&response_type=code";
-		
-		String access_Token = Kakao.getAccessToken(code);
-		System.out.println("controller access_token : " + access_Token);
-		
-		return reqUrl;
-	}
-	*/
+
 	
 	@RequestMapping(value = "/CheckMail", method = {RequestMethod.GET,RequestMethod.POST})
 	public void SendMail(String mail) {
@@ -185,35 +181,120 @@ public class UserController {
 		
 	}
 	
+	//카카오에 쓰는 함수
+	public String getAccessToken (String authorize_code) {
+        String access_Token = "";
+        String refresh_Token = "";
+        String reqURL = "https://kauth.kakao.com/oauth/token";
+        System.out.println("겟 엑세스 토큰 들어옴?");
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            
+            //    POST 요청을 위해 기본값이 false인 setDoOutput을 true로
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            
+            //    POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("grant_type=authorization_code");
+            sb.append("&client_id=e55eb67c927feac9076da403729a23f8");
+            sb.append("&redirect_uri=http://localhost:8090/view/login/login.html");
+            sb.append("&code=" + authorize_code);
+            bw.write(sb.toString());
+            bw.flush();
+            
+            //    결과 코드가 200이라면 성공
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+ 
+            //    요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String line = "";
+            String result = "";
+            
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println("response body : " + result);
+            
+            //    Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+            JsonParser parser = new JsonParser();
+            JsonElement element = parser.parse(result);
+            
+            access_Token = element.getAsJsonObject().get("access_token").getAsString();
+            refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
+            
+            System.out.println("access_token : " + access_Token);
+            System.out.println("refresh_token : " + refresh_Token);
+            
+            br.close();
+            bw.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
+        
+        return access_Token;
+    }
 	
-
-	/*
-	스프링?부트?
-	// 카카오 연동정보 조회
-	@RequestMapping(value = "/login/oauth_kakao")
-	public String oauthKakao(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-
-	    String accessToken = getAccessToken(code);
-	    String kakaoUniqueNo = getKakaoUniqueNo(accessToken);
-
-	    if (kakaoUniqueNo != null && !kakaoUniqueNo.equals("")) {
-	        
-
-	    return "redirect:/";
+	public HashMap<String, Object> getUserInfo (String access_Token) {
 	    
-	    // 카카오톡 정보조회 실패했을경우
-	    } else {
-	        throw new ErrorMessage("카카오톡 정보조회에 실패했습니다.");
+	    //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+	    HashMap<String, Object> userInfo = new HashMap<>();
+	    String reqURL = "https://kapi.kakao.com/v2/user/me";
+	    try {
+	        URL url = new URL(reqURL);
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        conn.setRequestMethod("POST");
+	        
+	        //    요청에 필요한 Header에 포함될 내용
+	        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+	        
+	        int responseCode = conn.getResponseCode();
+	        System.out.println("responseCode : " + responseCode);
+	        
+	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        
+	        String line = "";
+	        String result = "";
+	        
+	        while ((line = br.readLine()) != null) {
+	            result += line;
+	        }
+	        System.out.println("response body : " + result);
+	        
+	        JsonParser parser = new JsonParser();
+	        JsonElement element = parser.parse(result);
+	        
+	        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
+	        JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
+	        
+	        String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+	        String email = kakao_account.getAsJsonObject().get("email").getAsString();
+	        String agerange = kakao_account.getAsJsonObject().get("age_range").getAsString();
+	        String birth = kakao_account.getAsJsonObject().get("birthday").getAsString();
+	        String gender = kakao_account.getAsJsonObject().get("gender").getAsString();
+	       
+	        userInfo.put("nickname", nickname);
+	        userInfo.put("email", email);
+	        userInfo.put("agerange", agerange);
+	        userInfo.put("gender", gender);
+	        userInfo.put("birth", birth);
+	        
+	    } catch (IOException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
 	    }
-
+	    
+	    return userInfo;
 	}
-	*/
-	/** 
-    
-    TO DO : 리턴받은 kakaoUniqueNo에 해당하는 회원정보 조회 후 로그인 처리 후 메인으로 이동
-
-	 */
-	
-	
-	
 }
+
+
+
+
+	
+	
+	

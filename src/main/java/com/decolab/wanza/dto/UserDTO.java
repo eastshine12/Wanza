@@ -16,10 +16,92 @@ public class UserDTO implements Serializable {
 	private Date userDate;
 	private int mileage;
 	private int defaultAddress;
+	private String agerange;
+	private String gender;
+	private String birth;
 	
 	public UserDTO() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	//카카오로 얻어오는 정보
+	public UserDTO(String email, String nickname, String agerange, String gender, String birth) {
+		super();
+		this.email = email;
+		this.nickname = nickname;
+		this.agerange = agerange;
+		this.gender = gender;
+		this.birth = birth;
+	}
+
+
+
+
+	public String getAgerange() {
+		return agerange;
+	}
+
+
+
+
+	public void setAgerange(String agerange) {
+		this.agerange = agerange;
+	}
+
+
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+
+
+	public String getBirth() {
+		return birth;
+	}
+
+
+
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+
+
+
+
+	public UserDTO(int userSeq, String email, String pwd, String userName, String nickname, String profileName,
+			String phone, int auth, Date userDate, int mileage, int defaultAddress, String agerange, String gender,
+			String birth) {
+		super();
+		this.userSeq = userSeq;
+		this.email = email;
+		this.pwd = pwd;
+		this.userName = userName;
+		this.nickname = nickname;
+		this.profileName = profileName;
+		this.phone = phone;
+		this.auth = auth;
+		this.userDate = userDate;
+		this.mileage = mileage;
+		this.defaultAddress = defaultAddress;
+		this.agerange = agerange;
+		this.gender = gender;
+		this.birth = birth;
+	}
+
+
 
 
 	public UserDTO(int userSeq, String email, String pwd, String userName, String nickname, String profileName,
@@ -158,13 +240,17 @@ public class UserDTO implements Serializable {
 	}
 
 
+
+
 	@Override
 	public String toString() {
 		return "UserDTO [userSeq=" + userSeq + ", email=" + email + ", pwd=" + pwd + ", userName=" + userName
 				+ ", nickname=" + nickname + ", profileName=" + profileName + ", phone=" + phone + ", auth=" + auth
-				+ ", userDate=" + userDate + ", mileage=" + mileage + ", defaultAddress=" + defaultAddress + "]";
+				+ ", userDate=" + userDate + ", mileage=" + mileage + ", defaultAddress=" + defaultAddress
+				+ ", agerange=" + agerange + ", gender=" + gender + ", birth=" + birth + "]";
 	}
 
+	
 	
 	
 	

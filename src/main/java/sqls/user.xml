@@ -18,6 +18,11 @@
 	INSERT INTO USERS(USERSEQ, EMAIL, PWD, USERNAME, NICKNAME, PROFILENAME, PHONE, AUTH, USERDATE, MILEAGE, DEFAULTADDRESS)
 	VALUES(SEQ_USER.NEXTVAL, #{email}, #{pwd}, 0, #{nickname}, 0, #{phone}, 0, SYSDATE, 40000, 0)
 </insert>
+
+<insert id="kakaologin">
+	INSERT INTO USERS(USERSEQ, EMAIL, NICKNAME, AGERANGE, GENDER, BIRTH, USERNAME, PROFILENAME, USERDATE, MILEAGE, DEFAULTADDRESS)
+	VALUES(SEQ_USER.NEXTVAL, #{email}, #{nickname}, #{agerange}, #{gender}, #{birth}, 0, 0, SYSDATE, 40000, 0)
+</insert>
   
   
 <select id="login" parameterType="com.decolab.wanza.dto.UserDTO" resultType="com.decolab.wanza.dto.UserDTO">
