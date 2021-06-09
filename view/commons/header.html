@@ -13,7 +13,15 @@
     <link rel="stylesheet" href="../../assets/css/styles.min.css">
 
     <style>
-    
+    .img_box{
+        height: 110px;
+    }
+    .img_box img{
+        height: 100%;
+        margin: 10px 0 5px 0;
+        cursor: pointer;
+    }
+    /* 309 222 */
     #_card.card{
         border: none;
     }
@@ -41,7 +49,7 @@
     }
     .main_subtitle{
         display: inherit;
-        margin: 0px;
+        margin: 0 0 0 20px;
         padding: 0px;
         align-items: flex-end;
     }
@@ -71,7 +79,7 @@
         height: 30px;
         padding-left: 12px;
         padding-top: 2px;
-        margin-top: 5px;
+        margin: 5px 0 0 0;
         font-size: 16px;
         overflow: hidden;
         border: 1px solid #DDD;
@@ -89,7 +97,7 @@
         border-left-color: rgb(255,255,255);
     }
     #issue .search_wrap{
-        margin: 40px 10px 0 10px;
+        margin: 0 10px;
         align-items: center;
         justify-content: flex-end;
     }
@@ -247,18 +255,18 @@
         </div>
     </div>
 
-    <div class="container mb-5">
+    <div class="container mb-1">
         <div class="row"> <!-- style="height: 165.328px;" -->
 
             <div class="col-md-5 d-flex">
-                <img id="_logo" src="../../assets/img/완자logo2.png" style="width: 211px;margin-top: 28px;margin-right: 25px; cursor: pointer;">
+                <div class="img_box"><img id="_logo" src="../../assets/img/완자logo2.png"></div>
                 <div class="text-nowrap main_subtitle">
                     <a href="../community/story.html" id="goCommunity"><strong>커뮤니티</strong></a>
                     <a href="../store/mainStore.html" id="goStore"><strong>스토어</strong></a>
                 </div>
             </div>
 
-            <div class="col-md-7 mt-2" id="issue">
+            <div class="col-md-7 mt-1" id="issue">
                 <!-- 인기검색어 -->
                 <div class="row hotIssue_wrap">
                     <div class="hotIssue1">

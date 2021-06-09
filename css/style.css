@@ -4,7 +4,7 @@
 /* 전체 폰트 및 폰트색상 */
 
 html, body{
-    font-family: 'Nanum Gothic', sans-serif !important;
+    font-family: 'Nanum Gothic', sans-serif;
     color: #424242;
 }
 
