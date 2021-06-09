@@ -451,7 +451,6 @@ select::-ms-expand{
     display: none;
 }
 
-
 .table td{
     vertical-align: middle;
     word-break:break-all;
@@ -573,17 +572,17 @@ select::-ms-expand{
         
         <!-- 검색화면 -->
         <div class="search_wrap">
+            <form id="search_form">
             <div class="search_box">
-
                 <!-- 날짜 -->
                 <div class="search_date">
                     <div class="move_input">
                         <label>시작일</label>
-                        <input type="text" class="datepicker s_date">
+                        <input type="text" class="datepicker s_date" name="startDate">
                     </div>
                     <div class="move_input">
                         <label>종료일</label>
-                        <input type="text" class="datepicker e_date">
+                        <input type="text" class="datepicker e_date" name="endDate">
                     </div>
                 </div>
 
@@ -602,11 +601,11 @@ select::-ms-expand{
 
                 <!-- 검색 -->
                 <div class="search">
-                    <input type="text" placeholder="검색...">
+                    <input type="text" placeholder="검색..." name="word">
                     <button type="button" class="search_btn"><i class="fas fa-search"></i></button>
                 </div>
-
             </div>
+            </form>
         </div>
         
         <!-- 테이블박스 -->
@@ -652,13 +651,8 @@ select::-ms-expand{
             </table>
         </div>
 
-        
-        <div class="row" style="margin-top: 20px; justify-content:center; height: 20px;">
-            <div class="col offset-xl-3">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination" id="pagination">123</ul>
-                </nav>
-            </div>
+        <div class="admin_page">
+            <!-- 배송현황 페이지 번호 -->
         </div>
         
     </div>
@@ -671,25 +665,57 @@ select::-ms-expand{
 <script src="../../assets/js/jquery.min.js"></script>
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script><!-- jQuery UI 라이브러리 -->
+<script src="../../js/jquery.twbsPagination.min.js"></script>
 <!-- <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script> -->
 
 <script>
 $(document).ready(function() {
     getDeliveryList()//전체 리스트 불러오기
+    
+    
+    $('.search_btn').click( function() { // 검색버튼
+        
+        let a = $('#search_form').serialize()
+        console.log(a)
+        //let formorder1 =  decodeURIComponent($('#search_form').serialize());
+        //let formorder = formorder1.split('&');
+        
+        //모든 데이터 json형태로
+        // let fdata = '{'
+        // formorder.forEach(e => {
+        //     let j = e.split('=');
+        //     fdata += '"'+j[0]+'":"'
+        //     fdata += j[1]+'",'
+        // });
+        // fdata = fdata.slice(0,-1)
+        // fdata += '}';
+        // let jdata = JSON.parse(fdata)
+
+
+        // $.ajax({
+        //     url: "http://localhost:3000/changeDeliveryStatus",
+        //     type: "post",
+        //     data: ,
+        //     success: function(msg) { 
+        //         console.log(msg)
+        //     },
+        //     error: function() { console.log('error'); }
+        // });
+    });
 
     $('#status_change').click( function() { //상태변경버튼
         let jdata = getCheckData()
-        //let status = makeStatus($('#sele1 option:selected').val())
         let status = $('#sele1 option:selected').val()
         $.ajax({
             url: "http://localhost:3000/changeDeliveryStatus",
             type: "get",
-            data: {orderSeq:jdata,purchaseStatus:status},
-            success: function (msg) {
+            data: {orderSeq:jdata,orderStatus:status},
+            success: function(msg) { 
                 console.log(msg)
+                getDeliveryList();
             },
-            error: function () { console.log('error'); }
+            error: function() { console.log('error'); }
         });
     });
 
@@ -795,7 +821,7 @@ function getDeliveryList() {
         success: function (list) {
             console.log(list)
             let app=''
-            //$(".dlv_List").html(''); //초기화
+            $(".dlv_List").html(''); //초기화
             if (list.length == 0) {
                 app = '<tr><td colspan="12"><h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3></td></tr>'
             }
@@ -804,10 +830,10 @@ function getDeliveryList() {
                     app+= '<tr><td><div class="custom-checkbox"><input type="checkbox" class="custom-control-input" id="'+val.orderSeq+'" name="chk">'
                         + '<label for="'+val.orderSeq+'" class="custom-control-label"></label></div></td>'
                         + '<td>'+val.orderSeq+'</td>'
-                        + '<td>'+makeStatus(val.purchaseStatus)+'</td>'
+                        + '<td>'+makeStatus(val.orderStatus)+'</td>'
                         + '<td>'+makeDate(val.orderDate)+'</td>'
                         + '<td>'+val.productName;
-                    
+
                     if(val.productQuantity-1>0){  app += ' 외 '+(val.productQuantity-1)+'개'  }
                     app+= '</td><td>'+val.totalQuantity+'개</td>'
                         + '<td><div>'+val.deliveryAddress.split(' ')[0]+'</div><div>'+val.deliveryAddress.split(' ')[1]+'</div></td>'
@@ -828,6 +854,48 @@ function getDeliveryList() {
     });
 };
 
+//글의 총 수를 구하는 함수
+function getProductSortCount(jdata) {
+	$.ajax({
+		url:"http://localhost:3000/getProductSortCount",
+		type:"get",
+		data:jdata,
+		success:function(count){ console.log(count); loadPage(count); },
+		error:function(){ alert('error'); }
+	});
+}
+
+//페이지 처리를 하는 함수
+function loadPage(totalCount) {
+	let pageSize = 9;
+	let nowPage = 1;
+	
+	let _totalPages = totalCount / pageSize;
+	console.log("페이지수:"+_totalPages);
+	
+	if(totalCount % pageSize > 0){
+		//_totalPages = Math.ceil(_totalPages);
+		_totalPages++;
+	}
+	//$(".store_page").twbsPagination("destroy"); //초기화
+	$(".admin_page").twbsPagination({
+		startPage: 1,
+		totalPages: _totalPages,
+		visiblePages:5, //페이지번호를 몇개까지 보일건가
+		first:'<span sria-hidden="true">«</span>',
+		prev:"이전",
+		next:"다음",
+		last:'<span sria-hidden="true">»</span>',
+		initiateStartPageClick:false, //온 페이지 클릭이 자동실행여부 결정
+		onPageClick:function(event,page){
+			nowPage = page;
+			console.log('nowPage : '+page);
+            //$('html').scrollTop(0)
+		}
+	});
+    $(".admin_page").twbsPagination("changeTotalPages",_totalPages,nowPage);
+}
+
 // 금액 콤마 삽입 정규식
 function makeComma(str) {
     str = String(str);
@@ -842,20 +910,15 @@ function makeDate(str) {
 // 테이블 배송상태 입력
 function makeStatus(num) {
     let status = ['배송준비','배송중','배송완료','결제대기','결제완료','환불대기','환불완료']
-    if(!isNaN(num)){ return status[num] }
+    // console.log(num)
+    // console.log(typeof(num))
+    // console.log(isNaN(Number(num)))
+    if(!isNaN(Number(num))){ return status[num] }
     else{           return '확인불가' }
 };
 
+//체크된 상자 시퀀스 번호 배열로 리턴
 function getCheckData() {
-    // let data = '{'
-    // $('.dlv_List input[type="checkbox"]').each(function(i){
-    //     if(this.checked){
-    //         let a = $(this).attr('id');
-    //         data += '"orderSeq":"'+a+'",';
-    //     }
-    // });
-    // data = data.substr(0, data.length-1)+'}'
-    // return JSON.parse(data)
     let data=[], k=0;
     $('.dlv_List input[type="checkbox"]').each(function(i){
         if(this.checked){
@@ -863,7 +926,6 @@ function getCheckData() {
             k++;
         }
     });
-
     return data
 }
 
