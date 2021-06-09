@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>카카오 로그인 예제</title>
+<!-- 카카오 서비스 js -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+</head>
+<body>
+
+<!-- 
+1. 카카오에 가입한 후 키값 받아오기 
+   https://developers.kakao.com/
+2. 로그인을 통해 받아올 값 지정하기
+   https://developers.kakao.com/console/app/550354/product/login/scope 
+3. redirect URL 설정하기 : 어떤 페이지에서 적용할것인지 설정 : 테스트는 localhost, 배포는 실제 ip값 넣기
+   https://developers.kakao.com/console/app/550354/product/login
+ -->
+
+<!--  KaKao Login Btn -->
+<a href="javascript:kakaoLogin()">
+<img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" width="50%" height="auto" style="max-width:400px;max-height:60px"/>
+</a>
+
+
+<script>
+Kakao.init('e55eb67c927feac9076da403729a23f8'); //Key값으로 접속 (박선양꺼)
+
+let birthday = "";
+let email = "";
+let name = "";
+let gender = "";
+
+function kakaoLogin() {
+    Kakao.Auth.login({
+		scope: 'profile, account_email, gender, birthday', //추가 동의 받을 항목 키
+		success: function(data) {
+			
+			// 유저 정보 받아오기
+			Kakao.API.request({
+				url:'/v2/user/me',
+				success: function(res) {
+					birthday = res.kakao_account['birthday'];
+					email = res.kakao_account['email'];
+					gender = res.kakao_account['gender'];
+					name = res.kakao_account.profile['nickname'];
+					alert("name : "+name);
+					alert("email : "+email);
+				}
+			}); 
+		}   
+	})
+}
+
+</script>
+</body>
+</html>
