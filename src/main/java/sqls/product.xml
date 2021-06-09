@@ -90,6 +90,24 @@
 	VALUES(SEQ_PRODUCT_REV.NEXTVAL, #{productSeq}, #{userSeq}, #{purchaseSeq}, #{productRevContent}, #{productRevFileName}, SYSDATE, 0, #{productRevRating})
 </insert>
 
+
+<!-- 리뷰 작성 포인트 (글만 50p. 사진 포함시 150p) -->
+<update id="addReviewPoint" parameterType="com.decolab.wanza.dto.ProductReviewDTO">
+	UPDATE USERS
+	SET MILEAGE=MILEAGE
+	<choose>
+		<when test="productRevFileName == null || productRevFileName == ''">
+			+50
+		</when>
+		<otherwise>
+			+150
+		</otherwise>
+	</choose>
+	WHERE USERSEQ=#{userSeq}
+</update>
+
+
+
 <!-- 리뷰 status 1로 변경 -->
 <update id="updateReviewStatus" parameterType="com.decolab.wanza.dto.ProductReviewDTO">
 	UPDATE PURCHASE_PRODUCT

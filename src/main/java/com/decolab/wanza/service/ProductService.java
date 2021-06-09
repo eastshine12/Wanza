@@ -86,5 +86,9 @@ public class ProductService {
 		return dao.getProductQnACount(dto);
 	}
 	
+	public int addReviewPoint(ProductReviewDTO dto) {
+		return dao.addReviewPoint(dto);
+	}
+	
 	
 }
