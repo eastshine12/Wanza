@@ -41,9 +41,29 @@ public class AdminController {
 	AdminService service;
 	
 	@RequestMapping(value = "/getDeliveryStatusList", method = {RequestMethod.GET,RequestMethod.POST})
-	public List<AdminDeliveryStatusDTO> getDeliveryStatusList() {
+	public List<AdminDeliveryStatusDTO> getDeliveryStatusList(AdminDeliveryStatusDTO dto) {
 		System.out.println("AdminController getDeliveryStatusList() " + new Date());
-		return service.getDeliveryStatusList();
+		String sd = dto.getStartDate();
+		String ed = dto.getEndDate();
+		if(sd!="" && sd!=null && ed!="" && ed!=null) {			
+			dto.setStartDate(sd.replace("-", "/"));
+			dto.setEndDate(ed.replace("-", "/"));
+		}
+		System.out.println(dto.toString());
+		return service.getDeliveryStatusList(dto);
+	}
+	
+	@RequestMapping(value = "/getDeliveryStatusCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public int getDeliveryStatusCount(AdminDeliveryStatusDTO dto) {
+		System.out.println("AdminController getDeliveryStatusCount() " + new Date());
+		String sd = dto.getStartDate();
+		String ed = dto.getEndDate();
+		if(sd!="" && sd!=null && ed!="" && ed!=null) {			
+			dto.setStartDate(sd.replace("-", "/"));
+			dto.setEndDate(ed.replace("-", "/"));
+		}
+		System.out.println(dto.toString());
+		return service.getDeliveryStatusCount(dto);
 	}
 	
 	@RequestMapping(value = "/changeDeliveryStatus", method = {RequestMethod.GET,RequestMethod.POST})
