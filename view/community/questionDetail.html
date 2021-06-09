@@ -240,10 +240,7 @@
             <div class="question-detail-body">
 
                 <div class="question-detail-content">
-                    <p>
-                       asfdds
-                    </p>
-                    <img class="question-detail-img" src="">
+                    <img src="" class="question-detail-img">
                 </div>
 
                 <br><br><br>
@@ -525,7 +522,7 @@ $(document).ready(function(){
             console.log(JSON.stringify(list));
             $('.question-detail-title').text(list.questionTitle);
             $('.question-detail-content').html(list.questionContent);
-            $('.question-detail-img').attr('src',list.questionFileName);
+            $('.question-detail-img').attr("src","http://localhost:3000/upload/"+list.questionFileName);
             $('.questions-writer-nickname').text(list.nickName);
             $('.questions-writer-profile').text(list.userName);
             $('#questionSeq').val(list.questionSeq);

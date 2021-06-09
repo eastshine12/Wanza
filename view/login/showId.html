@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>완벽한 자취생활, 완자 | 이벤트 상세 정보</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    </head>
+<body>
+    <header include-html="../commons/header.html"></header>
+ 
+ <div style="font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 400px; height: 600px; border-top: 4px solid #f38766; margin: 100px auto; padding: 30px 0; box-sizing: border-box;">		 
+    	<h1 style="margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;">																															
+    		<span style="font-size: 15px; margin: 0 0 10px 3px;">WANZA</span><br />																												 
+		<span style="color: #f38766">Email 찾기</span>																																				 
+    	</h1>																																																
+    	<p style="font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;"> 완자를 이용해 주셔서 진심으로 감사드립니다.<br>																																						
+    		이용중인 회원님의 이메일은<br> <b style="color: #f38766" id="yourEmail"></b> 입니다.<br>
+            앞으로도 많은 이용 부탁드립니다.																																														
+    	</p>
+        <br><br>																																											
+    	<div style="border-top: 1px solid #DDD; padding: 5px;"></div>																																		
+     </div>
+
+    <footer include-html="../commons/footer.html"></footer>
+</body>
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
+<script>
+    $(document).ready(function(){
+        let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
+        return paramPair.split(/=(.+)?/).slice(0, 2);
+            }).reduce(function(obj, pairArray) {
+                obj[pairArray[0]] = pairArray[1];
+                return obj;
+            }, {});
+
+        //alert(urlParams.eventSeq);
+
+        $("#yourEmail").append(urlParams.email);
+
+
+    })
+
+
+
+
+
+</script>
+
+</html>

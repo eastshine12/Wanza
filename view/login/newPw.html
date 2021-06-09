@@ -98,10 +98,15 @@ $(document).ready(function(){
         }, {});
 
     $("#newPwd").click(function(){
+
+        let filter = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+
         if($("#inputPwd1").val() != $("#inputPwd2").val()){
             alert("비밀번호가 일치하지 않습니다.");
         }else if($("#inputPwd1").val()==""||$("#inputPwd2").val()==""){
-        alert("새 비밀번호를 입력해주세요");
+            alert("새 비밀번호를 입력해주세요");
+        }else if(!filter.test($('#inputPwd1').val())){
+            alert("비밀번호 형식이 맞지 않습니다.");
         }else{
         //alert("정상!");
 
