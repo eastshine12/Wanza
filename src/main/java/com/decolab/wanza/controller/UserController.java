@@ -1,12 +1,14 @@
 package com.decolab.wanza.controller;
 
 import java.util.Date;
+
 import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -21,6 +23,7 @@ import com.decolab.wanza.dto.UserDTO;
 import com.decolab.wanza.service.UserService;
 
 import util.KakaoLogin;
+
 
 
 @RestController
@@ -139,7 +142,7 @@ public class UserController {
 				nickName+
 				"		님 안녕하세요.<br />"																																													+ 
 				"		완자를 이용해 주셔서 진심으로 감사드립니다.<br />"																																						+ 
-				"		아래 <b style=\"color: #f38766\">'비밀번호 재설정하러가기'</b> 버튼을 클릭하여 비밀번호를 재설정해주세요<br />"																													+ 
+				"		아래 <b style=\"color: #f38766\">'비밀번호 재설정'</b> 버튼을 클릭하여 비밀번호를 재설정해주세요<br />"																													+ 
 				"		감사합니다."																																															+ 
 				"	</p>"																																																	+ 
 				"	<a style=\"color: #fff; text-decoration: none; text-align: center;\""																																	+
@@ -170,6 +173,32 @@ public class UserController {
 		return service.newPwd(dto)>0?"suc":"err";
 		
 	}
+	
+	@RequestMapping(value = "/sendSms", method = {RequestMethod.GET,RequestMethod.POST})
+	public String sendSms(UserDTO dto) {
+		System.out.println("UserController sendSms() " + new Date() );
+		// 폰넘버로 받아온 유저 정보를 가지고 이메일이 존재하는지 확인
+		UserDTO info = service.getUserEmail(dto);
+		
+		 Random rand  = new Random();
+	        String numStr = "";
+	        for(int i=0; i<4; i++) {
+	            String ran = Integer.toString(rand.nextInt(10));
+	            numStr+=ran;
+	        }
+
+	        System.out.println("수신자 번호 : " + info.getPhone());
+	        System.out.println("인증번호 : " + numStr);
+	        service.certifiedPhoneNumber(dto.getPhone(),numStr);
+	        return numStr; 
+	}
+	
+	@RequestMapping(value = "/findId", method = {RequestMethod.GET,RequestMethod.POST})
+	public UserDTO findId(UserDTO dto) {
+		System.out.println("UserController findId() " + new Date() );
+		return service.getUserEmail(dto);
+	}
+	
 	
 	
 

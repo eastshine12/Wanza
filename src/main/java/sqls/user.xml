@@ -44,6 +44,12 @@
 	WHERE USERSEQ = #{userSeq}
 </update>
 
+<select id="getUserEmail" parameterType="com.decolab.wanza.dto.UserDTO" resultType="com.decolab.wanza.dto.UserDTO">
+	SELECT USERSEQ, EMAIL, PWD, USERNAME, NICKNAME, PROFILENAME, PHONE, USERDATE, MILEAGE, DEFAULTADDRESS
+	FROM USERS
+	WHERE PHONE=#{phone}
+</select>
+
 
 
   
