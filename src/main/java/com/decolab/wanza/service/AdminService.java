@@ -25,6 +25,10 @@ public class AdminService {
 		return dao.getDeliveryStatusList();
 	}
 	
+	public int changeDeliveryStatus(AdminDeliveryStatusDTO dto){
+		return dao.changeDeliveryStatus(dto);
+	}
+	
 	public List<AdminStoryTagDTO> getStoryTagList(){
 		return dao.getStoryTagList();
 	}
