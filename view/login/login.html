@@ -10,7 +10,6 @@
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
     <!-- 카카오 로그인 API -->
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -50,12 +49,14 @@
         </div>
         <div class="row" style="min-width: auto;text-align: left;font-family: 'Noto Sans KR', sans-serif;margin-bottom: -10px;">
             <div class="col" style="text-align: center;padding: 0px;">
-                <button class="btn btn-lg" type="button" onclick="loginWithKakao()" style="width: 330px;height: 57px;color: #000000;background: #fef01b;border-radius: 0px;font-family: 'Noto Sans KR', sans-serif;font-size: 17px;margin: 10px;margin-left: 10px;">
+            
+                <button class="btn btn-lg" type="button" id="kakao-btn" style="width: 330px;height: 57px;color: #000000;background: #fef01b;border-radius: 0px;font-family: 'Noto Sans KR', sans-serif;font-size: 17px;margin: 10px;margin-left: 10px;">
                 
                     <img class="my-auto" src="../../assets/img/kakaotalk_black_logo_icon_147117.png" width="23px" style="margin-top: -5px;margin-right: 0px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;margin-left: -47px;">
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 카카오톡 계정 로그인
                   
-                    </button>
+                </button>
+            
             </div>
         </div>
         <div class="row">
@@ -176,6 +177,7 @@
 
 
     // 카카오 로그인 API
+
     // https://injekim97.tistory.com/137
     // https://developers.kakao.com/sdk/reference/js/release/Kakao.API.html#.request
 
@@ -201,73 +203,72 @@
     let code = getParameter("code");
     //alert(code); 코드는 잘 가져옴
     
-    Gokakao(code);
-
+    if(isEmpty(code) == false){
+        Gokakao(code);
+        alert("if code값 있음");
+    } else {
+        alert("if code값XXXX");
+    }
+    
+    //alert(code);
     function Gokakao(code){
         if (isEmpty(code) == false){
-            alert("작동함?");
+            //alert("고카카오작동함?");
             //alert(code);
             $.ajax({
                 url: "http://localhost:3000/kakaologin",
                 type: "post",
-                data: data,
+                data: {"code" : code},
+                async: false,
                 dataType: 'text',
                 success:function(code){
                     alert("kakao ajax 성공");
+
                     
                 }, error:function(code){
                     alert("kakao ajax 실패");
                 }
             })
         } else {
-            alert("작동안함");
+            //alert("작동안함");
         }
     }
-
-
-    function loginWithKakao() {
+    
+    
+    $(document).on("click", "#kakao-btn", function(){
+        $("#kakao-btn").on('click', function(){
         alert('로긴카카오 클릭됨');
 
-        location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/login/login.html&response_type=code"
+         location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/login/login.html&response_type=code"
+        })
+    })
+
+/*
+    let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
+            return paramPair.split(/=(.+)?/).slice(0, 2);
+        }).reduce(function(obj, pairArray) {
+            obj[pairArray[0]] = pairArray[1];
+            return obj;
+        }, {});
+
+    let seq = urlParams.seq;	// html 에서 html 이동할때 값 가져가는 그런 코드
+
+    let sessionId = JSON.parse(sessionStorage.getItem("login"));
+    console.log(sessionId);
+    */    
+   
+    
+  
+    
+        
         
         /*
-        $.ajax({
-            url: "http://localhost:3000/kakaologin",
-            type: "post",
-            data: JSON,
-            async: false,
-            dataType: 'text',
-            success:function(res){
-                alert("kakao ajax 성공");
-                alert(res);
-                location.href = res;
-            }, error:function(res){
-                alert("kakao ajax 실패");
-            }
-        });
-        */
-
-        /*
-        $.ajax({
-            url: "http://localhost:3000/login/getKakaoAuthUrl",
-            type: "post",
-            data: JSON,
-            async: false,
-            dataType: 'text',
-            success:function(res){
-                alert("kakao ajax 성공");
-                alert(res);
-                location.href = res;
-            }, error:function(res){
-                alert("kakao ajax 실패");
-            }
-        });
-        */
-
+        location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/login/login.html&response_type=code"
+*/
         
        
         
-    }
+    
 
 
     function getCookie(name) {
