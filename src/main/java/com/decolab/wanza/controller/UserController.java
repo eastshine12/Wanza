@@ -202,6 +202,24 @@ public class UserController {
 	        return numStr; 
 	}
 	
+	@RequestMapping(value = "/loginsendSms", method = {RequestMethod.GET,RequestMethod.POST})
+	public String loginsendSms(String phone) {
+		
+		Random rand  = new Random();
+        String numStr = "";
+        for(int i=0; i<4; i++) {
+            String ran = Integer.toString(rand.nextInt(10));
+            numStr+=ran;
+        }
+
+        System.out.println("수신자 번호 : " + phone);
+        System.out.println("인증번호 : " + numStr);
+        service.certifiedPhoneNumber(phone ,numStr);
+        return numStr; 
+	}
+	
+	
+	
 	@RequestMapping(value = "/findId", method = {RequestMethod.GET,RequestMethod.POST})
 	public UserDTO findId(UserDTO dto) {
 		System.out.println("UserController findId() " + new Date() );
