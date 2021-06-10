@@ -127,14 +127,15 @@
 			<version>2.2.8.RELEASE</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/net.nurigo/javaSDK -->
+		
+		<!-- 문자인증 -->
 		<dependency>
 		    <groupId>net.nurigo</groupId>
 		    <artifactId>javaSDK</artifactId>
 		    <version>2.2</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
+
 		<dependency>
 		    <groupId>com.googlecode.json-simple</groupId>
 		    <artifactId>json-simple</artifactId>
