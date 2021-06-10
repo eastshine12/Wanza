@@ -158,35 +158,42 @@ html, body{
 /* 탑 버튼 */
 #backToTop {
     display: inline-block;
-    background-color: #f4744c;
-    width: 50px;
-    height: 50px;
+    background-color: transparent;
+    border: #f4744c solid 2px;
+    color: #f4744c;
+    width: 40px; height: 40px;
     text-align: center;
     border-radius: 4px;
     position: fixed;
     bottom: 50px;
     right: 100px;
-    transition: background-color .3s, 
-      opacity .5s, visibility .5s;
+    transition: background-color .2s, 
+      opacity .2s, visibility .2s;
     opacity: 0;
     visibility: hidden;
     z-index: 1000;
   }
+  /* f4744c */
   #backToTop::after {
     content: "\f077";
     font-family: FontAwesome;
     font-weight: normal;
     font-style: normal;
-    font-size: 2em;
-    line-height: 50px;
-    color: #fff;
+    font-size: 1.5em;
+    line-height: 35px;
   }
   #backToTop:hover {
     cursor: pointer;
-    background-color: #333;
+    background-color: #f4744c;
+    border: none;
+    color: white;
+    text-decoration: none;
   }
   #backToTop:active {
-    background-color: #555;
+    background-color: #ffe4db;
+    border: none;
+    /* border-color: #ffe4db; */
+    color: #f4744c;
   }
   #backToTop.show {
     opacity: 1;

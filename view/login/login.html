@@ -10,6 +10,22 @@
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
     <!-- 카카오 로그인 API -->
     <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <style>
+        #facebook .plugin {
+            line-height: 3.5 !important;
+        }
+        .back_fb_btn{
+            display: flex;
+            /* border: #1877f2 1px solid; */
+            background-color: #1877f2;
+            width: 330px; height: 57px;
+            margin: 10px 0 0 170px;
+            padding: 0 0 0 20px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,8 +37,7 @@
         src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v10.0&appId=515109966350431&autoLogAppEvents=1"
         nonce="dKR1K2rh"></script>
 
-    <div class="fb-login-button" data-width="330px" data-size="large" data-button-type="login_with" data-layout="default"
-        data-auto-logout-link="false" data-use-continue-as="false"></div>
+    
         
 
 
@@ -35,18 +50,25 @@
                 <h6 style="text-align: center;font-family: 'Noto Sans KR', sans-serif;font-size: 13px;color: rgb(101,101,101);margin-top: 8px;">SNS 간편 로그인 회원가입</h6>
             </div>
         </div>
-        <div class="row" style="margin-bottom: -10px;">
-            <div class="col" class="fb-login-button" style="text-align: center;padding-left: 15px;">
-                <button id="facebookLogin" class="btn btn-lg" onclick="document.getElementById('u_0_0_an').click()" type="button" style="width: 330px;height: 57px;color: #ffffff;background: #3b5998;border-radius: 0px;font-family: 'Noto Sans KR', sans-serif;font-size: 17px;margin: 10px;">
+
+        <div class="row" style="text-align: center;">
+            <div class="col fb-login-button" style="text-align: center;">
+                <div class="back_fb_btn">
+                    <div class="fb-login-button" data-width="310px" data-size="large" data-button-type="login_with" data-layout="default"
+                            data-auto-logout-link="false" data-use-continue-as="false" id="facebookLogin">
+                    </div>
+                </div>
+                <!-- <button id="facebookLogin" class="btn btn-lg" onclick="document.getElementById('u_0_0_an').click()" type="button" style="width: 330px;height: 57px;color: #ffffff;background: #3b5998;border-radius: 0px;font-family: 'Noto Sans KR', sans-serif;font-size: 17px;margin: 10px;">
                     <i class="fa fa-facebook-square" style="margin: 0px;margin-right: 0px;text-align: left;padding-right: 0px;margin-left: -46px;font-size: 21px;"></i>
                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;페이스북 계정 로그인
-                </button>
+                </button> -->
             </div>
-            <fb:login-button id="facebookLoginBtn" onlogin="checkLoginState();">
+            <!-- <fb:login-button id="facebookLoginBtn" onlogin="checkLoginState();">
             </fb:login-button>
             <div class="fb-login-button" data-show-faces="false" data-width="600" data-onlogin="afterLoginCallback()"
-                login_text="Your Text"></div>
+                login_text="Your Text"></div> -->
         </div>
+
         <div class="row" style="min-width: auto;text-align: left;font-family: 'Noto Sans KR', sans-serif;margin-bottom: -10px;">
             <div class="col" style="text-align: center;padding: 0px;">
             

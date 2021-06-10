@@ -26,8 +26,44 @@
             color: rgb(255, 173, 173);
         }
 
-
         .ribbon-wrapper {
+            position: absolute;
+            top: 0px; right: 20px;
+            display: flex;
+            width: 30px; height: 50px;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .ribbon {
+            position: relative;
+            width: 30px; height: 30px;
+            padding: 6px 0 0 0;
+            background-color: rgb(244,116,76);
+            color: #fff;
+            font: bold 16px sans-serif;
+            text-align: center;
+            z-index: 10;
+        }
+        .ribbon::before {
+            content: "";
+            position: absolute;
+            background: rgb(244,116,76);
+            width: 20px; height: 20px;
+            left: -10px;
+            bottom: -10px;
+            transform: rotate(45deg);
+        }
+        .ribbon::after {
+            content: "";
+            position: absolute;
+            background: rgb(244,116,76);
+            width: 20px; height: 20px;
+            right: -10px;
+            bottom: -10px;
+            transform: rotate(45deg);
+        }
+
+        /* .ribbon-wrapper {
             width: 85px;
             height: 88px;
             overflow: hidden;
@@ -50,7 +86,7 @@
             width: 120px;
             background-color: rgb(244,116,76);
             color: #fff;
-        }
+        } */
         
         
     </style>
@@ -187,6 +223,25 @@
         <div id="hotProductList" class="row">
         
             <!-- 인기 상품 리스트 생성되는 곳 -->
+
+            <!-- <div style="width: 350px; height: 400px; margin: 3px;">
+                <article article class="project2_wrap" >
+                    <a href="../store/storeDetail.html?seq=1"></a>
+                        <div class="project2_item">
+                            <span></span><img src="http://localhost:3000/upload/" alt="">
+                            
+                            <div class="ribbon-wrapper">
+                                <div class="ribbon">1</div>
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;">
+                            <h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">
+                                val.productName
+                            </h3>
+                        </div>
+                </article>
+            </div> -->
 
         </div>
     </div>
@@ -326,7 +381,7 @@
                     $("#hotProductList").append(app);
                 }
             },
-            error: function () { alert('error'); }
+            error: function () { console.log('error'); }
         });
     };
     
@@ -364,7 +419,7 @@
                     $("#hotCardList").append(app);
                 }
             },
-            error: function () {  alert('error');  }
+            error: function () {  console.log('error');  }
         });
     };
 
