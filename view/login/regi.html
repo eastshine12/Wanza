@@ -144,17 +144,25 @@
                 <p id="nicknameCheck" style="font-size: 12px; margin-right: 150px;"></p>
             </div>
         </div>
-
+        <!-- 전화번호 -->
         <div class="row">
             <div class="col" style="text-align: center;height: 80px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 110px;margin-left: -145px;"><strong>휴대폰 번호</strong></label>
-                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input id="phone" type="text" style="width: 330px;height: 40px;margin-top: 0px;" placeholder=" 휴대폰 번호 ex) 010-1234-5678"></div>
+                <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input id="phone" type="text" style="width: 195px;height: 40px;margin-top: 0px;" placeholder=" ex) 010-1234-5678">
+                 <button type="button" id="reqBtn" class="btn btn-lg" style="font-family: 'Noto Sans KR', sans-serif;background: rgb(244,116,76);color: rgb(255,255,255);width: 130px; height: 40px; margin-top: -5px; font-size: 18px;">요청</button>
+                </div>
             </div>
         </div>
+
         <div class="row">
-            <div class="col" style="text-align: center;">
-                <p id="phoneCheck" style="font-size: 12px; margin-right: 100px;"></p>
-            </div>
-        </div>
+          <div class="col" style="text-align: center;">
+              <p id="phoneCheck" style="font-size: 12px; margin-right: 100px;"></p>
+          </div>
+      </div>
+
+        <!-- 인증번호 -->
+        <div class="row" style="margin-bottom: -15px;" id="reqDiv">          
+              <div style="text-align: center;margin: 0px;margin-bottom: 23px;width: 700px;"><input id="reqNum" type="text" style="width: 330px;height: 40px;margin-top: 0px;" placeholder="인증번호 입력" disabled></div>
+       </div>
 
         <div class="row" style="text-align: center;">
             <div class="col"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 123px;margin-left: -145px;"><strong>약관 동의</strong></label>
@@ -413,6 +421,31 @@
         })
     });
 
+    // 요청 버튼 클릭시
+    $(document).on('click','#reqBtn',function(){
+        let filter = /(\d{3}).*(\d{3}).*(\d{4})/;
+
+        if (!filter.test($('#phone').val())) {
+            $("#phoneCheck").css("color", "#ff0000");
+            $("#phoneCheck").html('휴대폰 번호 형식이 올바르지 않습니다.');
+        }
+        else {
+            $("#phoneCheck").html('');
+            $("#reqNum").removeAttr("disabled");
+        }
+           
+      $.ajax({
+        url:"http://localhost:3000/loginsendSms",
+        data:{phone:$("#phone").val()},
+        type:"post",
+        success:function(numStr){
+          let app=""
+          app ="<input type='hidden' id='hiddenNum' value='"+numStr+"'>";
+          $("#reqDiv").append(app);
+        }
+      })
+    })
+
     // 회원가입 버튼
     $(document).on('click', '#regiBtn', function(){
 
@@ -439,6 +472,11 @@
         if($('#agree1').is(":checked") == false || $('#agree2').is(":checked") == false) {
             alert('약관에 동의해주세요.');
             return;
+        }
+
+        if($("#reqNum").val()!=$("#hiddenNum").val()){
+          alert("인증번호가 일치하지 않습니다.");
+          return;         
         }
 
         let _email = $('#email1').val() +'@'+ $('#email2').val();
