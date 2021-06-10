@@ -61,6 +61,10 @@ public class AdminService {
 		return dao.addProduct(dto);
 	}
 	
+	public int deleteProduct(ProductDTO dto) {
+		return dao.deleteProduct(dto);
+	}
+	
 	public int addProductTag(ProductDTO dto) {
 		return dao.addProductTag(dto);
 	}

@@ -44,14 +44,14 @@
 <!-- 상품글 리스트 분류하여 가져오기 -->
 <select id="getProductSortList" parameterType="com.decolab.wanza.dto.ProductDTO" resultType="com.decolab.wanza.dto.ProductDTO">
 	SELECT Z.* FROM(
-		SELECT P.PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING,
+		SELECT P.PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING, PRODUCTDEL
 		       LARGECATEGORY, MEDIUMCATEGORY, SMALLCATEGORY, DECODE(PCOUNT, NULL, 0, PCOUNT) PURCHASECOUNT,
 		       												 DECODE(MCOUNT, NULL, 0, MCOUNT) MONTHPURCHASECOUNT,
 		       ROW_NUMBER() OVER(ORDER BY DECODE(MCOUNT, NULL, 0, MCOUNT) DESC, DECODE(PCOUNT, NULL, 0, PCOUNT) DESC, PRODUCTRATING DESC) RNUM
 		FROM PRODUCTIONS P, PRODUCTION_TAG T, (SELECT PRODUCTSEQ, COUNT(*) PCOUNT,
 											   COUNT(CASE WHEN PURCHASEDATE >= SYSDATE-#{recentPeriod} THEN 1 END) MCOUNT
 	                                           FROM PURCHASE_PRODUCT GROUP BY PRODUCTSEQ) C
-		WHERE P.PRODUCTSEQ=T.PRODUCTSEQ AND P.PRODUCTSEQ=C.PRODUCTSEQ(+)
+		WHERE P.PRODUCTSEQ=T.PRODUCTSEQ AND P.PRODUCTSEQ=C.PRODUCTSEQ(+) AND PRODUCTDEL=0
 		<if test='largeCategory neq null and largeCategory neq ""'>AND LARGECATEGORY=#{largeCategory}</if>
 		<if test='mediumCategory neq null and mediumCategory neq ""'>AND MEDIUMCATEGORY=#{mediumCategory}</if>
 		<if test='smallCategory neq null and smallCategory neq ""'>AND SMALLCATEGORY=#{smallCategory}</if>
@@ -140,9 +140,11 @@
 </select>
 
 
-<!-- 리뷰 총 개수 -->
-<select id="getProductReviewCount" parameterType="com.decolab.wanza.dto.ProductReviewDTO" resultType="int">
-	SELECT NVL(COUNT(*), 0)
+<!-- 리뷰 총 점수(length -> 총 개수) -->
+
+<select id="getProductReviewCount" parameterType="com.decolab.wanza.dto.ProductReviewDTO" resultType="com.decolab.wanza.dto.ProductReviewDTO">
+	<!-- SELECT NVL(COUNT(*), 0) -->
+	SELECT PRODUCTREVRATING
 	FROM PRODUCTION_REVIEW
 	WHERE PRODUCTSEQ=#{productSeq} AND PRODUCTREVDEL = 0
 	<if test="ratingNum > 0">

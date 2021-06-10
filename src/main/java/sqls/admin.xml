@@ -118,9 +118,15 @@
 </delete>
 
 <insert id="addProduct" parameterType="com.decolab.wanza.dto.ProductDTO">
-	INSERT INTO PRODUCTIONS(PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING, PRODUCTDATE)
-	VALUES (SEQ_PRODUCT.NEXTVAL, #{productName}, #{productContent}, #{productPrice}, #{productDiscount}, #{productMaker}, #{productFileName}, 0, SYSDATE)
+	INSERT INTO PRODUCTIONS(PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING, PRODUCTDATE, PRODUCTDEL)
+	VALUES (SEQ_PRODUCT.NEXTVAL, #{productName}, #{productContent}, #{productPrice}, #{productDiscount}, #{productMaker}, #{productFileName}, 0, SYSDATE, 0)
 </insert>
+
+<update id="deleteProduct" parameterType="com.decolab.wanza.dto.ProductDTO">
+	UPDATE PRODUCTIONS
+	SET PRODUCTDEL=1
+	WHERE PRODUCTSEQ=#{productSeq} 
+</update>
 
 <insert id="addProductTag" parameterType="com.decolab.wanza.dto.ProductDTO">
 	INSERT INTO PRODUCTION_TAG
