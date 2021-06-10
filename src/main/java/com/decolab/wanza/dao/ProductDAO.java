@@ -40,7 +40,7 @@ public interface ProductDAO {
 	
 	public List<ProductReviewDTO> getProductReviewList(ProductReviewDTO dto);
 	
-	public int getProductReviewCount(ProductReviewDTO dto);
+	public List<ProductReviewDTO> getProductReviewCount(ProductReviewDTO dto);
 	
 	public int addProductQnA(ProductQuestionDTO dto);
 	

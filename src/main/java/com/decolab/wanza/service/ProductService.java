@@ -66,7 +66,7 @@ public class ProductService {
 		return dao.getProductReviewList(dto);
 	}
 	
-	public int getProductReviewCount(ProductReviewDTO dto) {
+	public List<ProductReviewDTO> getProductReviewCount(ProductReviewDTO dto) {
 		return dao.getProductReviewCount(dto);
 	}
 	

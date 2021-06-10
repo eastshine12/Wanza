@@ -186,6 +186,12 @@ public class AdminController {
 		return "suc";
 	}
 	
+	@RequestMapping(value = "/deleteProduct", method = {RequestMethod.GET,RequestMethod.POST})
+	public String deleteProduct(ProductDTO dto) {
+		System.out.println("AdminController deleteProduct() " + new Date());	
+		return service.deleteProduct(dto)>0?"suc":"err";
+	}
+	
 	@RequestMapping(value = "/uploadSummernoteImageFile", method = {RequestMethod.GET,RequestMethod.POST})
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest req)  {
 		JsonObject jsonObject = new JsonObject();

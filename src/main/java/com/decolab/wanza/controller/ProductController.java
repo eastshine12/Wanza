@@ -128,7 +128,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/getProductReviewCount", method = {RequestMethod.GET,RequestMethod.POST})
-	public int getProductReviewCount(ProductReviewDTO dto) { 
+	public List<ProductReviewDTO> getProductReviewCount(ProductReviewDTO dto) { 
 		System.out.println("ProductController getProductReviewCount() " + new Date());
 		System.out.println(dto.toString());
 		return service.getProductReviewCount(dto);
