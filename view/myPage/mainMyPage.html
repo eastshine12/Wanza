@@ -85,6 +85,7 @@
 }
 
 /* 나의 쇼핑 */
+
 /* 주문현황 */
 .my_content_wrap{
     font-size: 1.2em;
@@ -92,20 +93,38 @@
     font-family: 'Nanum Gothic', sans-serif;
     color: #212529;
 }
+
+/* 주문 머리 */
+#my_order .order_head{
+    margin: 0;
+    justify-content: space-between;
+    align-items: center;
+}
+.sort_btns{
+    display: flex;
+}
+
+
+/* 주문 내용 */
 .order_status{
     margin: 20px 0;
     background-color: #dbdbdb;
     border-radius: 4px;
-    color: #aeaeae;
+    color: #8b8b8b;
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     height: 150px;
     font-size: 0.8em;
 }
 .order_count_wrap.active{
     color: #212529;
     font-weight: 900;
+}
+.order_count_wrap:hover{
+    color: #212529;
+    font-weight: 900;
+    cursor: pointer;
 }
 .order_count_wrap{
     margin: 20px;
@@ -122,6 +141,97 @@
     line-height: 1.6em;
 }
 
+
+/* sorting 버튼 */
+.pop_wrap{
+    margin: 0 10px;
+    width: 100px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 600;
+}
+.btn_pop{   /* 제목 버튼 */
+    display: flex;
+    position: relative;
+    width: 100%; height: 100%;
+    padding-left: 10px;
+    margin-bottom: 1PX;
+    border: solid 0.5px #757575;
+    border-radius: 4px;
+    /* font-size: 16px;
+    font-weight: 600; */
+    color: #424242;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+.btn_pop.change{
+    justify-content: start;
+}
+.pop_box{
+    position: relative;
+    overflow: hidden;
+    margin-top: -0.1px;
+    margin-left: -19px;
+    padding: 0px 16px 0px 16px;
+    width: 130%;
+    height: 0px;
+    opacity: 0;
+    z-index: 3;
+    transition: height .3s, opacity .3s;
+    /* transition: all .3s; */
+}
+.pop_box:hover,
+.btn_pop:hover+.pop_box{     /* 마우스 이벤트 */
+    opacity: 1;
+    height: auto;
+    padding: 13px 16px 16px 16px;
+    transition: all .3s;
+}
+.pop_content{   /* 내용박스 */
+    position: relative;
+    border-radius: 4px;
+    background-color: white;
+    z-index: 3;
+    box-shadow: 0 -1px 16px rgb(0 0 0 / 20%);
+}
+.pop_content::before{   /* 박스 위 꼬다리 */
+    content: "";
+    position: absolute;
+    background: white;
+    z-index: -1;
+    width: 15px; height: 15px;
+    top: -8px; left: 40%;
+    transform: rotate(45deg);
+}
+.pop_content.active::before{
+    background: wheat;
+}
+.sub_content_ul{
+    list-style: none;
+    margin: 0; padding: 0;
+}
+.btn_subpop{    /* 세부내용 버튼 */
+    width: 100%;
+    height: 100%;
+    border: none;
+    color: #424242;
+    background-color: white;
+    padding: 10px 15px;
+    text-align: center;
+}
+.sub_content_ul li:first-of-type .btn_subpop{
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.sub_content_ul li:last-of-type .btn_subpop{
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn_subpop:hover{
+    background-color: wheat;
+}
 
 </style>
 
@@ -171,34 +281,34 @@
                 </div> 
 
                 <div class="tab-pane fade show active" id="my_order">
-                    <div class="my_content_wrap my-5 ml-5 pb-5">
+                    <div class="my_content_wrap my-5 ml-5">
                         <span>주문 배송 현황</span>
                         <div class="order_status">
-                            <div class="order_count_wrap"><!-- 해당 건에 active 주면 글씨 색 바뀜 -->
+                            <div class="order_count_wrap" data-ov="3"><!-- 해당 건에 active 주면 글씨 색 바뀜 -->
                                 <span class="order_count">0</span>
                                 <span>주문접수</span>
                             </div>
                             <i class="fas fa-chevron-right fa-3x"></i>
 
-                            <div class="order_count_wrap active">
-                                <span class="order_count">1</span>
+                            <div class="order_count_wrap" data-ov="4">
+                                <span class="order_count">0</span>
                                 <span>결제완료</span>
                             </div>
                             <i class="fas fa-chevron-right fa-3x"></i>
 
-                            <div class="order_count_wrap">
+                            <div class="order_count_wrap" data-ov="0">
                                 <span class="order_count">0</span>
                                 <span>상품준비</span>
                             </div>
                             <i class="fas fa-chevron-right fa-3x"></i>
 
-                            <div class="order_count_wrap">
+                            <div class="order_count_wrap" data-ov="1">
                                 <span class="order_count">0</span>
                                 <span>배송중</span>
                             </div>
                             <i class="fas fa-chevron-right fa-3x"></i>
 
-                            <div class="order_count_wrap">
+                            <div class="order_count_wrap" data-ov="2">
                                 <span class="order_count">0</span>
                                 <span>배송완료</span>
                             </div>
@@ -207,9 +317,55 @@
                     </div> <!-- 주문배송현황 끝 -->
 
                     <div class="my_content_wrap my-5 ml-5">
-                        <span>최근 주문 내역</span>
+                        <div class="row order_head">
+                            
+                            <span>나의 주문 내역</span>
+                            <div class="sort_btns">
+                            <div class="pop_wrap">
+                                <button type="button" class="btn_pop" value="sort=0"> 기 간<i class="fas fa-sort"></i></button>
+                                
+                                <div class="pop_box">
+                                    <div class="pop_content">
+                                        <ul class="sub_content_ul">
+                                            <li><button type="button" class="btn_subpop" value="sort=1">1개월전</button></li>
+                                            <li><button type="button" class="btn_subpop" value="sort=2">6개월전</button></li>
+                                            <li><button type="button" class="btn_subpop" value="sort=3">1년전</button></li>
+                                            <li><button type="button" class="btn_subpop" value="sort=3">전 체</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- 인기순 버튼 -->
+
+                            <div class="pop_wrap">
+                                <button type="button" class="btn_pop" value="sort=0">주문현황 <i class="fas fa-sort"></i></button>
+                                
+                                <div class="pop_box">
+                                    <div class="pop_content">
+                                        <ul class="sub_content_ul">
+                                            <li><button type="button" class="btn_subpop" value="sort=1">주문접수</button></li>
+                                            <li><button type="button" class="btn_subpop" value="sort=2">결제완료</button></li>
+                                            <li><button type="button" class="btn_subpop" value="sort=3">상품준비</button></li>
+                                            <li><button type="button" class="btn_subpop" value="sort=3">배송중</button></li>
+                                            <li><button type="button" class="btn_subpop" value="sort=3">배송완료</button></li>
+                                            <li><button type="button" class="btn_subpop" value="sort=3">판매완료</button></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- 인기순 버튼 -->
+                            </div>
+                        </div>  <!-- 오른쪽 정렬 -->
+
+
+
                         <div class="order_status">
-                            최근 주문 내역이 없습니다.
+                            <div class="row mx-4">
+                                <div class="img_box"><img src="http://localhost:3000/upload/product1.jpg" alt=""></div>
+                                <div class="order_box">
+                                    <div><span>제품명</span> / <span>옵션</span></div>
+                                    <div><span>금액</span> / <span>갯수</span></div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
 
@@ -246,6 +402,9 @@ let sessionId = JSON.parse(sessionStorage.getItem("login"));
 console.log(sessionId);
 
 $(document).ready(function() {
+    getMyOrderStatusCount();// 배송갯수
+    getMyOrderList(); // 구매 리스트
+
     //유저정보입력
     if(sessionId.profileName != '0'){
         console.log(sessionId.profileNam);
@@ -254,7 +413,63 @@ $(document).ready(function() {
     $('.profile_category span:eq(1)').text( sessionId.mileage);
     $('.profile_category span:eq(3)').text('일반');
 
+    $('.order_count_wrap').click(function(){
+        let a = $(this).data("ov");
+        console.log(a);
+    });
+
+
+
+    $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 정렬순 메뉴 호버시 꼬다리색
+        $('.pop_content').toggleClass('active')
+    });
 });
+
+//배송현황 갯수 구하기
+function getMyOrderStatusCount() {
+	$.ajax({
+		url:"http://localhost:3000/getMyOrderStatusCount",
+		type:"get",
+		data:{userSeq:1},//{userSeq:sessionId.userSeq}
+		success:function(data){
+            console.log(data);
+            $.each(data, function (i, val) {
+                let count = val.orderStatusCount
+                if(val.orderStatus==3){ $('.order_status .order_count:eq(0)').text(count); }
+                if(val.orderStatus==4){ $('.order_status .order_count:eq(1)').text(count); }
+                if(val.orderStatus==0){ $('.order_status .order_count:eq(2)').text(count); }
+                if(val.orderStatus==1){ $('.order_status .order_count:eq(3)').text(count); }
+                if(val.orderStatus==2){ $('.order_status .order_count:eq(4)').text(count); }
+            });
+        },
+		error:function(){ console.log('error'); }
+	});
+}
+
+//주문내역 리스트
+function getMyOrderList() {
+	$.ajax({
+		url:"http://localhost:3000/getMyOrderList",
+		type:"post",
+		data:{userSeq:1, searchPeriod:30,orderStatus:0}, //sessionId.userSeq , orderStatus:3 4 0 1 2
+		success:function(list){
+            console.log(list);
+            if (Object.keys(list).length == 0) {
+                // 주문 내역이 없습니다.
+            } else {
+                $.each(list, function (i, val) {
+                    let jdata = JSON.parse(val.selectOption)
+                    for(let j=0; j<jdata.length; j++) {
+                        let a = jdata[j].optionContent
+                        console.log(a)
+                    }
+
+                });
+            }
+        },
+		error:function(){ console.log('error'); }
+	});
+}
 
 </script>
 

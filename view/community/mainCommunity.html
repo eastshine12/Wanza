@@ -273,8 +273,9 @@
     getCardList();
     function getCardList() {
         $.ajax({
-            url: "http://192.168.0.231:3000/getCardList",
+            url: "http://localhost:3000/getCardSortList",
             type: "get",
+            data: {sort:3,cardDel:12},
             success: function (list) {
                 console.log(list);
                 let app = ""
