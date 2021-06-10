@@ -155,3 +155,41 @@ html, body{
     outline: none;
 }
 
+/* 탑 버튼 */
+#backToTop {
+    display: inline-block;
+    background-color: #f4744c;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 50px;
+    right: 100px;
+    transition: background-color .3s, 
+      opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+  }
+  #backToTop::after {
+    content: "\f077";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 2em;
+    line-height: 50px;
+    color: #fff;
+  }
+  #backToTop:hover {
+    cursor: pointer;
+    background-color: #333;
+  }
+  #backToTop:active {
+    background-color: #555;
+  }
+  #backToTop.show {
+    opacity: 1;
+    visibility: visible;
+  }
+

@@ -128,7 +128,6 @@
             100% { opacity:100%; }
         }​ 
 
-
         /* 상품 리스트 페이징 */
         #reviewPage .page-link{
             color: rgb(82, 82, 82);
@@ -141,6 +140,7 @@
         #reviewPage .page-link:focus{
             box-shadow: none;
         }
+      
     </style>
 </head>
 
@@ -386,6 +386,42 @@
         </div>
         <div class="row"></div>
     </div>
+</div>
+<!-- 모달 -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+         
+          <h4 class="modal-title">신고하기</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        <div class="modal-body">
+        <p>신고 사유를 선택해주세요</p>
+          <select id="singo" style="margin-bottom: 10px;">
+              <option disabled selected="selected">------신고 사유------</option>
+              <option value="선정적인 글">선정적인 글</option>
+              <option value="광고">광고</option>
+              <option value="부적합한 닉네임">부적합한 닉네임</option>
+              <option value="혐오적인 발언">혐오적인 발언</option>
+              <option value="부적절한 프로필사진">부적절한 프로필 사진</option>
+              <option value="기타">기타</option>
+          </select>
+          <p>상세한 내용을 입력해주세요</p>
+          <div>
+          <textarea id="singoContent" style="width: 464px; height: 200px; resize: none;"></textarea>
+        </div>
+        <button type="button" id="goAdmin" class="btn" style="margin-left: 189px; margin-top: 3px; background-color: coral; color: white;" data-dismiss="modal">제출하기</button>
+        <input type="hidden" id="report_nickname">
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
 
     <footer include-html="../commons/footer.html"></footer>
 
@@ -397,6 +433,10 @@
     <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
 
     <script>
+   
+
+
+
 
 
     //파라미터값 가져오도록 하는 함수
@@ -522,6 +562,9 @@
                 }
             });
         };
+
+
+ 
 
 
         // 좋아요 버튼 클릭
@@ -653,7 +696,29 @@
     });
 
 
+    $(document).on('click', 'span[name=reportModal]', function() {
+            console.log($(this).attr('id'));
+            $('#report_nickname').val($(this).attr('id'));
+        });
 
+
+    // 신고하기 버튼 클릭
+    $("#goAdmin").click(function(){
+
+        alert("신고가 접수 되었습니다.");
+
+        $.ajax({
+            url:"http://localhost:3000/singo",
+            type:"post",
+            data:{
+                userSeq: sessionId.userSeq,
+                nickname: $('#report_nickname').val()
+
+            }
+
+        })
+        
+    })
 
 
 
@@ -746,7 +811,7 @@
                             +    '<div class="col">'
                             +      '<div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>'+val.nickName+'</strong></a><span style="margin-right: 15px;font-size: 14px;">'
                             +           timeForToday(val.cardRevDate)+'</span>'
-                            +       '<a href="#" style="margin-right: 10px;color: rgb(99,99,99);font-size: 15px;">신고</a>';
+                            +       '<span name="reportModal" id="'+val.nickName+'"><a href="#myModal" style="margin-right: 10px;color: rgb(99,99,99);font-size: 15px;" data-toggle="modal">신고</a></span>';
                             
                             if(sessionId.nickname == val.nickName) {
                                 app += '<a href="javascript:deleteCardReview('+val.cardRevSeq+');" style="color: #F15F5F;font-size: 15px;">삭제</a>';
@@ -919,6 +984,7 @@
 
         location.href = "storyUpdate.html?seq="+seq;
     }
+
 
 
 

@@ -87,6 +87,7 @@ $(document).ready(function() {
 
 
 
+
     // 이벤트 검색어 랜덤 추출 (가끔 null값이 떠서 출력이 안됨)
     let eventSearchText = new Array(
         '여름 특별 세일', '모션데스크&책장 함께 드려요',
@@ -166,6 +167,28 @@ $(document).ready(function() {
     $(document).on('click','#closeSearch',function(){ 
         $("#searchChart").slideUp();
     });
+
+    // 탑 버튼
+
+   
+    var btn = $('#backToTop');
+
+    $(window).scroll(function() {
+      if ($(window).scrollTop() > 300) {
+        btn.addClass('show');
+      } else {
+        btn.removeClass('show');
+      }
+    });
+    
+    btn.on('click', function(e) {
+      e.preventDefault();
+      $('html, body').scrollTop;
+    });
+
+   
+    
+
 
 });
 
