@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.decolab.wanza.dto.AddressDTO;
 import com.decolab.wanza.dto.CartDTO;
+import com.decolab.wanza.dto.MyPageDTO;
 import com.decolab.wanza.dto.OrderDTO;
 
 
@@ -45,6 +46,8 @@ public interface OrderDAO {
 	
 	public int purchaseMileage(OrderDTO dto);
 	
+	public List<MyPageDTO> getMyOrderStatusCount(MyPageDTO dto);//마이페이지 배송현황 카운트
 	
+	public List<MyPageDTO> getMyOrderList(MyPageDTO dto);//마이페이지 배송정보 리스트
 	
 }
