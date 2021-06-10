@@ -9,6 +9,51 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../css/style.css">
+
+    <style>
+        
+        .del_icon {
+            color: rgb(255, 92, 92);
+            display: flex;
+            justify-content:flex-end;
+            margin-right:30px; 
+            
+        }
+        .fa.fa-minus-circle.fa-lg{
+            cursor: pointer;
+        }
+        .fa.fa-minus-circle.fa-lg:hover {
+            color: rgb(255, 173, 173);
+        }
+
+
+        .ribbon-wrapper {
+            width: 85px;
+            height: 88px;
+            overflow: hidden;
+            position: absolute;
+            top: -3px;
+            left: -3px;
+        }
+        .ribbon {
+            font: bold 16px sans-serif;
+            color: #333;
+            text-align: center;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform:    rotate(-45deg);
+            -ms-transform:     rotate(-45deg);
+            -o-transform:      rotate(-45deg);
+            position: relative;
+            padding: 7px 0;
+            top: 15px;
+            left: -30px;
+            width: 120px;
+            background-color: rgb(244,116,76);
+            color: #fff;
+        }
+        
+        
+    </style>
 </head>
 
 <body>
@@ -182,8 +227,11 @@
 <script>
 
     //로그인한 계정 닉네임 가져오기
-    //let sessionId = JSON.parse(sessionStorage.getItem("login"));
-    //console.log(sessionId);
+    let sessionId = JSON.parse(sessionStorage.getItem("login"));
+    if(sessionId == null) {
+        sessionId = '';
+    };
+    console.log(sessionId);
 
     //화면 인기글이동
     $(document).ready(function(){
@@ -235,12 +283,26 @@
                 } else {
                     $.each(list, function (i, val) {
                         app += '<div style="width: 350px; height: 400px; margin: 3px;">'
-                            +  '<article article class="project2_wrap" >'
-                            +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
+                            +  '<article article class="project2_wrap" >';
+
+                        if(sessionId != '' && sessionId.auth == 3) {
+                            app += '<div class="del_icon"><i name="delete_product_btn" seq="'+val.productSeq+'" class="fa fa-minus-circle fa-lg" aria-hidden="true"></i></div>'
+                        };
+
+                        app +=  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
                             +  '<div class="project2_item">'
                             +  '<span></span>'
-                            +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
-                            +  '</div>'
+                            +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">';
+
+                        if(i==0) {
+                            app += '<div class="ribbon-wrapper"><div class="ribbon">1</div></div>'
+                        } else if(i==1) {
+                            app += '<div class="ribbon-wrapper"><div class="ribbon">2</div></div>'
+                        } else if(i==2) {
+                            app += '<div class="ribbon-wrapper"><div class="ribbon">3</div></div>'
+                        }
+
+                        app +=  '</div>'
                             +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">';
                             
                             if(val.productName.length > 48) {
@@ -312,6 +374,36 @@
     })
 
     
+    // admin 상품 삭제 버튼
+    $(document).on('click','i[name=delete_product_btn]' , function() {
+        if(confirm("정말 삭제하시겠습니까?")==true) {
+            let productSeq = $(this).attr('seq');
+
+            $.ajax({
+                url:"http://192.168.0.231:3000/deleteProduct",
+                method: "get",
+                data:{
+                    productSeq: productSeq
+                },
+                success:function(data) {
+                    if(data == "suc") {
+                        alert('상품 삭제가 완료되었습니다.');
+                    }
+                },
+                error:function(){
+                    alert('error');
+                },
+                complete:function(){
+                    location.reload();
+                }
+            });
+
+        } else {
+            return;
+        }
+    })
+
+
 </script>
 
 </html>

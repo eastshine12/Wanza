@@ -128,8 +128,19 @@
             100% { opacity:100%; }
         }​ 
 
-/* 모달 */
-  
+        /* 상품 리스트 페이징 */
+        #reviewPage .page-link{
+            color: rgb(82, 82, 82);
+        }
+        #reviewPage .page-item.active .page-link{
+            background-color: #f4744c;
+            border-color: #f4744c;
+            color: white;
+        }
+        #reviewPage .page-link:focus{
+            box-shadow: none;
+        }
+      
     </style>
 </head>
 
@@ -273,7 +284,7 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="row" style="margin-top: 20px;" style="justify-content:center;">
+                <div id="reviewPage" class="row" style="margin-top: 20px;" style="justify-content:center;">
                     <div class="col offset-xl-3">
                         <nav aria-label="Page navigation">
                             <ul class="pagination" id="pagination"></ul>
@@ -625,6 +636,8 @@
         return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
     };
 
+
+    // 아이템 태그 삽입
     getProductTag(seq);
     function getProductTag(cardSeq) {
         $.ajax({
@@ -647,7 +660,16 @@
                         +                        '<img style="width: 80px;height: 80px;border-radius: 7px;margin-left: 10px; object-fit: cover;" src="http://192.168.0.231:3000/upload/' +val.productFileName+ '">'
                         +                    '</div>'
                         +                    '<div class="col" style="margin-left: -40px;margin-right: -10px;">'
-                        +                        '<p><b>'+val.productName+'</b></p>'
+                        +                        '<p><b>';
+                        
+                        if(val.productName.length > 22) {
+                            tag += val.productName.substr(0,22) + '...';
+                        } else {
+                            tag += val.productName;
+                        }
+                        
+                        
+                    tag +=                       '</b></p>'
                         +                        '<p style="font-size: 15px;"><b>'+makeComma(val.productPrice)+'원</b></p>'
                         +                    '</div>'
                         +                    '<div name="goProdDetail" productSeq="'+val.productSeq+'" class="col" style="margin-top: 25px;margin-right: -70px; cursor: pointer;">'

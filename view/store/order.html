@@ -379,12 +379,149 @@ select::-ms-expand{
     border: 0.5px solid #f4744c;
 }
 
+
+/* 약관 modal */
+@media only screen and (min-width: 40em) {
+    #termsModal.modal-overlay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+        background-color: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), visibility 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+    }
+    #termsModal.modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+/**
+* Modal
+*/
+#termsModal .modal_terms {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.267);
+    width: 520px;
+    max-width: 75rem;
+    height: 750px;
+    padding: 1.2rem;
+    border-radius: 3px;
+    opacity: 0;
+    overflow-y: auto;
+    visibility: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: scale(1.2);
+    transition: all 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+}
+#termsModal .modal_terms .close-modal {
+    position: absolute;
+    cursor: pointer;
+    top: 5px;
+    right: 15px;
+    opacity: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1), transform 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+    transition-delay: 0.3s;
+}
+#termsModal .modal_terms .close-modal svg {
+    width: 1.75em;
+    height: 1.75em;
+}
+#termsModal .modal_terms .modal-content {
+    opacity: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: opacity 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+    transition-delay: 0.3s;
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+}
+#termsModal .modal_terms.active {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+}
+#termsModal .modal_terms.active .modal-content {
+    opacity: 1; 
+}
+#termsModal .modal_terms.active .close-modal {
+    transform: translateY(10px);
+    opacity: 1;
+}
+
+/**
+* Mobile styling
+*/
+@media only screen and (max-width: 39.9375em) {
+
+    #termsModal .modal_terms {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 0;
+        transform: scale(1.1);
+        padding: 0 !important;
+    }
+    
+    #termsModal .close-modal {
+        right: 20px !important;
+    }
+}
+
 </style>
 
 </head>
 <body>
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
+
+    <!-- 약관 모달 -->
+    <div id="termsModal" class="modal-overlay">
+        <div class="modal_terms">
+        <a class="close-modal">
+            <svg viewBox="0 0 20 20">
+            <path fill="#000000" d="M15.898,4.045c-0.271-0.272-0.713-0.272-0.986,0l-4.71,4.711L5.493,4.045c-0.272-0.272-0.714-0.272-0.986,0s-0.272,0.714,0,0.986l4.709,4.711l-4.71,4.711c-0.272,0.271-0.272,0.713,0,0.986c0.136,0.136,0.314,0.203,0.492,0.203c0.179,0,0.357-0.067,0.493-0.203l4.711-4.711l4.71,4.711c0.137,0.136,0.314,0.203,0.494,0.203c0.178,0,0.355-0.067,0.492-0.203c0.273-0.273,0.273-0.715,0-0.986l-4.711-4.711l4.711-4.711C16.172,4.759,16.172,4.317,15.898,4.045z"></path>
+            </svg>
+        </a>
+        <div class="modal-content">
+                <div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col" style="margin-top: 20px; margin-bottom: 1px;">
+                            <p style="font-size: 20px; font-weight: bold;">주문 및 결제 약관 동의</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row" style="margin-top: 25px; margin-bottom: 10px;">   
+                        <div class="col">
+                            <textarea id="termsContent" style="width: 420px; height: 420px; resize: none; background-color: #ececec; border: none; border-radius: 8px; padding: 15px;" readonly include-html="../commons/terms.html"></textarea>
+                        </div>
+                    </div> 
+                    <hr>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <!-- 약관 모달 end -->
     
     <form action="" id="form_order">
         <input type="hidden" id="_userSeq" name="userSeq">
@@ -616,7 +753,7 @@ select::-ms-expand{
 
                         <span class="pay_terms"><div class="custom-checkbox "><input type="checkbox" id="cb" class="custom-control-input">
                             <label for="cb" class="custom-control-label"></label></div>
-                            [필수] 주문 및 결제 관련 약관 동의<a href="#none"> 보기</a></span>
+                            [필수] 주문 및 결제 관련 약관 동의<a id="pay_terms" href="#none"> 보기</a></span>
 
                     </div>
                     <button id="sidePaymentBtn" class="payment_btn" type="button" >0원 결제하기</button>
@@ -824,7 +961,7 @@ $(document).ready(function() {
                             +                '<span><b>'+optionJSON[i].optionTitle+'</b></span><span>&ensp;</span><span id="selectItem">'+optionJSON[i].optionContent+'</span><span> (+'+makeComma(optionJSON[i].optionPrice)+'원)</span>'
                             +            '</div>'
                             +        '</div>';
-                        op_total_price += optionJSON[i].optionPrice;
+                        op_total_price += parseInt(optionJSON[i].optionPrice);
                     }
                 }
             }
@@ -837,7 +974,7 @@ $(document).ready(function() {
             +    '<div class="col-md-2">'
             +        '<p id="itemPrice">'+makeComma(productPrice)+'원</p>'
             +    '</div>'
-            +    '<div><input type="hidden" id="itemPrice_1" value="'+((productPrice+parseInt(op_total_price))*itemCount)+'"></div>'
+            +    '<div><input type="hidden" id="itemPrice_1" value="'+((productPrice+op_total_price)*itemCount)+'"></div>'
             +'</div>';
             $("#itemList").append(app);
             totalPrice();
@@ -955,6 +1092,15 @@ $(document).ready(function() {
     // 결제버튼 클릭
     $('.payment_btn').click(function(){
 
+        if($('#_name').val() == '') {
+            alert('이름을 입력해주세요.');
+            return;       
+        };
+
+        if($('#_point').val() == '') {
+            $('#_point').val(0);
+        }
+
         let formorder1 =  decodeURIComponent($('#form_order').serialize());
         let formorder = formorder1.split('&');
         
@@ -980,7 +1126,6 @@ $(document).ready(function() {
     // 임시 결제버튼 클릭 (나중에 삭제)
     $('#testBtn').click(function () {
 
-        
         if($('#_name').val() == '') {
             alert('이름을 입력해주세요.');
             return;       
@@ -1009,7 +1154,6 @@ $(document).ready(function() {
             alert('결제수단을 선택해주세요.')
         } else {
             console.log(jdata);
-
             $.ajax({
                 url: "http://192.168.0.231:3000/paymentAf",
                 type: "post",
@@ -1017,7 +1161,7 @@ $(document).ready(function() {
                 success: function (data) {
                     console.log(data)
                     if (data == "suc") {
-                        alert('결제완료.');
+                        location.href = "orderAf.html";
                     } else {
                         alert('결제실패');
                     }
@@ -1026,13 +1170,14 @@ $(document).ready(function() {
                     alert('paymentAf error');
                 }
             });
+            
         }
     })
 
 
 
     // 아임포트 결제
-    function requestPay(method) {
+    function requestPay(method,jdata) {
         var IMP = window.IMP; // 생략가능
         IMP.init("imp15128186"); // 가맹점 식별코드
 
@@ -1043,10 +1188,10 @@ $(document).ready(function() {
             pay_method: method, 
             //pay_method: "card", pay_method: "trans",
             //merchant_uid: "ORD20180131-0000011",
-            //buyer_email: "gildong@gmail.com",
-            //buyer_name: "홍길동",
-            //buyer_tel: "010-5458-8131",
-            //buyer_addr: "서울특별시 강남구 신사동",
+            buyer_email: sessionId.email,
+            buyer_name: $('#_name').val(),
+            //buyer_tel: sessionId.phone,
+            //buyer_addr: $('#_dlvy_address1').val(),
             //buyer_postcode: "01181",
             name: $('#itemTitle').text(),
             amount: $('#sideResultPrice').text().replace(/[^0-9]/g, '')
@@ -1057,34 +1202,22 @@ $(document).ready(function() {
             console.log(rsp.merchant_uid)
 
             if (rsp.success) {
-                // jQuery로 HTTP 요청
-                jQuery.ajax({
-                    url: "https://www.myservice.com/payments/complete", // 가맹점 서버
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    data: {
-                        imp_uid: rsp.imp_uid, //거래 고유 번호
-                        merchant_uid: rsp.merchant_uid //가맹점에서 관리하는 주문번호
+                $.ajax({
+                    url: "http://192.168.0.231:3000/paymentAf",
+                    type: "post",
+                    data: jdata,
+                    success: function (data) {
+                        console.log(data)
+                        if (data == "suc") {
+                            location.href = "orderAf.html";
+                        } else {
+                            alert('결제실패');
+                        }
+                    },
+                    error: function () {
+                        alert('paymentAf error');
                     }
-                })
-                /*
-                .done(function (data) {
-                    console.log(data)
-                    console.log(data.status)
-                    
-                    // 가맹점 서버 결제 API 성공시 로직
-                    switch(data.status) {
-                        case "vbankIssued":
-                        // 가상계좌 발급 시 로직
-                            console.log('가상계좌 발급 시 로직')
-                        break;
-                        case "success":
-                        // 결제 성공 시 로직
-                            console.log('결제 성공 시 로직')
-                        break;
-                    }
-                })
-                */
+                });
             } else {
                 alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
             }
@@ -1342,6 +1475,18 @@ $('#_dlvy_req2').on('keyup', function(e) {
         $(this).val($(this).val().substring(0, 20));
         $('.textlimit').html("20/20");
     }
+});
+
+
+
+let elements_terms = $('#termsModal.modal-overlay, .modal_terms');
+
+// 약관 모달창 버튼
+$(document).on('click', '#pay_terms', function(){
+    elements_terms.addClass('active');
+});
+$(document).on('click', '.close-modal', function(){
+    elements_terms.removeClass('active');
 });
 
 

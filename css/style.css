@@ -155,9 +155,7 @@ html, body{
     outline: none;
 }
 
-/*
-탑 버튼
-*/
+/* 탑 버튼 */
 #backToTop {
     display: inline-block;
     background-color: #f4744c;
@@ -194,3 +192,4 @@ html, body{
     opacity: 1;
     visibility: visible;
   }
+

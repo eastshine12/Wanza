@@ -417,6 +417,35 @@
         }
 
 
+        /* 리뷰 리스트 페이징 */
+        #reviewPage .page-link{
+            color: rgb(82, 82, 82);
+        }
+        #reviewPage .page-item.active .page-link{
+            background-color: #f4744c;
+            border-color: #f4744c;
+            color: rgb(255, 255, 255);
+        }
+        #reviewPage .page-link:focus{
+            box-shadow: none;
+        }
+
+        /* 문의 리스트 페이징 */
+        #qnaPage .page-link{
+            color: rgb(82, 82, 82);
+        }
+        #qnaPage .page-item.active .page-link{
+            background-color: #f4744c;
+            border-color: #f4744c;
+            color: rgb(255, 255, 255);
+        }
+        #qnaPage .page-link:focus{
+            box-shadow: none;
+        }
+
+
+
+
     </style>
 </head>
 <body>
@@ -587,10 +616,10 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div style="border-bottom: 1px solid rgb(99,99,99);height: 70px; margin-left: 20px;font-family: 'Noto Sans KR', sans-serif;text-align: left;">
+                    <div style="border-bottom: 1px solid rgb(99,99,99);height: 70px; margin-left: 25px;font-family: 'Noto Sans KR', sans-serif;text-align: left;">
                         <span style="margin: 10px;font-size: 17px;width: auto;color: rgb(99,99,99);margin-top: 10px;padding: 0px;padding-top: 0px;">
                             <span id="costPrice" style="text-decoration: line-through;"><!--정가--></span>
-                            <span id="sellPrice" style="margin: 10px;font-size: 27px;margin-left: 17px;color: rgb(0,0,0);margin-top: 10px;padding: 0px;padding-top: 0px;">
+                            <span id="sellPrice" style="margin: 5px;font-size: 27px;margin-left: 20px;color: rgb(0,0,0);margin-top: 10px;">
                                 <strong id="discountPrice"><!--판매가--></strong>원
                             </span>
                         </span>
@@ -627,7 +656,7 @@
                 <div class="col" style="margin-top: 16px;margin-left: 17px;margin-bottom: 40px;"><span
                         style="font-size: 20px;font-family: 'Noto Sans KR', sans-serif;margin-left: 20px;"><strong>총
                             상품금액</strong></span><span
-                        style="font-size: 25px;font-family: 'Noto Sans KR', sans-serif;margin-left: 82px;"><strong id="totalPrice"><!-- 총액 표시 --></strong></span>
+                        style="font-size: 25px;font-family: 'Noto Sans KR', sans-serif;margin-left: 78px;"><strong id="totalPrice"><!-- 총액 표시 --></strong></span>
                 </div>
             </div>
             <div class="row">
@@ -715,7 +744,7 @@
                                 <div class="progress border rounded-1"
                                     style="height: 10px;width: 221px;margin: 0px;margin-top: 10px;background-color: #ffffff;">
                                     <div id="rating_5" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" aria-valuenow="80" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: 50%;"><span class="sr-only">83%</span></div>
+                                        aria-valuemax="100" style="width: 0%;"><span class="sr-only">83%</span></div>
                                 </div>
                             </div>
                             <div class="col-xl-2" style="text-align: left;"><span
@@ -728,7 +757,7 @@
                                 <div class="progress border rounded-1"
                                     style="height: 10px;width: 221px;margin: 0px;margin-top: 10px;background-color: #ffffff;">
                                     <div id="rating_4" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" aria-valuenow="83" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: 83%;"><span class="sr-only">83%</span></div>
+                                        aria-valuemax="100" style="width: 0%;"><span class="sr-only">83%</span></div>
                                 </div>
                             </div>
                             <div class="col-xl-2" style="text-align: left;"><span
@@ -741,7 +770,7 @@
                                 <div class="progress border rounded-1"
                                     style="height: 10px;width: 221px;margin: 0px;margin-top: 10px;background-color: #ffffff;">
                                     <div id="rating_3" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" aria-valuenow="83" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: 83%;"><span class="sr-only">83%</span></div>
+                                        aria-valuemax="100" style="width: 0%;"><span class="sr-only">83%</span></div>
                                 </div>
                             </div>
                             <div class="col-xl-2" style="text-align: left;"><span
@@ -754,7 +783,7 @@
                                 <div class="progress border rounded-1"
                                     style="height: 10px;width: 221px;margin: 0px;margin-top: 10px;background-color: #ffffff;">
                                     <div id="rating_2" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" aria-valuenow="83" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: 83%;"><span class="sr-only">83%</span></div>
+                                        aria-valuemax="100" style="width: 0%;"><span class="sr-only">83%</span></div>
                                 </div>
                             </div>
                             <div class="col-xl-2" style="text-align: left;"><span
@@ -767,7 +796,7 @@
                                 <div class="progress border rounded-1"
                                     style="height: 10px;width: 221px;margin: 0px;margin-top: 10px;background-color: #ffffff;">
                                     <div id="rating_1" class="progress-bar bg-warning progress-bar-striped progress-bar-animated" aria-valuenow="83" aria-valuemin="0"
-                                        aria-valuemax="100" style="width: 83%;"><span class="sr-only">83%</span></div>
+                                        aria-valuemax="100" style="width: 0%;"><span class="sr-only">83%</span></div>
                                 </div>
                             </div>
                             <div class="col-xl-2" style="text-align: left;"><span
@@ -835,7 +864,7 @@
 
 
                 <!-- Pagination -->
-                <div class="row" style="margin-top: 20px;" style="justify-content:center;">
+                <div id="reviewPage" class="row" style="margin-top: 20px;" style="justify-content:center;">
                     <div class="col offset-xl-3">
                         <nav aria-label="Page navigation">
                             <ul class="pagination" id="pagination"></ul>
@@ -860,7 +889,7 @@
                 <div id="productQnA"></div>
                 
                 <!-- Pagination -->
-                <div class="row" style="margin-top: 20px;" style="justify-content:center;">
+                <div id="qnaPage" class="row" style="margin-top: 20px;" style="justify-content:center;">
                     <div class="col offset-xl-3">
                         <nav aria-label="Page navigation">
                             <ul class="pagination" id="pagination_qna"></ul>
@@ -1211,7 +1240,7 @@
                         $('#totalPrice_side').text(makeComma(data.productDiscount) + '원');
                     } else {
                         $('#discountPrice').text(makeComma(data.productPrice));
-                        $('#sellPrice').attr('style', 'margin: 10px;font-size: 27px;margin-left: 180px;color: rgb(0,0,0);margin-top: 10px;padding: 0px;padding-top: 0px;');
+                        $('#sellPrice').attr('style', 'margin: 10px;font-size: 27px;margin-left: 160px;color: rgb(0,0,0);margin-top: 10px;padding: 0px;padding-top: 0px;');
                         $('#point').text(Math.ceil(data.productPrice*0.01));
                         $('#totalPrice').text(makeComma(data.productPrice)+'원');
                         $('#totalPrice_side').text(makeComma(data.productPrice)+'원');
@@ -1447,7 +1476,7 @@
     });
 
 
-    // 리뷰 리스트 가져오기, 리뷰 막대 그래프
+    // 리뷰 리스트 가져오기
     getProductReviewList(0, 0);
     function getProductReviewList(pageNum, ratingNum) {
         $.ajax({
@@ -1460,20 +1489,10 @@
             },
             success: function (list) {
                 console.log(list);
-
                 let app = "";
-                let allReviewCount = Object.keys(list).length;
-                let rating_1_count = 0;
-                let rating_2_count = 0;
-                let rating_3_count = 0;
-                let rating_4_count = 0;
-                let rating_5_count = 0;
-                
-
                 $('#productReview').children().remove();
 
                 if (Object.keys(list).length == 0) {
-
                     if(ratingNum > 0) {
                         app += '<div class="reviews" style="width: 600px; margin-right: 50px;">'
                             + '<h3 style="font-size: 16px; margin-top: 30px;">리뷰가 없습니다. <br><br></h3>'
@@ -1488,18 +1507,6 @@
 
                 } else {
                     $.each(list, function (i, val) {
-
-                        if(val.productRevRating == 1) {
-                            rating_1_count++;
-                        } else if(val.productRevRating == 2) {
-                            rating_2_count++;
-                        } else if(val.productRevRating == 3) {
-                            rating_3_count++;
-                        } else if(val.productRevRating == 4) {
-                            rating_4_count++;
-                        } else if(val.productRevRating == 5) {
-                            rating_5_count++;
-                        }
 
                         app += '<div class="row" style="padding-top: 18px;padding-left: 0px;padding-bottom: 20px;border-bottom: 1px solid rgb(150,150,150) ;">'
                             +        '<div class="col">'
@@ -1531,19 +1538,8 @@
                             +    '</div>';
                     });
                     $('#productReview').append(app);
-
-                    $('#rating_5').css('width', ((rating_5_count/allReviewCount)*100)+'%');
-                    $('#rating_4').css('width', ((rating_4_count/allReviewCount)*100)+'%');
-                    $('#rating_3').css('width', ((rating_3_count/allReviewCount)*100)+'%');
-                    $('#rating_2').css('width', ((rating_2_count/allReviewCount)*100)+'%');
-                    $('#rating_1').css('width', ((rating_1_count/allReviewCount)*100)+'%');
-
-                    $('#rating_5_num').text(rating_5_count);
-                    $('#rating_4_num').text(rating_4_count);
-                    $('#rating_3_num').text(rating_3_count);
-                    $('#rating_2_num').text(rating_2_count);
-                    $('#rating_1_num').text(rating_1_count);
-
+                    
+                
                 };    
 
             },
@@ -1561,7 +1557,7 @@
     }
 
 
-    // 리뷰 총 수 가져오기
+    // 리뷰 총 수 가져오기, 리뷰 막대 그래프
     getProductReviewCount(0)
     function getProductReviewCount(ratingNum) {
 
@@ -1572,8 +1568,57 @@
                 "productSeq": productSeq,
                 "ratingNum": ratingNum
             },
-            success: function (totalCount) {
-                console.log(totalCount);
+            success: function (totalRating) {
+                console.log(totalRating.length);
+                let totalCount = totalRating.length;
+
+                let rating_1_count = 0;
+                let rating_2_count = 0;
+                let rating_3_count = 0;
+                let rating_4_count = 0;
+                let rating_5_count = 0;
+
+                if(totalCount == 0) {
+                    $('#rating_5').css('width', (0)+'%');
+                    $('#rating_4').css('width', (0)+'%');
+                    $('#rating_3').css('width', (0)+'%');
+                    $('#rating_2').css('width', (0)+'%');
+                    $('#rating_1').css('width', (0)+'%');
+
+                    $('#rating_5_num').text(rating_5_count);
+                    $('#rating_4_num').text(rating_4_count);
+                    $('#rating_3_num').text(rating_3_count);
+                    $('#rating_2_num').text(rating_2_count);
+                    $('#rating_1_num').text(rating_1_count);
+                    return;
+                }
+
+                $.each(totalRating, function (i, val) {
+                    if(val.productRevRating == 1) {
+                        rating_1_count++;
+                    } else if(val.productRevRating == 2) {
+                        rating_2_count++;
+                    } else if(val.productRevRating == 3) {
+                        rating_3_count++;
+                    } else if(val.productRevRating == 4) {
+                        rating_4_count++;
+                    } else if(val.productRevRating == 5) {
+                        rating_5_count++;
+                    };
+                });
+
+                $('#rating_5').css('width', ((rating_5_count/totalCount)*100)+'%');
+                $('#rating_4').css('width', ((rating_4_count/totalCount)*100)+'%');
+                $('#rating_3').css('width', ((rating_3_count/totalCount)*100)+'%');
+                $('#rating_2').css('width', ((rating_2_count/totalCount)*100)+'%');
+                $('#rating_1').css('width', ((rating_1_count/totalCount)*100)+'%');
+
+                $('#rating_5_num').text(rating_5_count);
+                $('#rating_4_num').text(rating_4_count);
+                $('#rating_3_num').text(rating_3_count);
+                $('#rating_2_num').text(rating_2_count);
+                $('#rating_1_num').text(rating_1_count);
+
                 $('span[name=reviewCount]').text(totalCount);
                 loadPage(totalCount, ratingNum);
             },

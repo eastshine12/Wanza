@@ -1135,7 +1135,7 @@ $(document).on('click', '.accordion-toggle', function(event) {
 });
 
 
-
+// 상품 검색
 getSearchProductionList();
 function getSearchProductionList(searchText, seq) {
     $.ajax({
@@ -1148,7 +1148,9 @@ function getSearchProductionList(searchText, seq) {
             console.log(list);
             if(seq != null) {
                 $('#select_'+seq).children().remove();
-            }
+                let defaultOption = $('<option value="0">상품 선택</option>');
+                $('#select_'+seq).append(defaultOption);
+            };
             $.each(list, function (i, val) {
                 let option = $('<option value="'+val.productSeq+'">'+val.productName+'</option>');
                 if(seq==null) {
