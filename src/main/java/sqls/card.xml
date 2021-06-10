@@ -30,9 +30,10 @@
 	NVL(T.TAGCOLOR,' ') TAGCOLOR, NVL(T.TAGHOMETYPE,' ') TAGHOMETYPE, NVL(T.TAGSTYLE,' ') TAGSTYLE
 	FROM USERS U, CARD_COLLECTIONS C, (SELECT CARDSEQ, NVL(COUNT(*), 0) LIKECOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ) F, CARD_TAG T
 	WHERE U.USERSEQ=C.USERSEQ AND C.CARDSEQ=F.CARDSEQ(+) AND C.CARDSEQ=T.CARDSEQ(+) AND CARDDEL=0
-	<if test='tagColor neq "0"'>AND TAGCOLOR=#{tagColor} </if>
-	<if test='tagHomeType neq "0"'>AND TAGHOMETYPE=#{tagHomeType} </if>
-	<if test='tagStyle neq "0"'>AND TAGSTYLE=#{tagStyle} </if>
+	<if test='tagColor neq "0" and tagColor neq null'>AND TAGCOLOR=#{tagColor} </if>
+	<if test='tagHomeType neq "0" and tagHomeType neq null'>AND TAGHOMETYPE=#{tagHomeType} </if>
+	<if test='tagStyle neq "0" and tagStyle neq null'>AND TAGSTYLE=#{tagStyle} </if>
+	<if test='cardDel neq "0" and cardDel neq null'>AND ROWNUM &lt;= #{cardDel}</if>
 	<choose>
 		<when test="sort eq 1"> ORDER BY C.CARDDATE DESC</when>
 		<when test="sort eq 2"> ORDER BY C.CARDREADCOUNT DESC</when>

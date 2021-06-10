@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.decolab.wanza.dao.OrderDAO;
 import com.decolab.wanza.dto.AddressDTO;
 import com.decolab.wanza.dto.CartDTO;
+import com.decolab.wanza.dto.MyPageDTO;
 import com.decolab.wanza.dto.OrderDTO;
 import com.decolab.wanza.dto.UserDTO;
 
@@ -85,6 +86,14 @@ public class OrderService {
 	
 	public int purchaseMileage(OrderDTO dto) {
 		return dao.purchaseMileage(dto);
+	}
+	
+	public List<MyPageDTO> getMyOrderStatusCount(MyPageDTO dto){
+		return dao.getMyOrderStatusCount(dto);
+	}
+	
+	public List<MyPageDTO> getMyOrderList(MyPageDTO dto){
+		return dao.getMyOrderList(dto);
 	}
 	
 }
