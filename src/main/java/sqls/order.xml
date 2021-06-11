@@ -149,8 +149,9 @@
 	FROM ORDERS O, PURCHASE_PRODUCT C, PRODUCTIONS P
 	WHERE O.ORDERSEQ=C.ORDERSEQ AND C.PRODUCTSEQ=P.PRODUCTSEQ
 	<if test='userSeq neq null and userSeq neq ""'>AND O.USERSEQ=#{userSeq}</if>
-	<if test='searchPeriod neq null and searchPeriod neq ""'>AND ORDERDATE BETWEEN SYSDATE-#{searchPeriod} AND SYSDATE</if>
-	<if test='orderStatus neq null and orderStatus neq ""'>AND ORDERSTATUS=#{orderStatus}</if>
+	<if test='searchPeriod neq null and searchPeriod neq "" and searchPeriod gte 0'>AND ORDERDATE BETWEEN SYSDATE-#{searchPeriod} AND SYSDATE</if>
+	<if test='orderStatus neq null and orderStatus neq "" and orderStatus gte 0 and orderStatus neq 2'>AND ORDERSTATUS=#{orderStatus}</if>
+	<if test='orderStatus neq null and orderStatus neq "" and orderStatus eq 2'>AND (ORDERSTATUS=2 OR ORDERSTATUS=7)</if>
 	ORDER BY ORDERSEQ DESC
 </select>
 
