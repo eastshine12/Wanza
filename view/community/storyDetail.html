@@ -430,10 +430,11 @@
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../js/includeHTML.js"></script>
     <script src="../../js/header.js"></script>
+    <script src="../../js/slang.js"></script>
     <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
 
     <script>
-   
+
 
 
 
@@ -726,19 +727,17 @@
 
 
 
-
-
-
-
-
-
-
     //댓글 달기
     $(function () {
         $('#reviewBtn').click(function () {
 
             if(sessionId.userSeq == undefined) {
                 alert('로그인 후에 작성 가능합니다.');
+                return;
+            }
+
+            if(slangFilter($('#reviewContent').val())) {
+                alert('비속어가 포함되어 있습니다.');
                 return;
             }
 

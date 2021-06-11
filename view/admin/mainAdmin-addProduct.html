@@ -455,6 +455,15 @@ body{
                         </td>
                     </tr>
                     <tr>
+                        <th scope="row">해시태그</th>
+                        <td><input type="text" class="form-control" id="_productHashTag" name="productHashTag" placeholder="'#'키로 구분하여 태그 입력"></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td id="tagList">
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row">상품옵션</th>
                         <td><input type="text" id="optionName" class="form-control" placeholder="옵션이름 (선택)"></td>
                         <td><input type="button" id="addOption" class="tab_btn" value="┿"></td>
@@ -706,8 +715,28 @@ $(document).on('click', '.write_btn', function() {
         }
     });
     
-
-    
+    let hashTagName = $('#_productHashTag').val().split('#');
+    let tagArr = new Array();
+    for(let i =0; i < hashTagName.length; i++) {
+        if(hashTagName[i] != '') {
+            tagArr.push(hashTagName[i])
+        }
+    }
+    $.ajax({
+        url: "http://192.168.0.231:3000/writeProductHashTag",
+        type: "post",
+        data: {
+            hashTagName:tagArr
+        },
+        success: function (data) {
+            if(data == "suc") {
+                console.log = "해쉬태그 삽입 완료";
+            }
+        },
+        error: function () {
+            alert('writeProductHashTag error');
+        }
+    });
 
     let opTitleLen = $('input[name=optionTitle]').length;   // 추가된 옵션 총 길이
     //alert(opTitleLen);
@@ -923,6 +952,30 @@ function changeSmall(e) {
     }  
 }
 
+
+// 해시태그
+$('#_productHashTag').keyup(function(event) {
+    let tagArr = $(this).val().split('#');
+    hashTag(tagArr);
+})
+
+
+$('#_productHashTag').blur(function(event) {
+    let tag = $(this).val() + '#';
+    let tagArr = tag.split('#');
+    hashTag(tagArr);
+})
+
+
+function hashTag(tagArr) {
+    $('#tagList').children().remove();
+    for(let i = 0; i < tagArr.length; i++) {
+        //if(i == tagArr.length) break;
+        if(tagArr[i] == '') continue;
+        $('#tagList').append('<span style="background-color: rgb(255, 210, 151);"># '+tagArr[i]+'</span><span>&ensp;</span>');
+    }
+    console.log(tagArr);
+}
 
 </script>
 

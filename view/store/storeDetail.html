@@ -1010,6 +1010,7 @@
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../js/includeHTML.js"></script>
     <script src="../../js/header.js"></script>
+    <script src="../../js/slang.js"></script>
     <script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
@@ -1423,6 +1424,11 @@
     // 리뷰 작성 완료 버튼
     $('.review_write_btn').click(function() {
 
+        if(slangFilter($('#reviewContent').val())) {
+            alert('비속어가 포함되어 있습니다.');
+            return;
+        }
+
         $.ajax({
             url: "http://192.168.0.231:3000/addProductReview",
             type: "post",
@@ -1687,6 +1693,11 @@
 
     // 문의 작성 완료 버튼
     $('.qna_write_btn').click(function() {
+
+        if(slangFilter($('#qnaContent').val())) {
+            alert('비속어가 포함되어 있습니다.');
+            return;
+        }
 
         $.ajax({
             url: "http://192.168.0.231:3000/addProductQnA",

@@ -20,7 +20,14 @@ $(document).on('attr', '#headerSearch', function () {
 })
 // 검색 아이콘 클릭시 검색어 DB저장
 $(document).on('click', '#search-icon', function () {
+
     let searchVal = $("#headerSearch").val().trim();
+    
+    if(slangFilter(searchVal)) {
+        alert('비속어가 포함되어 있습니다.');
+        return;
+    }
+    
     // 검색어가 없는경우 placeholder값으로 입력
     if(searchVal==""){
         document.getElementById("headerSearch").setAttribute("value",$("#headerSearch").attr('placeholder'))
@@ -88,10 +95,10 @@ $(document).ready(function() {
 
 
 
-    // 이벤트 검색어 랜덤 추출 (가끔 null값이 떠서 출력이 안됨)
+    // 이벤트 검색어 랜덤 추출
     let eventSearchText = new Array(
         '여름 특별 세일', '모션데스크&책장 함께 드려요',
-        '슬기로운 집콕생활', '데스커 모션데스크', '왜가끔안뜰까')
+        '슬기로운 집콕생활', '데스커 모션데스크')
     function randomItem(item) {
         return item[Math.floor(Math.random() * item.length)];
     };
