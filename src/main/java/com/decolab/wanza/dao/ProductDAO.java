@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.decolab.wanza.dto.ProductDTO;
+import com.decolab.wanza.dto.ProductHashTagDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
 import com.decolab.wanza.dto.ProductReviewDTO;
@@ -51,5 +52,7 @@ public interface ProductDAO {
 	public int getProductQnACount(ProductQuestionDTO dto);
 	
 	public int addReviewPoint(ProductReviewDTO dto);
+	
+	public List<ProductHashTagDTO> getHashTagList();
 }
 

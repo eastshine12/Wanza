@@ -191,5 +191,13 @@
 </select>
 
 
+<!-- 모든 해쉬태그 가져오기 -->
+<select id="getHashTagList" resultType="com.decolab.wanza.dto.ProductHashTagDTO">
+	SELECT *
+	FROM PRODUCTION_HASHTAG
+</select>
+
+
+
 
 </mapper>

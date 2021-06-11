@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.decolab.wanza.dto.ProductDTO;
+import com.decolab.wanza.dto.ProductHashTagDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
 import com.decolab.wanza.dto.ProductReviewDTO;
@@ -161,6 +162,15 @@ public class ProductController {
 		System.out.println(dto.toString());
 		return service.getProductQnACount(dto);
 	}
+	
+	
+	@RequestMapping(value = "/getHashTagList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<ProductHashTagDTO> getHashTagList() {
+		System.out.println("ProductController getHashTagList() " + new Date());
+		return service.getHashTagList();
+	}
+	
+	
 	
 	
 	
