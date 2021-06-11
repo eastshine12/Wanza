@@ -179,30 +179,10 @@
                 <div class="row">
                     <div class="col" style="margin-bottom: -10px;"><p style="font-size: 14px; color:#9e9e9e;"><span id="nickName" style="color: rgb(244, 116, 76);font-weight: bold;"></span> 님의 다른 인테리어 사진</p></div>
                 </div>
-                <div class="row" style="width: 350px;margin-right: 10px;margin-left: -5px;margin-bottom: 0px;padding-right: 5px;">  
+                <div class="row" style="width: 350px;margin-right: 10px;margin-left: -5px;margin-bottom: 0px;padding-right: 5px;" id="otherPictures">  
                     
                     <!-- 유저의 다른 업로드 사진 리스트 -->
-
-                    <div style="width: 150px;margin-right: 5px;">
-                        <article article class="project_wrap">
-                        <a href="#"></a>
-                        <div class="project_item">
-                            <span></span>
-                            <img src="../../assets/img/2222.jpg" width="150px" style="margin: 3px;">
-                        </div>
-                        </article> 
-                    </div>
-
-                    <div style="width: 150px;margin-right: 5px;">
-                        <article article class="project_wrap">
-                        <a href="#"></a>
-                        <div class="project_item">
-                            <span></span>
-                            <img src="../../assets/img/2222.jpg" width="150px" style="margin: 3px;">
-                        </div>
-                        </article> 
-                    </div>
-
+                    <!--  
                     <div style="width: 150px;margin-right: 5px;">
                         <article article class="project_wrap">
                         <a href="#"></a>
@@ -223,6 +203,26 @@
                         </article> 
                     </div>
                     
+                    <div style="width: 150px;margin-right: 5px;">
+                        <article article class="project_wrap">                
+                        <div class="project_item">
+                            <a href="#"></a>
+                            <span></span>
+                            <img src="../../assets/img/완자에요.png"  style=" width: 180px; object-fit: cover; ">
+                        </div>
+                        </article> 
+                    </div>
+
+                    <div style="width: 150px;margin-right: 5px;">
+                        <article article class="project_wrap">                        
+                        <div class="project_item">
+                            <a href="#"></a>
+                            <span></span>
+                            <img src="../../assets/img/완자에요.png" style=" width: 180px; object-fit: cover;">
+                        </div>
+                        </article> 
+                    </div>
+                    -->
                     
                 </div>
             </div>
@@ -300,10 +300,10 @@
                         <h6 style="font-size: 17px;margin-bottom: 20px;"><strong>인테리어 아이템</strong></h6>
                     </div>
                 </div>
-                <div class="row" style="width: 340px;margin-left: 10px;">
+                <div class="row" style="width: 340px;margin-left: 10px;" id="itemList">
                     
                     <!-- 메인 사진 아이템 리스트 --> 
-                    
+                    <!--
                     <div style="width: 90px;margin-right: 7px;">
                         <article article class="project_wrap">
                             <a href="#"></a>
@@ -368,12 +368,7 @@
                             </div>
                         </article>
                     </div>
-
-                </div>
-                <div class="row" style="width: 340px;">
-                    <div class="col" style="text-align: center;">
-                        <h6>(페이징 버튼)</h6>
-                    </div>
+                    -->
                 </div>
             </div>
         </div>
@@ -400,7 +395,7 @@
         </div>
         <div class="modal-body">
         <p>신고 사유를 선택해주세요</p>
-          <select id="singo" style="margin-bottom: 10px;">
+          <select id="report" style="margin-bottom: 10px;">
               <option disabled selected="selected">------신고 사유------</option>
               <option value="선정적인 글">선정적인 글</option>
               <option value="광고">광고</option>
@@ -411,7 +406,7 @@
           </select>
           <p>상세한 내용을 입력해주세요</p>
           <div>
-          <textarea id="singoContent" style="width: 464px; height: 200px; resize: none;"></textarea>
+          <textarea id="reportContent" style="width: 464px; height: 200px; resize: none;"></textarea>
         </div>
         <button type="button" id="goAdmin" class="btn" style="margin-left: 189px; margin-top: 3px; background-color: coral; color: white;" data-dismiss="modal">제출하기</button>
         <input type="hidden" id="report_nickname">
@@ -446,7 +441,7 @@
             results = regex.exec(location.search);
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
-    let seq = getParameter("seq");
+    const seq = getParameter("seq");
 
     
     //로그인한 계정 닉네임 가져오기
@@ -459,6 +454,78 @@
     let existLike = "";
 
     $(document).ready(function() {
+
+        // 신고하기 버튼 클릭
+        $("#goAdmin").click(function(){
+
+            alert("신고가 접수 되었습니다.");
+
+            $.ajax({
+                url:"http://localhost:3000/report",
+                type:"post",
+                data:{
+                    "reportseq":seq,                                //게시글 번호  
+                    userSeq: sessionId.userSeq,                     //신고자
+                    nickname: $('#report_nickname').val(),          //신고 당한자
+                    report:$("#report option:selected").val(),      //신고 사유
+                    reportContent:$("#reportContent").val()         //신고 내용
+                },success:function(){
+
+                },error:function(){
+
+                }
+
+            })
+
+        })
+
+        // 다른 사진 리스트
+        
+        function otherPictures(){
+            $.ajax({
+                url:"http://localhost:3000/otherPictures",
+                type:"post",
+                data:{
+                    "userSeq":$("#otherSeq").val(),                   
+                },success:function(list){
+                    let app="";
+                    $.each(list,function(i,val){
+                        app += '<div style="width: 150px;margin-right: 5px;">'
+                        +'<article article class="project_wrap">'
+                        +'<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
+                        +'<div class="project_item">'
+                        +'<span></span>'
+                        +'<img src="http://localhost:3000/upload/'+val.cardFileName+'" style="margin: 3px;object-fit:cover; width:230px" >'
+                        +'</div>'
+                        +'</article>'
+                        +'</div>';                       
+                    })
+                    $("#otherPictures").append(app);
+
+                    if(JSON.stringify(list.length)<4){
+                        let app2="";
+                        for (let index = 0; index < 4-JSON.stringify(list.length); index++) {
+                            app2+=' <div style="width: 150px;margin-right: 5px;">'
+                                +'<article article class="project_wrap">'
+                                +'<div class="project_item">'
+                                +'<a href="#"></a>'
+                                +'<span></span>'
+                                +'<img src="../../assets/img/완자에요.png"  style=" width: 180px; object-fit: cover; ">'
+                                +'</div>'
+                                +'</article>'
+                                +'</div>';
+                        }
+                         $("#otherPictures").append(app2);   
+                    }
+
+                },error:function(){
+                    alert("other pictures error");
+                }
+            })
+        }
+
+
+
 
         $('#updateDelete').hide();
 
@@ -482,15 +549,20 @@
                     $('#cardNickName').html('<strong>' + data.nickName + '</strong>');
                     $('#nickName').text(data.nickName);
                     $('#cardContent').text(data.cardContent);
+                    $("#otherPictures").append("<input type='hidden' id='otherSeq' value='"+data.userSeq+"'>");
                     if(data.userSeq == sessionId.userSeq) {
                         $('#updateDelete').show();
                     }
                 },
                 error: function () {
                     alert('getCardDetail() error');
+                },
+                complete: function(){
+                    otherPictures();
                 }
             });
         };
+
 
 
 
@@ -637,7 +709,7 @@
     };
 
 
-    // 아이템 태그 삽입
+    // 아이템 태그 삽입 and 아이템 리스트 뿌리기
     getProductTag(seq);
     function getProductTag(cardSeq) {
         $.ajax({
@@ -649,6 +721,7 @@
             success: function (list) {
                 $('div[name=tags]').remove();
                 let tag = "";
+                let itemList = "";
                 console.log(list);
                 $.each(list, function (i, val) {
                     tag +=  '<div name="tags" style="position: absolute;">'
@@ -679,9 +752,35 @@
                         +            '</div>'
                         +        '</div>'
                         +    '</div>';
+
+                    itemList += '<div style="width: 150px;margin-right: 7px;">'
+                        +'<article article class="project_wrap">'
+                            +'<a href="../store/storeDetail.html?seq='+val.productSeq+'"></a>'
+                            +'<div class="project_item">'
+                                +'<span></span>'
+                                +'<img src="http://localhost:3000/upload/'+val.productFileName+'">'
+                            +'</div>'
+                        +'</article>'
+                        +'</div>';
                 });
                 
                 $('#userImg').prepend(tag);
+
+                if(JSON.stringify(list.length)<4){
+                    for(let i=0; i < 4-JSON.stringify(list.length); i++){
+                        itemList += '<div style="width: 150px;margin-right: 7px;">'
+                        +'<article article class="project_wrap">'
+                           
+                            +'<div class="project_item">'
+                                +'<span></span>'
+                                +'<a href="#"></a>'
+                                +'<img src="../../assets/img/완자에요.png">'
+                            +'</div>'
+                        +'</article>'
+                        +'</div>';
+                    }
+                }
+                $("#itemList").append(itemList);
                 
             },
             error: function () {
@@ -702,23 +801,7 @@
         });
 
 
-    // 신고하기 버튼 클릭
-    $("#goAdmin").click(function(){
-
-        alert("신고가 접수 되었습니다.");
-
-        $.ajax({
-            url:"http://localhost:3000/singo",
-            type:"post",
-            data:{
-                userSeq: sessionId.userSeq,
-                nickname: $('#report_nickname').val()
-
-            }
-
-        })
-        
-    })
+    
 
 
 
@@ -811,7 +894,7 @@
                             +    '<div class="col">'
                             +      '<div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>'+val.nickName+'</strong></a><span style="margin-right: 15px;font-size: 14px;">'
                             +           timeForToday(val.cardRevDate)+'</span>'
-                            +       '<span name="reportModal" id="'+val.nickName+'"><a href="#myModal" style="margin-right: 10px;color: rgb(99,99,99);font-size: 15px;" data-toggle="modal">신고</a></span>';
+                            +       '<span name="reportModal" id="'+val.nickName+"rprpwanza"+i+'"><a href="#myModal" style="margin-right: 10px;color: rgb(99,99,99);font-size: 15px;" data-toggle="modal">신고</a></span>';
                             
                             if(sessionId.nickname == val.nickName) {
                                 app += '<a href="javascript:deleteCardReview('+val.cardRevSeq+');" style="color: #F15F5F;font-size: 15px;">삭제</a>';
