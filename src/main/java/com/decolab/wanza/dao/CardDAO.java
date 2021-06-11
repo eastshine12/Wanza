@@ -44,4 +44,6 @@ public interface CardDAO {
 	
 	public int cardReviewDelete(CardReviewDTO dto);
 	
+	public List<CardDTO> otherPictures(CardDTO dto);
+	
 }

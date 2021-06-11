@@ -335,6 +335,76 @@ public class UserController {
 	    
 	    return userInfo;
 	}
+	
+	@RequestMapping(value = "/report", method = {RequestMethod.GET,RequestMethod.POST})
+	public void report(int userSeq, String nickname,String report,String reportContent,String reportseq)throws MessagingException {
+		
+		// id 값이 중복되지 않게 하기위해 유저닉네임 뒤에 rprpwanza+i를 넣었고 그것을 잘라서 보여줄 것
+        System.out.println(nickname);    
+        int idx = nickname.indexOf("rprpwanza");         
+        String realnickname = nickname.substring(0, idx);
+
+
+
+		
+		UserDTO dto = service.getUserInfo(userSeq);
+		
+		System.out.println(dto.getNickname()); //신고자
+		System.out.println(realnickname);		   // 신고당한자
+		System.out.println(report);			   // 리폿사유
+		System.out.println(reportContent);	   // 리폿내용
+		System.out.println(reportseq);
+		
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+    	MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+    	
+		StringBuffer emailcontent = new StringBuffer();
+		emailcontent.append("<!DOCTYPE html>");
+		emailcontent.append("<html>");
+		emailcontent.append("<head>");
+		emailcontent.append("</head>");
+		emailcontent.append("<body>");
+		emailcontent.append(
+				" <div" 																																																	+ 
+				"	style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 400px; height: 600px; border-top: 4px solid #f38766; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">"		+ 
+				"	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">"																															+ 
+				"		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">WANZA</span><br />"																													+ 
+				"		<span style=\"color: #f38766\">신고 접수</span> 안내입니다."																																				+ 
+				"	</h1>\n"																																																+ 
+				"	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\"><b>"																													+
+						dto.getNickname() +
+				"		</b>님의 신고입니다.<br />"																																													+
+				"<strong>신고 당한 유저 : </strong>"+realnickname+"<br />"+
+				"<strong>신고 사유 : </strong>"+report+"<br />"+
+				"<strong>신고 세부 내용 : </strong>" +reportContent+"<br />"+ 
+				"		아래 <b style=\"color: #f38766\">'신고 확인'</b> 버튼을 클릭하여 신고를 확인해주세요<br />"																													+ 
+				"	</p>"																																																	+ 
+				"	<a style=\"color: #fff; text-decoration: none; text-align: center;\""																																	+
+				"	href=\"http://localhost:8090/view/community/storyDetail.html?seq="+reportseq+"#"+nickname+"\">"														+ 
+				"		<p"																																																	+
+				"			style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #f38766; line-height: 45px; vertical-align: middle; font-size: 16px;\">"							+ 
+				"			신고 확인</p>"																																														+ 
+				"	</a>"																																																	+
+				"	<div style=\"border-top: 1px solid #DDD; padding: 5px;\"></div>"																																		+
+				" </div>"
+		);
+		emailcontent.append("</body>");
+		emailcontent.append("</html>");
+		
+				
+		helper.setFrom("bit210324@gmail.com"); //보내는사람
+    	helper.setTo("janghs0282@naver.com"); //받는사람 - 운영자
+    	helper.setSubject("[완자]"+dto.getNickname()+" 님의 신고접수"); //메일제목
+    	helper.setText(emailcontent.toString(), true); //true넣을경우 html
+    	mailSender.send(mimeMessage);
+		
+		
+		
+	}
+	
+	
+	
+	
 }
 
 

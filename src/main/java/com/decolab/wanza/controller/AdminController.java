@@ -27,9 +27,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.decolab.wanza.dto.ProductDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
+import com.decolab.wanza.dto.UserDTO;
 import com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO;
 import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
 import com.decolab.wanza.service.AdminService;
+import com.decolab.wanza.service.UserService;
 import com.google.gson.JsonObject;
 
 import util.NewFileName;
@@ -39,6 +41,7 @@ public class AdminController {
 	
 	@Autowired
 	AdminService service;
+
 	
 	@RequestMapping(value = "/getDeliveryStatusList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<AdminDeliveryStatusDTO> getDeliveryStatusList(AdminDeliveryStatusDTO dto) {
@@ -235,5 +238,17 @@ public class AdminController {
 		
 		return service.addProductAnswer(dto)>0?"suc":"err";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
