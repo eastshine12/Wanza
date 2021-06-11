@@ -66,7 +66,11 @@
 #my .nav-tabs{
     margin: 40px 0;
 }
-
+#my a:hover,
+#my a{
+    color: #424242;
+    text-decoration: none;
+}
 #my .nav-link.active+.nav_line,
 #my .nav-link.active{
     border: none;
@@ -105,10 +109,10 @@
 }
 
 
-/* 주문 내용 */
+/* 주문 현황 */
 .order_status{
     margin: 20px 0;
-    background-color: #dbdbdb;
+    background-color: #f1f1f1;
     border-radius: 4px;
     color: #8b8b8b;
     display: flex;
@@ -175,7 +179,7 @@
     margin-top: -0.1px;
     margin-left: -19px;
     padding: 0px 16px 0px 16px;
-    width: 130%;
+    width: 140%;
     height: 0px;
     opacity: 0;
     z-index: 3;
@@ -232,6 +236,90 @@
 .btn_subpop:hover{
     background-color: wheat;
 }
+.sort_clear{
+        display: none;
+        border: none;
+        background-color: transparent;
+        color: #f4744c;
+        font-size: 12pt;
+        font-weight: 900;
+}
+.sort_clear:hover{
+    color: #f1aa94;
+}
+
+/* 주문 내역 */
+.order_blank{
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #dbdbdb;
+    border-radius: 4px;
+    color: #424242;
+    display: flex;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8em;
+}
+.order_wrap{
+    margin: 10px 0;
+    padding: 20px 20px 10px;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    color: #424242;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8em;
+}
+.order_content_head{
+    display: flex;
+    margin: 5px 0 12px;
+    justify-content: space-between;
+}
+.order_content_head span{
+    margin: 0 30px 0 0;
+}
+.order_content_head i{
+    margin: 0 7px;
+}
+.small{
+    font-size: 10px;
+}
+.order_product{
+    display: flex;
+    padding: 13px 0;
+    border-top: solid 1px #838383;
+}
+.img_wrap{
+    position: relative;
+    margin: 0 20px 0 0;
+    height: 90px; width: 90px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.img_wrap img{
+    height: 100%;
+    /* width: 100%; */
+    margin: 0;
+}
+.order_box{
+    padding: 0 10px 5px;
+}
+.order_box table{
+    min-width: 500px;
+    height: 100%;
+}
+.order_box table td{
+    vertical-align: top;
+    /* padding: 0 20px 0 0; */
+}
+.order_box>div{
+    height: 33.33%;
+}
+
+
+
+
 
 </style>
 
@@ -240,7 +328,7 @@
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
 
-<div class="container" style="height: 1000px;">
+<div class="container">
     <div class="row">
         <!-- 왼쪽 프로필 -->
         <div class="col-md-3" id="profile" style="height: 1000px;">
@@ -259,7 +347,7 @@
         </div> <!-- 왼쪽 끝 -->
 
         <!-- 오른쪽 메인 -->
-        <div class="col-md-9 pt-5" id="my" style="height: 1000px;">
+        <div class="col-md-9 pt-5" id="my">
             
             <!-- 탭 -->
             <ul class="nav nav-tabs m-5">
@@ -318,55 +406,86 @@
 
                     <div class="my_content_wrap my-5 ml-5">
                         <div class="row order_head">
-                            
                             <span>나의 주문 내역</span>
+
                             <div class="sort_btns">
-                            <div class="pop_wrap">
-                                <button type="button" class="btn_pop" value="sort=0"> 기 간<i class="fas fa-sort"></i></button>
-                                
-                                <div class="pop_box">
-                                    <div class="pop_content">
-                                        <ul class="sub_content_ul">
-                                            <li><button type="button" class="btn_subpop" value="sort=1">1개월전</button></li>
-                                            <li><button type="button" class="btn_subpop" value="sort=2">6개월전</button></li>
-                                            <li><button type="button" class="btn_subpop" value="sort=3">1년전</button></li>
-                                            <li><button type="button" class="btn_subpop" value="sort=3">전 체</button></li>
-                                        </ul>
+                                <button class="sort_clear">초기화</button>
+
+                                <div class="pop_wrap">
+                                    <button type="button" class="btn_pop" value="searchPeriod=-1"> 기 간<i class="fas fa-sort"></i></button>
+                                    
+                                    <div class="pop_box">
+                                        <div class="pop_content">
+                                            <ul class="sub_content_ul">
+                                                <li><button type="button" class="btn_subpop" value="searchPeriod=30">1개월전</button></li>
+                                                <li><button type="button" class="btn_subpop" value="searchPeriod=180">6개월전</button></li>
+                                                <li><button type="button" class="btn_subpop" value="searchPeriod=365">1년전</button></li>
+                                                <li><button type="button" class="btn_subpop" value="searchPeriod=0">전체기간</button></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                            </div> <!-- 인기순 버튼 -->
+                                </div> <!-- 기간 정렬 버튼 -->
 
-                            <div class="pop_wrap">
-                                <button type="button" class="btn_pop" value="sort=0">주문현황 <i class="fas fa-sort"></i></button>
-                                
-                                <div class="pop_box">
-                                    <div class="pop_content">
-                                        <ul class="sub_content_ul">
-                                            <li><button type="button" class="btn_subpop" value="sort=1">주문접수</button></li>
-                                            <li><button type="button" class="btn_subpop" value="sort=2">결제완료</button></li>
-                                            <li><button type="button" class="btn_subpop" value="sort=3">상품준비</button></li>
-                                            <li><button type="button" class="btn_subpop" value="sort=3">배송중</button></li>
-                                            <li><button type="button" class="btn_subpop" value="sort=3">배송완료</button></li>
-                                            <li><button type="button" class="btn_subpop" value="sort=3">판매완료</button></li>
-                                        </ul>
+                                <div class="pop_wrap">
+                                    <button type="button" class="btn_pop" value="orderStatus=-1">주문현황 <i class="fas fa-sort"></i></button>
+                                    
+                                    <div class="pop_box">
+                                        <div class="pop_content">
+                                            <ul class="sub_content_ul">
+                                                <li><button type="button" class="btn_subpop" value="orderStatus=3">주문접수</button></li>
+                                                <li><button type="button" class="btn_subpop" value="orderStatus=4">결제완료</button></li>
+                                                <li><button type="button" class="btn_subpop" value="orderStatus=0">상품준비</button></li>
+                                                <li><button type="button" class="btn_subpop" value="orderStatus=1">배송중</button></li>
+                                                <li><button type="button" class="btn_subpop" value="orderStatus=2">배송완료</button></li>
+                                                <!-- <li><button type="button" class="btn_subpop" value="orderStatus=7">판매완료</button></li> -->
+                                            </ul>
+                                        </div>
                                     </div>
+                                </div> <!-- 주문현황 버튼 -->
+                            </div> <!-- 버튼묶음 끝 -->
+
+                        </div>  <!-- 주문내역 헤더 -->
+
+
+
+                        <div class="order_content">
+                            <!-- <div class="order_blank">
+                                주문 내역이 없습니다.
+                            </div> -->
+
+
+                            <!-- <div class="order_wrap">
+                                <div class="order_content_head">
+                                    <div>
+                                        <span>주문번호 : 61</span> <span>주문날짜 : 2021-06-10</span>
+                                    </div>
+                                    <div><a href="#none">더보기 <i class="fas fa-caret-right"></i></a></div>
                                 </div>
-                            </div> <!-- 인기순 버튼 -->
-                            </div>
-                        </div>  <!-- 오른쪽 정렬 -->
+                            -----------------------------------------------------------
+                                <div class="order_product">
 
+                                    <div class="img_wrap">
+                                        <a href="#none">
+                                            <img src="http://localhost:3000/upload/product1.jpg" alt="">
+                                        </a>
+                                    </div>
 
+                                    <div class="order_box">
+                                        <table>
+                                            <col width="50%"><col width="50%">
+                                            <tr><td colspan="2" class="small"><a href="#none">원스플레이스</a></td></tr>
+                                            <tr><td><a href="#none">디저트 스툴 보조 의자</a></td><td>컬러:그린</td></tr>
+                                            <tr><td>32,000원</td><td>1개</td></tr>
+                                        </table>
+                                    </div>
 
-                        <div class="order_status">
-                            <div class="row mx-4">
-                                <div class="img_box"><img src="http://localhost:3000/upload/product1.jpg" alt=""></div>
-                                <div class="order_box">
-                                    <div><span>제품명</span> / <span>옵션</span></div>
-                                    <div><span>금액</span> / <span>갯수</span></div>
                                 </div>
-                            </div>
-                            
+                            -----------------------------------------------------------
+
+                            </div> -->
+
                         </div>
+
                     </div>
 
 
@@ -379,14 +498,6 @@
 
     </div> <!-- 로우 끝 -->
 </div>
-
-
-
-
-
-
-
-
 
     <footer include-html="../commons/footer.html"></footer>
 </body>
@@ -403,27 +514,79 @@ console.log(sessionId);
 
 $(document).ready(function() {
     getMyOrderStatusCount();// 배송갯수
-    getMyOrderList(); // 구매 리스트
+    getMyOrderList(getSortData()); // 구매 리스트
 
     //유저정보입력
     if(sessionId.profileName != '0'){
         console.log(sessionId.profileNam);
+        $('.profile_name').text(sessionId.nickname);
+        $('.profile_category span:eq(1)').text( sessionId.mileage);
+        $('.profile_category span:eq(3)').text('일반');
     }
-    $('.profile_name').text(sessionId.nickname);
-    $('.profile_category span:eq(1)').text( sessionId.mileage);
-    $('.profile_category span:eq(3)').text('일반');
 
+    // 배송현황 클릭
     $('.order_count_wrap').click(function(){
-        let a = $(this).data("ov");
-        console.log(a);
+        $('.order_count_wrap').removeClass('active');
+        let status = $(this).data("ov");
+        let text = $(this).children().eq(1).text();
+        $(this).addClass('active');
+        $('.btn_pop').eq(1).html(text+' <i class="fas fa-sort"></i>');
+        $('.sort_clear').css('display','block');
+        getMyOrderList(getSortData(status));
     });
 
+    // 정렬버튼 클릭    
+    $('.btn_subpop').click(function(){
+        let value = $(this).val();
+        let text = $(this).text();
+        let t_btn = $(this).parents('.pop_wrap').children('.btn_pop');
+        t_btn.html(text+'<i class="fas fa-sort"></i>').val(value);
+        $('.order_count_wrap').each(function(i){
+            $(this).removeClass('active');
+            let sText = $(this).children().eq(1).text();
+            if(sText==text){
+                $(this).addClass('active');
+            }
+        });
+        $('.sort_clear').css('display','block');
+        getMyOrderList(getSortData());
+    });
 
+    // 정렬버튼 초기화
+    let menu = ['기 간', '주문현황'];
+    let initVal = ['searchPeriod=-1', 'orderStatus=-1'];
+    $('.sort_clear').click( function() {
+        $('.btn_pop').each(function(i){
+            $(this).html(menu[i]+' <i class="fas fa-sort"></i>');
+            $(this).val(initVal[i])
+            console.log('333333333333')
+        });
+        $(this).css('display','none');
+    });
 
     $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 정렬순 메뉴 호버시 꼬다리색
         $('.pop_content').toggleClass('active')
     });
 });
+
+// 데이터 추출
+function getSortData(status) {
+    //let jdata = '{"userSeq":'+sessionId.userSeq+','
+    let jdata = '{"userSeq":1,'
+    if(status==null){   
+        $('.btn_pop').each(function(i){
+            let a = $(this).val().split('=');
+            jdata += '"'+a[0]+'":'+a[1]+','
+        });
+    }else{
+        let a = $('.btn_pop').val().split('=');
+        jdata += '"'+a[0]+'":'+a[1]+','
+        jdata += '"orderStatus":'+status+','
+    }
+    jdata = jdata.substring(0,jdata.length-1)+'}';
+    console.log(JSON.parse(jdata))
+    return JSON.parse(jdata)
+}
 
 //배송현황 갯수 구하기
 function getMyOrderStatusCount() {
@@ -447,30 +610,59 @@ function getMyOrderStatusCount() {
 }
 
 //주문내역 리스트
-function getMyOrderList() {
+function getMyOrderList(jdata) {
 	$.ajax({
 		url:"http://localhost:3000/getMyOrderList",
 		type:"post",
-		data:{userSeq:1, searchPeriod:30,orderStatus:0}, //sessionId.userSeq , orderStatus:3 4 0 1 2
+		data:jdata, //orderStatus:3 4 0 1 2
 		success:function(list){
             console.log(list);
+            //$('.order_content').html('');
+            let app='';
             if (Object.keys(list).length == 0) {
-                // 주문 내역이 없습니다.
+                app = '<div class="order_blank">주문 내역이 없습니다.</div>'
             } else {
+                let oSeq='';
                 $.each(list, function (i, val) {
-                    let jdata = JSON.parse(val.selectOption)
-                    for(let j=0; j<jdata.length; j++) {
-                        let a = jdata[j].optionContent
-                        console.log(a)
+                    if(oSeq!=val.orderSeq){
+                        if(i>0){app+= '</div>';}
+                        app+= '<div class="order_wrap"><div class="order_content_head">'
+                        app+= '<div><span>주문번호 : '+val.orderSeq+'</span><span>주문날짜 : '+makeDate(val.orderDate)+'</span></div>'
+                        app+= '<div><a href="#none">더보기 <i class="fas fa-caret-right"></i></a></div></div>'
                     }
-
+                    //상품시작
+                    app+= '<div class="order_product"><div class="img_wrap">'
+                    app+= '<a href="#none"><img src="http://localhost:3000/upload/'+val.productFileName+'" alt=""></a></div>'
+                    app+= '<div class="order_box"><table><col width="50%"><col width="50%">'
+                    app+= '<tr><td colspan="2" class="small"><a href="#none">'+val.productMaker+'</a></td></tr>'
+                    app+= '<tr><td><a href="#none">'+val.productName+'</a></td><td>'
+                    
+                    let jdata = JSON.parse(val.selectOption);
+                    for(let j=0; j<jdata.length; j++) {
+                        app+= jdata[j].optionContent+' '; 
+                    }
+                    app+= '</td></tr><tr><td>'+makeComma(val.totalAmount)+'원</td><td>'+val.quantity+'개</td></tr></table></div></div>'
+                    //상품 끝
+                    oSeq = val.orderSeq;
+                    //console.log(app)
                 });
             }
+            
+            $('.order_content').html(app);
         },
 		error:function(){ console.log('error'); }
 	});
 }
 
+// 날짜 형식
+function makeDate(str) {
+    return String(str.replace('T',' ').substr(0,10))
+};
+// 금액 콤마 삽입 정규식
+function makeComma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+};
 </script>
 
 </html>
