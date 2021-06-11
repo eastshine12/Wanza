@@ -21,12 +21,14 @@ public class MyPageController {
 	@RequestMapping(value = "/getMyOrderStatusCount", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<MyPageDTO> getMyOrderStatusCount(MyPageDTO dto) {
 		System.out.println("MyPageController getMyOrderStatusCount() " + new Date());
+		System.out.println(dto.toString());
 		return orderService.getMyOrderStatusCount(dto);
 	}
 	
 	@RequestMapping(value = "/getMyOrderList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<MyPageDTO> getMyOrderList(MyPageDTO dto) {
 		System.out.println("MyPageController getMyOrderList() " + new Date());
+		System.out.println(dto.toString());
 		return orderService.getMyOrderList(dto);
 	}
 	
