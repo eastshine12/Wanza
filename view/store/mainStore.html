@@ -325,12 +325,12 @@
             <div class="tag_div">
                 <div class="tag_head"><span>추천태그</span></div>
                 <div class="row mt-4 pr-4">
-                    <div class="col-6 px-1"><span class="tag"><a href="#">#원목</a></span></div>
-                    <div class="col-6 px-1"><span class="tag"><a href="#">#우드레이</a></span></div>
-                    <div class="col-6 px-1"><span class="tag"><a href="#">#퍼니랙</a></span></div>
-                    <div class="col-6 px-1"><span class="tag"><a href="#">#미니멀프레임</a></span></div>
-                    <div class="col-6 px-1"><span class="tag"><a href="#">#벤트리</a></span></div>
-                    <div class="col-6 px-1"><span class="tag"><a href="#">#우드선반</a></span></div>
+                    <div class="col-6 px-1"><span id="hashTag_1" class="tag" style="cursor: pointer;">#</span></div>
+                    <div class="col-6 px-1"><span id="hashTag_2" class="tag" style="cursor: pointer;">#</span></div>
+                    <div class="col-6 px-1"><span id="hashTag_3" class="tag" style="cursor: pointer;">#</span></div>
+                    <div class="col-6 px-1"><span id="hashTag_4" class="tag" style="cursor: pointer;">#</span></div>
+                    <div class="col-6 px-1"><span id="hashTag_5" class="tag" style="cursor: pointer;">#</span></div>
+                    <div class="col-6 px-1"><span id="hashTag_6" class="tag" style="cursor: pointer;">#</span></div>
                 </div>
             </div>
         </div>
@@ -392,6 +392,8 @@
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
+<script src="../../js/slang.js"></script>
+
 <script src="../../js/jquery.twbsPagination.min.js"></script>
 
 <script>
@@ -695,6 +697,54 @@ function setPdata(date){
     console.log(JSON.parse(param))
     return JSON.parse(param);
 }
+
+
+// 해쉬태그 랜덤으로 6개 뿌리기
+getHashTagList();
+function getHashTagList() {
+
+    $.ajax({
+		url:"http://localhost:3000/getHashTagList",
+		type:"get",
+		success:function(list){ 
+            console.log(list); 
+            //중복 x 랜덤 6개 번호 생성
+            let tagNumArr = new Array;
+            let sameNum;
+            let i = 0;
+            while (i < 6) {
+                let n = Math.floor(Math.random()*list.length);
+                for(let j = 0; j < tagNumArr.length; j++) {
+                    if(n === tagNumArr[j]) {
+                        sameNum = true;
+                        break;
+                    } else {
+                        sameNum = false;
+                    }
+                }
+                if(!sameNum) {
+                    tagNumArr.push(n);
+                    i++;
+                }
+            }
+            console.log(tagNumArr);
+
+            for(let i = 0; i < 6; i++) {
+                $('#hashTag_'+(i+1)).text('# '+list[tagNumArr[i]].hashTagName);
+                $('#hashTag_'+(i+1)).attr('hashTag', list[tagNumArr[i]].hashTagName);
+            }
+
+        },
+		error:function(){ 
+            console.log('getHashTag error'); 
+        }
+	});
+}
+
+$(document).on('click', '.tag', function() {
+    location.href = "../commons/search.html?searchWord="+$(this).attr('hashTag');
+})
+
 
 // 정렬버튼 클릭시 순서 새로고침
 function setSortBtn(data){

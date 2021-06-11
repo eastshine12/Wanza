@@ -353,6 +353,7 @@
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
+<script src="../../js/slang.js"></script>
 
 <script>
 
@@ -430,6 +431,12 @@ $(document).ready(function () {
             return;
         };
 
+        if(slangFilter($('#_cardTitle').val()) || slangFilter($('#_cardContent').val())) {
+            alert('비속어가 포함되어 있습니다.');
+            return;
+        }
+
+
         $.ajax({
             url: "http://192.168.0.231:3000/storyWrite",
             type: "post",
@@ -441,13 +448,16 @@ $(document).ready(function () {
             success: function (data) {
                 console.log(data)
                 if (data == "suc") {
-                    alert('작성완료.');
+                    alert('작성이 완료되었습니다.');
                 } else {
                     alert('작성실패');
                 }
             },
             error: function () {
                 alert('storyWrite error');
+            },
+            complete: function() {
+                location.href = "story.html";
             }
         });
         

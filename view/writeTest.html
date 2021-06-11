@@ -47,7 +47,7 @@
 		</tr>
 	</table>
 </form>
-
+<script src="../../js/slang.js"></script>
 
 <script>
 
@@ -58,7 +58,10 @@ $('#_id').val(sessionId);
 $(document).ready(function() {
 	
 	$('#btn').click(function() {
-		
+
+
+		slangFilter($('#_cardTitle').val());
+		/*
 		$.ajax({
 			url:"http://localhost:3000/cardWrite",
 			type:"post",
@@ -80,10 +83,11 @@ $(document).ready(function() {
 				alert('error');
 			}
 		});
+		*/
+
 	});
 	
 });
-
 
 
 </script>
