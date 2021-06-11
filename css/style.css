@@ -199,4 +199,8 @@ html, body{
     opacity: 1;
     visibility: visible;
   }
+  #backToTop.change {
+    border-color: white;
+    color: white;
+  }
 

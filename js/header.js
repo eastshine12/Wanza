@@ -176,21 +176,28 @@ $(document).ready(function() {
     });
 
     // 탑 버튼
-
-   
     var btn = $('#backToTop');
-
-    $(window).scroll(function() {
-      if ($(window).scrollTop() > 300) {
-        btn.addClass('show');
-      } else {
-        btn.removeClass('show');
-      }
+    let ftop;
+    $(document).ajaxComplete(function() {
+        ftop = $('footer').offset().top;
     });
-    
+        
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 300) {
+            btn.addClass('show');
+        }else{
+            btn.removeClass('show');
+        }
+        if (btn.offset().top > ftop-3) {
+            btn.addClass('change');
+        }else{
+            btn.removeClass('change');
+        }
+    });
+        
     btn.on('click', function(e) {
-      e.preventDefault();
-      $('html, body').scrollTop;
+        e.preventDefault();
+        $('html, body').scrollTop(0);
     });
 
    
