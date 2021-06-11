@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.decolab.wanza.dto.ProductDTO;
+import com.decolab.wanza.dto.ProductHashTagDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
 import com.decolab.wanza.dto.UserDTO;
@@ -162,6 +163,18 @@ public class AdminController {
 		
 		
 		return productSeq+"";
+	}
+	
+	@RequestMapping(value = "/writeProductHashTag", method = {RequestMethod.GET,RequestMethod.POST})
+	public String writeProductHashTag(ProductHashTagDTO dto) {
+		System.out.println("AdminController writeProductHashTag() " + new Date());	
+		System.out.println(dto.getHashTagName());
+		int productSeq = service.getRecentAddProductSeq();
+		String[] tagArr = dto.getHashTagName().split(",");
+		for(String i : tagArr) {
+			service.addProductHashTag(new ProductHashTagDTO(productSeq, i));
+		}
+		return "suc";
 	}
 	
 	

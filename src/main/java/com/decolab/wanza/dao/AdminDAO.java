@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.decolab.wanza.dto.ProductDTO;
+import com.decolab.wanza.dto.ProductHashTagDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
 import com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO;
@@ -37,6 +38,8 @@ public interface AdminDAO {
 	
 	public int deleteProduct(ProductDTO dto);
 		
+	public int addProductHashTag(ProductHashTagDTO dto);
+	
 	public int addProductTag(ProductDTO dto);
 	
 	public int addProductOption(ProductOptionDTO dto);

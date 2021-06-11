@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.decolab.wanza.dao.ProductDAO;
 import com.decolab.wanza.dto.ProductDTO;
+import com.decolab.wanza.dto.ProductHashTagDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
 import com.decolab.wanza.dto.ProductReviewDTO;
@@ -88,6 +89,10 @@ public class ProductService {
 	
 	public int addReviewPoint(ProductReviewDTO dto) {
 		return dao.addReviewPoint(dto);
+	}
+	
+	public List<ProductHashTagDTO> getHashTagList() {
+		return dao.getHashTagList();
 	}
 	
 	

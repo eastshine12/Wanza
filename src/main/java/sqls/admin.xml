@@ -128,6 +128,11 @@
 	WHERE PRODUCTSEQ=#{productSeq} 
 </update>
 
+<insert id="addProductHashTag" parameterType="com.decolab.wanza.dto.ProductHashTagDTO">
+	INSERT INTO PRODUCTION_HASHTAG
+	VALUES (#{productSeq}, #{hashTagName})
+</insert>
+
 <insert id="addProductTag" parameterType="com.decolab.wanza.dto.ProductDTO">
 	INSERT INTO PRODUCTION_TAG
 	VALUES (#{productSeq}, #{largeCategory}, #{mediumCategory}, #{smallCategory})
