@@ -56,6 +56,14 @@
 	WHERE U.USERSEQ = C.USERSEQ AND C.CARDSEQ = T.CARDSEQ AND C.CARDSEQ=#{cardSeq}
 </select>
 
+<!-- 유저의 다른 사진 가져오기  -->
+<select id="otherPictures" parameterType="com.decolab.wanza.dto.CardDTO" resultType="com.decolab.wanza.dto.CardDTO">
+SELECT CARDSEQ, CARDTITLE, CARDCONTENT, USERSEQ, CARDREADCOUNT,CARDDATE,CARDFILENAME,CARDDEL
+FROM(SELECT CARDSEQ, CARDTITLE, CARDCONTENT, USERSEQ, CARDREADCOUNT,CARDDATE,CARDFILENAME,CARDDEL FROM CARD_COLLECTIONS)
+WHERE USERSEQ = #{userSeq} AND 4 >= ROWNUM AND CARDDEL=0
+ORDER BY CARDDATE DESC
+</select>
+
 
 <!-- cardSeq 가져오기 -->
 <select id="getCardSeq" parameterType="com.decolab.wanza.dto.CardDTO" resultType="int">

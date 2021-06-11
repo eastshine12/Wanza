@@ -91,5 +91,9 @@ public class CardService {
 	public int cardReviewDelete(CardReviewDTO dto) {
 		return dao.cardReviewDelete(dto);
 	}
+	
+	public List<CardDTO> otherPictures(CardDTO dto){
+		return dao.otherPictures(dto);
+	}
 
 }
