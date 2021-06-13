@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<!-- 폰트어썸아이콘 -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+<!-- 부트스트랩 -->
+<!-- <link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css"> -->
+<!-- 공통 -->
+<!-- <link rel="stylesheet" type="text/css" href="../../css/style.css"> -->
+
+<style>
+body{
+    background-color: #eee;
+}
+/* 사이드 */
+.sidebar{
+    position: fixed;
+    top: 0; bottom: 0;
+    left: 0;
+    z-index: 200;
+    width: 260px; height: 100%;
+    padding-top: 20px;
+    background-color: white;
+    color: #a9afbb;
+    text-align: center;
+    box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%),
+                0 4px 25px 0 rgb(0 0 0 / 12%),
+                0 8px 10px -5px rgb(0 0 0 / 20%);
+    transform: translate3d(0px,0,0);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1);
+}
+
+/* 반응형 */
+@media(max-width: 991px){
+    .sidebar{
+        top: 0; left: 0;
+        right: auto;
+        z-index: 100;
+        visibility: visible;
+        background-color: #ededed;
+        overflow-y: visible;
+        transform: translate3d(-260px,0,0);
+        transition: all .33s cubic-bezier(.685,.0473,.346,1);
+    }
+    .main_panel{
+        height: 100%;
+        max-height: 100%;
+        width: 100%;
+        transform: translate3d(-0px,0,0);
+        transition: all .33s cubic-bezier(.685,.0473,.346,1)
+    }
+    .navbar-toggler .icon-bar:nth-child(2) {
+        top: 0;
+        animation: all .5s 0s;
+        animation-fill-mode: forwards;
+    }
+    .side_open{
+        transform: translateZ(0);
+    }
+}
+@media(min-width: 991px){
+    .navbar-toggler {
+        display: none;
+    }
+}
+
+/* 사이드 메뉴 */
+/* 로고 */
+.logo{
+    border-bottom: solid hsla(0,0%,71%,.3);
+    height: 60px;
+    margin: 20px 10px;
+}
+#menu_accordion .logo a,.logo a:hover{
+    color: #3c4858;
+    font-size: 20pt;
+    text-decoration: none;
+}
+/* 메뉴 전체 */
+.menu{
+    list-style: none;
+    padding: 0;
+}
+/* 메인메뉴 */
+.menu_header{
+    padding: 15px 0;
+    margin: 0 20px 0 20px;
+    display: flex;
+    justify-content: center;
+}
+.btn_menu_h{
+    width: 100%;
+    height: 60px;
+    color: #3c4858;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    text-align: left;
+    padding-left: 25px;
+    font-size: 16pt;
+}
+.btn_menu_h i{
+    margin-right: 10px;
+}
+.btn_menu_h:hover{
+    color: #35ab6f;
+    background-color: hsla(0,0%,78%,.2);
+}
+.menu li.active button{
+    color: white;
+    background-color: #35ab6f;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+/* 서브메뉴 */
+.menu_sub{
+    margin: -20px 15px 10px 15px;
+    padding: 20px 10px 10px 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+}
+.btn_menu_s{
+    width: 85%;
+    height: 50px;
+    color: #56c084;
+    border: none;
+    border-radius: 5px;
+    background-color: transparent;
+    text-align: left;
+    margin: 0 0 10px 10px;
+    padding-left: 10px;
+    font-size: 12pt;
+}
+.btn_menu_s i{
+    margin-right: 10px;
+}
+.btn_menu_s:hover{
+    color: #56c084;
+    background-color: hsla(0,0%,78%,.2);
+}
+.menu_sub .menu li.active button{
+    color: white;
+    background-color: #56c084;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+/* 사이드 마지막 */
+.menu_footer{
+    position: absolute;
+    bottom: 15px;
+    left: 40px;
+    width: 70%;  height: 45px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 3;
+}
+a.menu_footer{
+    color: #a9afbb;
+    text-decoration: none;
+}
+.menu_footer:hover{
+    color: #a9afbb;
+    background-color: hsla(0,0%,78%,.2);
+}
+/* 메뉴 토글 아이콘 */
+.navbar-toggler-icon{
+    display: block;
+    width: 40px; height: 6px;
+    margin-top: 6px;
+    background: #555;
+    border-radius: 1px;
+    outline: 0;
+}
+</style>
+
+</head>
+<body> 
+
+    <div class="sidebar" id="side_accordion">
+        <div class="accordion" id="menu_accordion">
+
+            <div class="logo">
+                <a href="mainAdmin.html"><i class="fas fa-file-signature"></i> 관리자 화면</a>             
+            </div>
+
+            <ul class="menu">
+                <li class="menu_header active">
+                    <button class="btn_menu_h" type="button" data-toggle="collapse" data-target="#menu_store"><i class="fas fa-boxes"></i> 스토어</button>
+                </li>
+
+                <li id="menu_store" class="collapse show" data-parent="#menu_accordion">
+                    <div class="menu_sub">
+                        <ul class="menu">
+                            <li><button class="btn_menu_s" type="button" onclick="location.href='store-deliveryStatus.html'"><i class="fas fa-truck"></i> 배송현황</button></li>
+                            <li><button class="btn_menu_s" type="button" onclick="location.href='store-salesStatus.html'"><i class="fas fa-chart-bar"></i> 매출현황</button></li>
+                            <li><button class="btn_menu_s" type="button" onclick="location.href='store-addProduct.html'"><i class="fas fa-chalkboard"></i> 상품등록</button></li>
+                            <li><button class="btn_menu_s" type="button" onclick="location.href='store-productAnswer.html'"><i class="fab fa-replyd"></i> 답변등록</button></li>
+                        </ul>
+                    </div>
+                </li> <!-- 스토어 서브메뉴 끝 -->
+
+                <li class="menu_header">
+                    <button class="btn_menu_h" type="button" data-toggle="collapse"
+                        data-target="#menu_comt"><i class="far fa-comments"></i> 커뮤니티</button>
+                </li>
+                
+                <li id="menu_comt" class="collapse" data-parent="#menu_accordion">
+                    <div class="menu_sub">
+                        <ul class="menu">
+                            <li><button class="btn_menu_s active" type="button" onclick="location.href='community-userManage.html'"><i class="fas fa-user-cog"></i> 회원관리</button></li>
+                            <li><button class="btn_menu_s" type="button" onclick="location.href='community-storyTag.html'"><i class="fas fa-tags"></i> 사진태그등록</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="far fa-edit"></i> 게시판 관리</button></li>
+                            <li><button class="btn_menu_s" type="button"><i class="far fa-calendar-check"></i> 이벤트 등록</button></li>
+                        </ul>
+                    </div>
+                </li> <!-- 커뮤니티 서브메뉴 끝 -->
+                
+                <a class="menu_footer" href="../../index.html">
+                    <li><i class="fas fa-undo-alt"></i> 돌아가기</li>
+                </a>
+            </ul> <!-- 메뉴리스트 끝 -->
+
+
+        </div> <!-- 아코디언 끝 -->
+    </div> <!-- 사이드바 메뉴 끝 -->
+
+
+</body>
+</html>

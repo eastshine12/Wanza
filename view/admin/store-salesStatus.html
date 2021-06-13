@@ -19,28 +19,9 @@
 <script type="text/javascript" src="../../assets/js/raphael_path_s.korea.js"></script>
 <script type="text/javascript" src="../../assets/js/raphael_min.js"></script>
 
-
 <style>
 body{
     background-color: #eee;
-}
-/* 큰 패널 2개*/
-/* 사이드 */
-.sidebar{
-    position: fixed;
-    top: 0; bottom: 0;
-    left: 0;
-    z-index: 200;
-    width: 260px; height: 100%;
-    padding-top: 20px;
-    background-color: white;
-    color: #a9afbb;
-    text-align: center;
-    box-shadow: 0 16px 38px -12px rgb(0 0 0 / 56%),
-                0 4px 25px 0 rgb(0 0 0 / 12%),
-                0 8px 10px -5px rgb(0 0 0 / 20%);
-    transform: translate3d(0px,0,0);
-    transition: all .33s cubic-bezier(.685,.0473,.346,1);
 }
 
 /* 메인 */
@@ -84,120 +65,6 @@ body{
         display: none;
     }
 }
-
-/* 사이드 메뉴 */
-/* 로고 */
-.logo{
-    border-bottom: solid hsla(0,0%,71%,.3);
-    height: 60px;
-    margin: 20px 10px;
-}
-.logo a,.logo a:hover{
-    color: #3c4858;;
-    font-size: 20pt;
-    text-decoration: none;
-}
-/* 메뉴 전체 */
-.menu{
-    list-style: none;
-    padding: 0;
-}
-/* 메인메뉴 */
-.menu_header{
-    padding: 15px 0;
-    margin: 0 20px 0 20px;
-    display: flex;
-    justify-content: center;
-}
-.btn_menu_h{
-    width: 100%;
-    height: 60px;
-    color: #a9afbb;
-    border: none;
-    border-radius: 5px;
-    background-color: transparent;
-    text-align: left;
-    padding-left: 25px;
-    font-size: 16pt;
-}
-.btn_menu_h i{
-    margin-right: 10px;
-}
-.btn_menu_h:hover{
-    color: #a9afbb;
-    background-color: hsla(0,0%,78%,.2);
-}
-.menu li.active button{
-    color: white;
-    background-color: #35ab6f;
-    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
-}
-/* 서브메뉴 */
-.menu_sub{
-    /* border: solid 0.5px; */
-    /* height: 250px; */
-    margin: -20px 15px 10px 15px;
-    padding: 20px 10px 10px 10px;
-    border-radius: 5px;
-    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
-}
-.btn_menu_s{
-    width: 85%;
-    height: 50px;
-    color: #56c084;
-    border: none;
-    border-radius: 5px;
-    background-color: transparent;
-    text-align: left;
-    margin: 0 0 10px 10px;
-    padding-left: 10px;
-    font-size: 12pt;
-}
-.btn_menu_s i{
-    margin-right: 10px;
-}
-.btn_menu_s:hover{
-    color: #a9afbb;
-    background-color: hsla(0,0%,78%,.2);
-}
-.menu_sub .menu li.active button{
-    color: white;
-    background-color: #56c084;
-    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
-}
-/* 사이드 마지막 */
-.menu_footer{
-    position: absolute;
-    bottom: 15px;
-    left: 40px;
-    width: 70%;  height: 45px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    line-height: 3;
-}
-.menu_footer a{
-    color: #a9afbb;
-    text-decoration: none;
-}
-.menu_footer:hover{
-    color: #a9afbb;
-    background-color: hsla(0,0%,78%,.2);
-}
-/* 메뉴 토글 아이콘 */
-.navbar-toggler-icon{
-    display: block;
-    width: 40px; height: 6px;
-    margin-top: 6px;
-    background: #555;
-    border-radius: 1px;
-    outline: 0;
-}
-
-
-
-
-
 
 /* 메인 내용 */
 /* 검색 */
@@ -387,131 +254,6 @@ body{
     top:2px;
     box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
 }
-/* 테이블 세부 내용 */
-.table_wrap{
-    min-width: 1300px;
-    margin: -40px 40px 10px 40px;
-    padding: 30px 30px 10px 30px;
-    /* overflow-x: auto; */
-    border-radius: 5px;
-    background-color: white;
-    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
-                0 7px 10px -5px rgb(133 217 174 / 40%);
-}
-.head_tab{
-    display: flex;
-    align-items: center;
-    margin: 0 0 10px 0;
-}
-/* 배송상태 선택 */
-.select_category,
-.select_status{
-    display: flex;
-}
-.select_status label{
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 20px 0 -10px;
-    width: 115px; height: 40px;
-    border: solid #35ab6f;
-    border-radius: 5px;
-    background-color: #35ab6f;
-    z-index: 2;
-    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
-}
-.select_category select:focus+i,
-.select_status select:focus+i{
-    margin: 5px 5px 0 0;
-    transform: rotate(180deg);
-    transition: 0.2s ease;
-}
-.select_status select{
-    margin-right: -15px;
-    height: 100%; width: 100%;
-    background-color: transparent;
-    padding: 0 10px;
-    border: none;
-    color: white;
-    position: relative;
-    cursor: pointer;
-    z-index: 2;
-}
-option{
-    color: #424242;
-}
-select:focus{
-    outline: none;
-}
-.select_category i,
-.select_status i{
-    position: relative;
-    margin: -5px 5px 0 0;
-    color: white;
-    z-index: 1;
-    transition: 0.2s ease;
-}
-select{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-select::-ms-expand{
-    display: none;
-}
-
-
-.table td{
-    vertical-align: middle;
-    word-break:break-all;
-}
-.tab_btn{
-    width: 80px;
-    height: 40px;
-    border: none;
-    border-radius: 4px;
-    color: white;
-    background-color: #35ab6f;
-    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
-}
-/* .tab_btn:hover{
-    box-shadow: 0 14px 26px -12px rgb(133 217 174 / 42%),
-                0 4px 23px 0 rgb(0 0 0 / 12%),
-                0 8px 10px -5px rgb(133 217 174 / 20%);
-} */
-.tab_btn:active{
-    background: radial-gradient(#35ab6f,#56c084);
-    transition: all .33s cubic-bezier(.685,.0473,.346,1)
-}
-
-
-
-/* 체크박스 색 바꾸기 */
-#table1 .custom-checkbox{
-    margin-left: 30px;
-}
-#table1 .custom-control-label::before,
-#table1 .custom-control-label::after{
-    top: 0.15rem; left: -1.8rem;
-    width: 1.3rem; height: 1.3rem;
-}
-#table1 .custom-control-input:checked~.custom-control-label::before {
-    color: #fff;
-    border-color: #35ab6f;
-    background-color: #35ab6f;
-}
-#table1 .custom-control-input:focus~.custom-control-label::before {
-    box-shadow: none;   /* 0 0 0 .2rem rgba(0,123,255,.25) */
-}
-#table1 .custom-control-input:focus:not(:checked)~.custom-control-label::before {
-    border-color: #adb5bd
-}
-#table1 .custom-control-input:not(:disabled):active~.custom-control-label::before {
-    color: #fff;
-    background-color: #82a593;
-    border-color: #82a593;
-}
 
 /* Chart */
 .chartdiv {
@@ -520,8 +262,6 @@ select::-ms-expand{
 }
 
 /* Map */
-
-
 #canvas h2{ padding:0; margin:0; font-size:12px; }
 
 #seoul, #gygg, #incheon, #gangwon, #chungbuk, #chungnam, #daejeon, #sejong, #jeonbuk, #jeonnam, #gwangju, #gyeongbuk, #gyeongnam, #daegu, #busan, #ulsan, #jeju { 
@@ -546,68 +286,17 @@ select::-ms-expand{
 #jeju{ left:80px; top:340px; }
 
 </style>
-
 </head>
 
-
-
 <body>
-
 <div class="container-fluid" style="height: 100vh;">
 
-    <div class="sidebar" id="side_accordion">
-        <div class="accordion" id="menu_accordion">
-
-            <div class="logo">
-                <a href="#none"><i class="fas fa-file-signature"></i> 관리자 화면</a>             
-            </div>
-
-            <ul class="menu">
-                <li class="menu_header active">
-                    <button class="btn_menu_h" type="button" data-toggle="collapse" data-target="#menu_store"><i class="fas fa-boxes"></i> 스토어</button>
-                </li>
-
-                <li id="menu_store" class="collapse" data-parent="#menu_accordion">
-                    <div class="menu_sub">
-                        <ul class="menu">
-                            <li><button class="btn_menu_s" type="button"><i class="fas fa-truck"></i> 배송현황</button></li>
-                            <li><button class="btn_menu_s" type="button"><i class="fas fa-chart-bar"></i> 매출현황</button></li>
-                            <li><button class="btn_menu_s" type="button"><i class="fas fa-chalkboard"></i> 제품등록</button></li>
-                            <li><button class="btn_menu_s" type="button"><i class="fab fa-replyd"></i> 답변등록</button></li>
-                        </ul>
-                    </div>
-                </li> <!-- 스토어 서브메뉴 끝 -->
-
-                <li class="menu_header">
-                    <button class="btn_menu_h" type="button" data-toggle="collapse"
-                        data-target="#menu_comt"><i class="far fa-comments"></i> 커뮤니티</button>
-                </li>
-                
-                <li id="menu_comt" class="collapse" data-parent="#menu_accordion">
-                    <div class="menu_sub">
-                        <ul class="menu">
-                            <li><button class="btn_menu_s active" type="button"><i class="fas fa-user-cog"></i> 회원관리</button></li>
-                            <li><button class="btn_menu_s" type="button"><i class="fas fa-tags"></i> 사진태그등록</button></li>
-                            <li><button class="btn_menu_s" type="button"><i class="fas fa-clipboard"></i> 커뮤니티 관리</button></li>
-                            <li><button class="btn_menu_s" type="button"><i class="far fa-edit"></i> Q&A게시판 관리</button></li>
-                            <li><button class="btn_menu_s" type="button"><i class="far fa-calendar-check"></i> 이벤트 등록</button></li>
-                        </ul>
-                    </div>
-                </li> <!-- 커뮤니티 서브메뉴 끝 -->
-                
-                <li class="menu_footer">
-                    <a href="../../index.html"><i class="fas fa-undo-alt"></i> 돌아가기</a>
-                </li>
-                
-            </ul> <!-- 메뉴리스트 끝 -->
-
-
-        </div> <!-- 아코디언 끝 -->
-    </div> <!-- 사이드바 메뉴 끝 -->
+    <!-- 사이드바 메뉴 -->
+    <div include-html="sidebar.html"></div>
 
     <!-- 메인화면 -->
-    <div class="main_panel" style="height: 800px;">
-        <div class="p-4" style="height: 150px; border: solid;"><!-- 헤드 -->
+    <div class="main_panel">
+        <div class="p-4" style="height: 80px;"><!-- 헤드 -->
             <!-- 사이드바 토글 버튼 -->
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#side_accordion">
                 <span class="navbar-toggler-icon icon-bar"></span>
@@ -706,8 +395,8 @@ select::-ms-expand{
 <script src="../../assets/js/jquery.min.js"></script>
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script><!-- jQuery UI 라이브러리 -->
-<!-- <script src="../../js/includeHTML.js"></script>
-<script src="../../js/header.js"></script> -->
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/adminSide.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -737,23 +426,6 @@ $(document).ready(function() {
     }
 
 
-
-
-
-    $('.menu_header').click( function() { //사이드 메뉴 활성화
-        $('.menu_header').removeClass('active')
-        $(this).addClass('active');
-    });
-
-    $('.menu_sub li').click( function() { //사이드 서브메뉴 활성화
-        $('.menu_sub li').removeClass('active')
-        $(this).addClass('active');
-    });
-
-    $('.navbar-toggler').click( function() { //사이드 토글
-        $('.sidebar').addClass('side_open')
-    });
-
     $('.move_input input').focus( function() { // 날짜 선택시 글씨 이동 이벤트
         $(this).parent().addClass('active')
     });
@@ -775,24 +447,7 @@ $(document).ready(function() {
         console.log( $(this).val())
         $('.search_btn').click()
     });
-    $('#table1 tbody tr').click( function() { //테이블 누르면 체크
-        let tr = $(this).find('input[type="checkbox"]');
-        let c = tr.prop("checked");
-        if(c){
-            tr.prop("checked",false);
-        }else{
-            tr.prop("checked",true);
-        }
-        autoCheck()
-    });
 
-    // 체크박스 전체선택, 전체해제
-    $(document).on("click", '#table1 input[type="checkbox"]', function () {
-        if($(this).attr('name') != 'chk'){
-            $('#table1 table').find('input[type="checkbox"]').prop("checked", $(this).is(":checked"));
-        }
-        autoCheck()
-    });
     
     $.datepicker.setDefaults({
         showAnim:'slideDown',
@@ -819,22 +474,6 @@ $(document).ready(function() {
     });
 
 });
-
-function autoCheck() {
-    let chkLength = $('input:checkbox[name="chk"]');
-    let chkLength2 = $('input:checkbox[name="chk"]:checked');
-
-    if (chkLength.length == chkLength2.length) {
-        $('#cb').prop("checked", true);
-        $('#checkbox_all').find('span').text('전체해제');
-    } else {
-        $('#cb').prop("checked", false);
-        $('#checkbox_all').find('span').text('전체체크');
-    }
-};
-
-
-
 
 // select 값 변경시마다 함수 호출
 function selectDay(){
@@ -1075,13 +714,6 @@ function lineGraph(){
         }
     })
 }
-
-
-
-
-
-
-
 
 
 </script>

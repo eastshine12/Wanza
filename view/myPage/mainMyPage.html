@@ -22,11 +22,12 @@
     margin: 20px 0;
     padding: 10px 0;
     height: 370px;
-    border: solid 0.9px;
+    border: solid 0.9px #d6d6d6;
     border-radius: 3px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 4px 10px 0 rgb(0 0 0 / 8%), 0 7px 10px -5px rgb(0 0 0 / 8%);
 }
 .profile_img{
     margin: 20px 0;
@@ -87,6 +88,90 @@
     font-family: 'Nanum Gothic', sans-serif;
     color: #212529;
 }
+
+/* 나의 스토리 */
+#my_story{
+    font-family: 'Nanum Gothic', sans-serif;
+}
+#my_story>div>span {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: #212529;
+}
+.story_box{
+    display: flex;
+    padding: 10px;
+    border-bottom: solid 1.5px #b3b3b3;
+    color: #424242;
+    font-size: 0.9em;
+    font-weight: 500;
+    align-items: center;
+    justify-content: space-between;
+}
+/* .story_box:first-of-type{
+    margin: 12px 0 0 0;
+    border-top: solid 1.5px #b3b3b3;
+} */
+.story_wrap{
+    width: 80%;
+}
+.story_title{
+    margin: 10px 0;
+    font-size: 1.3em;
+    font-weight: 900;
+}
+.story_content{
+    max-height: 50px;
+}
+.story_footer{
+    margin: 10px 0 0 0;
+}
+.story_footer span{
+    margin: 0 15px 0 0;
+    font-size: 1em;
+    font-weight: 700;
+}
+.story_tag{
+    margin: 5px 0 10px 0;
+}
+.story_tag a{
+    background-color: wheat;
+    margin: 0 10px 0 0;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.story_img_wrap{
+    position: relative;
+    margin: 0 0px 0 0;
+    height: 140px; width: 140px;
+    border-radius: 4px;
+    border: solid;
+    overflow: hidden;
+}
+.story_img_wrap img{
+    height: 100%;
+    margin: 0;
+}
+.story_blank{
+    display: flex;
+    margin: 20px 0;
+    padding: 20px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    color: #424242;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+
 
 /* 나의 쇼핑 */
 
@@ -160,11 +245,9 @@
     width: 100%; height: 100%;
     padding-left: 10px;
     margin-bottom: 1PX;
-    border: solid 0.5px #757575;
+    border: solid 0.9px #d6d6d6; /* #757575 */
     border-radius: 4px;
-    /* font-size: 16px;
-    font-weight: 600; */
-    color: #424242;
+    color: #555555;
     background-color: white;
     justify-content: space-between;
     align-items: center;
@@ -223,7 +306,7 @@
     color: #424242;
     background-color: white;
     padding: 10px 15px;
-    text-align: center;
+    text-align: justify;
 }
 .sub_content_ul li:first-of-type .btn_subpop{
     border-top-left-radius: 4px;
@@ -350,25 +433,79 @@
         <div class="col-md-9 pt-5" id="my">
             
             <!-- 탭 -->
-            <ul class="nav nav-tabs m-5">
+            <ul class="nav nav-tabs my-5 ml-5">
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="tab" href="#my_story">나의 스토리</a>
+                    <a class="nav-link active" data-toggle="tab" href="#my_story">나의 스토리</a>
                     <div class="nav_line"></div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#my_order">나의 쇼핑</a>
+                    <a class="nav-link " data-toggle="tab" href="#my_order">나의 쇼핑</a>
                     <div class="nav_line"></div>
                 </li>
             </ul>
 
             <!-- 탭내용 -->
             <div class="tab-content">
-                <div class="tab-pane" id="my_story">
+                <div class="tab-pane fade show active" id="my_story">
                     
+                    <div class="storys_content my-5 ml-5">
+                        <!-- <span>나의 이야기</span> -->
+
+                        <a href="#none"><div class="story_blank">
+                            당신의 소중한 집을 사진과 글로 자랑해주세요.
+                        </div></a>
+
+                        <div class="story_box">
+                            <div class="story_wrap">
+                                <a href="#none">
+                                    <div class="story_title">맑은 공기 가득한 곳에서 사랑스러운 전원생활</div>
+                                    <div class="story_content">
+                                        마당 있는 주택에서 남편, 세 마리의 강아지와 같이 살고 있어요.
+                                        저는 미대를 나와서 오랫동안 입시 지도를 하다가 지금은 전원생활을 하며 여유로운 시간을 보내고 있습니다.
+                                        <!-- 저는 태어나서 지금까지 쭉 아파트에만 살았어요. 하지만 노후가 되면 전원에 가서 주택을 짓고 살까 하는 이야기를 남편하고 나누곤 했었죠. -->
+                                    </div>
+                                </a>
+                                <div class="story_footer">
+                                    <span>작성일</span><span>좋아요</span><span>댓글수</span><span>조회수</span>
+                                </div>
+                                <div class="story_tag"><a href="#none">#태그</a><a href="#none">#태그</a><a href="#none">#태그</a></div>  
+                            </div>
+                            <div class="story_img_wrap">
+                                <a href="#none">
+                                    <img src="http://localhost:3000/upload/1620888723828.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="story_box">
+                            <div class="story_wrap">
+                                <a href="#none">
+                                    <div class="story_title">맑은 공기 가득한 곳에서 사랑스러운 전원생활</div>
+                                    <div class="story_content">
+                                        마당 있는 주택에서 남편, 세 마리의 강아지와 같이 살고 있어요.
+                                        저는 미대를 나와서 오랫동안 입시 지도를 하다가 지금은 전원생활을 하며 여유로운 시간을 보내고 있습니다.
+                                    </div>
+                                </a>
+                                <div class="story_footer">
+                                    <span>2021/05/13</span><span>좋아요 3</span><span>댓글수 4</span><span>조회수 1</span>
+                                </div>
+                                <div class="story_tag"><a href="#none">#태그</a><a href="#none">#태그</a></div>  
+                            </div>
+                            <div class="story_img_wrap">
+                                <a href="#none">
+                                    <img src="http://localhost:3000/upload/1620888723828.jpg" alt="">
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
                     
                 </div> 
 
-                <div class="tab-pane fade show active" id="my_order">
+                <div class="tab-pane" id="my_order">
                     <div class="my_content_wrap my-5 ml-5">
                         <span>주문 배송 현황</span>
                         <div class="order_status">
@@ -419,7 +556,7 @@
                                             <ul class="sub_content_ul">
                                                 <li><button type="button" class="btn_subpop" value="searchPeriod=30">1개월전</button></li>
                                                 <li><button type="button" class="btn_subpop" value="searchPeriod=180">6개월전</button></li>
-                                                <li><button type="button" class="btn_subpop" value="searchPeriod=365">1년전</button></li>
+                                                <li><button type="button" class="btn_subpop" value="searchPeriod=365">1 년 전</button></li>
                                                 <li><button type="button" class="btn_subpop" value="searchPeriod=0">전체기간</button></li>
                                             </ul>
                                         </div>
@@ -454,14 +591,13 @@
                             </div> -->
 
 
-                            <!-- <div class="order_wrap">
+                            <div class="order_wrap">
                                 <div class="order_content_head">
                                     <div>
                                         <span>주문번호 : 61</span> <span>주문날짜 : 2021-06-10</span>
                                     </div>
                                     <div><a href="#none">더보기 <i class="fas fa-caret-right"></i></a></div>
                                 </div>
-                            -----------------------------------------------------------
                                 <div class="order_product">
 
                                     <div class="img_wrap">
@@ -480,9 +616,8 @@
                                     </div>
 
                                 </div>
-                            -----------------------------------------------------------
 
-                            </div> -->
+                            </div>
 
                         </div>
 
@@ -513,6 +648,7 @@ let sessionId = JSON.parse(sessionStorage.getItem("login"));
 console.log(sessionId);
 
 $(document).ready(function() {
+    getMyStoryList(); //내가 쓴 글 리스트
     getMyOrderStatusCount();// 배송갯수
     getMyOrderList(getSortData()); // 구매 리스트
 
@@ -654,6 +790,42 @@ function getMyOrderList(jdata) {
 	});
 }
 
+//내가 쓴 글 리스트
+function getMyStoryList() {
+	$.ajax({
+		url:"http://localhost:3000/getMyStoryList",
+		type:"post",
+		success:function(list){
+            console.log(list);
+            let app='';
+            if (Object.keys(list).length == 0) {
+                app = '<a href="../community/story.html"><div class="story_blank">당신의 소중한 집을 사진과 글로 자랑해주세요.</div></a>'
+            } else {
+                $.each(list, function (i, val) {
+                    app+= '<div class="story_box"><div class="story_wrap">'
+                    app+= '<a href="../community/storyDetail.html?seq='+val.cardSeq+'">'
+                    app+= '<div class="story_title">'+val.cardTitle+'</div>'
+                    app+= '<div class="story_content">'+setStoryLength(val.cardContent)+'</div></a>'
+                    app+= '<div class="story_footer">'
+                    app+= '<span>'+makeDate(val.cardDate)+'</span><span>좋아요 '+val.fCount+'</span>'
+                    app+= '<span>댓글수 '+val.rCount+'</span><span>조회수 '+val.cardReadCount+'</span></div>'
+                    app+= '<div class="story_tag">'
+                    app+= '<a href="../community/story.html?tagHomeType='+val.tagHomeType+'">#'+val.tagHomeType+'</a>'
+                    app+= '<a href="../community/story.html?tagStyle='+val.tagStyle+'">#'+val.tagStyle+'</a>'
+                    app+= '<a href="../community/story.html?tagColor='+val.tagColor+'">#'+val.tagColor+'</a>'
+                    app+= '</div></div>'
+                    app+= '<div class="story_img_wrap">'
+                    app+= '<a href="../community/storyDetail.html?seq='+val.cardSeq+'">'
+                    app+= '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                    app+= '</a></div></div>'
+                });
+            }
+            $('.storys_content').html(app);
+        },
+		error:function(){ console.log('error'); }
+	});
+}
+
 // 날짜 형식
 function makeDate(str) {
     return String(str.replace('T',' ').substr(0,10))
@@ -663,6 +835,35 @@ function makeComma(str) {
     str = String(str);
     return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 };
+// 글 내용 길이 제한
+function setStoryLength(str) {
+    let len = str.length;
+    if(len>130){ return str.substr(0,130); }
+    else{        return str }
+};
+
 </script>
 
 </html>
+
+<!-- SELECT C.CARDSEQ, CARDTITLE, CARDCONTENT, CARDFILENAME, CARDDATE, CARDREADCOUNT,
+TAGCOLOR, TAGHOMETYPE, TAGSTYLE
+,NVL(FCOUNT,0), NVL(RCOUNT,0)
+FROM CARD_COLLECTIONS C, CARD_TAG T
+,(SELECT CARDSEQ, COUNT(*)FCOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ ORDER BY CARDSEQ) F
+,(SELECT CARDSEQ, COUNT(*)RCOUNT FROM CARD_REVIEW WHERE CARDREVDEL = 0 GROUP BY CARDSEQ ORDER BY CARDSEQ) R
+WHERE C.CARDSEQ = T.CARDSEQ(+) AND CARDDEL = 0
+AND C.CARDSEQ = F.CARDSEQ(+)
+AND C.CARDSEQ = R.CARDSEQ(+)
+AND USERSEQ=2
+ORDER BY C.CARDSEQ
+
+
+SELECT Q.QUESTIONSEQ,Q.USERSEQ,QCOUNT,QUESTIONTITLE,QUESTIONCONTENT,QUESTIONREADCOUNT,QUESTIONREGDATE,QUESTIONFILENAME,QUESTIONDEL
+FROM QUESTION Q,
+(SELECT QUESTIONSEQ, COUNT(*) QCOUNT FROM Q_COMMENT WHERE QCDEL=0 GROUP BY QUESTIONSEQ ORDER BY QUESTIONSEQ) C
+WHERE QUESTIONDEL=0
+AND Q.QUESTIONSEQ=C.QUESTIONSEQ(+)
+AND USERSEQ=2
+ORDER BY QUESTIONSEQ
+ -->

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>완벽한 자취생활, 완자</title>
+
+<link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon"> <!-- 브라우저 탭 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
+<!-- 부트스트랩 -->
+<link rel="stylesheet" type="text/css" href="../../assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> <!-- jQuery UI css -->
+<link rel="stylesheet" type="text/css" href="../../css/admin/calendar.css"> <!-- 달력 -->
+<link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통 -->
+
+<style>
+body{
+    background-color: #eee;
+}
+
+/* 메인 */
+.main_panel{
+    position: relative;
+    float: right;
+    width: calc(100% - 260px);
+    transition: .33s,cubic-bezier(.685,.0473,.346,1);
+}
+
+/* 반응형 */
+@media(max-width: 991px){
+    .sidebar{
+        top: 0; left: 0;
+        right: auto;
+        z-index: 100;
+        visibility: visible;
+        background-color: #ededed;
+        overflow-y: visible;
+        transform: translate3d(-260px,0,0);
+        transition: all .33s cubic-bezier(.685,.0473,.346,1);
+    }
+    .main_panel{
+        height: 100%;
+        max-height: 100%;
+        width: 100%;
+        transform: translate3d(-0px,0,0);
+        transition: all .33s cubic-bezier(.685,.0473,.346,1)
+    }
+    .navbar-toggler .icon-bar:nth-child(2) {
+        top: 0;
+        animation: all .5s 0s;
+        animation-fill-mode: forwards;
+    }
+    .side_open{
+        transform: translateZ(0);
+    }
+}
+@media(min-width: 991px){
+    .navbar-toggler {
+        display: none;
+    }
+}
+
+/* 메인 내용 */
+/* 검색 */
+.search_wrap{
+    margin: 10px 40px;
+    position: relative;
+    z-index: 10;
+}
+.search_box{
+    display: flex;
+    align-items: center;
+    height: 90px;
+    min-width: 1260px;
+    margin: 20px; padding: 20px 40px 20px 300px;
+    border-radius: 5px;
+    background-color: #35ab6f;
+    color: white;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
+                0 7px 10px -5px rgb(133 217 174 / 40%);
+}
+
+/* 날짜검색 */
+.search_date{
+    width: 300px;
+    display: flex;
+}
+.move_input{
+    margin: 0 10px 0 0;
+    display: inherit;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 130px; height: 50px;
+    background-color: transparent;
+    color: white;
+}
+.move_input.active label{
+    top: -2px; left: 1px;
+    font-size: 0.7em;
+    transition: all .3s ease;
+}
+.move_input label{
+    position: absolute;
+    top: 0.9em; left: 0.6em;
+    margin: 0;
+    pointer-events: none;
+    transition: all .3s ease;
+}
+.move_input input{
+    margin: 0px 0 0 0;
+    padding: 0 0px;
+    width: 120px; height: 32px;
+    text-align: center;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: solid 2px white;
+}
+/* 데이트피커 설정 */
+#ui-datepicker-div select{
+    text-align-last: center;
+    width: 40%;
+    border: none;
+    border-radius: 5px;
+    margin-right: 2px;
+}
+#ui-datepicker-div .ui-datepicker-header{
+    border: none;
+    background: #56c084;
+    color: #222222;
+    font-weight: bold;
+}
+#ui-datepicker-div .ui-datepicker-header a{
+    margin-top: 4px;
+}
+#ui-datepicker-div .ui-datepicker-month{
+    margin-left: 10px;
+}
+#ui-datepicker-div .ui-datepicker-title option{
+    text-align-last: center;
+}
+#ui-datepicker-div .ui-state-default{
+    border: #35ab6f;
+    background: transparent;
+    color: #424242;
+    text-align: center;
+    width: 40px; height: 30px;
+    border-radius: 50%;
+}
+#ui-datepicker-div .ui-state-default:hover{
+    background: #35ab6f;
+    color: white;
+}
+/* 검색 카테고리 */
+.select_category{
+    margin: 0 10px 0 200px;
+    position: relative;
+}
+.move_label{
+    position: absolute;
+    top: 0.22em; left: -0.4em;
+    margin: 0;
+    pointer-events: none;
+    transition: all .3s ease;
+}
+.move_label.active{
+    top: -1.1em; left: -0.5em;
+    font-size: 0.7em;
+    transition: all .3s ease;
+}
+.select_category label:last-of-type{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2px 0 0 -10px;
+    width: 100px; height: 30px;
+    border: none;
+    border-bottom: solid 2px white;
+    background-color: transparent;
+}
+.select_category select:focus+i{
+    margin: 5px 5px 0 0;
+    transform: rotate(180deg);
+    transition: 0.2s ease;
+}
+.select_category select{
+    margin-right: -15px;
+    height: 100%; width: 100%;
+    background-color: transparent;
+    padding: 0 10px;
+    border: none;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    z-index: 2;
+}
+.select_category option{
+    color: #424242;
+}
+.select_category i{
+    position: relative;
+    margin: -5px 5px 0 0;
+    color: white;
+    z-index: 1;
+    transition: 0.2s ease;
+}
+
+/* 검색어 검색 */
+.search{
+    margin: 0 0 0 10px;
+    min-width: 260px;
+}
+.search input{
+    border: none;
+    width: 200px; height: 30px;
+    padding: 0 10px;
+    background-color: transparent;
+    color: white;
+    border-bottom: solid 2px white;
+    font-size: 12pt;
+}
+.search_date input:focus,
+.search input:focus{
+    outline: none;
+}
+.search input::placeholder{
+    color: white;
+}
+.search_btn{
+    width: 40px; height: 40px;
+    border: none;
+    border-radius: 50%;
+    color: #999;
+    background-color: white;
+    font-size: 12pt;
+    box-shadow: 2px 2px 0 rgb(0,0,0,0.5);
+}
+.search_btn:hover{
+    background-color: rgb(255 255 255 / 90%);;
+    color: #777;
+}
+.search_btn:active{
+    position: relative;
+    top:2px;
+    box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+}
+/* 테이블 세부 내용 */
+.table_wrap{
+    min-width: 1300px;
+    margin: -40px 40px 10px 40px;
+    padding: 30px 30px 10px 30px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%),
+                0 7px 10px -5px rgb(133 217 174 / 40%);
+}
+.head_tab{
+    display: flex;
+    align-items: center;
+    margin: 0 0 10px 0;
+}
+/* 배송상태 선택 */
+.select_category,
+.select_status{
+    display: flex;
+}
+.select_status label{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 20px 0 -10px;
+    width: 115px; height: 40px;
+    border: solid #35ab6f;
+    border-radius: 5px;
+    background-color: #35ab6f;
+    z-index: 2;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+.select_category select:focus+i,
+.select_status select:focus+i{
+    margin: 5px 5px 0 0;
+    transform: rotate(180deg);
+    transition: 0.2s ease;
+}
+.select_status select{
+    margin-right: -15px;
+    height: 100%; width: 100%;
+    background-color: transparent;
+    padding: 0 10px;
+    border: none;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    z-index: 2;
+}
+option{
+    color: #424242;
+}
+select:focus{
+    outline: none;
+}
+.select_category i,
+.select_status i{
+    position: relative;
+    margin: -5px 5px 0 0;
+    color: white;
+    z-index: 1;
+    transition: 0.2s ease;
+}
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+select::-ms-expand{
+    display: none;
+}
+
+.table td{
+    vertical-align: middle;
+    word-break:break-all;
+    font-size: 11pt;
+}
+.tab_btn{
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #35ab6f;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+.tab_btn:active{
+    background: radial-gradient(#35ab6f,#56c084);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1)
+}
+
+/* 페이징 */
+.admin_page{
+    min-height: 100px;
+    margin: 30px 0;
+}
+#admin_items .pagination{
+    justify-content: center;
+}
+#admin_items .page-item.active .page-link{
+    background-color: #35ab6f;
+    border-color: #35ab6f;
+    color: white;
+}
+#admin_items a{
+    color: #424242;
+}
+#admin_items .page-link:focus{
+    box-shadow: none;
+}
+/* 체크박스 색 바꾸기 */
+#table1 .custom-checkbox{
+    margin-left: 30px;
+}
+#table1 .custom-control-label::before,
+#table1 .custom-control-label::after{
+    top: 0.15rem; left: -1.8rem;
+    width: 1.3rem; height: 1.3rem;
+}
+#table1 .custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #35ab6f;
+    background-color: #35ab6f;
+}
+#table1 .custom-control-input:focus~.custom-control-label::before {
+    box-shadow: none;
+}
+#table1 .custom-control-input:focus:not(:checked)~.custom-control-label::before {
+    border-color: #adb5bd
+}
+#table1 .custom-control-input:not(:disabled):active~.custom-control-label::before {
+    color: #fff;
+    background-color: #82a593;
+    border-color: #82a593;
+}
+
+</style>
+
+</head>
+<body> 
+    
+<div class="container-fluid" style="height: 100vh;">
+
+    <!-- 사이드바 메뉴 -->
+    <div include-html="sidebar.html"></div>
+
+    <!-- 메인화면 -->
+    <div class="main_panel">
+        <div class="p-4" style="height: 80px;"><!-- 헤드 -->
+            <!-- 사이드바 토글 버튼 -->
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#side_accordion">
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+                <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
+        </div>
+        
+        <!-- 검색화면 -->
+        <div class="search_wrap">
+            <form id="search_form">
+            <div class="search_box">
+                <!-- 날짜 -->
+                <div class="search_date">
+                    <div class="move_input">
+                        <label>시작일</label>
+                        <input type="text" class="datepicker s_date" name="startDate">
+                    </div>
+                    <div class="move_input">
+                        <label>종료일</label>
+                        <input type="text" class="datepicker e_date" name="endDate">
+                    </div>
+                </div>
+
+                <!-- 카테고리 -->
+                <div class="select_category">
+                    <label class="move_label">검색종류</label>
+                    <label for="sele2"><select name="sort" id="sele2">
+                        <option value="0"></option>
+                        <option value="1">주문번호</option>
+                        <option value="2">제품명</option>
+                        <option value="3">배송지역</option>
+                        <option value="4">주문자</option>
+                        <option value="5">전화번호</option>
+                    </select><i class="fas fa-sort-down"></i></label>
+                </div>
+
+                <!-- 검색 -->
+                <div class="search">
+                    <input type="text" placeholder="검색..." name="word">
+                    <button type="button" class="search_btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            </form>
+        </div>
+        
+        <!-- 테이블박스 -->
+        <div class="table_wrap" id="table1">
+            <div class="head_tab">
+                <div class="custom-checkbox mx-5 my-3" id="checkbox_all">
+                    <input type="checkbox" class="custom-control-input" id="cb">
+                    <label for="cb" class="custom-control-label"></label>
+                    <span>전체체크</span>
+                </div>
+                <div class="select_status">
+                    <label for="sele1"><select name="dly_status" id="sele1">
+                        <option value="-1">-주문상태-</option>
+                        <option value="0">배송준비</option>
+                        <option value="1">배송중</option>
+                        <option value="2">배송완료</option>
+                        <option value="3">결제대기</option>
+                        <option value="4">결제완료</option>
+                        <option value="5">환불대기</option>
+                        <option value="6">환불완료</option>
+                        <option value="7">판매완료</option>
+                    </select><i class="fas fa-sort-down"></i></label>
+
+                    <button type="button" class="tab_btn" id="status_change">변 경</button>
+                </div>
+            </div>
+
+            <table class="table table-hover text-center">
+                <colgroup>
+                    <col width="56"><col width="100"><col width="86"><col width="96">
+                    <col width="auto"><col width="56"><col width="86"><col width="80">
+                    <col width="160"><col width="110"><col width="105"><col width="86">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>체크</th><th>주문번호</th><th>주문상태</th><th>주문일시</th>
+                        <th>제품명</th><th>수량</th><th>배송지역</th><th>주문자</th>
+                        <th>전화번호</th><th>금액</th><th>사용포인트</th><th>결제수단</th>
+                    </tr>
+                </thead>
+                <tbody class="dlv_List">
+                    <!-- 배송현황 리스트  -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="admin_page" id="admin_items">
+            <!-- 배송현황 페이지 번호 -->
+        </div>
+        
+    </div>
+
+</div>
+
+
+</body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script><!-- jQuery UI 라이브러리 -->
+<script src="../../js/jquery.twbsPagination.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/adminSide.js"></script>
+
+<script>
+$(document).ready(function() {
+    getDeliveryStatusCount(getFormData()); //전체 리스트 불러오기
+
+    $('.search_btn').click( function() { // 검색버튼
+        getDeliveryStatusCount(getFormData());
+    });
+
+    $('#status_change').click( function() { //상태변경버튼
+        let jdata = getCheckData()
+        let status = $('#sele1 option:selected').val()
+        if(status>-1){
+            $.ajax({
+                url: "http://localhost:3000/changeDeliveryStatus",
+                type: "get",
+                data: {orderSeq:jdata,orderStatus:status},
+                success: function(msg) { 
+                    console.log(msg)
+                    getDeliveryStatusCount(getFormData());
+                },
+                error: function() { console.log('error'); }
+            });
+        }
+    });
+
+    $('.move_input input').focus( function() { // 날짜 선택시 글씨 이동 이벤트
+        $(this).parent().addClass('active')
+    });
+    $('.move_input input').change( function() {
+        if($(this).val()==''){
+            $(this).parent().removeClass('active')
+        }
+    });
+    $('#sele2').focus( function() { // 카테고리 선택시 글씨 이동 이벤트
+        $('.move_label').addClass('active')
+    });
+    $('#sele2').change( function() {
+        if($(this).val()==0){
+            $('.move_label').removeClass('active')
+        }
+    });
+    $('.search input').keypress( function(k) {
+        if (k.keyCode == 13) {
+            $('.search_btn').click()
+        }
+    });
+
+    $(document).on('click','#table1 tbody tr', function() { //테이블 누르면 체크
+        let tr = $(this).find('input[type="checkbox"]');
+        let c = tr.prop("checked");
+        if(c){
+            tr.prop("checked",false);
+        }else{
+            tr.prop("checked",true);
+        }
+        autoCheck()
+    });
+
+    // 체크박스 전체선택, 전체해제
+    $(document).on("click", '#table1 input[type="checkbox"]', function () {
+        if($(this).attr('name') != 'chk'){
+            $('#table1 table').find('input[type="checkbox"]').prop("checked", $(this).is(":checked"));
+        }
+        autoCheck()
+    });
+    
+    $.datepicker.setDefaults({
+        showAnim:'slideDown',
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'yy-mm-dd',
+        monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+        dayNames: ['일','월','화','수','목','금','토'],
+        dayNamesShort: ['일','월','화','수','목','금','토'],
+        dayNamesMin: ['일','월','화','수','목','금','토'],
+        showMonthAfterYear: true,
+        yearSuffix: '년' 
+    });
+    $('.s_date').datepicker({
+        onClose: function( selectedDate ) {
+            $(".e_date").datepicker( "option", "minDate", selectedDate );
+        }   
+    });
+    $('.e_date').datepicker({
+        onClose: function( selectedDate ) {
+            $(".s_date").datepicker( "option", "maxDate", selectedDate );
+        }   
+    });
+
+});
+
+function autoCheck() {
+    let chkLength = $('input:checkbox[name="chk"]');
+    let chkLength2 = $('input:checkbox[name="chk"]:checked');
+
+    if (chkLength.length == chkLength2.length) {
+        $('#cb').prop("checked", true);
+        $('#checkbox_all').find('span').text('전체해제');
+    } else {
+        $('#cb').prop("checked", false);
+        $('#checkbox_all').find('span').text('전체체크');
+    }
+};
+
+// 배송현황 리스트
+function getDeliveryList(fdata) {
+    $.ajax({
+        url: "http://localhost:3000/getDeliveryStatusList",
+        type: "post",
+        data: fdata,
+        success: function (list) {
+            console.log(list)
+            let app=''
+            $(".dlv_List").html(''); //초기화
+            if (list.length == 0) {
+                app = '<tr><td colspan="12"><h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3></td></tr>'
+            }
+            else {
+                $.each(list, function (i, val) {
+                    app+= '<tr><td><div class="custom-checkbox"><input type="checkbox" class="custom-control-input" id="'+val.orderSeq+'" name="chk">'
+                        + '<label for="'+val.orderSeq+'" class="custom-control-label"></label></div></td>'
+                        + '<td>'+val.orderSeq+'</td>'
+                        + '<td>'+makeStatus(val.orderStatus)+'</td>'
+                        + '<td>'+makeDate(val.orderDate)+'</td>'
+                        + '<td>'+val.productName;
+
+                    if(val.productQuantity-1>0){  app += ' 외 '+(val.productQuantity-1)+'개'  }
+                    app+= '</td><td>'+val.totalQuantity+'개</td>'
+                        + '<td><div>'+val.deliveryAddress.split(' ')[0]+'</div><div>'+val.deliveryAddress.split(' ')[1]+'</div></td>'
+                    
+                    if(val.userName==0){ app += '<td>'+val.nickName+'</td>' }
+                    else{                app += '<td>'+val.userName+'</td>' }
+                    
+                    app +='<td>'+val.phone+'</td>'
+                        + '<td>'+makeComma(val.totalAmount)+'원</td>'
+                        + '<td>'+val.useMileage+' P</td>'
+                        + '<td>'+val.amountType.toUpperCase()+'</td>'
+                });
+
+            }
+            $(".dlv_List").append(app);
+        },
+        error: function () { console.log('error'); }
+    });
+};
+
+//글의 총 수를 구하는 함수
+function getDeliveryStatusCount(jdata) {
+	$.ajax({
+		url:"http://localhost:3000/getDeliveryStatusCount",
+		type:"get",
+		data:jdata,
+		success:function(count){ loadPage(count); },
+		error:function(){ console.log('error'); }
+	});
+}
+
+//페이지 처리를 하는 함수
+function loadPage(totalCount) {
+	let pageSize = 7;
+	let nowPage = 1;
+	
+	let _totalPages = totalCount / pageSize;
+	console.log("페이지수:"+_totalPages);
+	
+	if(totalCount%pageSize > 0){
+		_totalPages = Math.ceil(_totalPages);
+		//_totalPages++;
+	}
+	//$(".admin_page").twbsPagination("destroy"); //초기화
+	$(".admin_page").twbsPagination({
+		startPage: 1,
+		totalPages: _totalPages,
+		visiblePages:5, //페이지번호를 몇개까지 보일건가
+		first:'<span sria-hidden="true">«</span>',
+		prev:"이전",
+		next:"다음",
+		last:'<span sria-hidden="true">»</span>',
+		initiateStartPageClick:false, //온 페이지 클릭이 자동실행여부 결정
+		onPageClick:function(event,page){
+			nowPage = page;
+			console.log('nowPage : '+page);
+            getDeliveryList(getFormData())
+		}
+	});
+    if(_totalPages>0){
+        $(".admin_page").twbsPagination("changeTotalPages",_totalPages,nowPage);
+    }else{
+        $(".admin_page").twbsPagination("changeTotalPages",1,1);
+    }
+}
+
+//페이지 번호와 폼 데이터 가져오기
+function getFormData() {
+    let fdata = decodeURIComponent($('#search_form').serialize());
+    let pNum = 0;
+    $('.pagination>li').each(function(i){
+        if($(this).hasClass('active')){
+            pNum = $(this).text()-1;
+        }
+    });
+    fdata += '&startNum='+(pNum*7+1)+'&endNum='+(pNum*7+7)
+    console.log(fdata);
+    return fdata
+}
+
+// 금액 콤마 삽입 정규식
+function makeComma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+};
+
+// 날짜 형식
+function makeDate(str) {
+    return String(str.replace('T',' ').substr(2,14))
+};
+
+// 테이블 배송상태 입력
+function makeStatus(num) {
+    let status = ['배송준비','배송중','배송완료','결제대기','결제완료','환불대기','환불완료']
+    if(!isNaN(Number(num))){ return status[num] }
+    else{           return '확인불가' }
+};
+
+//체크된 상자 시퀀스 번호 배열로 리턴
+function getCheckData() {
+    let data=[], k=0;
+    $('.dlv_List input[type="checkbox"]').each(function(i){
+        if(this.checked){
+            data[k] = $(this).attr('id');
+            k++;
+        }
+    });
+    return data
+}
+
+</script>
+
+</html>
