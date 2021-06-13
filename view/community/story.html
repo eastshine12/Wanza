@@ -264,6 +264,31 @@
 
 <script>
 $(document).ready(function() {
+    let tagHomeType = tagStyle = tagColor = 0;
+    tagHomeType = getParameter("tagHomeType");
+    tagStyle = getParameter("tagStyle");
+    tagColor = getParameter("tagColor");
+
+    //파라미터 값 받아왔을때 정렬 세팅
+    if(!(tagHomeType==0 && tagStyle==0 && tagColor==0)){
+        if(tagHomeType!=0){
+            $('.btn_pop:eq(1)').html(tagHomeType+' <i class="fas fa-sort"></i>').val('tagHomeType='+tagHomeType);
+        }
+        if(tagStyle!=0){
+            $('.btn_pop:eq(2)').html(tagStyle+' <i class="fas fa-sort"></i>').val('tagStyle='+tagStyle);
+        }
+        if(tagColor!=0){
+            let btnVal='';
+            $('.color button[class=btn_subpop]').each(function(i){
+                if($(this).val()=='tagColor='+tagColor){ btnVal = $(this).html(); }
+            });
+            $('.btn_pop:eq(3)').html(btnVal+' <i class="fas fa-sort"></i>').val('tagColor='+tagColor);
+        }
+        getCardSortList(setJdata());
+    }else{
+        getCardList();
+    }
+
     $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 메뉴 호버시 색
         $('.pop_content').toggleClass('active')
     });
@@ -277,9 +302,8 @@ $(document).ready(function() {
             $(this).parents('.pop_wrap').children('.btn_pop').html($(this).text()+' <i class="fas fa-sort"></i>')
             $(this).parents('.pop_wrap').children('.btn_pop').val(val);
         }
-        let data = setJdata();
-        console.log( data );
-        getCardSortList(data);
+        console.log( setJdata() );
+        getCardSortList(setJdata());
         $('.sort_clear').show();
     });
     
@@ -314,7 +338,6 @@ $(document).ready(function() {
 
 
 // '인기 인테리어 사진' 리스트
-getCardList();
 function getCardList() {
     $.ajax({
         url: "http://localhost:3000/getCardList",
@@ -400,6 +423,15 @@ function getCardSortList(data) {
         error: function () {  console.log('error')   }
     });
 }
+
+//파라미터값 가져오도록 하는 함수
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 </script>
 
 
