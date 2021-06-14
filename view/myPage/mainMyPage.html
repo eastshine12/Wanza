@@ -143,13 +143,14 @@
 
 .story_img_wrap{
     position: relative;
-    margin: 0 0px 0 0;
+    margin: 0;
     height: 140px; width: 140px;
     border-radius: 4px;
     overflow: hidden;
 }
 .story_img_wrap img{
     height: 100%;
+    width: 100%;
     margin: 0;
 }
 .story_blank{
@@ -650,6 +651,15 @@ $(document).ready(function() {
     getMyStoryList(); //내가 쓴 글 리스트
     getMyOrderStatusCount();// 배송갯수
     getMyOrderList(getSortData()); // 구매 리스트
+    setTab(); // 쿠키에 따른 탭 활성화
+
+    //부트 탭 값 쿠키에 저장
+    $('.nav .nav-link').click(function(){
+        let a = $(this).text()
+        if(a=='나의 스토리'){ a=0 }
+        else{                 a=1 }
+        setCookie('nav',a,0.069)
+    });
 
     //유저정보입력
     if(sessionId.profileName != '0'){
@@ -704,6 +714,14 @@ $(document).ready(function() {
         $('.pop_content').toggleClass('active')
     });
 });
+//쿠기로 탭 설정함수
+function setTab() {
+    let a = getCookie('nav')
+    if(a==1){
+        $('.nav-link, .tab-pane').removeClass('active');
+        $('.nav .nav-link:eq(1), .tab-pane:eq(1)').addClass('active');
+    }
+}
 
 // 데이터 추출
 function getSortData(status) {
@@ -842,7 +860,21 @@ function setStoryLength(str) {
     if(len>130){ return str.substr(0,130); }
     else{        return str }
 };
-
+//쿠키 저장하기
+let setCookie = function(name, value, exp) {
+    let date = new Date();
+    date.setTime(date.getTime() + exp*24*60*60*1000);
+    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+};
+//쿠키 가져오기
+let getCookie = function(name) {
+    let value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return value? value[2] : null;
+};
+//쿠키 삭제하기
+let deleteCookie = function(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+}
 </script>
 
 </html>
