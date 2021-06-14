@@ -245,8 +245,6 @@
                 dataType: 'text',
                 success:function(code){
                     alert("kakao ajax 성공");
-
-                    
                 }, error:function(code){
                     alert("kakao ajax 실패");
                 }
@@ -256,14 +254,13 @@
         }
     }
     
-    
     $(document).on("click", "#kakao-btn", function(){
         $("#kakao-btn").on('click', function(){
         alert('로긴카카오 클릭됨');
-
          location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/login/login.html&response_type=code"
         })
     })
+
 
 /*
     let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
@@ -291,7 +288,7 @@
        
         
     
-
+ 
 
     function getCookie(name) {
         const value = "; " + document.cookie;
