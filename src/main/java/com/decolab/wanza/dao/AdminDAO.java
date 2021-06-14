@@ -46,8 +46,10 @@ public interface AdminDAO {
 
 	public int getRecentAddProductSeq();
 	
-	public List<ProductQuestionDTO> getProductQuestionList();
+	public List<ProductQuestionDTO> getProductQuestionList(ProductQuestionDTO dto);
 	
 	public int addProductAnswer(ProductQuestionDTO dto);
+	
+	public int getProductAnswerCount();
 	
 }

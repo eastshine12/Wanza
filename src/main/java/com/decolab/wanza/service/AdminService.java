@@ -82,12 +82,16 @@ public class AdminService {
 		return dao.getRecentAddProductSeq();
 	}
 	
-	public List<ProductQuestionDTO> getProductQuestionList() {
-		return dao.getProductQuestionList();
+	public List<ProductQuestionDTO> getProductQuestionList(ProductQuestionDTO dto) {
+		return dao.getProductQuestionList(dto);
 	}
 	
 	public int addProductAnswer(ProductQuestionDTO dto) {
 		return dao.addProductAnswer(dto);
+	}
+	
+	public int getProductAnswerCount() {
+		return dao.getProductAnswerCount();
 	}
 
 }

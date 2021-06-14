@@ -240,10 +240,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/getProductQuestionList", method = {RequestMethod.GET,RequestMethod.POST})
-	public List<ProductQuestionDTO> getProductQuestionList() {
+	public List<ProductQuestionDTO> getProductQuestionList(ProductQuestionDTO dto) {
 		System.out.println("AdminController getProductQuestionList() " + new Date());		
 		
-		return service.getProductQuestionList();
+		return service.getProductQuestionList(dto);
 	}
 	
 	
@@ -255,8 +255,13 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping(value = "/getProductAnswerCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public int getProductAnswerCount() {
+		System.out.println("AdminController getProductAnswerCount() " + new Date());		
+		return service.getProductAnswerCount();
+	}
 	
-	
+
 	
 	
 	

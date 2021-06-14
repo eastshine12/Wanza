@@ -17,10 +17,44 @@ public class ProductQuestionDTO implements Serializable {
 	private String nickname;
 	private String productName;
 	
+	private int pageNum;
+	private int selectVal1;
+	private int selectVal2;
+	private Date startDate;
+	private Date endDate;
 	
+
 	
 	public ProductQuestionDTO() {
 		// TODO Auto-generated constructor stub
+	}
+	
+
+	
+
+
+
+
+	public ProductQuestionDTO(int productQnASeq, int productSeq, int userSeq, int purchaseSeq, String productQContent,
+			String productAContent, Date productQnADate, int productQnADel, int productQnAPageNum, String nickname,
+			String productName, int pageNum, int selectVal1, int selectVal2, Date startDate, Date endDate) {
+		super();
+		this.productQnASeq = productQnASeq;
+		this.productSeq = productSeq;
+		this.userSeq = userSeq;
+		this.purchaseSeq = purchaseSeq;
+		this.productQContent = productQContent;
+		this.productAContent = productAContent;
+		this.productQnADate = productQnADate;
+		this.productQnADel = productQnADel;
+		this.productQnAPageNum = productQnAPageNum;
+		this.nickname = nickname;
+		this.productName = productName;
+		this.pageNum = pageNum;
+		this.selectVal1 = selectVal1;
+		this.selectVal2 = selectVal2;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
 
@@ -44,9 +78,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public int getProductQnASeq() {
 		return productQnASeq;
 	}
+
+
+
+
 
 
 
@@ -56,9 +98,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public int getProductSeq() {
 		return productSeq;
 	}
+
+
+
+
 
 
 
@@ -68,9 +118,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public int getUserSeq() {
 		return userSeq;
 	}
+
+
+
+
 
 
 
@@ -80,9 +138,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public int getPurchaseSeq() {
 		return purchaseSeq;
 	}
+
+
+
+
 
 
 
@@ -92,9 +158,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public String getProductQContent() {
 		return productQContent;
 	}
+
+
+
+
 
 
 
@@ -104,9 +178,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public String getProductAContent() {
 		return productAContent;
 	}
+
+
+
+
 
 
 
@@ -116,9 +198,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public Date getProductQnADate() {
 		return productQnADate;
 	}
+
+
+
+
 
 
 
@@ -128,9 +218,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public int getProductQnADel() {
 		return productQnADel;
 	}
+
+
+
+
 
 
 
@@ -140,9 +238,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public int getProductQnAPageNum() {
 		return productQnAPageNum;
 	}
+
+
+
+
 
 
 
@@ -152,9 +258,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public String getNickname() {
 		return nickname;
 	}
+
+
+
+
 
 
 
@@ -164,9 +278,17 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
 	public String getProductName() {
 		return productName;
 	}
+
+
+
+
 
 
 
@@ -176,17 +298,125 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+
+
+
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+
+
+
+
+
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+
+
+
+
+
+
+	public int getSelectVal1() {
+		return selectVal1;
+	}
+
+
+
+
+
+
+
+	public void setSelectVal1(int selectVal1) {
+		this.selectVal1 = selectVal1;
+	}
+
+
+
+
+
+
+
+	public int getSelectVal2() {
+		return selectVal2;
+	}
+
+
+
+
+
+
+
+	public void setSelectVal2(int selectVal2) {
+		this.selectVal2 = selectVal2;
+	}
+
+
+
+
+
+
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+
+
+
+
+
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+
+
+
+
+
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+
+
+
+
+
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "ProductQuestionDTO [productQnASeq=" + productQnASeq + ", productSeq=" + productSeq + ", userSeq="
 				+ userSeq + ", purchaseSeq=" + purchaseSeq + ", productQContent=" + productQContent
 				+ ", productAContent=" + productAContent + ", productQnADate=" + productQnADate + ", productQnADel="
 				+ productQnADel + ", productQnAPageNum=" + productQnAPageNum + ", nickname=" + nickname
-				+ ", productName=" + productName + "]";
+				+ ", productName=" + productName + ", pageNum=" + pageNum + ", selectVal1=" + selectVal1
+				+ ", selectVal2=" + selectVal2 + ", startDate=" + startDate + ", endDate=" + endDate + "]";
 	}
-
-
 	
+	
+	
+
+
+
 
 
 

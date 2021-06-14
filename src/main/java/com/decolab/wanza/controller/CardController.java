@@ -178,7 +178,7 @@ public class CardController {
 	
 	@RequestMapping(value = "/otherPictures", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<CardDTO> otherPictures(CardDTO dto) {
-		System.out.println(dto.getUserSeq());
+		System.out.println("otherPictures"+dto.toString());
 		System.out.println("CardController otherPictures() " + new Date());
 		return service.otherPictures(dto);
 	}
