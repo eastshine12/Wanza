@@ -46,4 +46,6 @@ public interface CardDAO {
 	
 	public List<CardDTO> otherPictures(CardDTO dto);
 	
+	public List<CardDTO> getSimilarCardList(CardDTO dto);
+	
 }

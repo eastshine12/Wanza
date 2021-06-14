@@ -95,5 +95,9 @@ public class CardService {
 	public List<CardDTO> otherPictures(CardDTO dto){
 		return dao.otherPictures(dto);
 	}
+	
+	public List<CardDTO> getSimilarCardList(CardDTO dto) {
+		return dao.getSimilarCardList(dto);
+	}
 
 }

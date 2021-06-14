@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -155,6 +156,7 @@ public class AdminController {
 			return "file upload fail";
 		}
 		
+		dto.setProductContent(StringEscapeUtils.unescapeHtml(dto.getProductContent()));
 		service.addProduct(dto);
 		int productSeq = service.getRecentAddProductSeq();
 		System.out.println(productSeq);
@@ -184,7 +186,7 @@ public class AdminController {
 		//System.out.println(list);
 		
 		int productSeq = service.getRecentAddProductSeq();
-		//System.out.println("상품번호 : "+productSeq);
+		System.out.println("상품번호 : "+productSeq);
 	
 		int opSeq = 1;
 		for(int i=0; i < list.size(); i++) {
@@ -195,7 +197,7 @@ public class AdminController {
 			}
 			list.get(i).setProductSeq(productSeq);
 			list.get(i).setOptionSeq(opSeq);			
-			//System.out.println(list.get(i).toString());
+			System.out.println(list.get(i).toString());
 			service.addProductOption(list.get(i));
 		}
 		

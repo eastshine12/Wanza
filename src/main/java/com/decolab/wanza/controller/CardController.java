@@ -184,6 +184,14 @@ public class CardController {
 	}
 	
 	
+	@RequestMapping(value = "/getSimilarCardList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<CardDTO> getSimilarCardList(CardDTO dto) {
+		System.out.println("CardController getSimilarCardList() " + new Date());
+		System.out.println("비슷한글 : "+dto.toString());
+		return service.getSimilarCardList(dto);
+	}
+	
+	
 	
 	
 
