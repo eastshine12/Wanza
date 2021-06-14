@@ -347,8 +347,7 @@ let sessionId = JSON.parse(sessionStorage.getItem("login"));
 if(sessionId == null) {
     sessionId = '';
 };
-const userSeq = sessionId.userSeq;
-$('#_userSeq').val(userSeq);
+
 
 
 let tagData;
@@ -367,6 +366,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 console.log(data);
+                $('#_userSeq').val(data.userSeq);
                 $('#_cardTitle').val(data.cardTitle);
                 $('#_cardContent').val(data.cardContent);
                 $('#text_cnt').html("(" + data.cardContent.length + " / 50)");
@@ -449,7 +449,7 @@ $('.update_btn').click(function() {
             type: "post",
             data: {
                 cardSeq: cardSeq,
-                userSeq: userSeq,
+                userSeq: $('#_userSeq').val(),
                 cardTitle: $('#_cardTitle').val(),
                 cardContent: $('#_cardContent').val(),
                 tagColor: $('#_tagColor').val(),
