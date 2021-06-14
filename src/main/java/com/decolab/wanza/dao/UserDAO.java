@@ -23,4 +23,6 @@ public interface UserDAO {
 	
 	public UserDTO getUserEmail(UserDTO dto);
 	
+	public UserDTO getUserAllInfo(UserDTO dto);
+	
 }

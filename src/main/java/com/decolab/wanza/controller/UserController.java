@@ -397,10 +397,16 @@ public class UserController {
     	helper.setSubject("[완자]"+dto.getNickname()+" 님의 신고접수"); //메일제목
     	helper.setText(emailcontent.toString(), true); //true넣을경우 html
     	mailSender.send(mimeMessage);
-		
-		
+	
+	}
+	
+	@RequestMapping(value = "/getUserAllInfo", method = {RequestMethod.GET,RequestMethod.POST})
+	public UserDTO getUserAllInfo(UserDTO dto) {
+		System.out.println("UserController getUserAllInfo() " + new Date() );
+		return service.getUserAllInfo(dto);
 		
 	}
+	
 	
 	
 	
