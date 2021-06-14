@@ -32,6 +32,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import util.SHA256;
+
 
 
 
@@ -50,6 +52,8 @@ public class UserController {
 	public String regi(UserDTO dto) {
 		System.out.println("UserController regi() " + new Date() );
 		System.out.println(dto.toString());
+		String encryptPwd = SHA256.encryptSHA256(dto.getPwd());
+		dto.setPwd(encryptPwd);
 			
 		return service.addUser(dto)>0?"suc":"err";
 	}
@@ -60,7 +64,8 @@ public class UserController {
 	public UserDTO login(UserDTO dto) {
 		System.out.println("UserController login() " + new Date() );
 		System.out.println(dto.toString());
-		
+		String encryptPwd = SHA256.encryptSHA256(dto.getPwd());
+		dto.setPwd(encryptPwd);
 		return service.login(dto);
 	}
 	
@@ -178,6 +183,8 @@ public class UserController {
 	public String newPwd(UserDTO dto) {
 		System.out.println("UserController newPwd() " + new Date() );
 		System.out.println(dto.toString());
+		String encryptPwd = SHA256.encryptSHA256(dto.getPwd());
+		dto.setPwd(encryptPwd);
 		
 		return service.newPwd(dto)>0?"suc":"err";
 		
@@ -393,7 +400,7 @@ public class UserController {
 		
 				
 		helper.setFrom("bit210324@gmail.com"); //보내는사람
-    	helper.setTo("janghs0282@naver.com"); //받는사람 - 운영자
+    	helper.setTo("bit2final@gmail.com"); //받는사람 - 운영자
     	helper.setSubject("[완자]"+dto.getNickname()+" 님의 신고접수"); //메일제목
     	helper.setText(emailcontent.toString(), true); //true넣을경우 html
     	mailSender.send(mimeMessage);
