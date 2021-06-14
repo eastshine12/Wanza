@@ -290,6 +290,22 @@
 #store_items .page-link:focus{
     box-shadow: none;
 }
+
+.del_icon {
+    color: rgb(255, 92, 92);
+    display: flex;
+    justify-content:flex-end;
+    margin-right:30px; 
+    
+}
+.fa.fa-minus-circle.fa-lg{
+    cursor: pointer;
+}
+.fa.fa-minus-circle.fa-lg:hover {
+    color: rgb(255, 173, 173);
+}
+
+
 </style>
 
 </head>
@@ -481,6 +497,12 @@ function getParameter(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+//로그인한 계정 닉네임 가져오기
+let sessionId = JSON.parse(sessionStorage.getItem("login"));
+if(sessionId == null) {
+    sessionId = '';
+};
+
 // 금액 콤마 삽입 정규식
 function makeComma(str) {
     str = String(str);
@@ -588,8 +610,13 @@ function getProductSortList(jdata) {
             } else {
                 $.each(list, function (i, val) {                        
                     app += '<div style="width: 350px; height: 400px; margin: 3px;">'
-                        +  '<article article class="project2_wrap" >'
-                        +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
+                        +  '<article article class="project2_wrap" >';
+                    
+                    if(sessionId != '' && sessionId.auth == 3) {
+                        app += '<div class="del_icon"><i name="delete_product_btn" seq="'+val.productSeq+'" class="fa fa-minus-circle fa-lg" aria-hidden="true"></i></div>'
+                    };
+                        
+                    app +=  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
                         +  '<div class="project2_item">'
                         +  '<span></span>'
                         +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
@@ -743,6 +770,35 @@ function getHashTagList() {
 
 $(document).on('click', '.tag', function() {
     location.href = "../commons/search.html?searchWord="+$(this).attr('hashTag');
+})
+
+// admin 상품 삭제 버튼
+$(document).on('click','i[name=delete_product_btn]' , function() {
+    if(confirm("정말 삭제하시겠습니까?")==true) {
+        let productSeq = $(this).attr('seq');
+
+        $.ajax({
+            url:"http://192.168.0.231:3000/deleteProduct",
+            method: "get",
+            data:{
+                productSeq: productSeq
+            },
+            success:function(data) {
+                if(data == "suc") {
+                    alert('상품 삭제가 완료되었습니다.');
+                }
+            },
+            error:function(){
+                alert('error');
+            },
+            complete:function(){
+                location.reload();
+            }
+        });
+
+    } else {
+        return;
+    }
 })
 
 

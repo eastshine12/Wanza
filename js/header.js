@@ -22,12 +22,14 @@ $(document).on('attr', '#headerSearch', function () {
 $(document).on('click', '#search-icon', function () {
 
     let searchVal = $("#headerSearch").val().trim();
+    //let encoded = encodeURI(searchVal);
+    let resultStr = XSSCheck(searchVal, 0);
+    
     
     if(slangFilter(searchVal)) {
         alert('비속어가 포함되어 있습니다.');
         return;
     }
-    
     // 검색어가 없는경우 placeholder값으로 입력
     if(searchVal==""){
         document.getElementById("headerSearch").setAttribute("value",$("#headerSearch").attr('placeholder'))
@@ -43,8 +45,10 @@ $(document).on('click', '#search-icon', function () {
             },
             error:function(){ console.log("검색error"); }
         });
-        location.href = "../commons/search.html?searchWord="+searchVal
+        location.href = "../commons/search.html?searchWord="+resultStr
     }
+
+    
 });
 
 
@@ -200,9 +204,20 @@ $(document).ready(function() {
         $('html, body').scrollTop(0);
     });
 
-   
-    
-
 
 });
 
+
+function XSSCheck(str, level) {
+    if(str.includes('[') || str.includes(']')) {
+        str = str.replace(/\[/g, "");
+        str = str.replace(/\]/g, "");
+    }
+    if (level == undefined || level == 0) {
+        str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g,"");
+    } else if (level != undefined && level == 1) {
+        str = str.replace(/\</g, "&lt;");
+        str = str.replace(/\>/g, "&gt;");
+    }
+    return str;
+}

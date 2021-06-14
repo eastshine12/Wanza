@@ -192,36 +192,6 @@
                         </div>
                         </article> 
                     </div>
-
-                    <div style="width: 150px;margin-right: 5px;">
-                        <article article class="project_wrap">
-                        <a href="#"></a>
-                        <div class="project_item">
-                            <span></span>
-                            <img src="../../assets/img/2222.jpg" width="150px" style="margin: 3px;">
-                        </div>
-                        </article> 
-                    </div>
-                    
-                    <div style="width: 150px;margin-right: 5px;">
-                        <article article class="project_wrap">                
-                        <div class="project_item">
-                            <a href="#"></a>
-                            <span></span>
-                            <img src="../../assets/img/완자에요.png"  style=" width: 180px; object-fit: cover; ">
-                        </div>
-                        </article> 
-                    </div>
-
-                    <div style="width: 150px;margin-right: 5px;">
-                        <article article class="project_wrap">                        
-                        <div class="project_item">
-                            <a href="#"></a>
-                            <span></span>
-                            <img src="../../assets/img/완자에요.png" style=" width: 180px; object-fit: cover;">
-                        </div>
-                        </article> 
-                    </div>
                     -->
                     
                 </div>
@@ -313,61 +283,6 @@
                             </div>
                         </article>
                     </div>
-
-
-                    <div style="width: 90px;margin-right: 7px;">
-                        <article article class="project_wrap">
-                            <a href="#"></a>
-                            <div class="project_item">
-                                <span></span>
-                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
-                            </div>
-                        </article>
-                    </div>
-
-
-                    <div style="width: 90px;margin-right: 7px;">
-                        <article article class="project_wrap">
-                            <a href="#"></a>
-                            <div class="project_item">
-                                <span></span>
-                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
-                            </div>
-                        </article>
-                    </div>
-
-
-                    <div style="width: 90px;margin-right: 7px;">
-                        <article article class="project_wrap">
-                            <a href="#"></a>
-                            <div class="project_item">
-                                <span></span>
-                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
-                            </div>
-                        </article>
-                    </div>
-
-
-                    <div style="width: 90px;margin-right: 7px;">
-                        <article article class="project_wrap">
-                            <a href="#"></a>
-                            <div class="project_item">
-                                <span></span>
-                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
-                            </div>
-                        </article>
-                    </div>
-
-
-                    <div style="width: 90px;margin-right: 7px;">
-                        <article article class="project_wrap">
-                            <a href="#"></a>
-                            <div class="project_item">
-                                <span></span>
-                                <img src="../../assets/img/978a6658c39f5857b77d5af8f27e13d3.jpg">
-                            </div>
-                        </article>
-                    </div>
                     -->
                 </div>
             </div>
@@ -379,9 +294,10 @@
                 <h3><strong>비슷한 인테리어 추천</strong></h3>
             </div>
         </div>
-        <div class="row"></div>
+        <div id="similarCardList" class="row" style="margin:40px 0;"><!-- 비슷한 인테리어 리스트 생성되는 곳 --></div>
     </div>
 </div>
+
 <!-- 모달 -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -456,6 +372,10 @@
 
     $(document).ready(function() {
 
+        let tagColor = "";
+        let tagHomeType = "";
+        let tagStyle = "";
+
         // 신고하기 버튼 클릭
         $("#goAdmin").click(function(){
 
@@ -481,7 +401,6 @@
         })
 
         // 다른 사진 리스트
-        
         function otherPictures(){
             $.ajax({
                 url:"http://localhost:3000/otherPictures",
@@ -509,14 +428,13 @@
                             app2+=' <div style="width: 150px;margin-right: 5px;">'
                                 +'<article article class="project_wrap">'
                                 +'<div class="project_item">'
-                                +'<a href="#"></a>'
                                 +'<span></span>'
                                 +'<img src="../../assets/img/완자에요.png"  style=" width: 180px; object-fit: cover; ">'
                                 +'</div>'
                                 +'</article>'
                                 +'</div>';
                         }
-                         $("#otherPictures").append(app2);   
+                        $("#otherPictures").append(app2);   
                     }
 
                 },error:function(){
@@ -539,6 +457,7 @@
                 data: {
                     "cardSeq": seq
                 },
+                async: false,
                 success: function (data) {
                     console.log(data);
                     $('#tagHomeType').text(data.tagHomeType);
@@ -551,9 +470,12 @@
                     $('#nickName').text(data.nickName);
                     $('#cardContent').text(data.cardContent);
                     $("#otherPictures").append("<input type='hidden' id='otherSeq' value='"+data.userSeq+"'>");
-                    if(data.userSeq == sessionId.userSeq) {
+                    if(data.userSeq == sessionId.userSeq || sessionId.auth == 3) {
                         $('#updateDelete').show();
                     }
+                    tagColor = data.tagColor;
+                    tagHomeType = data.tagHomeType;
+                    tagStyle = data.tagStyle;
                 },
                 error: function () {
                     alert('getCardDetail() error');
@@ -698,6 +620,51 @@
         });
 
 
+    // 비슷한 인테리어 글 가져오기
+    getSimilarCardList();
+    function getSimilarCardList() {
+        $.ajax({
+            url: "http://192.168.0.231:3000/getSimilarCardList",
+            type: "get",
+            data: {
+                "cardSeq": seq,
+                "tagColor": tagColor,
+                "tagHomeType": tagHomeType,
+                "tagStyle": tagStyle
+            },
+            success: function (list) {
+                console.log(list);
+
+                let app = ""
+                if (Object.keys(list).length == 0) {
+                    app += '<div style="width: 320px; margin-right: 50px;">'
+                        + '<h3 style="font-size: 15px; margin-top: 10px;"> 비슷한 인테리어 글이 없어요 :(</h3>'
+                        + "</div>";
+                    $("#similarCardList").append(app);
+                } else {
+                    $.each(list, function (i, val) {
+
+                        app += '<div style="width: 320px; margin-right: 50px;">'
+                            +   '<article article class="project_wrap" >'
+                            +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
+                            +     '<div class="project_item" style="padding-bottom: 66.66667%;">'
+                            +      '<span></span>'
+                            +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                            +     '</div>'
+                            +   '</article>'
+                            +  '</div >'
+
+                    });
+                    $("#similarCardList").append(app);
+                }
+
+                
+            },
+            error: function () {
+                alert('getSimilarCardList() error');
+            }
+        });
+    };
         
 
 
@@ -771,10 +738,8 @@
                     for(let i=0; i < 4-JSON.stringify(list.length); i++){
                         itemList += '<div style="width: 150px;margin-right: 7px;">'
                         +'<article article class="project_wrap">'
-                           
                             +'<div class="project_item">'
                                 +'<span></span>'
-                                +'<a href="#"></a>'
                                 +'<img src="../../assets/img/완자에요.png">'
                             +'</div>'
                         +'</article>'
@@ -797,15 +762,9 @@
 
 
     $(document).on('click', 'span[name=reportModal]', function() {
-            console.log($(this).attr('id'));
-            $('#report_nickname').val($(this).attr('id'));
-        });
-
-
-    
-
-
-
+        console.log($(this).attr('id'));
+        $('#report_nickname').val($(this).attr('id'));
+    });
 
 
 
