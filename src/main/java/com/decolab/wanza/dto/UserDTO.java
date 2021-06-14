@@ -20,12 +20,15 @@ public class UserDTO implements Serializable {
 	private String gender;
 	private String birth;
 	
+	private String addressName;  // 배송지 명
+	private String address;	     // 주소
+	private String receiveUser;	 // 받는 사람 이름
+	private String receivePhone; //주문 받는사람 번호
+	
 	public UserDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-
 	//카카오로 얻어오는 정보
 	public UserDTO(String email, String nickname, String agerange, String gender, String birth) {
 		super();
@@ -35,9 +38,67 @@ public class UserDTO implements Serializable {
 		this.gender = gender;
 		this.birth = birth;
 	}
+	
+	
 
 
 
+
+	public UserDTO(int userSeq, String email, String pwd, String userName, String nickname, String profileName,
+			String phone, int auth, Date userDate, int mileage, int defaultAddress, String agerange, String gender,
+			String birth, String addressName, String address, String receiveUser, String receivePhone) {
+		super();
+		this.userSeq = userSeq;
+		this.email = email;
+		this.pwd = pwd;
+		this.userName = userName;
+		this.nickname = nickname;
+		this.profileName = profileName;
+		this.phone = phone;
+		this.auth = auth;
+		this.userDate = userDate;
+		this.mileage = mileage;
+		this.defaultAddress = defaultAddress;
+		this.agerange = agerange;
+		this.gender = gender;
+		this.birth = birth;
+		this.addressName = addressName;
+		this.address = address;
+		this.receiveUser = receiveUser;
+		this.receivePhone = receivePhone;
+	}
+
+	public String getAddressName() {
+		return addressName;
+	}
+
+	public void setAddressName(String addressName) {
+		this.addressName = addressName;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getReceiveUser() {
+		return receiveUser;
+	}
+
+	public void setReceiveUser(String receiveUser) {
+		this.receiveUser = receiveUser;
+	}
+
+	public String getReceivePhone() {
+		return receivePhone;
+	}
+
+	public void setReceivePhone(String receivePhone) {
+		this.receivePhone = receivePhone;
+	}
 
 	public String getAgerange() {
 		return agerange;
