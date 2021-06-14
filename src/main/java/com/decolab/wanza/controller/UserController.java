@@ -74,7 +74,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/kakaologin", method = {RequestMethod.GET,RequestMethod.POST})
-	public UserDTO kakaologin(@RequestParam(value="code", required=false) String code, UserDTO dto) {
+	public void kakaologin(@RequestParam(value="code", required=false) String code, UserDTO dto) {
 		System.out.println("UserController kakaologin() " + new Date() );
 		System.out.println(dto.toString());
 		System.out.println("code : " + code);
@@ -83,7 +83,11 @@ public class UserController {
 		System.out.println("accesstoken : " + accesstoken);
 		
 		HashMap<String, Object> userInfo = getUserInfo(accesstoken);
-	    System.out.println("login Controller : " + userInfo);
+	    System.out.println("UserController : " + userInfo);
+	    
+	    dto.setEmail((userInfo.get("email")).toString());
+	    dto.setNickname((userInfo.get("nickname")).toString());
+	    
 	    
 	    /*
 	    if (userInfo.get("email") != null) {
@@ -91,7 +95,7 @@ public class UserController {
 	        session.setAttribute("access_Token", accesstoken);
 	    }
 		*/
-		return service.kakaologin(dto);
+		service.kakaologin(dto);
 	}
 	
 	/*이거로가
@@ -284,6 +288,7 @@ public class UserController {
         return access_Token;
     }
 	
+	@SuppressWarnings("deprecation")
 	public HashMap<String, Object> getUserInfo (String access_Token) {
 	    
 	    //    요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
@@ -309,8 +314,8 @@ public class UserController {
 	            result += line;
 	        }
 	        System.out.println("response body : " + result);
-	        
-	        JsonParser parser = new JsonParser();
+
+			JsonParser parser = new JsonParser();
 	        JsonElement element = parser.parse(result);
 	        
 	        JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
