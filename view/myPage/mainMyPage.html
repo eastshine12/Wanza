@@ -146,7 +146,6 @@
     margin: 0 0px 0 0;
     height: 140px; width: 140px;
     border-radius: 4px;
-    border: solid;
     overflow: hidden;
 }
 .story_img_wrap img{
@@ -698,6 +697,7 @@ $(document).ready(function() {
             console.log('333333333333')
         });
         $(this).css('display','none');
+        getMyOrderList(getSortData());
     });
 
     $('.sub_content_ul li:first-of-type .btn_subpop').hover( function() { // 정렬순 메뉴 호버시 꼬다리색
@@ -764,7 +764,7 @@ function getMyOrderList(jdata) {
                         if(i>0){app+= '</div>';}
                         app+= '<div class="order_wrap"><div class="order_content_head">'
                         app+= '<div><span>주문번호 : '+val.orderSeq+'</span><span>주문날짜 : '+makeDate(val.orderDate)+'</span></div>'
-                        app+= '<div><a href="#none">더보기 <i class="fas fa-caret-right"></i></a></div></div>'
+                        app+= '<div><a href="../store/storeDetail.html?seq='+val.productSeq+'">더보기 <i class="fas fa-caret-right"></i></a></div></div>'
                     }
                     //상품시작
                     app+= '<div class="order_product"><div class="img_wrap">'
@@ -807,8 +807,8 @@ function getMyStoryList() {
                     app+= '<div class="story_title">'+val.cardTitle+'</div>'
                     app+= '<div class="story_content">'+setStoryLength(val.cardContent)+'</div></a>'
                     app+= '<div class="story_footer">'
-                    app+= '<span>'+makeDate(val.cardDate)+'</span><span>좋아요 '+val.fCount+'</span>'
-                    app+= '<span>댓글수 '+val.rCount+'</span><span>조회수 '+val.cardReadCount+'</span></div>'
+                    app+= '<span>작성일 '+makeDate(val.cardDate)+'</span><span>좋아요 '+val.likeCount+'</span>'
+                    app+= '<span>댓글수 '+val.sort+'</span><span>조회수 '+val.cardReadCount+'</span></div>'
                     app+= '<div class="story_tag">'
                     app+= '<a href="../community/story.html?tagHomeType='+val.tagHomeType+'">#'+val.tagHomeType+'</a>'
                     app+= '<a href="../community/story.html?tagStyle='+val.tagStyle+'">#'+val.tagStyle+'</a>'
@@ -828,8 +828,9 @@ function getMyStoryList() {
 
 // 날짜 형식
 function makeDate(str) {
-    return String(str.replace('T',' ').substr(0,10))
+    return String(str.replace('T',' ').substr(2,8).replaceAll('-','.'))
 };
+
 // 금액 콤마 삽입 정규식
 function makeComma(str) {
     str = String(str);
@@ -846,19 +847,7 @@ function setStoryLength(str) {
 
 </html>
 
-<!-- SELECT C.CARDSEQ, CARDTITLE, CARDCONTENT, CARDFILENAME, CARDDATE, CARDREADCOUNT,
-TAGCOLOR, TAGHOMETYPE, TAGSTYLE
-,NVL(FCOUNT,0), NVL(RCOUNT,0)
-FROM CARD_COLLECTIONS C, CARD_TAG T
-,(SELECT CARDSEQ, COUNT(*)FCOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ ORDER BY CARDSEQ) F
-,(SELECT CARDSEQ, COUNT(*)RCOUNT FROM CARD_REVIEW WHERE CARDREVDEL = 0 GROUP BY CARDSEQ ORDER BY CARDSEQ) R
-WHERE C.CARDSEQ = T.CARDSEQ(+) AND CARDDEL = 0
-AND C.CARDSEQ = F.CARDSEQ(+)
-AND C.CARDSEQ = R.CARDSEQ(+)
-AND USERSEQ=2
-ORDER BY C.CARDSEQ
-
-
+<!-- 
 SELECT Q.QUESTIONSEQ,Q.USERSEQ,QCOUNT,QUESTIONTITLE,QUESTIONCONTENT,QUESTIONREADCOUNT,QUESTIONREGDATE,QUESTIONFILENAME,QUESTIONDEL
 FROM QUESTION Q,
 (SELECT QUESTIONSEQ, COUNT(*) QCOUNT FROM Q_COMMENT WHERE QCDEL=0 GROUP BY QUESTIONSEQ ORDER BY QUESTIONSEQ) C

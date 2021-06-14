@@ -271,6 +271,7 @@ $(document).ready(function() {
 
     //파라미터 값 받아왔을때 정렬 세팅
     if(!(tagHomeType==0 && tagStyle==0 && tagColor==0)){
+        $('.sort_clear').show();
         if(tagHomeType!=0){
             $('.btn_pop:eq(1)').html(tagHomeType+' <i class="fas fa-sort"></i>').val('tagHomeType='+tagHomeType);
         }

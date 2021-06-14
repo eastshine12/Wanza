@@ -144,13 +144,13 @@
 .keyword-item:hover,
 .keyword-item:focus,
 .keyword-item:active {
-    background-color: #ededed
+    /* background-color: #ededed */
 }
 @media(min-width: 768px) {
     .keyword-item:hover,
     .keyword-item:focus,
     .keyword-item:active {
-        text-decoration: underline
+        /* text-decoration: underline */
     }
 }
 .keyword-item.search-highlight {
