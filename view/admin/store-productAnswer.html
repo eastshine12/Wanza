@@ -506,11 +506,9 @@ select::-ms-expand{
                     <label class="move_label">검색종류</label>
                     <label for="sele2"><select name="search_category" id="sele2">
                         <option value="0"></option>
-                        <option value="1">주문번호</option>
-                        <option value="2">제품명</option>
-                        <option value="3">배송지역</option>
-                        <option value="4">주문자</option>
-                        <option value="5">전화번호</option>
+                        <option value="1">QnA번호</option>
+                        <option value="2">상품명</option>
+                        <option value="3">작성자</option>
                     </select><i class="fas fa-sort-down"></i></label>
                 </div>
 
@@ -560,6 +558,14 @@ select::-ms-expand{
         
         <div class="admin_page" id="admin_items">
             <!-- 배송현황 페이지 번호 -->
+            <!-- Pagination -->
+            <div id="reviewPage" class="row" style="margin-top: 20px;" style="justify-content:center;">
+                <div class="col offset-xl-3">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination" id="pagination"></ul>
+                    </nav>
+                </div>
+            </div>
         </div>
         
     </div>
@@ -575,8 +581,17 @@ select::-ms-expand{
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ko.js"></script> <!-- 날짜 포맷 라이브러리 -->
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/adminSide.js"></script>
+<script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
 
 <script>
+
+
+let selectVal1=0;
+let selectVal2=0;
+let sdate=new Date('1900-1-1');
+let edate=new Date('2200-12-31');
+
+
 $(document).ready(function() {
 
     $('div[name=itemDetail]').hide();
@@ -613,13 +628,6 @@ $(document).ready(function() {
         autoCheck()
     });
 
-    // 체크박스 전체선택, 전체해제
-    $(document).on("click", '#table1 input[type="checkbox"]', function () {
-        if($(this).attr('name') != 'chk'){
-            $('#table1 table').find('input[type="checkbox"]').prop("checked", $(this).is(":checked"));
-        }
-        autoCheck()
-    });
     
     $.datepicker.setDefaults({
         showAnim:'slideDown',
@@ -645,14 +653,24 @@ $(document).ready(function() {
         }   
     });
 
-    
+    $('.search_btn').click(function() {
+        alert($('.s_date').val());
+        alert($('.e_date').val());
+    });
 
     // '문의 글' 리스트
-    getProductQuestionList();
-    function getProductQuestionList() {
+    getProductQuestionList(selectVal1,selectVal2,0,sdate,edate);
+    function getProductQuestionList(selectVal1, selectVal2, pageNum, sdate, edate) {
         $.ajax({
             url: "http://192.168.0.231:3000/getProductQuestionList",
             type: "get",
+            data: {
+                "selectVal1" : selectVal1,
+                "selectVal2" : selectVal2,
+                "pageNum": pageNum,
+                "startDate": sdate,
+                "endDate": edate
+            },
             success: function (list) {
 
                 console.log(list);
@@ -754,6 +772,67 @@ $(document).ready(function() {
         });
     };
 
+    // 글 총 수 가져오기
+    getProductAnswerCount()
+    function getProductAnswerCount() {
+
+        $.ajax({
+            url: "http://192.168.0.231:3000/getProductAnswerCount",
+            type: "get",
+            success: function (totalCount) {
+                console.log(totalCount);
+                loadPage(totalCount);
+            },
+            error: function () {
+                alert('getProductAnswerCount() error');
+            }
+        });
+
+    };
+
+
+    // 글 페이징 처리
+    function loadPage(totalCount, selectVal1, selectVal2, sdate, edate) {
+
+        let pageSize = 10;
+        let nowPage = 1;
+        let _totalPages = Math.floor(totalCount / pageSize);
+        if (totalCount % pageSize > 0) {
+            _totalPages++;
+        }
+
+        $("#pagination").twbsPagination('destroy');	// 데이터가 갱신되면 페이징 갱신
+
+
+        $("#pagination").twbsPagination({
+            //	startPage: 1,
+            totalPages: _totalPages,
+            visiblePages: 10,
+            first: '<span aria-hidden="true">«</span>',
+            prev: false,
+            next: false,
+            last: '<span aria-hidden="true">»</span>',
+            initiateStartPageClick: false,		// onPageClick 자동 실행되지 않도록 한다
+            onPageClick: function (event, page) {
+                nowPage = page;
+                getProductQuestionList(selectVal1, selectVal2, page-1, sdate, edate);
+            },
+        });
+
+        //$("#pagination").twbsPagination('changeTotalPages', _totalPages, nowPage);
+
+    };
+
+    // 입력상태 select
+    $(document).on('change', '[name=dly_status]', function() {
+        selectVal1 = $(this).val();
+        getProductQuestionList(selectVal1,selectVal2,0,sdate,edate)
+    });
+    // 검색종류 select
+    $(document).on('change', '[name=search_category]', function() {
+        selectVal2 = $(this).val();
+        getProductQuestionList(selectVal1,selectVal2,0,sdate,edate)
+    });
 
 
     $(document).on('click', 'button[name=insertAnswerBtn]', function() {
