@@ -64,6 +64,19 @@ WHERE USERSEQ = #{userSeq} AND 4 >= ROWNUM AND CARDDEL=0
 ORDER BY CARDDATE DESC
 </select>
 
+<!-- 비슷한 글 가져오기 -->
+<select id="getSimilarCardList" parameterType="com.decolab.wanza.dto.CardDTO" resultType="com.decolab.wanza.dto.CardDTO">
+SELECT C.CARDSEQ, C.CARDFILENAME
+FROM CARD_COLLECTIONS C, CARD_TAG T
+WHERE T.CARDSEQ NOT IN (#{cardSeq}) AND C.CARDSEQ = T.CARDSEQ AND C.CARDDEL=0
+    AND (
+    (TAGCOLOR=#{tagColor} AND TAGHOMETYPE=#{tagHomeType} AND TAGSTYLE=#{tagStyle})
+    OR(TAGCOLOR=#{tagColor} AND TAGHOMETYPE=#{tagHomeType})
+    OR (TAGHOMETYPE=#{tagHomeType} AND TAGSTYLE=#{tagStyle})
+    OR (TAGCOLOR=#{tagColor} AND TAGSTYLE=#{tagStyle})
+    )
+</select>
+
 
 <!-- cardSeq 가져오기 -->
 <select id="getCardSeq" parameterType="com.decolab.wanza.dto.CardDTO" resultType="int">

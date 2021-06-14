@@ -99,4 +99,9 @@ public class CardService {
 	public List<CardDTO> getMyStoryList(CardDTO dto) {
 		return dao.getMyStoryList(dto);
 	}
+
+	public List<CardDTO> getSimilarCardList(CardDTO dto) {
+		return dao.getSimilarCardList(dto);
+	}
+
 }

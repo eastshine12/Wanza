@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,7 +38,8 @@ public class OrderController {
 			return "exist";
 		}
 		
-		System.out.println("OrderController addCart() " + new Date());		
+		System.out.println("OrderController addCart() " + new Date());
+		dto.setSelectOption(StringEscapeUtils.unescapeHtml(dto.getSelectOption()));
 		System.out.println(dto.toString());
 		
 		return service.addCart(dto)>0?"suc":"err";

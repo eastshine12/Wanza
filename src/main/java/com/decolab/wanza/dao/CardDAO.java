@@ -45,7 +45,9 @@ public interface CardDAO {
 	public int cardReviewDelete(CardReviewDTO dto);
 	
 	public List<CardDTO> otherPictures(CardDTO dto);
-	
+
 	public List<CardDTO> getMyStoryList(CardDTO dto);
+  
+	public List<CardDTO> getSimilarCardList(CardDTO dto);
 	
 }
