@@ -301,8 +301,13 @@
 
 </body>
 
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
+
 <script>
-  $(document).ready(function(){
+$(document).ready(function(){
 
   //로그인한 계정 닉네임 가져오기
   let sessionId = JSON.parse(sessionStorage.getItem("login"));
@@ -317,38 +322,12 @@
 
   let seq = urlParams.seq;	// html 에서 html 이동할때 값 가져가는 그런 코드
 
-  // 작성 시간 나타내기
-  function timeForToday(value) {
-    const today = new Date();
-    const timeValue = new Date(value);
-
-    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
-    if (betweenTime < 1) return '방금 전';
-    if (betweenTime < 60) {
-        return `${betweenTime}분 전`;
-    }
-
-    const betweenTimeHour = Math.floor(betweenTime / 60);
-    if (betweenTimeHour < 24) {
-        return `${betweenTimeHour}시간 전`;
-    }
-
-    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
-    if (betweenTimeDay < 365) {
-        return `${betweenTimeDay}일 전`;
-    }
-
-    return `${Math.floor(betweenTimeDay / 365)}년 전`;
-}
-
-  
-
     //질문글 가져와서 뿌려주기
     $.ajax({
       url:"http://localhost:3000/getAllQuestionList",
       type: "get",
       success:function(list){
-
+        console.log(list)
         $.each(list, function(i, val){
           
           var pfname = val.profileName;
@@ -382,11 +361,11 @@
               }
               console.log(qccount);
             }, error:function(data){
-              alert('questionCommentCount 실패')
+              console.log('questionCommentCount 실패')
             }
           });
 
-          console.log(val);
+          //console.log(val);
 
           let app = "<div class='questions-item' >"
                     + "<a class='questions-item-link' href="
@@ -450,16 +429,36 @@
 
                     $("#questions-list-container").append(app);
                   });
-        
       }, error:function(list){
-        alert('getAllQuestionList 에러')
+        console.log('getAllQuestionList 에러')
       }
     })
 
 
   });
 
+// 작성 시간 나타내기
+function timeForToday(value) {
+    const today = new Date();
+    const timeValue = new Date(value);
+    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+    if (betweenTime < 1) return '방금 전';
+    if (betweenTime < 60) {
+        return `${betweenTime}분 전`;
+    }
 
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+        return `${betweenTimeHour}시간 전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+        return `${betweenTimeDay}일 전`;
+    }
+
+    return `${Math.floor(betweenTimeDay / 365)}년 전`;
+}
   
 
   
@@ -486,23 +485,20 @@
     
   }
 
-  //질문에 답변하기
-  function questionanswer(){
+//질문에 답변하기
+function questionanswer(){
     if(sessionId == null) {
         sessionId = '';
         alert('로그인해주세요');
         location.href="../login/login.html";
-    } else {
-    console.log(sessionId);
-    location.href = "questionanswer.html";
+    }
+    else {
+      console.log(sessionId);
+      location.href = "questionanswer.html";
     }
   }
 
-  </script>
-<script src="../../assets/js/jquery.min.js"></script>
-<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="../../js/includeHTML.js"></script>
-<script src="../../js/header.js"></script>
+</script>
 
 
 </html>

@@ -6,6 +6,7 @@
     <title>완벽한 자취생활, 완자</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -129,7 +130,10 @@
           font-family: 'Nanum Gothic', sans-serif;
           font-weight: 500;
         }   
-
+        .question-detail-img{
+            width: 200px;
+            height: 200px;
+        }
         .col-xl-2 .question-detail-sidebar{
             position: sticky;
             top: 100px;
@@ -195,27 +199,31 @@
             color: black; 
             font-size: 16px;
         }
-
         .sidebar-body{
             margin-top: 15px; 
             margin-bottom: 15px;
             padding-top: 15px;
         }
-
         .comment-feed-item .p{
             font-size: 13px;
         }
-
         .comment-feed-item-content-nothing{
             color: coral;
             font-weight: 800;
             text-align: center;
         }
-
-        
-    
-        
-        </style>
+        .sidebar-footer{
+            width: 270px;
+            text-align: center;
+        }
+        .comment-feed-item-reply{
+            position: relative;
+            margin: 10px 0;
+        }
+        .comment-feed-item-reply img{
+            top: -5px;
+        }
+    </style>
 
 
            
@@ -307,9 +315,9 @@
                             </div>
                             <div class="comment-feed-form-actions">
                                 <button class="comment-feed-form-photo" value="사진 업로드" type="button">
-                                    <svg width="24" height="20" viewBox="0 0 24 20" preserveAspectRatio="xMidYMid meet">
+                                    <!-- <svg width="24" height="20" viewBox="0 0 24 20" preserveAspectRatio="xMidYMid meet">
                                         <path fill="#292929" fill-rule="nonzero" d="M3.22 20C1.446 20 0 18.547 0 16.765V6.176c0-1.782 1.446-3.235 3.22-3.235h3.118L7.363.377A.586.586 0 0 1 7.903 0h8.195c.24.003.453.152.54.377l1.024 2.564h3.118c1.774 0 3.22 1.453 3.22 3.235v10.589C24 18.547 22.554 20 20.78 20H3.22zm0-1.176h17.56a2.037 2.037 0 0 0 2.05-2.06V6.177c0-1.15-.904-2.058-2.05-2.058h-3.512a.585.585 0 0 1-.54-.368l-1.024-2.574H8.296L7.27 3.75a.585.585 0 0 1-.54.368H3.22a2.037 2.037 0 0 0-2.05 2.058v10.589c0 1.15.904 2.059 2.05 2.059zM12 17.059c-3.064 0-5.561-2.51-5.561-5.588 0-3.08 2.497-5.589 5.561-5.589s5.561 2.51 5.561 5.589c0 3.079-2.497 5.588-5.561 5.588zm0-1.177a4.392 4.392 0 0 0 4.39-4.411A4.392 4.392 0 0 0 12 7.059a4.392 4.392 0 0 0-4.39 4.412A4.392 4.392 0 0 0 12 15.882z"></path>
-                                    </svg>
+                                    </svg> -->
                                 </button>
                                 <button class="comment-feed-form-submit" value="등록" type="button">등록</button>
                             </div>
@@ -343,7 +351,7 @@
                         </ul>
                       
                     
-
+<!-- 
                     <ul class="list-paginator">
                         <li>
                             <button class="list-paginator-page sm selected" type="button">1</button>
@@ -364,7 +372,7 @@
                             </button>
                         </li>
                     </ul>
-                    
+                     -->
                 </div>
             </div>
 
@@ -373,25 +381,26 @@
 
     <div class="col-xl-2" >
             <div class="question-detail-sidebar" >
+                <!--
                 <div class="sidebar-header">
                     <div class="sidebar-header-writer">
                         <div class="row">
                             <div class="questions-writer-image" >
                                 <img class="questions-writer-image-image" src="" style="width: 50px; height: 50px; border-radius: 70%"
-                                onerror="this.src='../image/avatar.png'"> <!--프로필사진, 에러시 프로필사진 -->
-                            </div>
-                            <div class="questions-writer-nickname"><!--유저닉네임-->
-                                <div class="questions-writer-profile" ></div><!--유저프로필네임-->
-                            </div>
+                                onerror="this.src='../image/avatar.png'">--> <!--프로필사진, 에러시 프로필사진 -->
+                <!--            </div>
+                            <div class="questions-writer-nickname">--><!--유저닉네임-->
+                                <!--<div class="questions-writer-profile" ></div>--><!--유저프로필네임-->
+                            <!--</div>
                             
                         </div>
                     </div>
                 </div>
-
                 <div class="sidebar-body" style="margin-top: 15px; margin-bottom: 15px; padding-top: 15px;">
                     <button class="share-button">공유하기</button>
                 </div>
                 <hr>
+            -->
                 <div class="sidebar-footer">
                     <h3 style="font-size: 20px; font-weight: 500;">궁금한게 있으신가요?</h3>
                     <button class="q-button">질문하러가기</button>
@@ -407,6 +416,11 @@
     <footer include-html="../commons/footer.html"></footer>
 
 </body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
 
 <script>
 $(document).ready(function(){
@@ -510,6 +524,7 @@ $(document).ready(function(){
         type:'post',
         data:{questionSeq:seq},
         success:function(list){
+            console.log(list)
             var qdate = list.questionRegDate;
             const date2 = new Date(qdate);
             //alert(date2);
@@ -519,10 +534,10 @@ $(document).ready(function(){
 
             //alert('detail ajax 성공');
             //alert(JSON.stringify(list));
-            console.log(JSON.stringify(list));
+            //console.log(JSON.stringify(list));
             $('.question-detail-title').text(list.questionTitle);
-            $('.question-detail-content').html(list.questionContent);
             $('.question-detail-img').attr("src","http://localhost:3000/upload/"+list.questionFileName);
+            $('.question-detail-content').append(list.questionContent);
             $('.questions-writer-nickname').text(list.nickName);
             $('.questions-writer-profile').text(list.userName);
             $('#questionSeq').val(list.questionSeq);
@@ -550,98 +565,99 @@ $(document).ready(function(){
         type:'post',
         data:{questionSeq:seq},
         success:function(list){
-            //alert('CommentList ajax 성공');
-            console.log(JSON.stringify(list));
-            //alert(JSON.stringify(list));
-            $.each(list, function(i, val){
-                if(val.qcDel == 0){
-                var pfname = val.profileName;
-                if(pfname == 0 || pfname == null){
-                    //alert('pfname 들어옴');
-                    pfname = '../image/avatar.png';
-                }
-                console.log(val)
+            console.log(list)
+            let size = Object.keys(list).length;
+            let app = '';
+            if(size!=0){
+                $.each(list, function(i, val){
+                    if(val.qcDel == 0){
+                        var pfname = val.profileName;
+                        if(pfname == 0 || pfname == null){
+                            pfname = '../image/avatar.png';
+                        }
 
-                if(sessionId != undefined && sessionId.userSeq == val.userSeq){
-                    var apple = "<button onclick='commentdel(" + val.qcSeq + ")' > 삭제" + "</button>"
-                } else {
-                    apple = '';
-                }
+                        if(sessionId != undefined && sessionId.userSeq == val.userSeq){
+                            var apple = "<button onclick='commentdel(" + val.qcSeq + ")' > 삭제" + "</button>"
+                        } else {
+                            apple = '';
+                        }
 
-                if(isEmpty(val.qcSeq) == false){//onclick='commentreply(" + val.qcSeq + ")'
-                    var ripple = "<button class='cmtreply' type='button'>답글달기" + "</button>"
-                } else {
-                    ripple = '';
-                }
-
-                if(isEmpty(val.qcStep) == false || isEmpty(val.qcDepth) == false){
-                    var reply 
-                    = "<div='comment-feed-item-reply'>"
-                        + "<a href='#' class='comment-feed-item-content-author-name'>"
-                        + "<img class='comment-feed-item-content-author-image' src=' " 
-                            + pfname
-                        + "' >"
-                        + "<span class='questioncommentwriter'>" + val.nickName + "</span>"
-                        + "</a>"
-                        + "<span>"
-                            + val.qcContent
-                        + "</span>"
-                    + "</div>"
-                } else {
-                    reply = '';
-                }
-                
-                let app = "<li class='comment-feed-list-item'>"
-                            + "<div class='comment-feed-item'>"
-                                + "<div class='comment-feed-item-content'>"
-                                    + "<a href='#' class='comment-feed-item-content-author-name'>"
-                                        + "<img class='comment-feed-item-content-author-image' src=' " 
-                                        + pfname
-                                        + "' >"
-                                        + "<span class='questioncommentwriter'>" + val.nickName + "</span>"
-                                    + "</a>"
-                                    + "<span>"
+                        if(isEmpty(val.qcSeq) == false){//onclick='commentreply(" + val.qcSeq + ")'
+                            var ripple = "<button class='cmtreply' type='button'>답글달기" + "</button>"
+                        } else {
+                            ripple = '';
+                        }
+                        
+                        if(isEmpty(val.qcStep) == false || isEmpty(val.qcDepth) == false){
+                        //if(val.qcDepth==1){
+                            var reply 
+                            = "<div class='comment-feed-item-reply'>"
+                                + "<a href='#' class='comment-feed-item-content-author-name'>"
+                                + "<img class='comment-feed-item-content-author-image' src=' " 
+                                    + pfname
+                                + "' >"
+                                + "<span class='questioncommentwriter'>" + val.nickName + "</span>"
+                                + "</a>"
+                                + "<span> "
                                     + val.qcContent
-                                    + "</span>"
-                                + "</div>"
-                                + "<footer class='comment-feed-item-footer'>"
-                                    + "<time class='comment-feed-item-footer-time'>" + timeForToday(val.qcRegDate) + "</time>"    
-                                    + "<button> 좋아요 </button>"
-                                     + ripple //답글달기
-                                    + "<span>"
-                                        + "<a href='#'>신고</a>"
-                                    + "</span>"
-                                    + apple //삭제하기
-                                    + "<input type='hidden' value='" + val.qcSeq + "' class='hiddenseq'>"
-                                    + "<input type='hidden' value='" + val.qcRef + "' class='qcRef'>"
-                                    + "<input type='hidden' value='" + val.qcStep + "' class='qcStep'>"
-                                    + "<input type='hidden' value='" + val.qcDepth + "' class='qcDepth'>"
-                                + "</footer>"
-                                    + reply //댓글의 덧글 표기
-                                
+                                + "</span>"
                             + "</div>"
-                        + "</li>"
-
-                $("#comment-feed-list").append(app);
-
-                } else {
-                    let app = "<li class='comment-feed-list-item'>"
-                            + "<div class='comment-feed-item'>"
-                                + "<div class='comment-feed-item-content'>"
-                                    + "<p href='none' class='comment-feed-item-content-nothing'>"
-                                        + "표시할 댓글이 없습니다. "
-                                        + "댓글을 추가해주세요."
-                                    + "</p>"
-                                + "</div>"
+                        } else {
+                            reply = '';
+                        }
+                        
+                        
+                        if(val.qcDepth==0){
+                            if(i!=0){ app += "</div></li>" }
+                            app+= "<li class='comment-feed-list-item'>"
+                                    + "<div class='comment-feed-item'>"
+                                        + "<div class='comment-feed-item-content'>"
+                                            + "<a href='#' class='comment-feed-item-content-author-name'>"
+                                                + "<img class='comment-feed-item-content-author-image' src=' " 
+                                                + pfname
+                                                + "' >"
+                                                + "<span class='questioncommentwriter'>" + val.nickName + "</span>"
+                                            + "</a>"
+                                            + "<span>"
+                                            + val.qcContent
+                                            + "</span>"
+                                        + "</div>"
+                                        + "<footer class='comment-feed-item-footer'>"
+                                            + "<time class='comment-feed-item-footer-time'>" + timeForToday(val.qcRegDate) + "</time>"    
+                                            //+ "<button> 좋아요 </button>"
+                                            + ripple //답글달기
+                                            + "<span>"
+                                                + "<a href='#'>신고</a>"
+                                            + "</span>"
+                                            + apple //삭제하기
+                                            + "<input type='hidden' value='" + val.qcSeq + "' class='hiddenseq'>"
+                                            + "<input type='hidden' value='" + val.qcRef + "' class='qcRef'>"
+                                            + "<input type='hidden' value='" + val.qcStep + "' class='qcStep'>"
+                                            + "<input type='hidden' value='" + val.qcDepth + "' class='qcDepth'>"
+                                        + "</footer>";
+                        }
+                        if(val.qcDepth==1){ //댓글의 덧글 표기
+                            app+= reply;
+                        }
+                    }
+                });
+                app += "</div></li>";
+            }else {
+                app = "<li class='comment-feed-list-item'>"
+                        + "<div class='comment-feed-item'>"
+                            + "<div class='comment-feed-item-content'>"
+                                + "<p href='none' class='comment-feed-item-content-nothing'>"
+                                    + "표시할 댓글이 없습니다. "
+                                    + "댓글을 추가해주세요."
+                                + "</p>"
                             + "</div>"
-                        + "</li>"
+                        + "</div>"
+                    + "</li>"
+            }
+            $("#comment-feed-list").html(app);
 
-                $("#comment-feed-list").append(app);
-                }
-            });
-            
         }, error:function(list){
-            alert('CommentList ajax 실패');
+            console.log('CommentList ajax 실패');
         }
     });
     // 댓글 입력란 클릭 시 
@@ -666,16 +682,16 @@ $(document).ready(function(){
       }
       
       var form = $('#comment-feed-form').serialize();
-      console.log(form);
+      //console.log(form);
         $.ajax({
           url: 'http://localhost:3000/questionComment',
           type: 'post',
           data : form,
           success:function(list){
-            //alert('questionComment ajax성공');
+            console.log(list);
             rejax();
           }, error:function(list){
-            alert('questionComment ajax실패');
+            console.log('questionComment ajax실패');
           }
         });
     });
@@ -687,6 +703,9 @@ $(document).ready(function(){
         //alert($('input[type="hidden"]').val());
         //alert(reqseq);
         //한번 더 실행되었을때, 이미 적용되어있다면 초기화시켜줌.
+        
+        let a = $(this).parents('.comment-feed-item-footer').find('.hiddenseq').val();
+        console.log(a);
         $(this).parents('.comment-feed-list-item').find('.comment-reply').html('');
             let ripple  
                     = "<form class='comment-reply'>"
@@ -698,7 +717,7 @@ $(document).ready(function(){
                                 + "<input type='hidden' name='qcFileName' value='123'>"
                                 + "<input type='hidden' name='userSeq' value='" + sessionId.userSeq + "'>"
                                 + "<input type='hidden' name='questionSeq' value='" + $('#questionSeq').val() + "'>"
-                                + "<input type='hidden' name='qcSeq' value='" + $('.hiddenseq').val() + "'>"
+                                + "<input type='hidden' name='qcSeq' value='" + a + "'>"
                                 + "<input type='hidden' name='qcRef' value='" + $('.qcRef').val() + "'>"
                                 + "<input type='hidden' name='qcStep' value='" + $('.qcStep').val() + "'>"
                                 + "<input type='hidden' name='qcDepth' value='" + $('.qcDepth').val() + "'>"
@@ -724,38 +743,19 @@ $(document).ready(function(){
 
      //댓글에 덧글 작성하기
     $(document).on('click', "#qcbtn", function(list){
-        
         var form = $('.comment-reply').serialize();
-        alert('댓글에 덧글작성하기 버튼클릭');
         console.log(form);
-
             $.ajax({
-            url: 'http://localhost:3000/questionCommentAnswer',
-            type: 'post',
-            data : form,
-            success:function(list){
-                alert('CommentAnswer ajax성공');
-
-                //rejax();
-            }, error:function(list){
-                alert('CommentAnswer ajax실패');
-            }
-            })
-
-            /*
-            $.ajax({
-                url: 'http://localhost:3000/questionCommentAnswerStep',
+                url: 'http://localhost:3000/questionCommentAnswer',
                 type: 'post',
-                async : false,
+                data : form,
                 success:function(list){
-                    alert('CommentAnswerStep ajax성공');
-                    //rejax();
-                }, error:function(list){
-                    alert('CommentAnswerStep ajax실패');
+                    console.log(list);
+                    rejax();
+                }, error:function(){
+                    console.log('CommentAnswer ajax실패');
                 }
-                })
-            */
-
+            });
      });
      
 
@@ -792,12 +792,5 @@ $(document).ready(function(){
    
 
 </script>
-
-<script src="../../assets/js/jquery.min.js"></script>
-<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="../../js/includeHTML.js"></script>
-<script src="../../js/header.js"></script>
-
-
 
 </html>
