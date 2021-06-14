@@ -143,9 +143,9 @@ $(document).ready(function() {
                     +"</tr>"
 
                 $.each(list,function(i,val){                 
-                    app += "<li><b>"+(i+1)+"</b> &emsp;<a href='#' style='color: black;'>"+val.searchWord+"</a></li>";
+                    app += "<li><b>"+(i+1)+"</b> &emsp;<a href='../commons/search.html?searchWord="+val.searchWord+"' style='color: black;'>"+val.searchWord+"</a></li>";
                     app2 += "<tr>"
-                        +"<td colspan='2' style='margin-left:3px'><a href='#' style='color:black'><b style='color:#F18260'>"+(i+1)+". </b> "+val.searchWord+"</a></td>"
+                        +"<td colspan='2' style='margin-left:3px'><a href='../commons/search.html?searchWord="+val.searchWord+"' style='color:black'><b style='color:#F18260'>"+(i+1)+". </b> "+val.searchWord+"</a></td>"
                         +"</tr>";
 
                 });
