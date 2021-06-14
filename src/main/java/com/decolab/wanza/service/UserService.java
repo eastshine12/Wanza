@@ -36,8 +36,9 @@ public class UserService {
 		return dao.getUserInfo(userSeq);
 	}
 	
-	public UserDTO kakaologin(UserDTO dto) {
-		return dao.kakaologin(dto);
+	public void kakaologin(UserDTO dto) {
+		 dao.kakaologin(dto);
+		//return dao.kakaologin(dto);
 	}
 	
 	public UserDTO getUserNickname(UserDTO dto) {
