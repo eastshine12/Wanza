@@ -80,8 +80,8 @@ public class QuestionController {
 	@RequestMapping(value = "/questionCommentList", method = {RequestMethod.GET, RequestMethod.POST} )
 	public List<QuestionCommentDTO> questionCommentList(QuestionCommentDTO dto){
 		System.out.println("QuestionController questionCommentList()" + new Date());
+		System.out.println(dto.toString());
 		System.out.println(service.questionCommentList(dto));
-		
 		return service.questionCommentList(dto);
 	}
 	
