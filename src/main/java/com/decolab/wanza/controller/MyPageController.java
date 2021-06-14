@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.decolab.wanza.dto.CardDTO;
 import com.decolab.wanza.dto.MyPageDTO;
+import com.decolab.wanza.service.CardService;
 import com.decolab.wanza.service.OrderService;
 
 
@@ -17,6 +19,8 @@ public class MyPageController {
 	
 	@Autowired
 	OrderService orderService;
+	@Autowired
+	CardService cardService;
 
 	@RequestMapping(value = "/getMyOrderStatusCount", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<MyPageDTO> getMyOrderStatusCount(MyPageDTO dto) {
@@ -32,4 +36,10 @@ public class MyPageController {
 		return orderService.getMyOrderList(dto);
 	}
 	
+	@RequestMapping(value = "/getMyStoryList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<CardDTO> getMyStoryList(CardDTO dto) {
+		System.out.println("MyPageController getMyStoryList() " + new Date());
+		System.out.println(dto.toString());
+		return cardService.getMyStoryList(dto);
+	}
 }
