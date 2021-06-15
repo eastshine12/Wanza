@@ -35,6 +35,38 @@
 		ORDER BY QUESTIONSEQ DESC
 	</select>
 	
+	<!-- 질답게시판 통합해서 가져오기 -->
+	<select id="getQuestionList" parameterType="com.decolab.wanza.dto.QuestionDTO" resultType="com.decolab.wanza.dto.QuestionDTO">
+		SELECT * FROM(
+		SELECT Q.QUESTIONSEQ, Q.QUESTIONTITLE, Q.QUESTIONCONTENT, QUESTIONREADCOUNT, QUESTIONREGDATE, QUESTIONFILENAME, QUESTIONDEL,
+	       	   Q.USERSEQ, USERNAME, NICKNAME, PROFILENAME, AUTH, COMENTDATE, NVL(COMENTCOUNT,0) COMENTCOUNT, ROWNUM RNUM
+		FROM QUESTION Q, USERS U,
+			 (SELECT QUESTIONSEQ, MAX(QCREGDATE)COMENTDATE,COUNT(*)COMENTCOUNT FROM Q_COMMENT WHERE QCDEL=0 GROUP BY QUESTIONSEQ) C
+		WHERE Q.USERSEQ=U.USERSEQ AND QUESTIONDEL=0 AND Q.QUESTIONSEQ=C.QUESTIONSEQ(+)
+		<if test='searchWord neq "" and searchWord neq null' >
+			  AND (QUESTIONTITLE LIKE'%'||#{searchWord}||'%' OR QUESTIONCONTENT LIKE'%'||#{searchWord}||'%')
+		</if>
+		<choose>
+			<when test='sort eq 1'>ORDER BY QUESTIONREADCOUNT DESC</when>
+			<when test='sort eq 2'>ORDER BY COMENTDATE DESC NULLS LAST, QUESTIONREGDATE DESC</when>
+			<when test='sort eq 3'>AND COMENTDATE IS NULL ORDER BY QUESTIONREGDATE DESC </when>
+			<otherwise>ORDER BY QUESTIONREGDATE DESC</otherwise>
+		</choose>
+		) <if test='startPage neq "" and startPage neq null' >WHERE RNUM BETWEEN #{startPage} AND #{endPage}</if>
+	</select>
+	
+	<!-- 질답게시판 통합해서 글의 총 수 가져오기 -->
+	<select id="getQuestionCount" parameterType="com.decolab.wanza.dto.QuestionDTO" resultType="int">
+		SELECT COUNT(Q.QUESTIONSEQ)
+		FROM QUESTION Q,
+			 (SELECT QUESTIONSEQ, MAX(QCREGDATE)COMENTDATE,COUNT(*)COMENTCOUNT FROM Q_COMMENT WHERE QCDEL=0 GROUP BY QUESTIONSEQ) C
+		WHERE QUESTIONDEL=0 AND Q.QUESTIONSEQ=C.QUESTIONSEQ(+)
+		<if test='searchWord neq "" and searchWord neq null' >
+		        AND (QUESTIONTITLE LIKE'%'||#{searchWord}||'%' OR QUESTIONCONTENT LIKE'%'||#{searchWord}||'%')
+		</if>
+		<if test='sort neq "" and sort neq null and sort eq 3'>AND COMENTDATE IS NULL ORDER BY QUESTIONREGDATE DESC</if>
+	</select>
+		
 	<!-- 질문과답변 글쓰기 -->
 	<insert id="questionWrite" parameterType="com.decolab.wanza.dto.QuestionDTO">
 		INSERT INTO QUESTION
@@ -175,62 +207,13 @@
 		WHERE QCREF = (SELECT QCREF FROM Q_COMMENT WHERE QCSEQ=#{qcSeq})
 		AND QCSTEP >= (SELECT QCSTEP FROM Q_COMMENT WHERE QCSEQ=#{qcSeq}) 
 	</update>
-	
-	
+		
 	<!-- 질문과답변 조회수 -->
 	<insert id="questionReadCountUp" parameterType="com.decolab.wanza.dto.QuestionDTO">
 		UPDATE QUESTION
 		SET QUESTIONREADCOUNT = QUESTIONREADCOUNT + 1
 		WHERE QUESTIONSEQ = #{questionSeq}
 	</insert>
-	
-	
-	
-	
-	<!-- 질문과답변 목록 가져오기 -->
-	<!-- <select id="getQuestionList" resultType="com.decolab.wanza.dto.QuestionDTO">
-		SELECT QUESTIONSEQ, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONREADCOUNT, QUESTIONDATE, QUESTIONFILENAME, QUESTIONNEWFILENAME, QUESTIONDEL, 
-		QUESTIONREF, QUESTIONSTEP, QUESTIONDEPTH 
-		FROM (SELECT ROW_NUMBER()OVER(ORDER BY REF DESC, STEP ASC) AS RNUM,
-			  QUESTIONSEQ, QUESTIONTITLE, QUESTIONCONTENT, QUESTIONDATE, QUESTIONDEL, QUESTIONREADCOUNT, QUESTIONREF, QUESTIONSTEP, QUESTIONDEPTH
-			  FROM QUESTION
-			  WHERE 1=1
-			  <if test="choice != null and choice != ''
-			  		and search != null and search != ''">
-			  	  AND DEL=0		
-				  <if test="choice == 'title'">
-				  		AND TITLE LIKE '%'||#{search}||'%'		  
-				  </if>
-				  <if test="choice == 'content'">
-				  		AND CONTENT LIKE '%'||#{search}||'%'			  
-				  </if>
-				  <if test="choice == 'writer'">
-				  		AND ID=#{search}  
-				  </if>	
-			  </if>
-			ORDER BY REF DESC, STEP ASC)
-		WHERE RNUM BETWEEN ${start} AND ${end}
-	</select> -->
-	
-	<!-- 질문과답변 총수 --> 
-	<!-- <select id="getBbsCount" parameterType="bit.com.a.dto.BbsParam" resultType="java.lang.Integer">
-		SELECT NVL(COUNT(*), 0)
-		FROM BBS
-		WHERE 1=1
-		<if test="choice != null and choice != ''
-		  		and search != null and search != ''">	  	  		
-			  <if test="choice == 'title'">
-			  		AND TITLE LIKE '%'||#{search}||'%'		  
-			  </if>
-			  <if test="choice == 'content'">
-			  		AND CONTENT LIKE '%'||#{search}||'%'			  
-			  </if>
-			  <if test="choice == 'writer'">
-			  		AND ID=#{search}  
-			  </if>	
-		  </if>
-	</select> -->
-	
 	
 </mapper>
 

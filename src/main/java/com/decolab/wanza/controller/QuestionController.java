@@ -37,6 +37,26 @@ public class QuestionController {
 		//System.out.println(service.getAllQuestionList());
 		return service.getAllQuestionList();
 	}
+	//질문 정렬 통합해서 가져오기
+	@RequestMapping(value = "/getQuestionList", method = {RequestMethod.GET,RequestMethod.POST} )
+	public List<QuestionDTO> getQuestionList(QuestionDTO dto){
+		System.out.println("QuestionController getQuestionList()" + new Date());
+		System.out.println(dto.toString());
+		int page = dto.getStartPage();
+		if(page>-1) {
+			dto.setStartPage(page*5+1);
+			dto.setEndPage(page*5+5);
+			System.out.println(dto.toString());
+		}
+		return service.getQuestionList(dto);
+	}
+	//질문 정렬 통합해서 글의 총 수 가져오기
+	@RequestMapping(value = "/getQuestionCount", method = {RequestMethod.GET,RequestMethod.POST} )
+	public int getQuestionCount(QuestionDTO dto){
+		System.out.println("QuestionController getQuestionCount()" + new Date());
+		System.out.println(dto.toString());
+		return service.getQuestionCount(dto);
+	}
 	
 	@RequestMapping(value = "/questionWrite", method = {RequestMethod.GET,RequestMethod.POST} )
 	public String questionWrite(
