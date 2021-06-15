@@ -85,49 +85,57 @@ function getTotalSearch(word) {
             // 상품 검색 결과
             if (storeNum == 0) {
                 storeApp += '<div style="width: 100%;text-align: center;">'
-                         +  '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
-                         +  '</div>';
+                        +  '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                        +  '</div>';
             } else {
                 $.each(map.store, function (i, val) {
                     storeApp += '<div style="width: 350px; height: 400px; margin: 3px;">'
-                             +  '<article article class="project2_wrap" >'
-                             +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
-                             +  '<div class="project2_item">'
-                             +  '<span></span>'
-                             +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
-                             +  '</div>'
-                             +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">' + val.productName + '</h3></div><div class="row">';
+                            +  '<article article class="project2_wrap" >'
+                            +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
+                            +  '<div class="project2_item">'
+                            +  '<span></span>'
+                            +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
+                            +  '</div>'
+                            +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">';
+                            
+                            if(val.productName.length > 48) {
+                                storeApp += val.productName.substr(0,48)+'...';
+                            } else {
+                                storeApp += val.productName;
+                            }     
+                    
+                    storeApp += '</h3></div><div class="row">';
                     if(val.productDiscount != 0) {
                         storeApp += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 15px; color:gray;"><del>'+makeComma(val.productPrice)+'원</del>&nbsp;&nbsp;</span><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productDiscount) + ' 원</b>&nbsp;&nbsp;</span>'
-                                 +  '<span style="font-family: \'Noto Sans KR\';font-size: 17px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span></p>';
+                                +  '<span style="font-family: \'Noto Sans KR\';font-size: 17px;color:rgb(244,116,76)"><b>'+discountRate(val.productPrice, val.productDiscount) + '%</b></span></p>';
                     } else {
                         storeApp += '<p style="float: none; margin:0 auto;"><span style="font-family: \'Noto Sans KR\';font-size: 17px;"><b>' + makeComma(val.productPrice) + ' 원</b></span></p>';
                     }
                     storeApp += '</div><div style="font-family: \'Noto Sans KR\'; font-size: 14px;margin-top: 7px;"><i class="fa fa-star" style="font-size: 17px;color: rgb(244,116,76);margin-left: 2px;"></i> ' + val.productRating + '&ensp;│&ensp;<b>리뷰 </b>' + val.reviewCount + '</div>'
-                             +  '</article>'
-                             +  '</div >';
+                            +  '</article>'
+                            +  '</div >';
                 });
             }
             
             // 스토리 검색 결과
             if (storyNum == 0) {
                 storyApp += '<div style="width: 100%;text-align: center;">'
-                         +  '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
-                         +  '</div>';
+                        +  '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                        +  '</div>';
             } else {
                 $.each(map.story, function (i, val) {
                     storyApp += '<div style="width: 320px; margin-left: 40px;">'
-                             +   '<article article class="project_wrap" >'
-                             +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
-                             +     '<div class="project_item">'
-                             +      '<span></span>'
-                             +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
-                             +     '</div>'
-                             +     '<h3 style="font-family: \'Noto Sans KR\'; font-size: 16px; margin-top: 15px; height: 32px;"><b>'+val.cardTitle+'</b></h3>'
-                             +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.nickName+'</b></span>'
-                             +    '<div style="font-family: \'Noto Sans KR\'; font-size: 13px;margin-top: 5px;"><i class="fa fa-heart" style="font-size: 13px;color: rgb(244,116,76);margin-left: 2px;"></i> '+val.likeCount+'&ensp;│&ensp;<b>조회</b> '+val.cardReadCount+'</div>'
-                             +   '</article>'
-                             +  '</div >'
+                            +   '<article article class="project_wrap" >'
+                            +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
+                            +     '<div class="project_item">'
+                            +      '<span></span>'
+                            +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                            +     '</div>'
+                            +     '<h3 style="font-family: \'Noto Sans KR\'; font-size: 16px; margin-top: 15px; height: 32px;"><b>'+val.cardTitle+'</b></h3>'
+                            +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.nickName+'</b></span>'
+                            +    '<div style="font-family: \'Noto Sans KR\'; font-size: 13px;margin-top: 5px;"><i class="fa fa-heart" style="font-size: 13px;color: rgb(244,116,76);margin-left: 2px;"></i> '+val.likeCount+'&ensp;│&ensp;<b>조회</b> '+val.cardReadCount+'</div>'
+                            +   '</article>'
+                            +  '</div >'
                 });
             }
             
