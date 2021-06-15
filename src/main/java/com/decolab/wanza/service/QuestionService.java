@@ -21,6 +21,14 @@ public class QuestionService {
 		return dao.getAllQuestionList();
 	}
 	
+	public List<QuestionDTO> getQuestionList(QuestionDTO dto) {
+		return dao.getQuestionList(dto);
+	}
+	
+	public int getQuestionCount(QuestionDTO dto) {
+		return dao.getQuestionCount(dto);
+	}
+	
 	public List<QuestionDTO> getSearchQuestion(QuestionDTO dto) {
 		return dao.getSearchQuestion(dto);
 	}
