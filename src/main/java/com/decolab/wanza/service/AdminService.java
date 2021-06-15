@@ -13,6 +13,7 @@ import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
 import com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO;
 import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
+import com.decolab.wanza.dto.admin.AdminUserManageDTO;
 
 @Service
 @Transactional
@@ -34,8 +35,12 @@ public class AdminService {
 		return dao.changeDeliveryStatus(dto);
 	}
 	
-	public List<AdminStoryTagDTO> getStoryTagList(){
-		return dao.getStoryTagList();
+	public List<AdminStoryTagDTO> getStoryTagList(AdminStoryTagDTO dto){
+		return dao.getStoryTagList(dto);
+	}
+	
+	public int getStoryTagCount(AdminStoryTagDTO dto) {
+		return dao.getStoryTagCount(dto);
 	}
 	
 	public List<ProductDTO> getSearchProductionList(ProductDTO dto){
@@ -90,8 +95,20 @@ public class AdminService {
 		return dao.addProductAnswer(dto);
 	}
 	
-	public int getProductAnswerCount() {
-		return dao.getProductAnswerCount();
+	public int getProductAnswerCount(ProductQuestionDTO dto) {
+		return dao.getProductAnswerCount(dto);
+	}
+	
+	public List<AdminUserManageDTO> getUserManageList (AdminUserManageDTO dto) {
+		return dao.getUserManageList(dto);
+	}
+	
+	public int getUserManageCount (AdminUserManageDTO dto) {
+		return dao.getUserManageCount(dto);
+	}
+	
+	public int changeAuthNum(AdminUserManageDTO dto) {
+		return dao.changeAuthNum(dto);
 	}
 
 }

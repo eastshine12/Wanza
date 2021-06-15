@@ -22,6 +22,7 @@ public class ProductQuestionDTO implements Serializable {
 	private int selectVal2;
 	private Date startDate;
 	private Date endDate;
+	private String searchText;
 	
 
 	
@@ -31,13 +32,10 @@ public class ProductQuestionDTO implements Serializable {
 	
 
 	
-
-
-
-
 	public ProductQuestionDTO(int productQnASeq, int productSeq, int userSeq, int purchaseSeq, String productQContent,
 			String productAContent, Date productQnADate, int productQnADel, int productQnAPageNum, String nickname,
-			String productName, int pageNum, int selectVal1, int selectVal2, Date startDate, Date endDate) {
+			String productName, int pageNum, int selectVal1, int selectVal2, Date startDate, Date endDate,
+			String searchText) {
 		super();
 		this.productQnASeq = productQnASeq;
 		this.productSeq = productSeq;
@@ -55,6 +53,7 @@ public class ProductQuestionDTO implements Serializable {
 		this.selectVal2 = selectVal2;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.searchText = searchText;
 	}
 
 
@@ -78,17 +77,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public int getProductQnASeq() {
 		return productQnASeq;
 	}
-
-
-
-
 
 
 
@@ -98,17 +89,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public int getProductSeq() {
 		return productSeq;
 	}
-
-
-
-
 
 
 
@@ -118,17 +101,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public int getUserSeq() {
 		return userSeq;
 	}
-
-
-
-
 
 
 
@@ -138,17 +113,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public int getPurchaseSeq() {
 		return purchaseSeq;
 	}
-
-
-
-
 
 
 
@@ -158,17 +125,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public String getProductQContent() {
 		return productQContent;
 	}
-
-
-
-
 
 
 
@@ -178,17 +137,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public String getProductAContent() {
 		return productAContent;
 	}
-
-
-
-
 
 
 
@@ -198,17 +149,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public Date getProductQnADate() {
 		return productQnADate;
 	}
-
-
-
-
 
 
 
@@ -218,17 +161,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public int getProductQnADel() {
 		return productQnADel;
 	}
-
-
-
-
 
 
 
@@ -238,17 +173,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public int getProductQnAPageNum() {
 		return productQnAPageNum;
 	}
-
-
-
-
 
 
 
@@ -258,17 +185,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public String getNickname() {
 		return nickname;
 	}
-
-
-
-
 
 
 
@@ -278,17 +197,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public String getProductName() {
 		return productName;
 	}
-
-
-
-
 
 
 
@@ -298,17 +209,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public int getPageNum() {
 		return pageNum;
 	}
-
-
-
-
 
 
 
@@ -318,17 +221,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public int getSelectVal1() {
 		return selectVal1;
 	}
-
-
-
-
 
 
 
@@ -338,17 +233,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public int getSelectVal2() {
 		return selectVal2;
 	}
-
-
-
-
 
 
 
@@ -358,17 +245,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public Date getStartDate() {
 		return startDate;
 	}
-
-
-
-
 
 
 
@@ -378,17 +257,9 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
-
-
-
-
 	public Date getEndDate() {
 		return endDate;
 	}
-
-
-
-
 
 
 
@@ -398,7 +269,15 @@ public class ProductQuestionDTO implements Serializable {
 
 
 
+	public String getSearchText() {
+		return searchText;
+	}
 
+
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
 
 
 
@@ -409,15 +288,14 @@ public class ProductQuestionDTO implements Serializable {
 				+ ", productAContent=" + productAContent + ", productQnADate=" + productQnADate + ", productQnADel="
 				+ productQnADel + ", productQnAPageNum=" + productQnAPageNum + ", nickname=" + nickname
 				+ ", productName=" + productName + ", pageNum=" + pageNum + ", selectVal1=" + selectVal1
-				+ ", selectVal2=" + selectVal2 + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+				+ ", selectVal2=" + selectVal2 + ", startDate=" + startDate + ", endDate=" + endDate + ", searchText="
+				+ searchText + "]";
 	}
+
+
 	
 	
 	
-
-
-
-
-
-
+	
+	
 }

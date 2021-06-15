@@ -11,6 +11,7 @@ import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
 import com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO;
 import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
+import com.decolab.wanza.dto.admin.AdminUserManageDTO;
 
 @Mapper
 @Repository
@@ -22,7 +23,9 @@ public interface AdminDAO {
 	
 	public int changeDeliveryStatus(AdminDeliveryStatusDTO dto);
 		
-	public List<AdminStoryTagDTO> getStoryTagList();
+	public List<AdminStoryTagDTO> getStoryTagList(AdminStoryTagDTO dto);
+	
+	public int getStoryTagCount(AdminStoryTagDTO dto);
 	
 	public List<ProductDTO> getSearchProductionList(ProductDTO dto);
 	
@@ -50,6 +53,13 @@ public interface AdminDAO {
 	
 	public int addProductAnswer(ProductQuestionDTO dto);
 	
-	public int getProductAnswerCount();
+	public int getProductAnswerCount(ProductQuestionDTO dto);
+	
+	public List<AdminUserManageDTO> getUserManageList(AdminUserManageDTO dto);
+	
+	public int getUserManageCount(AdminUserManageDTO dto);
+	
+	public int changeAuthNum(AdminUserManageDTO dto);
+	
 	
 }
