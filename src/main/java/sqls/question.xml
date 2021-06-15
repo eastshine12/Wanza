@@ -89,7 +89,7 @@
 		AND Q.USERSEQ = U.USERSEQ 
 		AND Q.QCDEL = 0
 		AND Q.QUESTIONSEQ = #{questionSeq}
-		ORDER BY QCREF ASC, QCREGDATE ASC
+		ORDER BY QCREF DESC, QCDEPTH, QCSTEP
 	</select>
 	
 	<!-- 질문과답변 댓글리스트와 덧글리스트 전부 가져오기 -->
