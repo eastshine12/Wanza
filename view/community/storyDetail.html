@@ -406,7 +406,8 @@
                 url:"http://localhost:3000/otherPictures",
                 type:"post",
                 data:{
-                    "userSeq":$("#otherSeq").val(),                   
+                    "userSeq":$("#otherSeq").val(),
+                    "cardSeq":seq                   
                 },success:function(list){
                     let app="";
                     $.each(list,function(i,val){

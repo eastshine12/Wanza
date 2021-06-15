@@ -321,6 +321,7 @@ select::-ms-expand{
 .table td{
     vertical-align: middle;
     word-break:break-all;
+    font-size: 11pt;
 }
 .tab_btn{
     width: 80px;
@@ -355,7 +356,6 @@ select::-ms-expand{
 #admin_items .page-link:focus{
     box-shadow: none;
 }
-
 /* 체크박스 색 바꾸기 */
 #table1 .custom-checkbox{
     margin-left: 30px;
@@ -371,7 +371,7 @@ select::-ms-expand{
     background-color: #35ab6f;
 }
 #table1 .custom-control-input:focus~.custom-control-label::before {
-    box-shadow: none;   /* 0 0 0 .2rem rgba(0,123,255,.25) */
+    box-shadow: none;
 }
 #table1 .custom-control-input:focus:not(:checked)~.custom-control-label::before {
     border-color: #adb5bd
@@ -382,93 +382,11 @@ select::-ms-expand{
     border-color: #82a593;
 }
 
-
-.hiddenRow {
-    padding: 0 !important;
-}
-
-#marker {
-    transform: scale(1);
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    -o-transform: scale(1);
-    transition: all 0.1s ease-in-out;
-}
-
-#marker:hover {
-    transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    -o-transform: scale(1.1);
-}
-
-#marker:hover #markerMessage{
-    display:block;
-    transform-origin: 100% 0%;
-    -webkit-animation: fadeIn 0.3s ease-in-out;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-#marker #markerMessage{
-    display: none;
-    text-align: left;
-    background-color: #fff5e2a1;
-    padding: 8px;
-    padding-top: 15px;
-    width: 300px;
-    position: absolute;
-    border-radius: 10px;
-    box-shadow: 1px 1px 1px rgba(248, 139, 14, 0.418);
-    right: -120px;
-    top: 50px;
-    color: rgb(197, 99, 99);
-    font-size: 13px;
-    line-height: 1.4;
-}
-
-#marker #markerMessage:before{
-    position: absolute;
-    content: '';
-    width:0;
-    height: 0;
-    border:6px solid transparent;
-    border-bottom-color:#F4744C;
-    right:134px;
-    top:-12px;
-}
-
-#marker #markerMessage:after{
-    width:100%;
-    height:40px;
-    content:'';
-    position: absolute;
-    top:-40px;
-    left:0;
-}
-
-@-webkit-keyframes fadeIn {
-    0% { 
-        opacity:0; 
-        transform: scale(0.6);
-    }
-    100% {
-        opacity:100%;
-        transform: scale(1);
-    }
-}
-
-@keyframes fadeIn {
-    0% { opacity:0; }
-    100% { opacity:100%; }
-}​ 
-
 </style>
 
 </head>
-<body>
-
+<body> 
+    
 <div class="container-fluid" style="height: 100vh;">
 
     <!-- 사이드바 메뉴 -->
@@ -487,75 +405,85 @@ select::-ms-expand{
         
         <!-- 검색화면 -->
         <div class="search_wrap">
+            <form id="search_form">
             <div class="search_box">
-
                 <!-- 날짜 -->
                 <div class="search_date">
                     <div class="move_input">
                         <label>시작일</label>
-                        <input type="text" id="s_date" class="datepicker s_date">
+                        <input type="text" id="s_date" class="datepicker s_date" name="startDate">
                     </div>
                     <div class="move_input">
                         <label>종료일</label>
-                        <input type="text" id="e_date" class="datepicker e_date">
+                        <input type="text" id="e_date" class="datepicker e_date" name="endDate">
                     </div>
                 </div>
 
                 <!-- 카테고리 -->
                 <div class="select_category">
                     <label class="move_label">검색종류</label>
-                    <label for="sele2"><select name="search_category" id="sele2">
+                    <label for="sele2"><select name="sort" id="sele2">
                         <option value="0"></option>
-                        <option value="1">QnA번호</option>
-                        <option value="2">상품명</option>
-                        <option value="3">작성자</option>
+                        <option value="1">회원번호</option>
+                        <option value="2">닉네임</option>
+                        <option value="3">이름</option>
+                        <option value="4">이메일</option>
+                        <option value="5">전화번호</option>
+                        <option value="5">주소지</option>
                     </select><i class="fas fa-sort-down"></i></label>
                 </div>
 
                 <!-- 검색 -->
                 <div class="search">
-                    <input type="text" id="searchText" placeholder="검색...">
+                    <input type="text" id="searchText" placeholder="검색..." name="word">
                     <button type="button" class="search_btn"><i class="fas fa-search"></i></button>
                 </div>
-
             </div>
+            </form>
         </div>
-
+        
         <!-- 테이블박스 -->
         <div class="table_wrap" id="table1">
             <div class="head_tab">
-                
+                <div class="custom-checkbox mx-5 my-3" id="checkbox_all">
+                    <input type="checkbox" class="custom-control-input" id="cb">
+                    <label for="cb" class="custom-control-label"></label>
+                    <span>전체체크</span>
+                </div>
                 <div class="select_status">
                     <label for="sele1"><select name="dly_status" id="sele1">
-                        <option value="0">-작성상태-</option>
-                        <option value="1">입력대기</option>
-                        <option value="2">입력완료</option>
+                        <option value="-1">-회원상태-</option>
+                        <option value="0">일반</option>
+                        <option value="3">관리자</option>
+                        <option value="5">경고 1회</option>
+                        <option value="6">경고 2회</option>
+                        <option value="7">계정정지</option>
+                        <option value="8">영구탈퇴</option>
                     </select><i class="fas fa-sort-down"></i></label>
+
+                    <button type="button" id="authBtn" class="tab_btn">변 경</button>
                 </div>
             </div>
 
             <table class="table table-hover text-center">
                 <colgroup>
-                    <col width="56"><col width="120"><col width="86">
-                    <col width="500"><col width="auto"><col width="100">
-                    <col width="90"><col width="150">
+                    <col width="56"><col width="60"><col width="86"><col width="80">
+                    <col width="80"><col width="70"><col width="100"><col width="100">
+                    <col width="90"><col width="70"><col width="130">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>번호</th><th>QnA번호</th><th>작성상태</th>
-                        <th>상품명</th><th>질문내용</th><th>작성자</th>
-                        <th>구매여부</th><th>작성일</th>
+                        <th>체크</th><th>회원번호</th><th>상태</th><th>프로필사진</th>
+                        <th>닉네임</th><th>이름</th><th>이메일</th><th>전화번호</th>
+                        <th>가입일</th><th>포인트</th><th>기본 주소지</th>
                     </tr>
                 </thead>
-                <tbody id="productQuestionList">
-                
-                    <!-- 리스트 뿌려지는 곳 -->
-
+                <tbody id="userManageList">
+                    <!-- 배송현황 리스트  -->
                 </tbody>
             </table>
         </div>
 
-        
         <div class="admin_page" id="admin_items">
             <!-- 배송현황 페이지 번호 -->
             <!-- Pagination -->
@@ -572,16 +500,15 @@ select::-ms-expand{
 
 </div>
 
+
 </body>
 
 <script src="../../assets/js/jquery.min.js"></script>
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script><!-- jQuery UI 라이브러리 -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> <!-- 날짜 포맷 라이브러리 -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ko.js"></script> <!-- 날짜 포맷 라이브러리 -->
+<script src="../../js/jquery.twbsPagination.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/adminSide.js"></script>
-<script type="text/javascript" src="../../js/jquery.twbsPagination.min.js"></script>
 
 <script>
 
@@ -595,7 +522,7 @@ let searchText = "";
 
 $(document).ready(function() {
 
-    $('div[name=itemDetail]').hide();
+
 
     $('.move_input input').focus( function() { // 날짜 선택시 글씨 이동 이벤트
         $(this).parent().addClass('active')
@@ -609,18 +536,17 @@ $(document).ready(function() {
         $('.move_label').addClass('active')
     });
     $('#sele2').change( function() {
-        //console.log( $(this).val())
         if($(this).val()==0){
             $('.move_label').removeClass('active')
         }
     });
-    /*
-    $('.search input').keypress( function() {
-        console.log( $(this).val())
-        $('.search_btn').click()
+    $('.search input').keypress( function(k) {
+        if (k.keyCode == 13) {
+            $('.search_btn').click()
+        }
     });
-    */
-    $('#table1 tbody tr').click( function() { //테이블 누르면 체크
+
+    $(document).on('click','#table1 tbody tr', function() { //테이블 누르면 체크
         let tr = $(this).find('input[type="checkbox"]');
         let c = tr.prop("checked");
         if(c){
@@ -631,6 +557,13 @@ $(document).ready(function() {
         autoCheck()
     });
 
+    // 체크박스 전체선택, 전체해제
+    $(document).on("click", '#table1 input[type="checkbox"]', function () {
+        if($(this).attr('name') != 'chk'){
+            $('#table1 table').find('input[type="checkbox"]').prop("checked", $(this).is(":checked"));
+        }
+        autoCheck()
+    });
     
     $.datepicker.setDefaults({
         showAnim:'slideDown',
@@ -656,254 +589,7 @@ $(document).ready(function() {
         }   
     });
 
-    $('.search_btn').click(function() {
-
-        if ($('#s_date').val() != "") sdate = new Date($('#s_date').val());
-        if ($('#e_date').val() != "") edate = new Date($('#e_date').val());
-        edate.setHours(edate.getHours()+23);
-        edate.setMinutes(edate.getMinutes()+59);
-        selectVal1 = $('#sele1').val();
-        selectVal2 = $('#sele2').val();
-        searchText = $('#searchText').val();
-
-        if(selectVal2 == 0 && searchText != "") {
-            alert('검색종류를 선택해주세요.');
-            return;
-        }
-        if(selectVal2 == 1 && isNaN(searchText)) {
-            alert('번호로 검색해주세요.');
-            return;
-        }
-
-        getProductQuestionList(0);
-        getProductAnswerCount();
-    });
-
-    // '문의 글' 리스트
-    getProductQuestionList(0);
-    function getProductQuestionList(pageNum) {
-        $.ajax({
-            url: "http://192.168.0.231:3000/getProductQuestionList",
-            type: "get",
-            data: {
-                "selectVal1" : selectVal1,
-                "selectVal2" : selectVal2,
-                "pageNum": pageNum,
-                "startDate": sdate,
-                "endDate": edate,
-                "searchText": searchText
-            },
-            success: function (list) {
-
-                console.log(list);
-                $("#productQuestionList").children().remove();
-                let app = ""
-                if (Object.keys(list).length == 0) {
-
-                    app += '<div style="width: 320px; margin-right: 50px;">'
-                        + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
-                        + "</div>";
-
-                    $("#productQuestionList").append(app);
-
-                } else {
-
-                    let seq = -1;
-
-                    $.each(list, function (i, val) {
-
-                        if(val.productQnASeq == seq) {
-                            return true;
-                        }
-
-                        seq = val.productQnASeq;
-                        let answer = '';
-
-                        
-                        app +=   '<tr data-toggle="collapse" data-target="#collapse'+(i+1)+'" class="accordion-toggle" seq="'+seq+'">'
-                            +    '<td>'+(i+1)+'</td>'
-                            +    '<td id="qnaSeq_'+(i+1)+'">'+val.productQnASeq+'</td>'
-                            +    '<td>';
-
-                        if(val.productAContent != null) {
-                            answer = val.productAContent;
-                            app += '<span style="color: #9c9b9b;">입력완료<span>';
-                        } else {
-                            app += '입력대기';                    
-                        }
-                        app +=   '</td>'
-                            +    '<td>';
-
-                        if(val.productName.length > 30) {
-                            app += (val.productName).substr(0,30)+'...';                   
-                        } else {
-                            app += val.productName;
-                        }
-
-                        app +=   '</td>'
-                            +    '<td>';
-                        
-                        if(val.productQContent.length > 22) {
-                            app += (val.productQContent).substr(0,22)+'...';                   
-                        } else {
-                            app += val.productQContent;
-                        }
-                                
-                        app +=   '</td>'
-                            +    '<td>'+val.nickname+'</td>'
-                            +    '<td>';
-                        if(val.purchaseSeq > 0) {
-                            app += '구매'
-                        } else {
-                            app += '비구매'
-                        }
-                        app +=   '</td>'
-                            +    '<td>'+moment(val.productQnADate).format("LLL")+'</td>'
-                            +    '</tr>'
-                            +    '<tr>'
-                            +    '<td colspan="8" class="hiddenRow"><div id="collapse'+(i+1)+'" class="accordian-body collapse">'
-                            +'<div class="row" style="margin: 20px 0px;">'
-                            +    '<div class="col">'
-                            +        '<div class="row" style="height: 50px; margin:20px 0px;">'
-                            +            '<div class="col d-flex justify-content-center align-items-center"><p style="font-size: 18px;"><b>- 질문 내용</b></p></div>'
-                            +        '</div>'
-                            +        '<div class="row" style="height: 84px;">'
-                            +            '<div class="col"><span>'+val.productQContent+'</span></div>'
-                            +        '</div>'
-                            +        '<div class="row" style="height: 50px; margin-top:20px 0px;">'
-                            +            '<div class="col d-flex justify-content-center align-items-center"><p style="font-size: 18px;"><b>- 답변 내용</b></p></div>'
-                            +        '</div>'
-                            +        '<div class="row" style="height: 400px;">'
-                            +            '<div class="col""><textarea id="productAContent_'+val.productQnASeq+'" style="width: 700px;height: 400px;resize: none;">'+answer+'</textarea></div>'
-                            +        '</div>'
-                            +        '<div class="row" style="height: 170px;">'
-                            +            '<div class="col d-flex justify-content-center align-items-center"><button id="insertAnswerBtn_'+val.productQnASeq+'" seq="'+val.productQnASeq+'" name="insertAnswerBtn" class="tab_btn" type="button" style="width: 180px; height: 50px; font-size: 20px;">답변등록</button></div>'
-                            +        '</div>'
-                            +    '</div>'
-
-                            +    '</div></td>'
-                            +    '</tr>';
-                    });
-                    $("#productQuestionList").append(app);
-                }
-
-            },
-            error: function () {
-                alert('error');
-            }
-        });
-    };
-
-    // 글 총 수 가져오기
-    getProductAnswerCount()
-    function getProductAnswerCount() {
-
-        $.ajax({
-            url: "http://192.168.0.231:3000/getProductAnswerCount",
-            type: "get",
-            data: {
-                "selectVal1" : selectVal1,
-                "selectVal2" : selectVal2,
-                "startDate": sdate,
-                "endDate": edate,
-                "searchText": searchText
-            },
-            success: function (totalCount) {
-                console.log(totalCount);
-                loadPage(totalCount);
-            },
-            error: function () {
-                alert('getProductAnswerCount() error');
-            }
-        });
-
-    };
-
-
-    // 글 페이징 처리
-    function loadPage(totalCount) {
-
-        let pageSize = 10;
-        let nowPage = 1;
-        let _totalPages = Math.floor(totalCount / pageSize);
-        if (totalCount % pageSize > 0) {
-            _totalPages++;
-        }
-
-        $("#pagination").twbsPagination('destroy');	// 데이터가 갱신되면 페이징 갱신
-
-
-        $("#pagination").twbsPagination({
-            //	startPage: 1,
-            totalPages: _totalPages,
-            visiblePages: 10,
-            first: '<span aria-hidden="true">«</span>',
-            prev: false,
-            next: false,
-            last: '<span aria-hidden="true">»</span>',
-            initiateStartPageClick: false,		// onPageClick 자동 실행되지 않도록 한다
-            onPageClick: function (event, page) {
-                nowPage = page;
-                getProductQuestionList(page-1);
-            },
-        });
-
-        //$("#pagination").twbsPagination('changeTotalPages', _totalPages, nowPage);
-
-    };
-
-
-    // 입력상태 select
-    $(document).on('change', '[name=dly_status]', function() {
-        selectVal1 = $(this).val();
-        getProductQuestionList(0);
-        getProductAnswerCount();
-    });
-
-
-
-    $(document).on('click', 'button[name=insertAnswerBtn]', function() {
-        let qnaNum = $(this).attr('seq');
-        let answer = $('#productAContent_'+qnaNum).val();
-    
-        if(confirm("답글을 등록하시겠습니까?") == true) {
-    
-            $.ajax({
-                url: "http://192.168.0.231:3000/addProductAnswer",
-                type: "post",
-                data: {
-                    productQnASeq: qnaNum,
-                    productAContent: answer
-                },
-                success: function(data) {
-                    if(data == "suc") {
-                        alert('답변이 등록되었습니다.');
-                        getProductQuestionList(0);
-                    } else {
-                        alert('오류가 발생했습니다.');
-                    }
-                },
-                error: function() {
-                    alert('addProductAnswer error');
-                }
-            })
-    
-        }
-        else {
-            return;
-        }
-    
-    });
-    
-
 });
-
-// 금액 콤마 삽입 정규식
-function makeComma(str) {
-    str = String(str);
-    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-};
-
 
 function autoCheck() {
     let chkLength = $('input:checkbox[name="chk"]');
@@ -918,14 +604,247 @@ function autoCheck() {
     }
 };
 
+// 검색버튼 클릭
+$('.search_btn').click(function() {
 
-//테이블 로우 클릭 시
-$(document).on('click', '.accordion-toggle', function(event) {
+    if ($('#s_date').val() != "") sdate = new Date($('#s_date').val());
+    if ($('#e_date').val() != "") edate = new Date($('#e_date').val());
+    edate.setHours(edate.getHours()+23);
+    edate.setMinutes(edate.getMinutes()+59);
+    selectVal1 = $('#sele1').val();
+    selectVal2 = $('#sele2').val();
+    searchText = $('#searchText').val();
 
-    //let cardSeq = $(this).attr('seq');
-    //getProductTag(cardSeq);
+    if(selectVal2 == 0 && searchText != "") {
+        alert('검색종류를 선택해주세요.');
+        return;
+    }
+    if(selectVal2 == 1 && isNaN(searchText)) {
+        alert('번호로 검색해주세요.');
+        return;
+    }
+
+    getUserManageList(0);
+    getUserManageCount();
 });
 
+
+// 상태변경 버튼 클릭
+$('#authBtn').click(function() {
+    let authNum = $('#sele1').val();
+    if(authNum == -1) {
+        alert('변경할 상태를 선택해주세요.');
+        return;
+    }
+
+    let chkLength = $('input[name=chk]:checked').length;
+    let chkArr = new Array(chkLength);
+    for (let i = 0; i < chkLength; i++) {
+        chkArr[i] = $('input[name=chk]:checked').eq(i).attr('id');
+    }
+
+    $.ajax({
+        url: "http://192.168.0.231:3000/changeAuthNum",
+        type: "get",
+        data: {
+            "auth":authNum,
+            "arr":chkArr
+        },
+        success: function (data) {
+            alert('상태를 변경했습니다.');
+            getUserManageList(0);
+            getUserManageCount();
+
+        },
+        error: function() {
+            alert('changeAuthNum error');
+        }
+    });
+
+});
+
+
+// 회원 리스트
+getUserManageList(0);
+function getUserManageList(pageNum) {
+    $.ajax({
+        url: "http://192.168.0.231:3000/getUserManageList",
+        type: "get",
+        data: {
+            "selectVal1" : selectVal1,
+            "selectVal2" : selectVal2,
+            "pageNum": pageNum,
+            "startDate": sdate,
+            "endDate": edate,
+            "searchText": searchText
+        },
+        success: function (list) {
+
+            console.log(list);
+            $("#userManageList").children().remove();
+            let app = ""
+            if (Object.keys(list).length == 0) {
+
+                app += '<div style="width: 320px; margin-right: 50px;">'
+                    + '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
+                    + "</div>";
+
+                $("#userManageList").append(app);
+
+            } else {
+
+                let seq = -1;
+
+                $.each(list, function (i, val) {
+                    app+= '<tr><td><div class="custom-checkbox"><input type="checkbox" class="custom-control-input" id="'+val.userSeq+'" name="chk">'
+                        + '<label for="'+val.userSeq+'" class="custom-control-label"></label></div></td>'
+                        + '<td>'+val.userSeq+'</td>'
+                        + '<td>'+makeStatus(val.auth)+'</td>'
+                        + '<td>'+makePicture(val.profileName)+'</td>'
+                        + '<td>'+val.nickname+'</td>'
+                        + '<td>'+makeName(val.userName)+'</td>'
+                        + '<td>'+val.email+'</td>'
+                        + '<td>'+makePhone(val.phone)+'</td>'
+                        + '<td>'+makeDate(val.userDate)+'</td>'
+                        + '<td>'+makeComma(val.mileage)+'P</td>'
+                        + '<td>'+makeAddress(val.address)+'</td>';
+                });
+
+                $("#userManageList").append(app);
+            }
+
+        },
+        error: function () {
+            alert('getUserManageList error');
+        }
+    });
+};
+
+// 글 총 수 가져오기
+getUserManageCount()
+function getUserManageCount() {
+
+    $.ajax({
+        url: "http://192.168.0.231:3000/getUserManageCount",
+        type: "get",
+        data: {
+            "selectVal1" : selectVal1,
+            "selectVal2" : selectVal2,
+            "startDate": sdate,
+            "endDate": edate,
+            "searchText": searchText
+        },
+        success: function (totalCount) {
+            console.log(totalCount);
+            loadPage(totalCount);
+        },
+        error: function () {
+            alert('getUserManageCount() error');
+        }
+    });
+
+};
+
+
+// 글 페이징 처리
+function loadPage(totalCount) {
+
+    let pageSize = 10;
+    let nowPage = 1;
+    let _totalPages = Math.floor(totalCount / pageSize);
+    if (totalCount % pageSize > 0) {
+        _totalPages++;
+    }
+
+    $("#pagination").twbsPagination('destroy');	// 데이터가 갱신되면 페이징 갱신
+
+
+    $("#pagination").twbsPagination({
+        //	startPage: 1,
+        totalPages: _totalPages,
+        visiblePages: 10,
+        first: '<span aria-hidden="true">«</span>',
+        prev: false,
+        next: false,
+        last: '<span aria-hidden="true">»</span>',
+        initiateStartPageClick: false,		// onPageClick 자동 실행되지 않도록 한다
+        onPageClick: function (event, page) {
+            nowPage = page;
+            getUserManageList(page-1);
+        },
+    });
+};
+
+
+//페이지 번호와 폼 데이터 가져오기
+function getFormData() {
+    let fdata = decodeURIComponent($('#search_form').serialize());
+    let pNum = 0;
+    $('.pagination>li').each(function(i){
+        if($(this).hasClass('active')){
+            pNum = $(this).text()-1;
+        }
+    });
+    fdata += '&startNum='+(pNum*7+1)+'&endNum='+(pNum*7+7)
+    console.log(fdata);
+    return fdata
+}
+
+// 금액 콤마 삽입 정규식
+function makeComma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+};
+
+// 날짜 형식
+function makeDate(str) {
+    return String(str.replace('T',' ').substr(2,14))
+};
+
+// 테이블 배송상태 입력
+function makeStatus(num) {
+    let status = ['일반회원','','','관리자','','경고 1회','경고 2회','계정정지','영구탈퇴']
+    if(!isNaN(Number(num))){ return status[num] }
+    else{           return '확인불가' }
+};
+
+function makePicture(str) {
+    if(str == 0 || str == null) {
+        return "-";
+    }
+    return '<img src="http://192.168.0.231:3000/upload/'+str+'">';
+}
+
+function makeName(str) {
+    if(str == 0 || str == null) {
+        return "-";
+    }
+    return str;
+}
+
+function makeAddress(str) {
+    if(str == 0 || str == null) {
+        return "-";
+    }
+    return str.replace('///', ' ');
+}
+
+function makePhone(num) {
+    return (num.replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
+}
+
+
+//체크된 상자 시퀀스 번호 배열로 리턴
+function getCheckData() {
+    let data=[], k=0;
+    $('.dlv_List input[type="checkbox"]').each(function(i){
+        if(this.checked){
+            data[k] = $(this).attr('id');
+            k++;
+        }
+    });
+    return data
+}
 
 </script>
 
