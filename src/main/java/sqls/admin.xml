@@ -72,15 +72,49 @@
 	UPDATE ORDERS SET ORDERSTATUS=#{orderStatus} WHERE ORDERSEQ=#{orderSeq}
 </update>
 
-<select id="getStoryTagList" resultType="com.decolab.wanza.dto.admin.AdminStoryTagDTO">
-	SELECT DISTINCT C.CARDSEQ, C.CARDTITLE, C.CARDCONTENT, C.USERSEQ, C.CARDREADCOUNT, C.CARDDATE, C.CARDFILENAME,
-        C.CARDDEL, U.NICKNAME, CF.LIKECOUNT, 
-        (SELECT NVL(COUNT(CC.PRODUCTSEQ), 0) FROM CARD_COORDINATES CC WHERE C.CARDSEQ=CC.CARDSEQ(+) GROUP BY CC.CARDSEQ) AS TAGCOUNT
-	FROM CARD_COLLECTIONS C, USERS U,
-	    (SELECT CARDSEQ, NVL(COUNT(*), 0) LIKECOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ) CF
-	WHERE C.USERSEQ=U.USERSEQ AND C.CARDSEQ=CF.CARDSEQ(+)
+
+<select id="getStoryTagList" parameterType="com.decolab.wanza.dto.admin.AdminStoryTagDTO" resultType="com.decolab.wanza.dto.admin.AdminStoryTagDTO">
+
+	SELECT C.CARDSEQ, C.CARDTITLE, C.CARDCONTENT, C.USERSEQ, C.CARDREADCOUNT, C.CARDDATE, C.CARDFILENAME,
+        C.CARDDEL, U.NICKNAME, CF.LIKECOUNT, TAGCOUNT
+	FROM 
+	(SELECT ROW_NUMBER()OVER(ORDER BY CARDSEQ DESC) AS RNUM, CARDSEQ, CARDTITLE, CARDCONTENT, USERSEQ, CARDREADCOUNT, CARDDATE, CARDFILENAME, CARDDEL FROM CARD_COLLECTIONS
+			WHERE CARDDATE BETWEEN #{startDate} AND #{endDate} AND CARDDEL=0
+			<if test="selectVal2 == 1">AND CARDSEQ=#{searchText}</if>
+			<if test="selectVal2 == 2">AND CARDTITLE LIKE '%'||#{searchText}||'%'</if>
+			) C,
+	(SELECT * FROM USERS
+	<if test="selectVal2 == 3">WHERE NICKNAME=#{searchText}</if>
+	) U,
+	(SELECT CARDSEQ, NVL(COUNT(*), 0) LIKECOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ) CF,
+	(SELECT CC.CARDSEQ, COUNT(CC.PRODUCTSEQ) TAGCOUNT FROM CARD_COORDINATES CC, CARD_COLLECTIONS C  WHERE C.CARDSEQ=CC.CARDSEQ(+) GROUP BY CC.CARDSEQ) T	
+	WHERE C.USERSEQ=U.USERSEQ AND C.CARDSEQ=CF.CARDSEQ(+) AND C.CARDSEQ=T.CARDSEQ(+) 
+	<if test="selectVal1 == 1">AND TAGCOUNT IS NULL</if>
+	<if test="selectVal1 == 2">AND TAGCOUNT IS NOT NULL</if>
+	AND RNUM&gt;=1+10*#{pageNum} AND RNUM&lt;=10+10*#{pageNum}
 	ORDER BY C.CARDDATE DESC
 </select>
+
+
+<select id="getStoryTagCount" parameterType="com.decolab.wanza.dto.admin.AdminStoryTagDTO" resultType="int">
+	SELECT NVL(COUNT(*), 0)
+	FROM 
+	(SELECT ROW_NUMBER()OVER(ORDER BY CARDSEQ DESC) AS RNUM, CARDSEQ, CARDTITLE, CARDCONTENT, USERSEQ, CARDREADCOUNT, CARDDATE, CARDFILENAME, CARDDEL FROM CARD_COLLECTIONS
+			WHERE CARDDATE BETWEEN #{startDate} AND #{endDate} AND CARDDEL=0
+			<if test="selectVal2 == 1">AND CARDSEQ=#{searchText}</if>
+			<if test="selectVal2 == 2">AND CARDTITLE LIKE '%'||#{searchText}||'%'</if>
+			) C,
+	(SELECT * FROM USERS
+	<if test="selectVal2 == 3">WHERE NICKNAME=#{searchText}</if>
+	) U,
+	(SELECT CARDSEQ, NVL(COUNT(*), 0) LIKECOUNT FROM CARD_FAVORITE GROUP BY CARDSEQ) CF,
+	(SELECT CC.CARDSEQ, COUNT(CC.PRODUCTSEQ) TAGCOUNT FROM CARD_COORDINATES CC, CARD_COLLECTIONS C  WHERE C.CARDSEQ=CC.CARDSEQ(+) GROUP BY CC.CARDSEQ) T	
+	WHERE C.USERSEQ=U.USERSEQ AND C.CARDSEQ=CF.CARDSEQ(+) AND C.CARDSEQ=T.CARDSEQ(+) 
+	<if test="selectVal1 == 1">AND TAGCOUNT IS NULL</if>
+	<if test="selectVal1 == 2">AND TAGCOUNT IS NOT NULL</if>
+</select>
+
+
 
 <select id="getSearchProductionList" parameterType="com.decolab.wanza.dto.ProductDTO" resultType="com.decolab.wanza.dto.ProductDTO">
 	SELECT PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING
@@ -150,11 +184,47 @@
 </select>
 
 
-<select id="getProductQuestionList" resultType="com.decolab.wanza.dto.ProductQuestionDTO">
+<select id="getProductQuestionList" parameterType="com.decolab.wanza.dto.ProductQuestionDTO" resultType="com.decolab.wanza.dto.ProductQuestionDTO">
 	SELECT PRODUCTQNASEQ, Q.PRODUCTSEQ, Q.USERSEQ, PURCHASESEQ, PRODUCTQCONTENT, PRODUCTACONTENT, PRODUCTQNADATE, PRODUCTQNADEL, NICKNAME, P.PRODUCTNAME
-	FROM PRODUCTION_QUESTION Q, USERS U, PRODUCTIONS P
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY PRODUCTQNASEQ DESC) AS RNUM, PRODUCTQNASEQ, PRODUCTSEQ, USERSEQ, PURCHASESEQ, PRODUCTQCONTENT, PRODUCTACONTENT, PRODUCTQNADATE, PRODUCTQNADEL FROM PRODUCTION_QUESTION
+			WHERE PRODUCTQNADATE BETWEEN #{startDate} AND #{endDate}
+			<if test="selectVal2 == 1">AND PRODUCTQNASEQ = #{searchText}</if>
+			<choose>
+				<when test="selectVal1 == 1">AND PRODUCTACONTENT IS NULL</when>
+				<when test="selectVal1 == 2">AND PRODUCTACONTENT IS NOT NULL</when>
+				<otherwise> </otherwise>
+			</choose>
+			) Q, 
+			(SELECT * FROM USERS
+			<if test="selectVal2 == 3">WHERE NICKNAME=#{searchText}</if>
+			) U, 
+			(SELECT * FROM PRODUCTIONS
+			<if test="selectVal2 == 2">WHERE PRODUCTNAME LIKE '%'||#{searchText}||'%'</if>
+			) P
 	WHERE Q.USERSEQ=U.USERSEQ AND Q.PRODUCTSEQ=P.PRODUCTSEQ AND PRODUCTQNADEL=0
+	AND RNUM&gt;=1+10*#{pageNum} AND RNUM&lt;=10+10*#{pageNum}
 	ORDER BY PRODUCTQNADATE DESC
+</select>
+
+
+<select id="getProductAnswerCount" parameterType="com.decolab.wanza.dto.ProductQuestionDTO" resultType="int">
+	SELECT NVL(COUNT(*), 0)
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY PRODUCTQNASEQ DESC) AS RNUM, PRODUCTQNASEQ, PRODUCTSEQ, USERSEQ, PURCHASESEQ, PRODUCTQCONTENT, PRODUCTACONTENT, PRODUCTQNADATE, PRODUCTQNADEL FROM PRODUCTION_QUESTION
+			WHERE PRODUCTQNADATE BETWEEN #{startDate} AND #{endDate}
+			<if test="selectVal2 == 1">AND PRODUCTQNASEQ = #{searchText}</if>
+			<choose>
+				<when test="selectVal1 == 1">AND PRODUCTACONTENT IS NULL</when>
+				<when test="selectVal1 == 2">AND PRODUCTACONTENT IS NOT NULL</when>
+				<otherwise> </otherwise>
+			</choose>
+			) Q, 
+			(SELECT * FROM USERS
+			<if test="selectVal2 == 3">WHERE NICKNAME=#{searchText}</if>
+			) U, 
+			(SELECT * FROM PRODUCTIONS
+			<if test="selectVal2 == 2">WHERE PRODUCTNAME LIKE '%'||#{searchText}||'%'</if>
+			) P
+	WHERE Q.USERSEQ=U.USERSEQ AND Q.PRODUCTSEQ=P.PRODUCTSEQ AND PRODUCTQNADEL=0
 </select>
 
 
@@ -163,6 +233,54 @@
 	SET PRODUCTACONTENT=#{productAContent}
 	WHERE PRODUCTQNASEQ=#{productQnASeq}
 </update>
+
+
+<select id="getUserManageList" parameterType="com.decolab.wanza.dto.admin.AdminUserManageDTO" resultType="com.decolab.wanza.dto.admin.AdminUserManageDTO">
+	SELECT U.USERSEQ, AUTH, PROFILENAME, NICKNAME, USERNAME, EMAIL, PHONE, USERDATE, MILEAGE, ADDRESS
+	FROM  
+	(SELECT ROW_NUMBER()OVER(ORDER BY USERDATE DESC) AS RNUM, USERSEQ, AUTH, PROFILENAME, NICKNAME, USERNAME, EMAIL, PHONE, USERDATE, MILEAGE, DEFAULTADDRESS 
+		FROM USERS
+		WHERE USERDATE BETWEEN #{startDate} AND #{endDate}) U, ADDRESS A
+	WHERE U.USERSEQ=A.USERSEQ(+) AND U.DEFAULTADDRESS=A.ADDRESSSEQ(+)
+	<choose>
+		<when test="selectVal2 == 1">AND U.USERSEQ=#{searchText}</when>
+		<when test="selectVal2 == 2">AND NICKNAME=#{searchText}</when>
+		<when test="selectVal2 == 3">AND USERNAME=#{searchText}</when>
+		<when test="selectVal2 == 4">AND EMAIL LIKE '%'||#{searchText}||'%'</when>
+		<when test="selectVal2 == 5">AND PHONE LIKE '%'||#{searchText}||'%'</when>
+		<when test="selectVal2 == 6">AND ADDRESS LIKE '%'||#{searchText}||'%'</when>
+		<otherwise> </otherwise>
+	</choose>
+	AND RNUM&gt;=1+10*#{pageNum} AND RNUM&lt;=10+10*#{pageNum}
+	ORDER BY USERDATE DESC
+</select>
+
+<select id="getUserManageCount" parameterType="com.decolab.wanza.dto.admin.AdminUserManageDTO" resultType="int">
+	SELECT NVL(COUNT(*), 0)
+	FROM  
+	(SELECT ROW_NUMBER()OVER(ORDER BY USERDATE ASC) AS RNUM, USERSEQ, AUTH, PROFILENAME, NICKNAME, USERNAME, EMAIL, PHONE, USERDATE, MILEAGE, DEFAULTADDRESS 
+		FROM USERS
+		WHERE USERDATE BETWEEN #{startDate} AND #{endDate}) U, ADDRESS A
+	WHERE U.USERSEQ=A.USERSEQ(+) AND U.DEFAULTADDRESS=A.ADDRESSSEQ(+)
+	<choose>
+		<when test="selectVal2 == 1">AND U.USERSEQ=#{searchText}</when>
+		<when test="selectVal2 == 2">AND NICKNAME=#{searchText}</when>
+		<when test="selectVal2 == 3">AND USERNAME=#{searchText}</when>
+		<when test="selectVal2 == 4">AND EMAIL LIKE '%'||#{searchText}||'%'</when>
+		<when test="selectVal2 == 5">AND PHONE LIKE '%'||#{searchText}||'%'</when>
+		<when test="selectVal2 == 6">AND ADDRESS LIKE '%'||#{searchText}||'%'</when>
+		<otherwise> </otherwise>
+	</choose>
+</select>
+
+<update id="changeAuthNum" parameterType="com.decolab.wanza.dto.admin.AdminUserManageDTO">
+	UPDATE USERS
+	SET AUTH=#{auth}
+	WHERE USERSEQ=#{userSeq}
+</update>
+
+
+
 
 </mapper>
   
