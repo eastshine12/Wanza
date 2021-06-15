@@ -18,7 +18,7 @@
           <div class="col-md-6">
               <div class="card-body">
                 <h4 style="margin-top: 30px; margin-bottom: 30px;">회원정보 수정</h4>
-                <form>
+                <form id="userEdit">
                     <input type="hidden" name="userSeq" id="userSeq">
                     <div class="form-group">
                         <label for="email">이메일</label>
@@ -28,49 +28,51 @@
                     <div class="form-group">
                         <label for="name">닉네임</label>
                         <br>
-                        <input type="text" id="nickname" name="nickName"  class="form-control" style="width: 70%; float: left;">
-                        <button type="button" class="btn btn-primary" style="margin-left: 55px;">중복 확인</button>
-                        <small class="form-text text-danger feedback"><!-- 중복된 닉네임입니다. --></small>
+                        <input type="text" id="nickname" name="nickname"  class="form-control" style="width: 70%; float: left;">
+                        <input type="hidden" id="hiddenNickname">
+                        <button type="button" class="btn btn-primary" style="margin-left: 55px;" onclick="overlapBtn()">중복 확인</button>
+                        <small class="form-text text-danger feedback" id="overlapMsg"><!-- 중복된 닉네임입니다. --></small>
                     </div>
 
                     <div class="form-group">
                         <label for="profile">프로필 사진</label>
                         <br>
                         <img src="../../assets/img/imgUpload.png" id="_uploadImg" class="uploadImg" width="150px" height="150px">
-                        <input type="file" id="_file" name="fileName" style="display:none;">
+                        <input type="file" id="_file" name="profile" style="display:none;">
                         <input type="hidden" id="_target_url" name="target_url">  
                     </div>
 
                     <div class="form-group">
                         <label for="name">주문시 연락받을 전화번호</label>
                         <br>
-                        <input type="text" id="phone"  class="form-control">
+                        <input type="text" id="phone" name="receivePhone"  class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="name">주문자 이름</label>
                         <br>
-                        <input type="text" id="orderName"  class="form-control">
+                        <input type="text" id="orderName" name="userName" class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="name">받는 사람 이름</label>
                         <br>
-                        <input type="text" id="receiveName"  class="form-control">
+                        <input type="text" id="receiveName" name="receiveUser"  class="form-control">
                     </div>
 
                     <div class="form-group">
                         <label for="name">배송지 명</label>
                         <br>
-                        <input type="text" id="receiveAddress"  class="form-control" placeholder="ex) 집/회사/학교 등">
+                        <input type="text" id="receiveAddress" name="addressName"  class="form-control" placeholder="ex) 집/회사/학교 등">
                     </div>
                     
                     <div class="form-group">                       
                         <label for="address">주소</label>
                         <br>
-                        <input type="text" id="address1" class="form-control border" style="float: left; margin-bottom: 10px;" onclick="execDaumPostcode()" placeholder="주소를 입력해주세요">                     
-                        <input type="text" id="address2" class="form-control border" placeholder="상세주소">
+                        <input type="text" id="address1" class="form-control border" name="address" style="float: left; margin-bottom: 10px;" onclick="execDaumPostcode()" placeholder="주소를 입력해주세요">                     
+                        <input type="text" id="address2" class="form-control border" name="address" placeholder="상세주소">
                     </div>
+                    <button type="button" class="btn btn-primary form-control" id="completeBtn">수정 완료</button>
                 </form>
                     
                 
@@ -101,7 +103,7 @@ function execDaumPostcode() {
         oncomplete: function (data) {
             var addr = data.address; // 최종 주소 변수
             // 주소 정보를 해당 필드에 넣는다.
-            document.getElementById("address").value = addr;
+            document.getElementById("address1").value = addr;
         }
     }).open();
 };
@@ -111,7 +113,7 @@ function execDaumPostcode() {
             $('#_target_url').val(document.getElementById('_uploadImg').src);
             e.preventDefault();
             $('#_file').click();
-    })
+    });
 
 // 업로드 이미지 미리보기
 let sel_file;
@@ -135,10 +137,70 @@ $(document).on('change', '#_file', function(e) {
     })
 });
 
+// 중복버튼
+function overlapBtn(){
+
+    if($("#nickname").val()==$("#hiddenNickname").val()){
+        alert("이미 사용하고 계신 닉네임 입니다.");
+    }else{
+        $.ajax({
+            url:"http://localhost:3000/overlapNickname",
+            type:"post",
+            data:{nickname:$("#nickname").val()},
+            success:function(str){
+                if(str=="suc"){
+                    $("#overlapMsg").text("이미 사용중인 닉네임입니다.");
+                }else{                
+                    $("#overlapMsg").html("<p style='color: blue'>사용 가능한 닉네임입니다.</p>")
+                }
+            },error:function(){
+                alert("에러");
+            }
+        })
+    }
+};
+
+// 수정 완료 버튼
+$("#completeBtn").click(function(){
+
+    if($("#overlapMsg").text()=="이미 사용중인 닉네임입니다."){
+        alert("닉네임을 확인해주세요");
+        return;
+    }
+
+    if(confirm("이대로 수정하시겠습니까?")==true){
+        $.ajax({
+        url:"http://localhost:3000/userEdit",
+        type:"post",
+        data: new FormData($('#userEdit')[0]),
+        enctype:"multipart/form-data",
+        processData:false,
+        contentType:false,
+        cache:false,
+        async: false,
+        success:function(){
+            alert("수정이 완료되었습니다.");
+            location.href="./mainMyPage.html";
+        },error:function(){
+            alert("수정실패");
+        }
+    })
+    }else{
+        return;
+    }
+   
+})
+
+
+
+
+
+
+
 $(document).ready(function(){
 
 
-
+    // 처음 유저 정보 뿌리기
     userInfo();
     function userInfo(){
         $.ajax({
@@ -147,11 +209,13 @@ $(document).ready(function(){
             data:{"userSeq":sessionId.userSeq},
             success:function(data){
                 //alert(JSON.stringify(data));
+                $("#userSeq").val(data.userSeq);
                 $("#email").val(data.email);
                 $("#nickname").val(data.nickname);
+                $("#hiddenNickname").val(data.nickname);
 
                 if(data.profileName != "0"){
-                    $('#_uploadImg').attr("src", data.profileName);
+                    $('#_uploadImg').attr("src", "http://localhost:3000/upload/"+data.profileName);
                 }
                 if(data.receivePhone != "0"){
                     $("#phone").val(data.receivePhone); 
@@ -162,30 +226,26 @@ $(document).ready(function(){
                 }
 
                 if(data.receiveUser != "0"){
-                    $("#orderName").val(data.receiveUser);
+                    $("#receiveName").val(data.receiveUser);
                 }
 
                 if(data.addressName != "0"){
                     $("#receiveAddress").val(data.addressName);
                 }
-
-                if(data.address != "0"){
+                
+                if(data.address != null){
                     let address = data.address;
                     let arr = address.split("///");
                     $("#address1").val(arr[0]);
                     $("#address2").val(arr[1]);
                 }
-
-
-                
-
-
-
             },error:function(){
                 alert("error");
             }
         })
     }
+
+
 })
 
 
