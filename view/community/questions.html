@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>완벽한 자취생활, 완자</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"> <!-- jQuery UI css -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" type="text/css" href="../../css/style.css">
     <link rel="stylesheet" type="text/css" href="../../css/question.css">
     <link rel="stylesheet" type="text/css" href="../../css/question-detail.css">
     <link rel="stylesheet" type="text/css" href="../../css/question-comment.css">
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
 
     <style>
     .questions-item-link:hover {
@@ -134,6 +134,25 @@
     color: coral
   }
 
+  /* 페이징 */
+  .questions_page{
+      min-height: 100px;
+      margin: 30px 0;
+  }
+  #questions_items .pagination{
+      justify-content: center;
+  }
+  #questions_items .page-item.active .page-link{
+      background-color: coral;
+      border-color: coral;
+      color: white;
+  }
+  #questions_items a{
+      color: #424242;
+  }
+  #questions_items .page-link:focus{
+      box-shadow: none;
+  }
 
     
 
@@ -150,17 +169,6 @@
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
 
-    <!-- <h1> questions.html 페이지입니다.</h1> -->
-
-    <!-- <div id='questions-header'>
-        <div>
-            <div id='questions-header-title'>
-                <h1 class='text-heading-1 text-black bold'>질문과 답변</h1>
-                <p class="text-caption-1">완자의 전문가들에게 질문하고 조언을 받아보세요</p>
-            </div>
-        </div>
-    </div> -->
-
     <div id="questions-index-page" style="font-family: 'Noto Sans KR', sans-serif">
         <div id="questions-header">
 
@@ -174,8 +182,8 @@
               </p>
             </div>
 
-            <form id="questions-headerform" class="sticky-top" action="/questions" accept-charset="UTF-8" method="get">
-              <input name="utf8" type="hidden" value="&#x2713;" />
+            <!-- <form id="questions-headerform" class="sticky-top" action="/questions" accept-charset="UTF-8" method="get"> -->
+              <!-- <input name="utf8" type="hidden" value="&#x2713;" /> -->
                   <div class="sticky-content">
                     <div class="questions-header-form-wrap row">
                       <div class="questions-header-form-search col">
@@ -186,16 +194,10 @@
                       </div>
                     </div>
                   </div>
-            </form>
+            <!-- </form> -->
 
           </div>
         </div>
-
-
-
-        <!-- <div style="background-color: coral; height: 0.1px; margin-top: 30px;">
-        </div>
-        <p style="text-align: center;">여기에 정렬(최신순 등등) 넣고? 질문하기 / 답변하기 버튼 넣고</p> -->
 
         <div id = 'questions-filter' class="container" style="margin-top: 30px;margin-bottom: 30px;padding-left: 55px; font-family: 'Noto Sans KR', sans-serif">
 
@@ -203,9 +205,10 @@
             <button onclick="filterfunc()" class="w3-button" 
             style="padding-top: 16px; padding-right: 32px; padding-left: 32px; padding-bottom: 16px;">정렬</button>
             <div id="Demo" class="w3-dropdown-content w3-bar-block w3-card-4 w3-animate-zoom">
-              <a href="#" class="w3-bar-item w3-button">최신순</a>
-              <a href="#" class="w3-bar-item w3-button">조회순</a>
-              <a href="#" class="w3-bar-item w3-button">최근 답변순</a>
+              <button type="button" class="w3-bar-item w3-button" value="0">최신순</button>
+              <button type="button" class="w3-bar-item w3-button" value="1">조회순</button>
+              <button type="button" class="w3-bar-item w3-button" value="2">최근 답변순</button>
+              <input type="hidden" class="sortNum" value="0">
             </div>
           </div>
 
@@ -213,28 +216,25 @@
 
           <button class="button question-btn2" onclick="questionanswer()" style="float: right;">답변을 기다리는 질문</button>
 
-
         </div>
 
-        <!-- <div style="background-color: coral; height: 0.1px; margin-top: 30px;">
-        </div> -->
         
         <div id="questions-notice-list" class="container" style="margin-top: 30px;margin-bottom: 30px; font-family: 'Noto Sans KR', sans-serif">
           <ul class="questions-notice-list" style="margin:-5px 0; list-style: none; ">
               <li class="questions-notice-list-list" style="margin: 5px 0; padding:  10px 20px 10px 54px; background-color: #ffcb9d; border-radius: 10px; font-size: larger;">
-                <a href="#" style="color: black;">
+                <a href="questionDetail.html?seq=0" style="color: black;">
                   <span ><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
                   <span class="title ">완자의 인테리어 멘토를 만나보세요🏆</span>
                 </a>        
               </li>
               <li class="questions-notice-list-list" style="margin: 5px 0; padding:  10px 20px 10px 54px; background-color: #ffcb9d; border-radius: 10px; font-size: larger;">
-                <a href="#" style="color: black;">
+                <a href="questionDetail.html?seq=1" style="color: black;">
                   <span ><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
                   <span class="title text-body-1">답변 이벤트 안내 및 활동 주의사항 📢</span>
                 </a>        
               </li>
               <li class="questions-notice-list-list" style="margin: 5px 0; padding:  10px 20px 10px 54px; background-color: #ffcb9d; border-radius: 10px; font-size: larger;">
-                <a href="#" style="color: black;">
+                <a href="questionDetail.html?seq=2" style="color: black;">
                   <span ><img src="../image/wanza.png" style="width: 30px; height: 30px; margin-right: 15px;"></span>
                   <span class="title text-body-1">빠르고 정확한 인테리어 답변을 받는 방법은?</span>
                 </a>        
@@ -242,73 +242,33 @@
           </ul>
         </div>      
 
-      <div class="questions-list-container" id="questions-list-container" >
-
-          <!-- 테스트글1 -->
-            <!--
-              <div class="questions-item">
-                <a class="questions-item-link" href="questionDetail.html"  >
-                  <div class="questions-block">
-                    <div class="questions-head-img" >
-                      <img class="questions-head-image" src="../image/ddda.gif" >
-                    </div>
-                    <div class="questions-head" >
-                      <h2 class="questions-title"  >어떻게 해야 할까요?</h2>  질문제목 
-                      <p class="questions-content" >붙박이장 어케 할까요?</p>  질문내용 
-                    </div>
-                  </div>
-                </a>
-                <footer class="questions-item-footer" >
-                    <span class="questions-item-footer-author">
-                        <span class="questions-item-footer-writer-img">
-                            <img class="questions-item-footer-writer-image" src="../image/wdg.gif" 
-                            onerror="this.src='../image.avatar.png'"> 프로필사진 
-                        </span>
-                        <span class="questions-item-footer-writer" >현성이배통통</span>
-                    </span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="questions-item-footer-meta ">
-                      <time datetime="2021-05-17T19:49:16+09:00" class="questions-item-footer-date text-gray">
-                        방금
-                      </time>
-                     
-                      <span class="questions-item-footer-comments text-gray">
-                        댓글
-                        <span class="questions-item-footer-comments-content active">5</span>
-                      </span>
-                  
-                      <span class="questions-item-footer-views text-gray">
-                        조회
-                      <span class="questions-item-footer-views-content">7</span>
-                      </span>
-                    </span>
-
-                    <ul class="questions-item-footer-tags keyword-list">
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button">셀프인테리어</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button">자취</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button">돈낭비</li>
-                      <li class="keyword-item questions-item-footer-tags-tag" role="button">존망</li>
-                    </ul>
-                </footer>
-              </div>
-            -->
-            
-
+      <div class="questions-list-container mb-5" id="questions-list-container" >
+         <!-- 질문 답변 게시글 뿌려지는 곳 -->
       </div>
+
+      <div class="questions_page" id="questions_items">
+        <!-- 배송현황 페이지 번호 -->
     </div>
 
+    </div>
+
+    <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
     <footer include-html="../commons/footer.html"></footer>
 
 </body>
 
 <script src="../../assets/js/jquery.min.js"></script>
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script><!-- jQuery UI 라이브러리 -->
+<script src="../../js/jquery.twbsPagination.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
 
 <script>
 $(document).ready(function(){
-
+  //getQuestionList('',0); //게시글 리스트
+  getQuestionCount('',0,0)
+  
   //로그인한 계정 닉네임 가져오기
   let sessionId = JSON.parse(sessionStorage.getItem("login"));
   console.log(sessionId);
@@ -322,120 +282,38 @@ $(document).ready(function(){
 
   let seq = urlParams.seq;	// html 에서 html 이동할때 값 가져가는 그런 코드
 
-    //질문글 가져와서 뿌려주기
-    $.ajax({
-      url:"http://localhost:3000/getAllQuestionList",
-      type: "get",
-      success:function(list){
-        console.log(list)
-        $.each(list, function(i, val){
-          
-          var pfname = val.profileName;
-          if(pfname == 0 || pfname == null ){
-            pfname = '../image/avatar.png';
-          }
-          var qfname = val.questionFileName;
-
-          // 썸머 노트로 사진과 내용을 같이 담다 보니 이미지 내용을 불러 올수 없음.
-          // qfname == 썸머노트 사진 + 내용 
-
-          if(qfname == 0 || qfname == null){
-            qfname = '../image/wanza.png';
-          }
-          var unname = val.nickName;
-          if(unname == 0 || unname == null){
-            unname == '알수없는 회원입니다.';
-          }
-          var qccount;
-
-          //질문글의 댓글 수 카운팅해서 가져오기
-          $.ajax({
-            url:"http://localhost:3000/questionCommentCount",
-            type:"get",
-            data:{questionSeq:val.questionSeq},
-            async : false,
-            success:function(data){
-              qccount = data;
-              if(qccount == 0 || qccount == null || qccount=='0' || typeof(qccount) == "undefined"){
-                  qccount = 0;
-              }
-              console.log(qccount);
-            }, error:function(data){
-              console.log('questionCommentCount 실패')
-            }
-          });
-
-          //console.log(val);
-
-          let app = "<div class='questions-item' >"
-                    + "<a class='questions-item-link' href="
-                    + "'questionDetail.html?seq="
-                    + val.questionSeq
-                    + "'>"
-                    + "<div class='questions-block'>"
-                    + "<div class='questions-head-img'>"
-                    + "<img class='questions-head-image' src='http://localhost:3000/upload/"+qfname+"' >" 
-                    + "</div>"
-                    + "<div class='questions-head'>"
-                    + "<h2 class='questions-title'>"
-                    + val.questionTitle
-                    + "</h2>"
-                    + "<span class='questions-content'>"
-                    + val.questionContent
-                    + "</span>"       
-                    + "</div>"
-                    + "</a>"
-                    + "<footer class='questions-item-footer'>"
-                      + "<span class='questions-item-footer-author'>"  
-                        + "<span class='questions-item-footer-writer-img'>"
-                        + "<img class='questions-item-footer-writer-image'"
-                        + "src='"
-                        + pfname
-                        + "'>"
-                        + "</span>"
-                        + "<span class='questions-item-footer-writer'>" + unname + "</span>"
-                      + "</span>  &nbsp;&nbsp;&nbsp;&nbsp; "
-                      + "<span class='questions-item-footer-meta'>"
-                        + "<time class='questions-item-footer-date text-gray'>"
-                        + timeForToday(val.questionRegDate)
-                        + "</time>"
-                        + "<span class='questions-item-footer-comments text-gray'>"
-                        + "댓글&nbsp;"  
-                          + "<span class='questions-item-footer-comments-content active'>"
-                          + qccount
-                          + "</span>"
-                        + "</span>"
-                        + "<span class='questions-item-footer-views text-gray'>"
-                          + "조회&nbsp;"
-                          + "<span class='questions-item-footer-views-content'>"
-                          + val.questionReadcount
-                          + "</span>"
-                        + "</span>"
-                      + "</span>"
-                      + "<ul class='questions-item-footer-tags keyword-list'>"
-                      + "<li class='keyword-item questions-item-footer-tags-tag'>"
-                      + "셀프인테리어"
-                      + "</li>"
-                      + "<li class='keyword-item questions-item-footer-tags-tag'>"
-                      + "존망"
-                      + "</li>"
-                      + "</ul>"
-                    + "</footer>"
-                    + "</div>"
-
-                    if(val.questionFileName == 0){
-                      $('#questions-item-footer-writer-image').attr("src", "../image/avatar.png")
-                    }
-
-                    $("#questions-list-container").append(app);
-                  });
-      }, error:function(list){
-        console.log('getAllQuestionList 에러')
-      }
-    })
-
-
+  //검색
+  $('#questions-header-form-search').on('propertychange change keyup paste input', function(k){
+    if(k.keyCode == 13) {
+      let word = $(this).val().trim()
+      console.log(word)
+      getQuestionCount(word,0,0)
+    }
   });
+
+  //정렬
+  $('.w3-bar-item').on('click', function(){
+    let s = $(this).val()
+    $('.sortNum').val(s)
+    let word = $('#questions-header-form-search').val().trim()
+    getQuestionCount(word,s,0)
+  });
+
+});
+
+//답변을 기다리는 질문
+function questionanswer(){
+  let sessionId = sessionStorage.getItem("login");
+    if(sessionId == null || sessionId == '') {
+        alert('로그인해주세요');
+        location.href="../login/login.html";
+    }
+    else {
+      $('.sortNum').val(3)
+      let word = $('#questions-header-form-search').val().trim()
+      getQuestionCount(word,3,0)
+    }
+}
 
 // 작성 시간 나타내기
 function timeForToday(value) {
@@ -459,18 +337,17 @@ function timeForToday(value) {
 
     return `${Math.floor(betweenTimeDay / 365)}년 전`;
 }
-  
 
   
-  //정렬버튼 설정부분
-  function filterfunc() {
-    var x = document.getElementById("Demo");
-    if (x.className.indexOf("w3-show") == -1) {
-      x.className += " w3-show";
-    } else { 
-      x.className = x.className.replace(" w3-show", "");
-    }
+//정렬버튼 설정부분
+function filterfunc() {
+  var x = document.getElementById("Demo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
   }
+}
 
   //질문하러 가기
   function questionwrite(){
@@ -485,18 +362,151 @@ function timeForToday(value) {
     
   }
 
-//질문에 답변하기
-function questionanswer(){
-    if(sessionId == null) {
-        sessionId = '';
-        alert('로그인해주세요');
-        location.href="../login/login.html";
+function getQuestionList(word,s,page){
+    $.ajax({
+      url:"http://localhost:3000/getQuestionList",
+      type: "post",
+      data: {searchWord:word, sort:s, startPage:page},
+      success:function(list){
+        console.log(list)
+        $("#questions-list-container").html('');
+        if( Object.keys(list).length==0 ){
+          let app = '<div class="questions-item" style="height: 300px;">'
+                  + '<div class="questions-block" style="height: 100%; text-align: center;">'
+                  + '<h3 style="line-height: 250px;">게시글이 없습니다.</h3>'
+                  + '</div></div>'
+                  + '<div class="questions-item" style="height: 300px;"></div>'
+          $("#questions-list-container").html(app);
+        }else{
+          $.each(list, function(i, val){
+            
+            let pfname = val.profileName;
+            if(pfname == 0 || pfname == null ){
+              pfname = '../image/avatar.png';
+            }
+            let qfname = val.questionFileName;
+
+            if(qfname == 0 || qfname == null){
+              qfname = '../image/wanza.png';
+            }
+            let unname = val.nickName;
+            if(unname == 0 || unname == null){
+              unname == '알수없는 회원입니다.';
+            }
+            let app = "<div class='questions-item' >"
+                      + "<a class='questions-item-link' href="
+                      + "'questionDetail.html?seq="
+                      + val.questionSeq
+                      + "'>"
+                      + "<div class='questions-block'>"
+                      + "<div class='questions-head-img'>"
+                      + "<img class='questions-head-image' src='http://localhost:3000/upload/"+qfname+"' >" 
+                      + "</div>"
+                      + "<div class='questions-head'>"
+                      + "<h2 class='questions-title'>"
+                      + val.questionTitle
+                      + "</h2>"
+                      + "<span class='questions-content'>"
+                      + val.questionContent
+                      + "</span>"       
+                      + "</div>"
+                      + "</a>"
+                      + "<footer class='questions-item-footer'>"
+                        + "<span class='questions-item-footer-author'>"  
+                          + "<span class='questions-item-footer-writer-img'>"
+                          + "<img class='questions-item-footer-writer-image'"
+                          + "src='"
+                          + pfname
+                          + "'>"
+                          + "</span>"
+                          + "<span class='questions-item-footer-writer'>" + unname + "</span>"
+                        + "</span>  &nbsp;&nbsp;&nbsp;&nbsp; "
+                        + "<span class='questions-item-footer-meta'>"
+                          + "<time class='questions-item-footer-date text-gray'>"
+                          + timeForToday(val.questionRegDate)
+                          + "</time>"
+                          + "<span class='questions-item-footer-comments text-gray'>"
+                          + "댓글&nbsp;"  
+                            + "<span class='questions-item-footer-comments-content active'>"
+                            + val.comentCount
+                            + "</span>"
+                          + "</span>"
+                          + "<span class='questions-item-footer-views text-gray'>"
+                            + "조회&nbsp;"
+                            + "<span class='questions-item-footer-views-content'>"
+                            + val.questionReadcount
+                            + "</span>"
+                          + "</span>"
+                        + "</span>"
+                        + "<ul class='questions-item-footer-tags keyword-list'>"
+                        + "<li class='keyword-item questions-item-footer-tags-tag'>"
+                        + "셀프인테리어"
+                        + "</li>"
+                        + "<li class='keyword-item questions-item-footer-tags-tag'>"
+                        + "존망"
+                        + "</li>"
+                        + "</ul>"
+                      + "</footer>"
+                      + "</div>"
+
+                      if(val.questionFileName == 0){
+                        $('#questions-item-footer-writer-image').attr("src", "../image/avatar.png")
+                      }
+
+                      $("#questions-list-container").append(app);
+            });
+          }
+      },
+      error:function(list){ console.log('getQuestionList 에러')  }
+    });
+}
+
+//글의 총 수를 구하는 함수
+function getQuestionCount(word,s,page) {
+	$.ajax({
+		url:"http://localhost:3000/getQuestionCount",
+		type:"get",
+		data:{searchWord:word, sort:s, startPage:page},
+		success:function(count){ loadPage(count); },
+		error:function(){ console.log('error'); }
+	});
+}
+
+//페이지 처리를 하는 함수
+function loadPage(totalCount) {
+	let pageSize = 5;
+	let nowPage = 1;
+
+	let _totalPages = totalCount / pageSize;
+	console.log("페이지수:"+_totalPages);
+	
+	if(totalCount%pageSize > 0){
+		_totalPages = Math.ceil(_totalPages);
+		//_totalPages++;
+	}
+	//$(".questions_page").twbsPagination("destroy"); //초기화
+	$(".questions_page").twbsPagination({
+		startPage: 1,
+		totalPages: _totalPages,
+		visiblePages:10, //페이지번호를 몇개까지 보일건가
+		first:'<span sria-hidden="true">«</span>',
+		prev:"이전",
+		next:"다음",
+		last:'<span sria-hidden="true">»</span>',
+		initiateStartPageClick:false, //온 페이지 클릭이 자동실행여부 결정
+		onPageClick:function(event,page){
+			nowPage = page;
+      let word = $('#questions-header-form-search').val().trim();
+      let sortNum = $('.sortNum').val();
+      getQuestionList(word,sortNum,page-1);
+		}
+	});
+    if(_totalPages>0){
+        $(".questions_page").twbsPagination("changeTotalPages",_totalPages,nowPage);
+    }else{
+        $(".questions_page").twbsPagination("changeTotalPages",1,1);
     }
-    else {
-      console.log(sessionId);
-      location.href = "questionanswer.html";
-    }
-  }
+}
 
 </script>
 
