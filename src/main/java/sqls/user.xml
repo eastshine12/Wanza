@@ -60,14 +60,5 @@
 	WHERE PHONE=#{phone}
 </select>
 
-<select id="getUserAllInfo" parameterType="com.decolab.wanza.dto.UserDTO" resultType="com.decolab.wanza.dto.UserDTO">
-SELECT U.USERSEQ, U.EMAIL, U.USERNAME, U.NICKNAME, U.PROFILENAME, A.ADDRESSNAME, A.ADDRESS, A.RECEIVEUSER, A.RECEIVEPHONE
-FROM USERS U , ADDRESS A
-WHERE U.USERSEQ = A.USERSEQ AND U.USERSEQ=#{userSeq}
-
-</select>
-
-
-  
   
 </mapper>
