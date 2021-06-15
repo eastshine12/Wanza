@@ -656,7 +656,7 @@ function getDeliveryStatusCount(jdata) {
 		url:"http://localhost:3000/getDeliveryStatusCount",
 		type:"get",
 		data:jdata,
-		success:function(count){ loadPage(count); },
+		success:function(count){ loadPage(count);console.log(count); },
 		error:function(){ console.log('error'); }
 	});
 }
