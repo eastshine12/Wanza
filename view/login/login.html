@@ -245,6 +245,8 @@
                 dataType: 'text',
                 success:function(code){
                     alert("kakao ajax 성공");
+                    console.log(sessionStorage.setItem("login", code))
+                    location.href = "../community/mainCommunity.html"
                 }, error:function(code){
                     alert("kakao ajax 실패");
                 }
