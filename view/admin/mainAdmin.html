@@ -103,6 +103,7 @@ body{
 }
 .b_text{
     font-size: 14px;
+    margin-bottom: 5px;
 }
 .b_title{
     font-size: 25px;
@@ -171,6 +172,12 @@ body{
     text-align: right;
 }
 
+/* Chart */
+.chartdiv {
+    width: 100%;
+    height: 200px;
+}
+
 </style>
 
 </head>
@@ -202,23 +209,8 @@ body{
                     </div>
                     <div class="box_main">
                         <div class="box_content">
-                            <span class="b_text">배송현황</span>
-                            <span class="b_title">배송현황</span>
-                        </div>
-                        <div class="box_footer">
-                            <a href="store-deliveryStatus.html"><i class="fas fa-scroll"></i> 자세히 보기</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="box_wrap">
-                    <div class="box_head">
-                        <i class="fas fa-truck-loading fa-2x"></i>
-                    </div>
-                    <div class="box_main">
-                        <div class="box_content">
-                            <span class="b_text">상품현황</span>
-                            <span class="b_title">상품현황</span>
+                            <span class="b_text">이번주 주문 접수현황</span>
+                            <span class="b_title"><span id="bang_1" style="color: red; font-size: 18px;">! </span><span id="weekOrder">0</span>건 / <span id="totalOrder">0</span> 건</span>
                         </div>
                         <div class="box_footer">
                             <a href="store-deliveryStatus.html"><i class="fas fa-scroll"></i> 자세히 보기</a>
@@ -232,11 +224,26 @@ body{
                     </div>
                     <div class="box_main">
                         <div class="box_content">
-                            <span class="b_text">고객만족도</span>
-                            <span class="b_title">고객만족도</span>
+                            <span class="b_text">이번주 배송 진행률</span>
+                            <span class="b_title"><span id="deliveryPercent"></span>%</span>
                         </div>
                         <div class="box_footer">
                             <a href="store-deliveryStatus.html"><i class="fas fa-scroll"></i> 자세히 보기</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box_wrap">
+                    <div class="box_head">
+                        <i class="fas fa-truck-loading fa-2x"></i>
+                    </div>
+                    <div class="box_main">
+                        <div class="box_content">
+                            <span class="b_text">이번주 신규회원 수</span>
+                            <span class="b_title"> <span id="bang_2" style="color: red; font-size: 18px;">! </span><span id="weekRegi">0</span>명 / <span id="totalRegi">0</span>명</span>
+                        </div>
+                        <div class="box_footer">
+                            <a href="store-addProduct.html"><i class="fas fa-scroll"></i> 자세히 보기</a>
                         </div>
                     </div>
                 </div>
@@ -248,7 +255,7 @@ body{
                 
                 <div class="chart_wrap">
                     <div class="chart_main">
-                        
+                        <div class="chartdiv" id="graphChart"></div>
                     </div>
                     <div class="chart_content">
                         <div class="chart_texts">
@@ -256,14 +263,14 @@ body{
                             <span class="c_text">전날 대비 12% 증가</span>
                         </div>
                         <div class="chart_footer">
-                            <span><i class="fas fa-hourglass-half"></i> 10분 전 업데이트</span>
+                            <span name="term_week"></span>
                         </div>
                     </div>
                 </div>
 
                 <div class="chart_wrap">
                     <div class="chart_main">
-                        
+                        <div class="chartdiv" id="barChart"></div>
                     </div>
                     <div class="chart_content">
                         <div class="chart_texts">
@@ -271,7 +278,7 @@ body{
                             <span class="c_text">전날 대비 12% 증가</span>
                         </div>
                         <div class="chart_footer">
-                            <span><i class="fas fa-hourglass-half"></i> 10분 전 업데이트</span>
+                            <span name="term_week"></span>
                         </div>
                     </div>
                 </div>
@@ -292,12 +299,326 @@ body{
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/adminSide.js"></script>
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
 
 <script>
 $(document).ready(function() {
 
-
 });
+
+
+// 일주일 배송현황
+getWeekDeliveryCount()
+function getWeekDeliveryCount() {
+
+    // 일주일 전
+    let lastWeek = new Date();
+    let dayOfMonth = lastWeek.getDate();
+    lastWeek.setDate(dayOfMonth-7);
+
+    // 오늘
+    let today = new Date();
+
+    $.ajax({
+        url: "http://localhost:3000/getDeliveryStatusList",
+        type: "post",
+        data: {
+            "startDate": getDateStr(lastWeek),
+            "endDate": getDateStr(today)
+        },
+        success: function (list) {
+            console.log(list);
+            let weekOrder = list.length;
+            if(weekOrder == 0) {
+                $('#bang_1').hide();
+            }
+            $('#weekOrder').text(weekOrder);
+
+            let deliveryCount = 0;
+            $.each(list, function(i, val) {
+                if(val.orderStatus == 1 || val.orderStatus == 2) {
+                    deliveryCount++;
+                }
+            });
+            $('#deliveryPercent').text(Math.floor(100*deliveryCount/weekOrder));
+
+        },
+        error: function () { console.log('error'); }
+    });
+};
+
+// 모든기간 배송현황
+getDeliveryCount();
+function getDeliveryCount() {
+
+    $.ajax({
+        url: "http://localhost:3000/getDeliveryStatusList",
+        type: "post",
+        success: function (list) {
+            console.log(list);
+            let totalOrder = list.length;
+            $('#totalOrder').text(totalOrder);
+
+        },
+        error: function () { console.log('error'); }
+    });
+};
+
+
+
+// 날짜 -> 문자열 변경 함수
+function getDateStr(myDate){
+	let year = myDate.getFullYear();
+	let month = (myDate.getMonth() + 1);
+	let day = myDate.getDate();
+	
+	month = (month < 10) ? "0" + String(month) : month;
+	day = (day < 10) ? "0" + String(day) : day;
+	
+	return  year + '-' + month + '-' + day;
+}
+
+
+
+getWeekRegiCount();
+function getWeekRegiCount() {
+    // 일주일 전
+    let lastWeek=new Date();
+    lastWeek.setDate(lastWeek.getDate()-7);
+
+    // 오늘
+    let today=new Date();
+    today.setHours(today.getHours()+23);
+    today.setMinutes(today.getMinutes()+59);
+
+
+    $.ajax({
+        url: "http://192.168.0.231:3000/getUserManageList",
+        type: "get",
+        data: {
+            "startDate": lastWeek,
+            "endDate": today
+        },
+        success: function (list) {
+            console.log(list);
+            $('#weekRegi').text(list.length);
+            if(list.length == 0) {
+                $('#bang_2').hide();
+            }
+        },
+        error: function () {
+            alert('getWeekRegiCount error');
+        }
+    });
+};
+
+
+// 글 총 수 가져오기
+getUserManageCount()
+function getUserManageCount() {
+
+    let sdate=new Date('1900-1-1');
+    let edate=new Date('2200-12-31');
+    edate.setHours(edate.getHours()+23);
+    edate.setMinutes(edate.getMinutes()+59);
+
+    $.ajax({
+        url: "http://192.168.0.231:3000/getUserManageCount",
+        type: "get",
+        data: {
+            "startDate": sdate,
+            "endDate": edate
+        },
+        success: function (totalCount) {
+            console.log(totalCount);
+            $('#totalRegi').text(totalCount);
+        },
+        error: function () {
+            alert('getUserManageCount() error');
+        }
+    });
+
+};
+
+
+
+// 총 매출액 그래프 호출 함수
+lineGraph();
+function lineGraph(){     
+
+    // 일주일 전
+    let lastWeek=new Date();
+    lastWeek.setDate(lastWeek.getDate()-7);
+
+    // 오늘
+    let today=new Date();
+    today.setHours(today.getHours()+23);
+    today.setMinutes(today.getMinutes()+59);
+    
+    $.ajax({
+        url:"http://localhost:3000/graphList",
+        type:"post",
+        data:{"sDate":getDateStr(lastWeek),"eDate":getDateStr(today)},
+        success:function(list){
+
+                $('span[name=term_week]').text(getDateStr(lastWeek) +' ~ '+getDateStr(today));
+
+                let app = "[";
+                $.each(list,function(i,val){
+                        
+                    if(i == list.length-1){
+                        app += "{\"date\":\""+val.sDay+"\","+"\"value1\":"+val.total+"}]"; 
+                    }else{
+                        app += "{\"date\":\""+val.sDay+"\","+"\"value1\":"+val.total+"},";
+                    }            
+                })
+
+                app = JSON.parse(app);
+                /////////////////// graph chart//////////////////////////
+                am4core.ready(function() {
+                // Themes begin
+                am4core.useTheme(am4themes_material);
+                am4core.useTheme(am4themes_animated);
+                // Themes end
+
+                // Create chart instance
+                var chart = am4core.create("graphChart", am4charts.XYChart);
+
+                // Add data
+                //
+                chart.data = app
+
+                // Create axes
+                var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+                dateAxis.renderer.minGridDistance = 50;
+
+                var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+                // Create series
+                var series = chart.series.push(new am4charts.LineSeries());
+                series.dataFields.valueY = "value1";
+                series.dataFields.dateX = "date";
+                series.strokeWidth = 2;
+                series.minBulletDistance = 10;
+                series.tooltipText = "[bold]{date.formatDate()} :[/] {value1}\n[bold]{previousDate.formatDate()}";
+                series.tooltip.pointerOrientation = "vertical";
+
+                // Create series
+                var series2 = chart.series.push(new am4charts.LineSeries());
+                series2.dataFields.valueY = "value2";
+                series2.dataFields.dateX = "date";
+                series2.strokeWidth = 2;
+                series2.strokeDasharray = "3,4";
+                series2.stroke = series.stroke;
+
+                // Add cursor
+                chart.cursor = new am4charts.XYCursor();
+                chart.cursor.xAxis = dateAxis;
+
+                }); // end am4core.ready()
+            
+        },
+        error:function(){
+            alert("error");
+        }
+    }) 
+}
+
+barChart();
+function barChart(){
+
+    // 일주일 전
+    let lastWeek=new Date();
+    lastWeek.setDate(lastWeek.getDate()-7);
+
+    // 오늘
+    let today=new Date();
+    today.setHours(today.getHours()+23);
+    today.setMinutes(today.getMinutes()+59);
+
+    $.ajax({
+        url:"http://localhost:3000/pieChart",
+        type:"post",
+        data:{"sDate":getDateStr(lastWeek),"eDate":getDateStr(today)},
+        success:function(list){
+            let app="[";
+            $.each(list,function(i,val){
+                if(i == list.length-1){
+                    app += "{\"country\":\""+val.category+"\","+"\"visits\":"+val.quanti+"}]"; 
+                } else {
+                    app += "{\"country\":\""+val.category+"\","+"\"visits\":"+val.quanti+"},"; 
+                }
+            })                
+                app = JSON.parse(app);
+                am4core.ready(function() {
+
+                    // Themes begin
+                    am4core.useTheme(am4themes_animated);
+                    // Themes end
+
+                    // Create chart instance
+                    var chart = am4core.create("barChart", am4charts.XYChart);
+                    chart.scrollbarX = new am4core.Scrollbar();
+
+                    // Add data
+                    chart.data = app
+
+                    // Create axes
+                    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+                    categoryAxis.dataFields.category = "country";
+                    categoryAxis.renderer.grid.template.location = 0;
+                    categoryAxis.renderer.minGridDistance = 30;
+                    categoryAxis.renderer.labels.template.horizontalCenter = "right";
+                    categoryAxis.renderer.labels.template.verticalCenter = "middle";
+                    categoryAxis.renderer.labels.template.rotation = 270;
+                    categoryAxis.tooltip.disabled = true;
+                    categoryAxis.renderer.minHeight = 110;
+
+                    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                    valueAxis.renderer.minWidth = 50;
+
+                    // Create series
+                    var series = chart.series.push(new am4charts.ColumnSeries());
+                    series.sequencedInterpolation = true;
+                    series.dataFields.valueY = "visits";
+                    series.dataFields.categoryX = "country";
+                    series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
+                    series.columns.template.strokeWidth = 0;
+
+                    series.tooltip.pointerOrientation = "vertical";
+
+                    series.columns.template.column.cornerRadiusTopLeft = 10;
+                    series.columns.template.column.cornerRadiusTopRight = 10;
+                    series.columns.template.column.fillOpacity = 0.8;
+
+                    // on hover, make corner radiuses bigger
+                    var hoverState = series.columns.template.column.states.create("hover");
+                    hoverState.properties.cornerRadiusTopLeft = 0;
+                    hoverState.properties.cornerRadiusTopRight = 0;
+                    hoverState.properties.fillOpacity = 1;
+
+
+                    series.columns.template.adapter.add("fill", function(fill, target) {
+                        return chart.colors.getIndex(target.dataItem.index);
+                    });
+
+                    // Cursor
+                    chart.cursor = new am4charts.XYCursor();
+
+                }); // end am4core.ready()
+            
+        },error:function(){
+            alert("piechart error");
+        }
+    })
+}
+
+
 
 </script>
 

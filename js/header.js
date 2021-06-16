@@ -68,6 +68,13 @@ $(document).ready(function() {
             $('.cart').remove()
             $('#goLogin').html('<b>관리자 </b> <i class="fa fa-sort-down"></i>');
         }
+        else if(auth == 7) {
+            alert('경고 3번 누적으로 인해 계정이 정지되었습니다.');
+            sessionStorage.removeItem('login');
+            location.href = '../../index.html';
+            return;
+            
+        }        
         else{
             $('#goLogin').html('<b>내 정보 </b> <i class="fa fa-sort-down"></i>');
         }

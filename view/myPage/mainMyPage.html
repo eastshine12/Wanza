@@ -28,6 +28,7 @@
     flex-direction: column;
     align-items: center;
     box-shadow: 0 4px 10px 0 rgb(0 0 0 / 8%), 0 7px 10px -5px rgb(0 0 0 / 8%);
+    font-family: 'Noto Sans KR', sans-serif;
 }
 .profile_img{
     margin: 20px 0;
@@ -53,7 +54,7 @@
     border: none;
     background-color: #f4744c;
     font-size: 1.2em;
-    font-weight: 900;
+    font-weight: 500;
 }
 .btn_profile:hover{
     color: #f4744c;
@@ -420,10 +421,9 @@
                 <div class="profile_img">
                     <span><i class="fa fa-user-circle-o fa-5x"></i></span>
                 </div>
-                <span class="profile_name">유저 닉네임</span>
+                <span class="profile_name">nickname</span>
                 <div class="profile_category">
-                    <div><span>포인트 : </span><span> 363</span>P</div>
-                    <div><span>구매등급 : </span><span></span></div>
+                    <div><span>잔여포인트 </span><span id="myPoint" style="font-weight: bold;"></span> P</div>
                 </div>
                 <button type="button" class="btn_profile" onclick="location.href='./userEdit copy.html'">회원정보 수정</button>
             </div>
@@ -641,6 +641,7 @@
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
+<script src="../../js/slang.js"></script>
 
 <script>
 //로그인한 계정 닉네임 가져오기
@@ -662,12 +663,14 @@ $(document).ready(function() {
     });
 
     //유저정보입력
-    if(sessionId.profileName != '0'){
-        console.log(sessionId.profileNam);
-        $('.profile_name').text(sessionId.nickname);
-        $('.profile_category span:eq(1)').text( sessionId.mileage);
-        $('.profile_category span:eq(3)').text('일반');
-    }
+    $('.profile_name').text(sessionId.nickname);
+        $('.profile_category span:eq(1)').text( makeComma(sessionId.mileage));
+    if(sessionId.profileName != '0') {
+        $('.fa-user-circle-o').hide();
+        $('.profile_img').css('border', '0px');
+        $('.profile_img').append($('<img src="http://192.168.0.231:3000/upload/'+sessionId.profileName+'" style="width: 158px;height: 158px; object-fit:cover; border-radius: 70%;" />'));
+    } 
+
 
     // 배송현황 클릭
     $('.order_count_wrap').click(function(){
@@ -675,7 +678,7 @@ $(document).ready(function() {
         let status = $(this).data("ov");
         let text = $(this).children().eq(1).text();
         $(this).addClass('active');
-        $('.btn_pop').eq(1).html(text+' <i class="fas fa-sort"></i>');
+        $('.btn_pop').eq(1).html(text+' <i class="fas fa-sort"></img>');
         $('.sort_clear').css('display','block');
         getMyOrderList(getSortData(status));
     });

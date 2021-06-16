@@ -458,7 +458,6 @@ select::-ms-expand{
                         <option value="5">경고 1회</option>
                         <option value="6">경고 2회</option>
                         <option value="7">계정정지</option>
-                        <option value="8">영구탈퇴</option>
                     </select><i class="fas fa-sort-down"></i></label>
 
                     <button type="button" id="authBtn" class="tab_btn">변 경</button>
@@ -638,10 +637,22 @@ $('#authBtn').click(function() {
     }
 
     let chkLength = $('input[name=chk]:checked').length;
+
+    if(chkLength == 0) {
+        alert('변경할 회원을 선택해주세요.');
+        return;
+    }
+
     let chkArr = new Array(chkLength);
     for (let i = 0; i < chkLength; i++) {
         chkArr[i] = $('input[name=chk]:checked').eq(i).attr('id');
     }
+
+    if(authNum == 7) {
+        if(!confirm("해당 회원을 정지 시키겠습니까?") == true) return;
+    }
+
+
 
     $.ajax({
         url: "http://192.168.0.231:3000/changeAuthNum",
@@ -696,7 +707,12 @@ function getUserManageList(pageNum) {
                 let seq = -1;
 
                 $.each(list, function (i, val) {
-                    app+= '<tr><td><div class="custom-checkbox"><input type="checkbox" class="custom-control-input" id="'+val.userSeq+'" name="chk">'
+
+                    app+= '<tr';
+                    if(val.auth == 7) {
+                        app += ' style="color: #BDBDBD;text-decoration:line-through;" '
+                    }
+                    app +='><td><div class="custom-checkbox"><input type="checkbox" class="custom-control-input" id="'+val.userSeq+'" name="chk">'
                         + '<label for="'+val.userSeq+'" class="custom-control-label"></label></div></td>'
                         + '<td>'+val.userSeq+'</td>'
                         + '<td>'+makeStatus(val.auth)+'</td>'
@@ -803,7 +819,7 @@ function makeDate(str) {
 
 // 테이블 배송상태 입력
 function makeStatus(num) {
-    let status = ['일반회원','','','관리자','','경고 1회','경고 2회','계정정지','영구탈퇴']
+    let status = ['일반회원','','','관리자','','경고 1회','경고 2회','계정정지']
     if(!isNaN(Number(num))){ return status[num] }
     else{           return '확인불가' }
 };
@@ -812,7 +828,7 @@ function makePicture(str) {
     if(str == 0 || str == null) {
         return "-";
     }
-    return '<img src="http://192.168.0.231:3000/upload/'+str+'">';
+    return '<img src="http://192.168.0.231:3000/upload/'+str+'" style="width: 38px;height: 38px; object-fit:cover; border-radius: 70%;">';
 }
 
 function makeName(str) {
