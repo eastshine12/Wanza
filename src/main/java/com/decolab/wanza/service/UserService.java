@@ -41,6 +41,10 @@ public class UserService {
 		//return dao.kakaologin(dto);
 	}
 	
+	public UserDTO klogin(UserDTO dto) {
+		return dao.klogin(dto);
+	}
+	
 	public UserDTO getUserNickname(UserDTO dto) {
 		return dao.getUserNickname(dto);
 	}
