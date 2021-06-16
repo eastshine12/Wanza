@@ -24,7 +24,7 @@ public interface UserDAO {
 	public int newPwd(UserDTO dto);
 	
 	public UserDTO getUserEmail(UserDTO dto);
+
 	
-	public UserDTO getUserAllInfo(UserDTO dto);
 	
 }

@@ -13,6 +13,8 @@ import com.decolab.wanza.dto.QuestionDTO;
 public interface QuestionDAO {
 	
 	public List<QuestionDTO> getAllQuestionList();
+	public List<QuestionDTO> getQuestionList(QuestionDTO dto);
+	public int getQuestionCount(QuestionDTO dto);
 	
 	public List<QuestionDTO> getSearchQuestion(QuestionDTO dto);
 	

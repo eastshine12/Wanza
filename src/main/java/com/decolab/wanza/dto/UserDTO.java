@@ -301,16 +301,19 @@ public class UserDTO implements Serializable {
 		this.defaultAddress = defaultAddress;
 	}
 
-
-
-
 	@Override
 	public String toString() {
 		return "UserDTO [userSeq=" + userSeq + ", email=" + email + ", pwd=" + pwd + ", userName=" + userName
 				+ ", nickname=" + nickname + ", profileName=" + profileName + ", phone=" + phone + ", auth=" + auth
 				+ ", userDate=" + userDate + ", mileage=" + mileage + ", defaultAddress=" + defaultAddress
-				+ ", agerange=" + agerange + ", gender=" + gender + ", birth=" + birth + "]";
+				+ ", agerange=" + agerange + ", gender=" + gender + ", birth=" + birth + ", addressName=" + addressName
+				+ ", address=" + address + ", receiveUser=" + receiveUser + ", receivePhone=" + receivePhone + "]";
 	}
+
+
+
+
+
 
 	
 	

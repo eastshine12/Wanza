@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+
+  
+<mapper namespace="com.decolab.wanza.dao.UserEditDAO">
+<select id="getUserAllInfo" parameterType="com.decolab.wanza.dto.UserDTO" resultType="com.decolab.wanza.dto.UserDTO">
+SELECT U.USERSEQ, U.EMAIL, U.USERNAME, U.NICKNAME, U.PROFILENAME, A.ADDRESSNAME, A.ADDRESS, A.RECEIVEUSER, A.RECEIVEPHONE
+FROM USERS U , ADDRESS A
+WHERE U.USERSEQ = A.USERSEQ(+) AND U.USERSEQ=#{userSeq}
+
+</select>
+
+<select id="getUserAllInfoCopy" parameterType="com.decolab.wanza.dto.UserDTO" resultType="com.decolab.wanza.dto.UserDTO">
+SELECT USERSEQ, EMAIL, USERNAME, NICKNAME, PROFILENAME
+FROM USERS
+WHERE USERSEQ=#{userSeq}
+</select>
+
+<select id="overlapNickname" parameterType="com.decolab.wanza.dto.UserDTO" resultType="int">
+	SELECT COUNT(*)
+	FROM USERS
+	WHERE NICKNAME=#{nickname}
+</select>
+
+<update id="userEdit" parameterType="com.decolab.wanza.dto.UserDTO">
+UPDATE USERS
+SET USERNAME = #{userName}, NICKNAME = #{nickname},PROFILENAME=#{profileName}
+WHERE USERSEQ = #{userSeq}
+</update>
+
+<update id="userEdit2" parameterType="com.decolab.wanza.dto.UserDTO">
+UPDATE ADDRESS
+SET ADDRESSNAME=#{addressName},ADDRESS=#{address},RECEIVEUSER=#{receiveUser},RECEIVEPHONE=#{receivePhone}
+WHERE USERSEQ = #{userSeq}
+</update>
+
+
+<delete id="deleteAdd" parameterType="java.lang.Integer">
+DELETE FROM ADDRESS
+WHERE ADDRESSSEQ=#{addressSeq}
+
+</delete>
+
+
+</mapper>

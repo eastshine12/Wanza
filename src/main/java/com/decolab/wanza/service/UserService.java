@@ -80,10 +80,7 @@ public class UserService {
         }
 
     }
-	 
-	 public UserDTO getUserAllInfo(UserDTO dto) {
-		 return dao.getUserAllInfo(dto);
-	 }
+	
 	 
 	
 	

@@ -29,12 +29,55 @@ public class AdminStoryTagDTO implements Serializable {
 	private String tagHomeType;
 	private String tagStyle;
 	
+	private int pageNum;
+	private int selectVal1;
+	private int selectVal2;
+	private Date startDate;
+	private Date endDate;
+	private String searchText;
+	
 	
 	public AdminStoryTagDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
 	
+	
+	public AdminStoryTagDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount,
+			Date cardDate, String cardFileName, int cardDel, String nickName, int likeCount, int tagCount,
+			int productSeq, int productPrice, String productName, String productFileName, int locationX, int locationY,
+			String tagColor, String tagHomeType, String tagStyle, int pageNum, int selectVal1, int selectVal2,
+			Date startDate, Date endDate, String searchText) {
+		super();
+		this.cardSeq = cardSeq;
+		this.cardTitle = cardTitle;
+		this.cardContent = cardContent;
+		this.userSeq = userSeq;
+		this.cardReadCount = cardReadCount;
+		this.cardDate = cardDate;
+		this.cardFileName = cardFileName;
+		this.cardDel = cardDel;
+		this.nickName = nickName;
+		this.likeCount = likeCount;
+		this.tagCount = tagCount;
+		this.productSeq = productSeq;
+		this.productPrice = productPrice;
+		this.productName = productName;
+		this.productFileName = productFileName;
+		this.locationX = locationX;
+		this.locationY = locationY;
+		this.tagColor = tagColor;
+		this.tagHomeType = tagHomeType;
+		this.tagStyle = tagStyle;
+		this.pageNum = pageNum;
+		this.selectVal1 = selectVal1;
+		this.selectVal2 = selectVal2;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.searchText = searchText;
+	}
+
+
 	public AdminStoryTagDTO(int cardSeq, String cardTitle, String cardContent, int userSeq, int cardReadCount,
 			Date cardDate, String cardFileName, int cardDel, String nickName, int likeCount, int tagCount,
 			int productSeq, int productPrice, String productName, String productFileName, int locationX, int locationY,
@@ -63,9 +106,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public int getCardSeq() {
 		return cardSeq;
 	}
+
 
 
 	public void setCardSeq(int cardSeq) {
@@ -73,9 +118,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public String getCardTitle() {
 		return cardTitle;
 	}
+
 
 
 	public void setCardTitle(String cardTitle) {
@@ -83,9 +130,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public String getCardContent() {
 		return cardContent;
 	}
+
 
 
 	public void setCardContent(String cardContent) {
@@ -93,9 +142,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public int getUserSeq() {
 		return userSeq;
 	}
+
 
 
 	public void setUserSeq(int userSeq) {
@@ -103,9 +154,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public int getCardReadCount() {
 		return cardReadCount;
 	}
+
 
 
 	public void setCardReadCount(int cardReadCount) {
@@ -113,9 +166,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public Date getCardDate() {
 		return cardDate;
 	}
+
 
 
 	public void setCardDate(Date cardDate) {
@@ -123,9 +178,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public String getCardFileName() {
 		return cardFileName;
 	}
+
 
 
 	public void setCardFileName(String cardFileName) {
@@ -133,9 +190,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public int getCardDel() {
 		return cardDel;
 	}
+
 
 
 	public void setCardDel(int cardDel) {
@@ -143,9 +202,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public String getNickName() {
 		return nickName;
 	}
+
 
 
 	public void setNickName(String nickName) {
@@ -153,9 +214,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public int getLikeCount() {
 		return likeCount;
 	}
+
 
 
 	public void setLikeCount(int likeCount) {
@@ -163,9 +226,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public int getTagCount() {
 		return tagCount;
 	}
+
 
 
 	public void setTagCount(int tagCount) {
@@ -173,9 +238,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public int getProductSeq() {
 		return productSeq;
 	}
+
 
 
 	public void setProductSeq(int productSeq) {
@@ -183,9 +250,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public int getProductPrice() {
 		return productPrice;
 	}
+
 
 
 	public void setProductPrice(int productPrice) {
@@ -193,9 +262,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public String getProductName() {
 		return productName;
 	}
+
 
 
 	public void setProductName(String productName) {
@@ -203,9 +274,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public String getProductFileName() {
 		return productFileName;
 	}
+
 
 
 	public void setProductFileName(String productFileName) {
@@ -213,9 +286,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public int getLocationX() {
 		return locationX;
 	}
+
 
 
 	public void setLocationX(int locationX) {
@@ -223,9 +298,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public int getLocationY() {
 		return locationY;
 	}
+
 
 
 	public void setLocationY(int locationY) {
@@ -233,9 +310,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public String getTagColor() {
 		return tagColor;
 	}
+
 
 
 	public void setTagColor(String tagColor) {
@@ -243,9 +322,11 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public String getTagHomeType() {
 		return tagHomeType;
 	}
+
 
 
 	public void setTagHomeType(String tagHomeType) {
@@ -253,14 +334,89 @@ public class AdminStoryTagDTO implements Serializable {
 	}
 
 
+
 	public String getTagStyle() {
 		return tagStyle;
 	}
 
 
+
 	public void setTagStyle(String tagStyle) {
 		this.tagStyle = tagStyle;
 	}
+
+
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+
+
+	public int getSelectVal1() {
+		return selectVal1;
+	}
+
+
+
+	public void setSelectVal1(int selectVal1) {
+		this.selectVal1 = selectVal1;
+	}
+
+
+
+	public int getSelectVal2() {
+		return selectVal2;
+	}
+
+
+
+	public void setSelectVal2(int selectVal2) {
+		this.selectVal2 = selectVal2;
+	}
+
+
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
 
 
 	@Override
@@ -271,11 +427,11 @@ public class AdminStoryTagDTO implements Serializable {
 				+ likeCount + ", tagCount=" + tagCount + ", productSeq=" + productSeq + ", productPrice=" + productPrice
 				+ ", productName=" + productName + ", productFileName=" + productFileName + ", locationX=" + locationX
 				+ ", locationY=" + locationY + ", tagColor=" + tagColor + ", tagHomeType=" + tagHomeType + ", tagStyle="
-				+ tagStyle + "]";
+				+ tagStyle + ", pageNum=" + pageNum + ", selectVal1=" + selectVal1 + ", selectVal2=" + selectVal2
+				+ ", startDate=" + startDate + ", endDate=" + endDate + ", searchText=" + searchText + "]";
 	}
 
 
-
-
+	
 
 }

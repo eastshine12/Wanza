@@ -1,7 +1,10 @@
 package com.decolab.wanza.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -18,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
-
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -27,13 +30,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.decolab.wanza.dto.CardDTO;
 import com.decolab.wanza.dto.UserDTO;
 import com.decolab.wanza.service.UserService;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import util.NewFileName;
 import util.SHA256;
 
 
@@ -158,6 +164,7 @@ public class UserController {
 	@RequestMapping(value = "/sendMail", method = {RequestMethod.GET,RequestMethod.POST})
 	public void sendMail(UserDTO dto) throws MessagingException {
 		
+		dto.setEmail(StringEscapeUtils.unescapeHtml(dto.getEmail()));
 		System.out.println(dto.getEmail());
 		
 		UserDTO info = service.getUserNickname(dto);
@@ -439,12 +446,8 @@ public class UserController {
 	
 	}
 	
-	@RequestMapping(value = "/getUserAllInfo", method = {RequestMethod.GET,RequestMethod.POST})
-	public UserDTO getUserAllInfo(UserDTO dto) {
-		System.out.println("UserController getUserAllInfo() " + new Date() );
-		return service.getUserAllInfo(dto);
-		
-	}
+	
+	
 	
 	
 	

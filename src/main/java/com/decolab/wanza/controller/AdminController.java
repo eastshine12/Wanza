@@ -5,15 +5,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -29,11 +26,10 @@ import com.decolab.wanza.dto.ProductDTO;
 import com.decolab.wanza.dto.ProductHashTagDTO;
 import com.decolab.wanza.dto.ProductOptionDTO;
 import com.decolab.wanza.dto.ProductQuestionDTO;
-import com.decolab.wanza.dto.UserDTO;
 import com.decolab.wanza.dto.admin.AdminDeliveryStatusDTO;
 import com.decolab.wanza.dto.admin.AdminStoryTagDTO;
+import com.decolab.wanza.dto.admin.AdminUserManageDTO;
 import com.decolab.wanza.service.AdminService;
-import com.decolab.wanza.service.UserService;
 import com.google.gson.JsonObject;
 
 import util.NewFileName;
@@ -88,11 +84,19 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/getStoryTagList", method = {RequestMethod.GET,RequestMethod.POST})
-	public List<AdminStoryTagDTO> getStoryTagList() {
+	public List<AdminStoryTagDTO> getStoryTagList(AdminStoryTagDTO dto) {
 		System.out.println("AdminController getStoryTagList() " + new Date());		
-		
-		return service.getStoryTagList();
+		System.out.println(dto.toString());
+
+		return service.getStoryTagList(dto);
 	}
+	
+	@RequestMapping(value = "/getStoryTagCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public int getStoryTagCount(AdminStoryTagDTO dto) {
+		System.out.println("AdminController getStoryTagCount() " + new Date());		
+		return service.getStoryTagCount(dto);
+	}
+	
 	
 	@RequestMapping(value = "/getSearchProductionList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<ProductDTO> getSearchProductionList(ProductDTO dto) {
@@ -240,10 +244,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/getProductQuestionList", method = {RequestMethod.GET,RequestMethod.POST})
-	public List<ProductQuestionDTO> getProductQuestionList() {
+	public List<ProductQuestionDTO> getProductQuestionList(ProductQuestionDTO dto) {
 		System.out.println("AdminController getProductQuestionList() " + new Date());		
-		
-		return service.getProductQuestionList();
+		System.out.println(dto.toString());
+		return service.getProductQuestionList(dto);
 	}
 	
 	
@@ -255,12 +259,39 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping(value = "/getProductAnswerCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public int getProductAnswerCount(ProductQuestionDTO dto) {
+		System.out.println("AdminController getProductAnswerCount() " + new Date());		
+		return service.getProductAnswerCount(dto);
+	}
+	
+
+	@RequestMapping(value = "/getUserManageList", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<AdminUserManageDTO> getUserManageList(AdminUserManageDTO dto) {
+		System.out.println("AdminController getUserManageList() " + new Date());		
+		System.out.println(dto.toString());
+		return service.getUserManageList(dto);
+	}
+	
+
+	@RequestMapping(value = "/getUserManageCount", method = {RequestMethod.GET,RequestMethod.POST})
+	public int getUserManageCount(AdminUserManageDTO dto) {
+		System.out.println("AdminController getUserManageCount() " + new Date());		
+		System.out.println(dto.toString());
+		return service.getUserManageCount(dto);
+	}
 	
 	
-	
-	
-	
-	
+	@RequestMapping(value = "/changeAuthNum", method = {RequestMethod.GET,RequestMethod.POST})
+	public void changeAuthNum(AdminUserManageDTO dto, @RequestParam(value="arr[]") int[] arr) {
+		System.out.println("AdminController changeAuthNum() " + new Date());
+		System.out.println(dto.toString());
+		for(int i : arr) {
+			dto.setUserSeq(i);
+			service.changeAuthNum(dto);
+		}
+		
+	}
 	
 	
 	
