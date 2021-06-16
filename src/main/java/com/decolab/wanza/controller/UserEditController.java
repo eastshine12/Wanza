@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.decolab.wanza.dto.AddressDTO;
 import com.decolab.wanza.dto.UserDTO;
 import com.decolab.wanza.service.UserEditService;
 
@@ -102,8 +103,26 @@ public class UserEditController {
 		
 		return service.deleteAdd(addressSeq)>0?"suc":"err";
 		
+	
+	}
+	@RequestMapping(value = "/getAddress", method = {RequestMethod.GET,RequestMethod.POST})
+	public AddressDTO getAddress(AddressDTO dto) {
+		System.out.println("UserEditController getAddress() " + new Date());
+		return service.getAddress(dto);
+	}
+	
+	@RequestMapping(value = "/updateDeli", method = {RequestMethod.GET,RequestMethod.POST})
+	public String updateDeli(AddressDTO dto) {
+		System.out.println("UserEditController updateDeli() " + new Date());
 		
+		return service.updateDeli(dto)>0?"suc":"err";
 		
+	}
+	
+	@RequestMapping(value = "/noProfile", method = {RequestMethod.GET,RequestMethod.POST})
+	public String noProfile(UserDTO dto) {
+		System.out.println("UserEditController noProfile() " + new Date());
+		return service.noProfilename(dto)>0?"suc":"err";
 	}
 	
 	
