@@ -363,7 +363,7 @@
 
             if (!filter.test($('#pwd').val())) {
                 $("#pwd1Check").css("color", "#ff0000");
-                $("#pwd1Check").html('비밀번호 형식이 올바르지 않습니다.');
+                $("#pwd1Check").html('비밀번호 형식이 올바르지 않습니다.<br>(비밀번호 영문, 숫자 혼합 6~20자)');
             }
             else {
                 $("#pwd1Check").html('');
