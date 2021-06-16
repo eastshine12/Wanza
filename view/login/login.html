@@ -243,10 +243,11 @@
                 data: {"code" : code},
                 async: false,
                 dataType: 'text',
-                success:function(code){
+                success:function(email){
                     alert("kakao ajax 성공");
-                    console.log(sessionStorage.setItem("login", code))
-                    location.href = "../community/mainCommunity.html"
+                    //console.log(session.setattribute(getItem("login")));
+                    klogin(email);
+                    //location.href = "../community/mainCommunity.html"
                 }, error:function(code){
                     alert("kakao ajax 실패");
                 }
@@ -254,6 +255,37 @@
         } else {
             //alert("작동안함");
         }
+    }
+
+    
+
+    function klogin(email){
+
+    var email = email;
+    var nickname;
+
+        $.ajax({
+            url: "http://localhost:3000/klogin",
+            type: "post",
+            data: {
+                email: email
+                //,nickname: nickname
+                    },
+            //async : false,
+            success: function (data) {
+                if(data.email != null && data.email != '') {
+                    sessionStorage.setItem("login", JSON.stringify(data));
+                    location.href = "../../index.html";
+                    alert(sessionStorage.setItem("login", JSON.stringify(data)));
+                } else {
+                    alert('klogin fail');
+                }
+                
+            },
+            error: function () {
+                alert('ajax error');
+            }
+        });
     }
     
     $(document).on("click", "#kakao-btn", function(){
