@@ -12,13 +12,14 @@ public class CardReviewDTO implements Serializable {
 	private Date cardRevDate;
 	private int cardRevDel;
 	private int cardRevPageNum;
+	private String profileName;
 
 	public CardReviewDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public CardReviewDTO(int cardRevSeq, int cardSeq, String nickName, String cardRevContent, Date cardRevDate,
-			int cardRevDel, int cardRevPageNum) {
+			int cardRevDel, int cardRevPageNum, String profileName) {
 		super();
 		this.cardRevSeq = cardRevSeq;
 		this.cardSeq = cardSeq;
@@ -27,13 +28,7 @@ public class CardReviewDTO implements Serializable {
 		this.cardRevDate = cardRevDate;
 		this.cardRevDel = cardRevDel;
 		this.cardRevPageNum = cardRevPageNum;
-	}
-
-	public CardReviewDTO(int cardSeq, String nickName, String cardRevContent) {
-		super();
-		this.cardSeq = cardSeq;
-		this.nickName = nickName;
-		this.cardRevContent = cardRevContent;
+		this.profileName = profileName;
 	}
 
 	public int getCardRevSeq() {
@@ -92,12 +87,24 @@ public class CardReviewDTO implements Serializable {
 		this.cardRevPageNum = cardRevPageNum;
 	}
 
+	public String getProfileName() {
+		return profileName;
+	}
+
+	public void setProfileName(String profileName) {
+		this.profileName = profileName;
+	}
+
 	@Override
 	public String toString() {
 		return "CardReviewDTO [cardRevSeq=" + cardRevSeq + ", cardSeq=" + cardSeq + ", nickName=" + nickName
 				+ ", cardRevContent=" + cardRevContent + ", cardRevDate=" + cardRevDate + ", cardRevDel=" + cardRevDel
-				+ ", cardRevPageNum=" + cardRevPageNum + "]";
+				+ ", cardRevPageNum=" + cardRevPageNum + ", profileName=" + profileName + "]";
 	}
+
+
+
+
 
 	
 	
