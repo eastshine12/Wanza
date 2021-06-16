@@ -228,7 +228,7 @@
                         
 
 
-                        <img id="mainImg" style="border-radius: 10px; width: 720px; height: 660px;">
+                        <img id="mainImg" style="border-radius: 10px; width: 720px; height: 660px; object-fit: cover; ">
                     </div>
                 </div>
 
@@ -848,10 +848,10 @@
                         app +='<div class="reviews">' 
                             +  '<div class="row" style="margin-bottom: 15px;">'
                             +    '<div class="col-xl-1" style = "padding-right: 15px;margin-right: -8px;" >'
-                            +      '<a href="#"><i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i></a>'
+                            +      '<i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i>'
                             +    '</div>'
                             +    '<div class="col">'
-                            +      '<div style="margin-bottom: 5px;"><a href="#" style="margin-right: 15px;font-size: 14px;"><strong>'+val.nickName+'</strong></a><span style="margin-right: 15px;font-size: 14px;">'
+                            +      '<div style="margin-bottom: 5px;"><span style="margin-right: 15px;font-size: 14px;"><strong>'+val.nickName+'</strong></span><span style="margin-right: 15px;font-size: 14px;">'
                             +           timeForToday(val.cardRevDate)+'</span>'
                             +       '<span name="reportModal" id="'+val.nickName+"rprpwanza"+i+'"><a href="#myModal" style="margin-right: 10px;color: rgb(99,99,99);font-size: 15px;" data-toggle="modal">신고</a></span>';
                             

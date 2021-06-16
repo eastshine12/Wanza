@@ -490,10 +490,10 @@ function selectDay(){
 // 총 매출액 그래프 호출 함수
 function lineGraph(){     
     $.ajax({
-         url:"http://localhost:3000/graphList",
-         type:"post",
-         data:{sDate:$(".s_date").val(),eDate:$(".e_date").val(),sType:$("#sele2").val()},
-         success:function(list){
+        url:"http://localhost:3000/graphList",
+        type:"post",
+        data:{sDate:$(".s_date").val(),eDate:$(".e_date").val(),sType:$("#sele2").val()},
+        success:function(list){
 
                 let app = "[";
                 $.each(list,function(i,val){
@@ -505,56 +505,56 @@ function lineGraph(){
                     }            
                 })
 
-                    app = JSON.parse(app);
-                    /////////////////// graph chart//////////////////////////
-                    am4core.ready(function() {
-                    // Themes begin
-                    am4core.useTheme(am4themes_material);
-                    am4core.useTheme(am4themes_animated);
-                    // Themes end
+                app = JSON.parse(app);
+                /////////////////// graph chart//////////////////////////
+                am4core.ready(function() {
+                // Themes begin
+                am4core.useTheme(am4themes_material);
+                am4core.useTheme(am4themes_animated);
+                // Themes end
 
-                    // Create chart instance
-                    var chart = am4core.create("graphChart", am4charts.XYChart);
+                // Create chart instance
+                var chart = am4core.create("graphChart", am4charts.XYChart);
 
-                    // Add data
-                    //
-                    chart.data = app
+                // Add data
+                //
+                chart.data = app
 
-                    // Create axes
-                    var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-                    dateAxis.renderer.minGridDistance = 50;
+                // Create axes
+                var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+                dateAxis.renderer.minGridDistance = 50;
 
-                    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+                var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 
-                    // Create series
-                    var series = chart.series.push(new am4charts.LineSeries());
-                    series.dataFields.valueY = "value1";
-                    series.dataFields.dateX = "date";
-                    series.strokeWidth = 2;
-                    series.minBulletDistance = 10;
-                    series.tooltipText = "[bold]{date.formatDate()} :[/] {value1}\n[bold]{previousDate.formatDate()}";
-                    series.tooltip.pointerOrientation = "vertical";
+                // Create series
+                var series = chart.series.push(new am4charts.LineSeries());
+                series.dataFields.valueY = "value1";
+                series.dataFields.dateX = "date";
+                series.strokeWidth = 2;
+                series.minBulletDistance = 10;
+                series.tooltipText = "[bold]{date.formatDate()} :[/] {value1}\n[bold]{previousDate.formatDate()}";
+                series.tooltip.pointerOrientation = "vertical";
 
-                    // Create series
-                    var series2 = chart.series.push(new am4charts.LineSeries());
-                    series2.dataFields.valueY = "value2";
-                    series2.dataFields.dateX = "date";
-                    series2.strokeWidth = 2;
-                    series2.strokeDasharray = "3,4";
-                    series2.stroke = series.stroke;
+                // Create series
+                var series2 = chart.series.push(new am4charts.LineSeries());
+                series2.dataFields.valueY = "value2";
+                series2.dataFields.dateX = "date";
+                series2.strokeWidth = 2;
+                series2.strokeDasharray = "3,4";
+                series2.stroke = series.stroke;
 
-                    // Add cursor
-                    chart.cursor = new am4charts.XYCursor();
-                    chart.cursor.xAxis = dateAxis;
+                // Add cursor
+                chart.cursor = new am4charts.XYCursor();
+                chart.cursor.xAxis = dateAxis;
 
-                    }); // end am4core.ready()
-                
-            },
-            error:function(){
-                alert("error");
-                }
-            }) 
+                }); // end am4core.ready()
+            
+        },
+        error:function(){
+            alert("error");
         }
+    }) 
+}
 
  function mapList(){
      $.ajax({
