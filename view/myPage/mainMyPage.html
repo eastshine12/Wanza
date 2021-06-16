@@ -789,7 +789,7 @@ function getMyOrderList(jdata) {
                     }
                     //상품시작
                     app+= '<div class="order_product"><div class="img_wrap">'
-                    app+= '<a href="#none"><img src="http://localhost:3000/upload/'+val.productFileName+'" alt=""></a></div>'
+                    app+= '<a href="../store/storeDetail.html?seq='+val.productSeq+'"><img src="http://localhost:3000/upload/'+val.productFileName+'" alt=""></a></div>'
                     app+= '<div class="order_box"><table><col width="50%"><col width="50%">'
                     app+= '<tr><td colspan="2" class="small"><a href="#none">'+val.productMaker+'</a></td></tr>'
                     app+= '<tr><td><a href="#none">'+val.productName+'</a></td><td>'
@@ -816,6 +816,7 @@ function getMyStoryList() {
 	$.ajax({
 		url:"http://localhost:3000/getMyStoryList",
 		type:"post",
+        data:{userSeq:sessionId.userSeq},
 		success:function(list){
             console.log(list);
             let app='';
