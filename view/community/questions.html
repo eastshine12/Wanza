@@ -339,6 +339,18 @@ function timeForToday(value) {
     return `${Math.floor(betweenTimeDay / 365)}년 전`;
 }
 
+// 넘어온 값이 빈값인지 체크합니다. 
+    // !value 하면 생기는 논리적 오류를 제거하기 위해 
+    // 명시적으로 value == 사용 
+    // [], {} 도 빈값으로 처리 
+    var isEmpty = function(value){ 
+    if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
+        return true
+        } else { 
+        return false 
+        } 
+    }
+
   
 //정렬버튼 설정부분
 function filterfunc() {
@@ -382,18 +394,20 @@ function getQuestionList(word,s,page){
           $.each(list, function(i, val){
             
             let pfname = val.profileName;
-            if(pfname == 0 || pfname == null ){
+            if(isEmpty(pfname) == false ){
               pfname = '../image/avatar.png';
             }
             let qfname = val.questionFileName;
 
-            if(qfname == 0 || qfname == null){
-              qfname = '../image/wanza.png';
+            if(isEmpty(qfname) == true){
+              qfname = 'wanza.png';
             }
+            
             let unname = val.nickName;
             if(unname == 0 || unname == null){
               unname == '알수없는 회원입니다.';
             }
+
             let app = "<div class='questions-item' >"
                       + "<a class='questions-item-link' href="
                       + "'questionDetail.html?seq="
@@ -452,9 +466,7 @@ function getQuestionList(word,s,page){
                       + "</footer>"
                       + "</div>"
 
-                      if(val.questionFileName == 0){
-                        $('#questions-item-footer-writer-image').attr("src", "../image/avatar.png")
-                      }
+                      
 
                       $("#questions-list-container").append(app);
             });

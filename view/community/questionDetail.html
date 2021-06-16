@@ -529,9 +529,22 @@ $(document).ready(function(){
             var qdate = list.questionRegDate;
             const date2 = new Date(qdate);
             var date3 = getFormatDate(date2);
+            if(isEmpty(list.questionFileName) == true){
+                $('.question-detail-img').remove();
+            } else {
+
+                $('.question-detail-img').attr("src","http://localhost:3000/upload/"+list.questionFileName);
+            }
             
+            /*
+            <div class="question-detail-content">
+                <img src="" class="question-detail-img">
+            </div>
+            */
+
+
             $('.question-detail-title').text(list.questionTitle);
-            $('.question-detail-img').attr("src","http://localhost:3000/upload/"+list.questionFileName);
+            
             $('.question-detail-content').append(list.questionContent);
             $('.questions-writer-nickname').text(list.nickName);
             //$('.questions-writer-profile').text(list.userName);
