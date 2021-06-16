@@ -141,7 +141,9 @@
         #reviewPage .page-link:focus{
             box-shadow: none;
         }
-      
+        .far{
+            color: #424242;
+        }
     </style>
 </head>
 
@@ -165,7 +167,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <p><span id="tagHomeType"></span>&nbsp;· <span id="tagStyle"></span>&nbsp;·&nbsp;<span id="tagColor" style="border: 1px solid black; border-radius: 50%;"><i class="fa fa-circle fa-lg"></i></span><br></p>
+                        <p><span id="tagHomeType"></span>&nbsp;· <span id="tagStyle"></span>&nbsp;·&nbsp;<span id="tagColor"><i class="fa fa-circle fa-lg"></i></span><br></p>
                     </div>
                 </div>
                 <div class="row">
@@ -468,6 +470,9 @@
                     console.log(data);
                     $('#tagHomeType').text(data.tagHomeType);
                     $('#tagStyle').text(data.tagStyle);
+                    if(data.tagColor=='white'){
+                        $('#tagColor i').removeClass('fa').addClass('far');
+                    }
                     $('#tagColor').css('color', data.tagColor);
                     $('#title').html('<strong>'+data.cardTitle+'</strong>');
                     $('#readCount').text(data.cardReadCount);

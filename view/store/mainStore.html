@@ -428,7 +428,7 @@ $(document).ready(function() {
     }else{
         $('.store_head span').text(category);
         setCategory(category);
-        getProductSortList(setPdata(3));
+        //getProductSortList(setPdata(3));
         $('.store_head').show();
         getProductSortCount(setPdata(3)); //페이징
     }
@@ -438,6 +438,7 @@ $(document).ready(function() {
         $('.store_subcategory li').removeClass('active')
         $('.store_subcategory>li').eq(subCategory).addClass('active')
         getProductSortList(setPdata(3)) //인기순:최근3일판매량
+        getProductSortCount(setPdata(3));
     }
     
     // 분류 클릭 링크를 통해 넘어온 경우

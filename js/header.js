@@ -18,6 +18,15 @@ $(document).on('click', '#goCart', function () {
 $(document).on('attr', '#headerSearch', function () {
     location.href = "../login/login.html"
 })
+
+
+// 검색창 엔터키 입력이벤트
+$('#headerSearch').on('propertychange change keyup paste input', function(k){
+    if(k.keyCode == 13) {
+        $('#search-icon').trigger('click');
+    }
+});
+
 // 검색 아이콘 클릭시 검색어 DB저장
 $(document).on('click', '#search-icon', function () {
 
@@ -35,24 +44,24 @@ $(document).on('click', '#search-icon', function () {
         document.getElementById("headerSearch").setAttribute("value",$("#headerSearch").attr('placeholder'))
     }
     else{
-        $.ajax({
-            url:"http://localhost:3000/searchWrite",
-            type:"get",
-            data:{searchWord:String(searchVal)},
-            success:function(data) {
-                if(data=="suc"){ console.log("검색어등록성공"); }
-                else           { console.log("검색어등록실패"); }
-            },
-            error:function(){ console.log("검색error"); }
-        });
+        setSearchWrite(searchVal);
         location.href = "../commons/search.html?searchWord="+resultStr
     }
 
     
 });
-
-
-
+function setSearchWrite(searchVal){
+    $.ajax({
+        url:"http://localhost:3000/searchWrite",
+        type:"get",
+        data:{searchWord:String(searchVal)},
+        success:function(data) {
+            if(data=="suc"){ console.log("검색어등록성공"); }
+            else           { console.log("검색어등록실패"); }
+        },
+        error:function(){ console.log("검색error"); }
+    });
+}
 
 
 $(document).ready(function() {
@@ -77,11 +86,11 @@ $(document).ready(function() {
         }        
         else{
             $('#goLogin').html('<b>내 정보 </b> <i class="fa fa-sort-down"></i>');
+            // $(document).on('click', '#goLogin', function () {
+            //     location.href = "../myPage/mainMyPage.html"
+            // });
         }
         $('#goLogin').addClass('active')
-        $(document).on('click', '#goLogin', function () {
-            location.href = "../myPage/mainMyPage.html"
-        });
     }else{
         $('#goLogin').removeClass('active')
         $(document).on('click', '#goLogin', function () {
@@ -156,7 +165,7 @@ $(document).ready(function() {
                 $.each(list,function(i,val){                 
                     app += "<li><b>"+(i+1)+"</b> &emsp;<a href='../commons/search.html?searchWord="+val.searchWord+"' style='color: black;'>"+val.searchWord+"</a></li>";
                     app2 += "<tr>"
-                        +"<td colspan='2' style='margin-left:3px'><a href='../commons/search.html?searchWord="+val.searchWord+"' style='color:black'><b style='color:#F18260'>"+(i+1)+". </b> "+val.searchWord+"</a></td>"
+                        +"<td colspan='2' style='margin-left:3px'><b style='color:#F18260'>"+(i+1)+". </b><a href='../commons/search.html?searchWord="+val.searchWord+"' style='color:black'> "+val.searchWord+"</a></td>"
                         +"</tr>";
 
                 });
@@ -176,10 +185,19 @@ $(document).ready(function() {
             }
         })
     }
+    
+    $(document).on('click','#searchTable a, #_realTime li a',function(){
+        setSearchWrite($(this).text());
+    })
 
-
+    //실시간 누르면 펼치고 닫기
     $(document).on('click','#_realTime',function(){
-        $("#searchChart").slideDown();
+        let dis = $("#searchChart").css('display');
+        if(dis=='none'){
+            $("#searchChart").slideDown();
+        }else{
+            $("#searchChart").slideUp();
+        }
     })
 
     $(document).on('click','#closeSearch',function(){ 
