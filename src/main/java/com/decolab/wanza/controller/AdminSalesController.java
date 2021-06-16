@@ -25,7 +25,7 @@ public class AdminSalesController {
 		return service.graphList(dto);
 	}
 	@RequestMapping(value = "/mapList", method = {RequestMethod.GET,RequestMethod.POST})
-	public AdminSalesDTO mapList(AdminSalesDTO dto){
+	public List<AdminSalesDTO> mapList(AdminSalesDTO dto){
 		System.out.println(dto.toString()); 
 		System.out.println("AdminSalesController mapList() " + new Date());
 		return service.mapList(dto);
