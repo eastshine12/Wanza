@@ -15,6 +15,7 @@ public class PaymentDTO implements Serializable {
 	private String rname;
 	private String rphone;
 	private int userSeq;
+	private String optionStr;
 
 	
 
@@ -25,7 +26,7 @@ public class PaymentDTO implements Serializable {
 
 
 	public PaymentDTO(String dlvy_address1, String dlvy_address2, String email1, String email2, String name, int phone1,
-			int phone2, String rname, String rphone, int userSeq) {
+			int phone2, String rname, String rphone, int userSeq, String optionStr) {
 		super();
 		this.dlvy_address1 = dlvy_address1;
 		this.dlvy_address2 = dlvy_address2;
@@ -37,6 +38,7 @@ public class PaymentDTO implements Serializable {
 		this.rname = rname;
 		this.rphone = rphone;
 		this.userSeq = userSeq;
+		this.optionStr = optionStr;
 	}
 
 
@@ -161,12 +163,27 @@ public class PaymentDTO implements Serializable {
 
 
 
+	public String getOptionStr() {
+		return optionStr;
+	}
+
+
+
+	public void setOptionStr(String optionStr) {
+		this.optionStr = optionStr;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "PaymentDTO [dlvy_address1=" + dlvy_address1 + ", dlvy_address2=" + dlvy_address2 + ", email1=" + email1
 				+ ", email2=" + email2 + ", name=" + name + ", phone1=" + phone1 + ", phone2=" + phone2 + ", rname="
-				+ rname + ", rphone=" + rphone + ", userSeq=" + userSeq + "]";
+				+ rname + ", rphone=" + rphone + ", userSeq=" + userSeq + ", optionStr=" + optionStr + "]";
 	}
+
+
+
 
 
 
