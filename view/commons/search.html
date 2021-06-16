@@ -21,6 +21,78 @@
     min-height: 180px;
     border-top: solid 1px #dbdbdb;
 }
+.context_head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 50px;
+}
+
+
+#searchResult a:hover,
+#searchResult a{
+    color: #424242;
+    text-decoration: none;
+}
+.queAns_box{
+    display: flex;
+    padding: 10px;
+    border-bottom: solid 1.5px #b3b3b3;
+    color: #424242;
+    font-size: 0.9em;
+    font-weight: 500;
+    align-items: center;
+    justify-content: space-between;
+}
+.queAns_wrap{
+    width: 80%;
+}
+.queAns_title{
+    margin: 10px 0;
+    font-size: 1.3em;
+    font-weight: 900;
+}
+.queAns_content{
+    max-height: 50px;
+}
+.queAns_footer{
+    margin: 10px 0 0 0;
+}
+.queAns_footer span{
+    margin: 0 15px 0 0;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.queAns_img_wrap{
+    position: relative;
+    margin: 0;
+    height: 140px; width: 140px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.queAns_img_wrap img{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+.queAns_blank{
+    display: flex;
+    margin: 20px 0;
+    padding: 20px;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+    color: #424242;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+
+
+
+
+
 </style>
 
 </head>
@@ -35,18 +107,49 @@
     </div>
 
     <div class="search_store py-5 pl-4">
-        <h4><strong>스토어 <span></span></strong></h4>
+        <div class="context_head">
+            <div><h4><strong>스토어 <span></span></strong></h4></div>
+            <div><a href="../store/mainStore.html?seq=">더보기 <i class="fas fa-caret-right"></i></a></div>
+        </div>
         <div class="row search_store_main my-5"></div>
     </div>
 
     <div class="search_story py-5 pl-4">
-        <h4><strong>스토리 <span></span></strong></h4>
+        <div class="context_head">
+            <div><h4><strong>스토리 <span></span></strong></h4></div>
+            <div><a href="#none">더보기 <i class="fas fa-caret-right"></i></a></div>
+        </div>
         <div class="row search_story_main my-5 pl-2"></div>
     </div>
 
     <div class="search_questions py-5 pl-4">
-        <h4><strong>질문과 답변 <span></span></strong></h4>
-        <div class="row search_question_main my-5"></div>
+        <div class="context_head">
+            <div><h4><strong>질문과 답변 <span></span></strong></h4></div>
+            <div><a href="#none">더보기 <i class="fas fa-caret-right"></i></a></div>
+        </div>
+        <div class="row search_question_main my-5">
+
+            <div class="queAns_box">
+                <div class="queAns_wrap">
+                    <a href="#none">
+                        <div class="queAns_title">셀프 인테리어 관련해서 질문있어요!!!</div>
+                        <div class="queAns_content">
+                            마당 있는 주택에서 남편, 세 마리의 강아지와 같이 살고 있어요.
+                            저는 미대를 나와서 오랫동안 입시 지도를 하다가 지금은 전원생활을 하며 여유로운 시간을 보내고 있습니다.
+                        </div>
+                    </a>
+                    <div class="queAns_footer">
+                        <span>작성자</span><span>작성일</span><span>댓글수</span><span>조회수</span>
+                    </div>
+                </div>
+                <div class="queAns_img_wrap">
+                    <a href="#none">
+                        <img src="http://localhost:3000/upload/1620888723828.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+
+        </div>
     </div>
     
 </div>
@@ -60,6 +163,7 @@
 <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="../../js/includeHTML.js"></script>
 <script src="../../js/header.js"></script>
+<script src="../../js/slang.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -89,6 +193,7 @@ function getTotalSearch(word) {
                         +  '</div>';
             } else {
                 $.each(map.store, function (i, val) {
+                    if(i>5){return false}
                     storeApp += '<div style="width: 350px; height: 400px; margin: 3px;">'
                             +  '<article article class="project2_wrap" >'
                             +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
@@ -124,6 +229,7 @@ function getTotalSearch(word) {
                         +  '</div>';
             } else {
                 $.each(map.story, function (i, val) {
+                    if(i>5){return false}
                     storyApp += '<div style="width: 320px; margin-left: 40px;">'
                             +   '<article article class="project_wrap" >'
                             +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
