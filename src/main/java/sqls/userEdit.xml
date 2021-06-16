@@ -15,7 +15,7 @@ WHERE U.USERSEQ = A.USERSEQ(+) AND U.USERSEQ=#{userSeq}
 </select>
 
 <select id="getUserAllInfoCopy" parameterType="com.decolab.wanza.dto.UserDTO" resultType="com.decolab.wanza.dto.UserDTO">
-SELECT USERSEQ, EMAIL, USERNAME, NICKNAME, PROFILENAME
+SELECT USERSEQ, EMAIL, USERNAME, NICKNAME, PROFILENAME,MILEAGE
 FROM USERS
 WHERE USERSEQ=#{userSeq}
 </select>

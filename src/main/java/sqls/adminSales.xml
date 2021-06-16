@@ -46,12 +46,13 @@ ORDER BY (TO_CHAR(ORDERDATE,'YYYY-MM-DD'))
 </select>
 
 <!-- 맵  -->
+<!--  
 <select id="mapList" parameterType="com.decolab.wanza.dto.admin.AdminSalesDTO" resultType="com.decolab.wanza.dto.admin.AdminSalesDTO">
 SELECT NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%경기%'AND
             O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE ),0) AS GYUNGGI
-            <!-- 
+
             NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%부산%'AND
@@ -146,14 +147,21 @@ SELECT NVL((SELECT COUNT(A.ADDRESS)
             FROM ORDERS O,ADDRESS A
             WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND A.ADDRESS LIKE '%울산%'AND
             O.ORDERDATE >= TO_DATE(#{sDate},'YYYY-MM-DD') AND TO_DATE(#{eDate},'YYYY-MM-DD') >= O.ORDERDATE
-            GROUP BY A.ADDRESS),0) AS ULSAN -->
+            GROUP BY A.ADDRESS),0) AS ULSAN 
 
 FROM ORDERS O,ADDRESS A
 WHERE O.ADDRESSSEQ = A.ADDRESSSEQ
 GROUP BY A.ADDRESS
-
 </select>
+-->
 
+<select id="mapList" parameterType="com.decolab.wanza.dto.admin.AdminSalesDTO" resultType="com.decolab.wanza.dto.admin.AdminSalesDTO">
+SELECT COUNTRY, COUNT(*)as count
+FROM ORDERS O,(SELECT ADDRESSSEQ, SUBSTR(ADDRESS,0,INSTR(ADDRESS,' ')-1)COUNTRY 
+                FROM ADDRESS)A
+WHERE O.ADDRESSSEQ = A.ADDRESSSEQ AND O.ORDERDATE BETWEEN #{sDate} AND TO_DATE(#{eDate},'YYYY-MM-DD')+0.9999
+GROUP BY COUNTRY
+</select>
 <select id="pieChart" parameterType="com.decolab.wanza.dto.admin.AdminSalesDTO" resultType="com.decolab.wanza.dto.admin.AdminSalesDTO">
 SELECT T.MEDIUMCATEGORY AS CATEGORY, SUM(P.QUANTITY) AS QUANTI
 FROM PURCHASE_PRODUCT P, PRODUCTION_TAG T, ORDERS O

@@ -21,7 +21,7 @@ public class AdminSalesService{
 	public List<AdminSalesDTO> graphList(AdminSalesDTO dto){
 		return dao.graphList(dto);
 	}
-	public AdminSalesDTO mapList(AdminSalesDTO dto){
+	public List<AdminSalesDTO> mapList(AdminSalesDTO dto){
 		return dao.mapList(dto);
 	}
 	

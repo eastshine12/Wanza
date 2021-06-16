@@ -8,6 +8,7 @@ public class AdminSalesDTO implements Serializable{
 	private int sType;	  // 검색타입(일간, 주간, 월간, 연간)
 	private int total;	  // 총 판매 금액
 	private String sDay;  // ㅇ
+	/*
 	// 지역 별 주문 건수
 	private int gyunggi;
 	private int seoul;
@@ -26,15 +27,37 @@ public class AdminSalesDTO implements Serializable{
 	private int daegu;
 	private int ulsan;
 	private int busan;
-	
+*/
 	private String category;
 	private int quanti;
+	
+	private String country;
+	private int count;
 	
 	
 	
 	public AdminSalesDTO() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+
+public AdminSalesDTO(String sDate, String eDate, int sType, int total, String sDay, String category, int quanti,
+			String country, int count) {
+		super();
+		this.sDate = sDate;
+		this.eDate = eDate;
+		this.sType = sType;
+		this.total = total;
+		this.sDay = sDay;
+		this.category = category;
+		this.quanti = quanti;
+		this.country = country;
+		this.count = count;
+	}
+
+
 
 
 
@@ -47,6 +70,7 @@ public class AdminSalesDTO implements Serializable{
 		this.sType = sType;
 		this.total = total;
 		this.sDay = sDay;
+		/*
 		this.gyunggi = gyunggi;
 		this.seoul = seoul;
 		this.incheon = incheon;
@@ -64,8 +88,9 @@ public class AdminSalesDTO implements Serializable{
 		this.daegu = daegu;
 		this.ulsan = ulsan;
 		this.busan = busan;
+		*/
 	}
-	
+
 	
 
 
@@ -79,6 +104,34 @@ public class AdminSalesDTO implements Serializable{
 	}
 	
 	
+
+
+
+	public String getCountry() {
+		return country;
+	}
+
+
+
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+
+
+
+	public int getCount() {
+		return count;
+	}
+
+
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
 
 
 
@@ -165,7 +218,7 @@ public class AdminSalesDTO implements Serializable{
 	}
 
 
-
+/*
 	public int getGyunggi() {
 		return gyunggi;
 	}
@@ -371,10 +424,11 @@ public class AdminSalesDTO implements Serializable{
 	public void setGyeongnam(int gyeongnam) {
 		this.gyeongnam = gyeongnam;
 	}
+*/
 
-
-
+/*
 	@Override
+	
 	public String toString() {
 		return "AdminSalesDTO [sDate=" + sDate + ", eDate=" + eDate + ", sType=" + sType + ", total=" + total
 				+ ", sDay=" + sDay + ", gyunggi=" + gyunggi + ", seoul=" + seoul + ", incheon=" + incheon
@@ -384,7 +438,7 @@ public class AdminSalesDTO implements Serializable{
 				+ ", ulsan=" + ulsan + ", busan=" + busan + "]";
 	}
 
-
+*/
 
 	
 	
