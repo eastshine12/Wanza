@@ -445,14 +445,7 @@ public class UserController {
     	mailSender.send(mimeMessage);
 	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
 
 

@@ -8,6 +8,7 @@ import javax.servlet.ServletContext;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -146,20 +147,26 @@ public class OrderController {
 		//OrderSeq 가져오기
 		int orderSeq = service.getOrderSeq(dto);
 		
-		//cartstatus 1인 상품 리스트 가져오기			
-		List<CartDTO> cartList = service.getPaymentList(new CartDTO("CT-"+dto.getUserSeq()));
-		for(CartDTO c : cartList) {
-			System.out.println(c.toString());
-			//purchase_product 테이블에 DB 삽입	
+		if(dto.getHowPayment() == 0) {
 			dto.setOrderSeq(orderSeq);
-			dto.setProductSeq(c.getProductSeq());
-			dto.setSelectOption(c.getSelectOption());
-			dto.setQuantity(c.getQuantity());
-			dto.setPrice(c.getPrice());
-			service.addPurchase(dto);
-			//cartstatus 2로 변경
-			service.checkedOrder(c);
-		};
+			
+		} else {
+			//cartstatus 1인 상품 리스트 가져오기			
+			List<CartDTO> cartList = service.getPaymentList(new CartDTO("CT-"+dto.getUserSeq()));
+			for(CartDTO c : cartList) {
+				System.out.println(c.toString());
+				//purchase_product 테이블에 DB 삽입	
+				dto.setOrderSeq(orderSeq);
+				dto.setProductSeq(c.getProductSeq());
+				dto.setSelectOption(c.getSelectOption());
+				dto.setQuantity(c.getQuantity());
+				dto.setPrice(c.getPrice());
+				service.addPurchase(dto);
+				//cartstatus 2로 변경
+				service.checkedOrder(c);
+			};
+		}
+		
 		
 		return a+b>0?"suc":"err";
 	}
