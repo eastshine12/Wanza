@@ -57,6 +57,10 @@ public class UserService {
 		return dao.getUserEmail(dto);
 	}
 	
+	public String checkEmail(String mail) {
+		return dao.checkEmail(mail);
+	}
+	
 	 public void certifiedPhoneNumber(String phoneNumber, String cerNum) {
 
         String api_key = "NCS2YEWZ5WIVTPDC";

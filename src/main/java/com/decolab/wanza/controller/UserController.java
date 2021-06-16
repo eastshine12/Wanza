@@ -139,7 +139,12 @@ public class UserController {
 	}
 	
 	
-	
+	@RequestMapping(value = "/checkEmail", method = {RequestMethod.GET,RequestMethod.POST})
+	public String checkEmail(String email) {
+		System.out.println("UserController checkEmail() " + new Date() );
+		System.out.println("mail : " + email);
+		return service.checkEmail(email);
+	}
 
 	
 	@RequestMapping(value = "/CheckMail", method = {RequestMethod.GET,RequestMethod.POST})
