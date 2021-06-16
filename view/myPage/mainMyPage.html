@@ -726,7 +726,7 @@ function setTab() {
 // 데이터 추출
 function getSortData(status) {
     //let jdata = '{"userSeq":'+sessionId.userSeq+','
-    let jdata = '{"userSeq":1,'
+    let jdata = '{"userSeq":'+sessionId.userSeq+',';
     if(status==null){   
         $('.btn_pop').each(function(i){
             let a = $(this).val().split('=');
@@ -747,7 +747,7 @@ function getMyOrderStatusCount() {
 	$.ajax({
 		url:"http://localhost:3000/getMyOrderStatusCount",
 		type:"get",
-		data:{userSeq:1},//{userSeq:sessionId.userSeq}
+		data:{userSeq:sessionId.userSeq},//{userSeq:sessionId.userSeq}
 		success:function(data){
             console.log(data);
             $.each(data, function (i, val) {

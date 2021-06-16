@@ -527,7 +527,7 @@ $(document).ready(function(){
             var qdate = list.questionRegDate;
             const date2 = new Date(qdate);
             var date3 = getFormatDate(date2);
-
+            
             $('.question-detail-title').text(list.questionTitle);
             $('.question-detail-img').attr("src","http://localhost:3000/upload/"+list.questionFileName);
             $('.question-detail-content').append(list.questionContent);
