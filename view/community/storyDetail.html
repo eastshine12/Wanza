@@ -789,6 +789,7 @@
                 type: "post",
                 data: {
                     "cardSeq": seq,
+                    "userSeq": sessionId.userSeq,
                     "nickName": sessionId.nickname,
                     "cardRevContent": $('#reviewContent').val()
                 },
@@ -847,9 +848,16 @@
 
                         app +='<div class="reviews">' 
                             +  '<div class="row" style="margin-bottom: 15px;">'
-                            +    '<div class="col-xl-1" style = "padding-right: 15px;margin-right: -8px;" >'
-                            +      '<i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i>'
-                            +    '</div>'
+                            +    '<div class="col-xl-1" style = "padding-right: 15px;margin-right: -8px;" >';
+
+                        if(val.profileName == 0) {
+                            app += '<i class="fa fa-user-circle-o" style="font-size: 40px;margin-top: 9px;"></i>';
+                        } else {
+                            app += '<img src="http://192.168.0.231:3000/upload/'+val.profileName+'" style="width: 43px;height: 43px; object-fit:cover; margin-top:7px; border-radius: 70%;"></img>';
+                        }
+                            
+
+                        app +=    '</div>'
                             +    '<div class="col">'
                             +      '<div style="margin-bottom: 5px;"><span style="margin-right: 15px;font-size: 14px;"><strong>'+val.nickName+'</strong></span><span style="margin-right: 15px;font-size: 14px;">'
                             +           timeForToday(val.cardRevDate)+'</span>'
