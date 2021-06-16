@@ -79,29 +79,24 @@
     border: 0.5px solid #f4744c;
 }
 
-.selectbox::before {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    margin-left: 50px;
-    border: solid black;
-    border-width: 0 1px 1px 0;
-    display: inline-block;
-    padding: 3px;
-    transform: rotate(45deg);
-}
+
 
 select {
     border: 1px solid #EEE;
     border-radius: .25rem;
-    padding: .5rem 1.5rem .5rem .5rem;
+    /*padding: .5rem 1.5rem .5rem .5rem;*/
     display: flex;
     background-color: white;
     outline: 0;
+    height: 30px;
+    width: 150px;
     cursor: pointer;
     appearance: none;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
+
 
     </style>
 <body>
@@ -125,7 +120,7 @@ select {
                         <br>
                         <input type="text" id="nickname" name="nickname"  class="form-control" style="width: 70%; float: left;">
                         <input type="hidden" id="hiddenNickname">
-                        <button type="button" class="btn btn-primary" style="margin-left: 55px;" onclick="overlapBtn()">중복 확인</button>
+                        <button type="button" class="btn btn-primary" style="margin-left: 55px; background-color:#f18260; border-color: #f18260;" onclick="overlapBtn()">중복 확인</button>
                         <small class="form-text text-danger feedback" id="overlapMsg"><!-- 중복된 닉네임입니다. --></small>
                     </div>
 
@@ -133,6 +128,7 @@ select {
                         <label for="profile">프로필 사진</label>
                         <br>
                         <img src="../../assets/img/imgUpload.png" id="_uploadImg" class="uploadImg" width="150px" height="150px">
+                        <input type="hidden" id="imgValue">
                         <input type="file" id="_file" name="profile" style="display:none;">
                         <input type="hidden" id="_target_url" name="target_url">  
                     </div>
@@ -148,15 +144,15 @@ select {
                         <!-- 탭 -->
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <a id="nav-link-select" class="nav-link active" data-toggle="tab" href="#dlvy_select">배송지목록</a>
+                                <a id="nav-link-select" class="nav-link active" data-toggle="tab" href="#dlvy_select" style="color: #f18260;">배송지목록</a>
                                 <div class="nav-line"></div>
                             </li>
                             <li class="nav-item">
-                                <a id="nav-link-new" class="nav-link" data-toggle="tab" href="#dlvy_new">신규배송지</a>
+                                <a id="nav-link-new" class="nav-link" data-toggle="tab" href="#dlvy_new" style="color: #f18260;">신규배송지</a>
                                 <div class="nav-line"></div>
                             </li>
                             <li class="nav-item">
-                                <a id="nav-link-new" class="nav-link" data-toggle="tab" href="#dlvy_delete">배송지삭제</a>
+                                <a id="nav-link-new" class="nav-link" data-toggle="tab" href="#dlvy_delete" style="color: #f18260;">배송지삭제</a>
                                 <div class="nav-line"></div>
                             </li>
                         </ul>
@@ -167,19 +163,45 @@ select {
                             <!--배송지 목록 -->
                             <div class="tab-pane fade show active" id="dlvy_select">
                                     <table class="table">
+                                        <colgroup>
+                                            <col width="20%"><col width="65%">
+                                        </colgroup>
                                         <tr>
                                             <th>배송지명</th>
                                             <th>
                                                 <div>
-                                                <div class="selectbox">
-                                                    <select>
-                                                        <option value="집">집</option>
-                                                        <option value="회사">회사</option>
-                                                    </select>
+                                                   <div class="selectbox">                                                       
+                                                        <!-- 
+                                                        <select onchange="selectChange()">
+                                                            <option value="집">집</option>
+                                                            <option value="회사">회사</option>
+                                                        </select>
+                                                         -->
+                                                    </div>
                                                 </div>
-                                                </div>
-                                        </th>
+                                            </th>
                                         </tr>
+
+                                        <tr>
+                                            <th>배송지 주소</th>
+                                            <td><input type="text" class="form-control" onclick="execDaumPostcode2()" id="addressList1">
+                                                <br>
+                                                <input type="text" class="form-control" id="addressList2">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th>받는 사람</th>
+                                            <td><input type="text" class="form-control" id="receiveHu"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>배송 연락처</th>
+                                            <td><input type="text" class="form-control" id="receiveCall"></td>
+                                        </tr>
+                                        <tr>
+                                            <th></th><td><button type="button" id="updatedelibtn" class="btn btn-primary" style="float:right; background-color:#f18260; border-color: #f18260;" onclick="updateDeli()" disabled>배송지 수정</button></td>
+                                        </tr>
+                                       
 
                                     </table>                       
                             </div> 
@@ -210,7 +232,7 @@ select {
                                     <input type="text" id="address1" class="form-control border" name="address" style="float: left; margin-bottom: 10px;" onclick="execDaumPostcode()" placeholder="주소를 입력해주세요" readonly>                     
                                     <input type="text" id="address2" class="form-control border" name="address" placeholder="상세주소">
                                 </div>
-                                <button type="button" style="float: right;" class="btn btn-primary" onclick="insertDele()">등록</button>
+                                <button type="button" style="float: right;background-color:#f18260; border-color: #f18260;" class="btn btn-primary" onclick="insertDele()">등록</button>
                             </div>
                             <!-- 배송지 삭제 -->
                             <div class="tab-pane" id="dlvy_delete">
@@ -224,7 +246,7 @@ select {
                               </table>
                             </div>
                         </div> <!--탭 컨탠츠 끝-->
-                        <button type="button" class="btn btn-primary form-control" id="completeBtn" style="margin-top: 30px;">수정 완료</button>
+                        <button type="button" class="btn btn-primary form-control" id="completeBtn" style="margin-top: 30px; background-color:#f18260; border-color: #f18260;">수정 완료</button>
                     </div>
                     
                 
@@ -263,6 +285,17 @@ function execDaumPostcode() {
     }).open();
 };
 
+function execDaumPostcode2() {
+    new daum.Postcode({
+        oncomplete: function (data) {
+            var addr = data.address; // 최종 주소 변수
+            // 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("addressList1").value = addr;
+        }
+    }).open();
+};
+
+
  // 업로드 이미지 클릭시
  $('.uploadImg').click(function(e) {
             $('#_target_url').val(document.getElementById('_uploadImg').src);
@@ -296,6 +329,7 @@ $(document).on('change', '#_file', function(e) {
 function overlapBtn(){
 
     if($("#nickname").val()==$("#hiddenNickname").val()){
+        $("#overlapMsg").text("");
         alert("이미 사용하고 계신 닉네임 입니다.");
     }else{
         $.ajax({
@@ -324,27 +358,105 @@ $("#completeBtn").click(function(){
     }
 
     if(confirm("이대로 수정하시겠습니까?")==true){
-        $.ajax({
-        url:"http://localhost:3000/userEdit",
-        type:"post",
-        data: new FormData($('#userEdit')[0]),
-        enctype:"multipart/form-data",
-        processData:false,
-        contentType:false,
-        cache:false,
-        async: false,
-        success:function(){
-            alert("수정이 완료되었습니다.");
-            location.href="./mainMyPage.html";
-        },error:function(){
-            alert("수정실패");
+
+
+        // 사진이 바뀌었다면
+        if($("#_uploadImg").attr("src").split("/").reverse()[0] != $("#imgValue").val() ){
+            $.ajax({
+                url:"http://localhost:3000/userEdit",
+                type:"post",
+                data: new FormData($('#userEdit')[0]),
+                enctype:"multipart/form-data",
+                processData:false,
+                contentType:false,
+                cache:false,
+                async: false,
+                success:function(){
+                    alert("수정이 완료되었습니다.");
+                    location.href="./mainMyPage.html";
+                },error:function(){
+                    alert("수정실패");
+                }
+            })
+        // 사진이 바뀌지 않았다면
+        }else{
+            
+            $.ajax({
+                url:"http://localhost:3000/noProfile",
+                type:"post",
+                data:{"nickname":$("#nickname").val(),
+                        "userSeq":sessionId.userSeq,
+                        "userName":$("#orderName").val(), },
+                success:function(data){
+                    if(data == "suc"){
+                        alert("수정이 완료되었습니다.");
+                        location.href="./mainMyPage.html";
+                    }else{
+                        alert("수정 실패");
+                    }
+                },error:function(){
+                    alert("수정 실패");
+                }
+
+            })
         }
-    })
+
     }else{
         return;
     }
-   
 })
+
+
+function selectChange(){
+    //alert($("#_selected option:selected").val());
+    $("#updatedelibtn").removeAttr("disabled");
+
+    $.ajax({
+        url:"http://localhost:3000/getAddress",
+        type:"post",
+        data:{"addressSeq":$("#_selected option:selected").val() },
+        success:function(data){
+            //alert(JSON.stringify(data));
+            let add = (data.address).split("///");
+            $("#addressList1").val(add[0]);
+            $("#addressList2").val(add[1]);
+            $("#receiveHu").val(data.receiveUser);
+            $("#receiveCall").val(data.receivePhone);
+
+        },error:function(){
+            alert("select error");
+        }
+    })
+
+}
+
+
+function updateDeli(){
+
+    if(confirm("배송지를 수정하시겠습니까?")==true){
+       $.ajax({
+           url:"http://localhost:3000/updateDeli",
+           type:"post",
+           data:{"addressSeq":$("#_selected option:selected").val(),
+                "addressName":$("#_selected option:selected").text(),
+                "address":$("#addressList1").val()+"///"+ $("#addressList2").val(),
+                "receiveUser": $("#receiveHu").val(),
+                "receivePhone":$("#receiveCall").val()},
+            success:function(data){
+                if(data =="suc"){
+                    alert("배송지가 수정되었습니다.");
+                }
+            },error:function(){
+                alert("update deli error");
+            }
+        })
+    }
+}
+
+
+
+
+
 
 // 배송지 삭제
 function deleteDeli(addressSeq){
@@ -415,6 +527,7 @@ $(document).ready(function(){
 
                 if(data.profileName != "0"){
                     $('#_uploadImg').attr("src", "http://localhost:3000/upload/"+data.profileName);
+                    $("#imgValue").val(data.profileName);
                 }
 
                 if(data.userName != "0"){
@@ -436,13 +549,17 @@ $(document).ready(function(){
             success:function(list){
                 //$("#deleTb").children().remove();
                 let app ="";
+                let app2 = "<select onchange='selectChange()' id='_selected'><option disabled selected>-- 배송지 선택 --</option>"
                 $.each(list,function(i,val){
                     let address = val.address;
                     let splitadd = address.split("///");
                 app += '<tr>'
                     +'<td>'+val.addressName+'</td><td>'+splitadd[0]+" "+splitadd[1]+'</td><td><a onclick="deleteDeli('+val.addressSeq+')" style="cursor:pointer;"><i class="fas fa-times"></i></a></td>'
-                    +'</tr>';                    
+                    +'</tr>';
+                app2 += '<option value="'+val.addressSeq+'">'+val.addressName+'</option>';                   
                 });
+                app2 += '</select>';
+                $(".selectbox").append(app2);
                 $("#deleTb").append(app);
 
             },error:function(){
