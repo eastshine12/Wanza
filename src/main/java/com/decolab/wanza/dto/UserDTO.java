@@ -38,11 +38,12 @@ public class UserDTO implements Serializable {
 		this.gender = gender;
 		this.birth = birth;
 	}
-	
-	
 
-
-
+	public UserDTO(String email, String nickname) {
+		super();
+		this.email = email;
+		this.nickname = nickname;
+	}
 
 	public UserDTO(int userSeq, String email, String pwd, String userName, String nickname, String profileName,
 			String phone, int auth, Date userDate, int mileage, int defaultAddress, String agerange, String gender,

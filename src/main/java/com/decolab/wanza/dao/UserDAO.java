@@ -17,6 +17,8 @@ public interface UserDAO {
 
 	public void kakaologin(UserDTO dto);
 	
+	public UserDTO klogin(UserDTO dto);
+	
 	public UserDTO getUserNickname(UserDTO dto);
 	
 	public int newPwd(UserDTO dto);

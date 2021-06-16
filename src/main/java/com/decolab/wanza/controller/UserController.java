@@ -13,9 +13,11 @@ import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -79,7 +81,7 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/kakaologin", method = {RequestMethod.GET,RequestMethod.POST})
-	public void kakaologin(@RequestParam(value="code", required=false) String code, UserDTO dto) {
+	public String kakaologin(@RequestParam(value="code", required=false) String code, UserDTO dto, HttpServletRequest req) {
 		System.out.println("UserController kakaologin() " + new Date() );
 		System.out.println(dto.toString());
 		System.out.println("code : " + code);
@@ -94,19 +96,44 @@ public class UserController {
 	    dto.setNickname((userInfo.get("nickname")).toString());
 	    
 	    
+	    //Session session;
+	    
 	    /*
 	    if (userInfo.get("email") != null) {
-	        session.setAttribute("userId", userInfo.get("email"));
+	        session.setAttribute("login", dto);
 	        session.setAttribute("access_Token", accesstoken);
 	    }
+	    */
+	    
+	    /*이거로가
+		http://localhost:8090/view/community/mainCommunity.html?
+	    code=BdrNoix4NyV5IaxqLXquzKFr5LhBN7ZPw1VGpaQuMvoVGOv88cMr2KQN3ueUPnGZ0ASrLQo9c-sAAAF56togMg
 		*/
+	    
 		service.kakaologin(dto);
+		return (String)userInfo.get("email");
 	}
 	
-	/*이거로가
-	http://localhost:8090/view/community/mainCommunity.html?
-    code=BdrNoix4NyV5IaxqLXquzKFr5LhBN7ZPw1VGpaQuMvoVGOv88cMr2KQN3ueUPnGZ0ASrLQo9c-sAAAF56togMg
-	*/
+	@RequestMapping(value = "/klogin", method = {RequestMethod.GET,RequestMethod.POST})
+	public UserDTO klogin(UserDTO dto, HttpSession session) {
+		System.out.println("UserController klogin() " + new Date() );
+		System.out.println("klogin() dto " + dto.toString());
+			
+		String email = dto.getEmail();
+		System.out.println("email:" + email);
+		//String nickname = dto.getNickname();
+
+		if (email != null) {
+	        session.setAttribute("login", dto);
+	        // session.setAttribute("access_Token", accesstoken);
+	    }
+		UserDTO a = service.klogin(dto);
+		
+		return a;
+	}
+	
+	
+	
 
 	
 	@RequestMapping(value = "/CheckMail", method = {RequestMethod.GET,RequestMethod.POST})

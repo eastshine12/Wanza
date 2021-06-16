@@ -19,7 +19,7 @@
 	VALUES(SEQ_USER.NEXTVAL, #{email}, #{pwd}, 0, #{nickname}, 0, #{phone}, 0, SYSDATE, 40000, 0)
 </insert>
 
-<insert id="kakaologin" parameterType="com.decolab.wanza.dto.UserDTO">
+<insert id="kakaologin" parameterType="com.decolab.wanza.dto.UserDTO" >
 	MERGE INTO USERS A
 	USING (SELECT #{email} AS EMAIL FROM DUAL) B
 	ON (A.EMAIL = B.EMAIL)
@@ -29,6 +29,12 @@
 	INSERT (USERSEQ, EMAIL, PWD, NICKNAME, PROFILENAME, PHONE, AUTH, USERDATE, MILEAGE, DEFAULTADDRESS)
 	VALUES(SEQ_USER.NEXTVAL, #{email}, 0, #{nickname}, 0, 0, 0, SYSDATE, 40000, 0)
 </insert>
+
+<select id="klogin" parameterType="com.decolab.wanza.dto.UserDTO" resultType="com.decolab.wanza.dto.UserDTO">
+	SELECT USERSEQ, EMAIL, USERNAME, NICKNAME, PROFILENAME, PHONE, AUTH, USERDATE, MILEAGE, DEFAULTADDRESS
+	FROM USERS
+	WHERE EMAIL=#{email}
+</select> 
 
 <select id="login" parameterType="com.decolab.wanza.dto.UserDTO" resultType="com.decolab.wanza.dto.UserDTO">
 	SELECT USERSEQ, EMAIL, USERNAME, NICKNAME, PROFILENAME, PHONE, AUTH, USERDATE, MILEAGE, DEFAULTADDRESS
