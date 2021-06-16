@@ -524,6 +524,13 @@ select::-ms-expand{
     <!-- 약관 모달 end -->
     
     <form action="" id="form_order">
+
+        <input type="hidden" id="_howPayment" name="howPayment">
+        <input type="hidden" id="_productSeq" name="productSeq">
+        <input type="hidden" id="_selectOption" name="selectOption">
+        <input type="hidden" id="_quantity" name="quantity">
+        <input type="hidden" id="_price" name="price">
+
         <input type="hidden" id="_userSeq" name="userSeq">
         <input type="hidden" id="_productAmount" name="productAmount">
         <input type="hidden" id="_totalAmount" name="totalAmount">
@@ -792,6 +799,7 @@ let selectItem = getParameter("selectItem");
 let itemCount = getParameter("itemCount");
 let direct = getParameter("directPayment");
 
+
 // 옵션 값 JSON 형식으로 변환
 let optionTitleParam = "";
 let num = 1;
@@ -803,6 +811,11 @@ while(getParameter("optionTitle"+num) != "") {
     oppArr.push(object);
     num++;
 }
+
+
+$('#_productSeq').val(seq);
+//$('#_selectOption').val(JSON.stringify(oppArr));
+$('#_quantity').val(itemCount);
 
 
 //로그인한 계정 닉네임 가져오기
@@ -880,8 +893,10 @@ $(document).ready(function() {
 
     // 바로결제, 장바구니결제 마다 리스트 다르게 가져옴
     if(direct == "true" && seq != "" && itemCount != "") {
+        $('#_howPayment').val(0);
         directPayment();
     } else if (direct == "false" && seq == "" && itemCount == "") {
+        $('#_howPayment').val(1);
         getPaymentList();
     } else {
         alert('잘못된 접근입니다.');
@@ -979,6 +994,9 @@ $(document).ready(function() {
             +'</div>';
             $("#itemList").append(app);
             totalPrice();
+            
+            $('#_price').val(productPrice+op_total_price);
+        
     }
 
 
@@ -1098,6 +1116,12 @@ $(document).ready(function() {
             return;       
         };
 
+        if(!$('#cb').is(":checked")) {
+            alert('약관에 동의해주세요.');
+            return;   
+        }
+
+
         if($('#_point').val() == '') {
             $('#_point').val(0);
         }
@@ -1155,10 +1179,13 @@ $(document).ready(function() {
             alert('결제수단을 선택해주세요.')
         } else {
             console.log(jdata);
+            let optionStr = JSON.stringify(oppArr);
+            
             $.ajax({
                 url: "http://192.168.0.231:3000/paymentAf",
                 type: "post",
                 data: jdata,
+                //contentType: 'application/json',
                 success: function (data) {
                     console.log(data)
                     if (data == "suc") {
@@ -1171,6 +1198,8 @@ $(document).ready(function() {
                     alert('paymentAf error');
                 }
             });
+
+            
             
         }
     })

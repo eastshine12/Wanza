@@ -561,24 +561,45 @@ function lineGraph(){
          url:"http://localhost:3000/mapList",
          type:"post",
          data:{sDate:$(".s_date").val(),eDate:$(".e_date").val()},
-         success:function(mapDto){
-            $("#seoul").html("<h2>서울특별시 주문건수 : "+mapDto.seoul+"건");
-            $("#gygg").html("<h2>경기도 주문건수 : "+mapDto.gyunggi+"건");
-            $("#incheon").html("<h2>인천광역시 주문건수 : "+mapDto.incheon+"건");
-            $("#gangwon").html("<h2>강원도 주문건수 : "+mapDto.gangwon+"건");
-            $("#chungbuk").html("<h2>충청북도 주문건수 : "+mapDto.chungbuk+"건");
-            $("#chungnam").html("<h2>충청남도 주문건수 : "+mapDto.chungnam+"건");
-            $("#daejeon").html("<h2>대전광역시 주문건수 : "+mapDto.daejeon+"건");
-            $("#sejong").html("<h2>세종특별자치시 주문건수 : "+mapDto.sejong+"건");
-            $("#gwangju").html("<h2>광주광역시 주문건수 : "+mapDto.gwangju+"건");
-            $("#jeonbuk").html("<h2>전라북도 주문건수 : "+mapDto.jeonbuk+"건");
-            $("#jeonnam").html("<h2>전라남도 주문건수 : "+mapDto.jeonnam+"건");
-            $("#gyeongbuk").html("<h2>경상북도 주문건수 : "+mapDto.gyeongbuk+"건");
-            $("#gyeongnam").html("<h2>경상남도 주문건수 : "+mapDto.gyeongnam+"건");
-            $("#daegu").html("<h2>대구광역시 주문건수 : "+mapDto.daegu+"건");
-            $("#busan").html("<h2>부산광역시 주문건수 : "+mapDto.busan+"건");
-            $("#ulsan").html("<h2>울산광역시 주문건수 : "+mapDto.ulsan+"건");
-            $("#jeju").html("<h2>제주광역시 주문건수 : "+mapDto.jeju+"건");               
+         success:function(list){
+            //alert(JSON.stringify(list));
+            $.each(list,function(i,val){
+                if(val.country == "서울"){
+                    $("#seoul").html("<h2>서울특별시 주문건수 : "+val.count+"건");
+                }else if(val.country=="경기"){
+                    $("#gygg").html("<h2>경기도 주문건수 : "+val.count+"건");
+                }else if(val.country=="인천"){
+                    $("#incheon").html("<h2>인천광역시 주문건수 : "+val.count+"건");
+                }else if(val.country=="강원"){
+                    $("#gangwon").html("<h2>강원도 주문건수 : "+val.count+"건");
+                }else if(val.country=="충북"){
+                    $("#chungbuk").html("<h2>충청북도 주문건수 : "+val.count+"건");
+                }else if(val.country=="충남"){
+                    $("#chungnam").html("<h2>충청남도 주문건수 : "+val.count+"건");
+                }else if(val.country=="대전"){
+                    $("#daejeon").html("<h2>대전광역시 주문건수 : "+val.count+"건");
+                }else if(val.country=="세종특별자치시"){
+                    $("#sejong").html("<h2>세종특별자치시 주문건수 : "+val.count+"건");
+                }else if(val.country=="광주"){
+                    $("#gwangju").html("<h2>광주광역시 주문건수 : "+val.count+"건");
+                }else if(val.country=="전북"){
+                    $("#jeonbuk").html("<h2>전라북도 주문건수 : "+val.count+"건");
+                }else if(val.country=="전남"){
+                    $("#jeonnam").html("<h2>전라남도 주문건수 : "+val.count+"건");
+                }else if(val.country=="경북"){
+                    $("#gyeongbuk").html("<h2>경상북도 주문건수 : "+val.count+"건");
+                }else if(val.country=="경남"){
+                    $("#gyeongnam").html("<h2>경상남도 주문건수 : "+val.count+"건");
+                }else if(val.country=="대구"){
+                    $("#daegu").html("<h2>대구광역시 주문건수 : "+val.count+"건");
+                }else if(val.country=="부산"){
+                    $("#busan").html("<h2>부산광역시 주문건수 : "+val.count+"건");
+                }else if(val.country=="울산"){
+                    $("#ulsan").html("<h2>울산광역시 주문건수 : "+val.count+"건");
+                }else{
+                    $("#jeju").html("<h2>제주광역시 주문건수 : "+val.count+"건");
+                }
+            })
          },
          error:function(){
              alert("map List error");

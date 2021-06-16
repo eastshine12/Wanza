@@ -653,6 +653,7 @@ $(document).ready(function() {
     getMyOrderStatusCount();// 배송갯수
     getMyOrderList(getSortData()); // 구매 리스트
     setTab(); // 쿠키에 따른 탭 활성화
+    getUserInfo(); // 유저정보
 
     //부트 탭 값 쿠키에 저장
     $('.nav .nav-link').click(function(){
@@ -663,13 +664,24 @@ $(document).ready(function() {
     });
 
     //유저정보입력
+
+
+
+
+
+
+
+
+
+    /*
     $('.profile_name').text(sessionId.nickname);
-        $('.profile_category span:eq(1)').text( makeComma(sessionId.mileage));
+    $('.profile_category span:eq(1)').text(makeComma(sessionId.mileage));
     if(sessionId.profileName != '0') {
         $('.fa-user-circle-o').hide();
         $('.profile_img').css('border', '0px');
         $('.profile_img').append($('<img src="http://192.168.0.231:3000/upload/'+sessionId.profileName+'" style="width: 158px;height: 158px; object-fit:cover; border-radius: 70%;" />'));
-    } 
+    }
+    */
 
 
     // 배송현황 클릭
@@ -845,6 +857,29 @@ function getMyStoryList() {
         },
 		error:function(){ console.log('error'); }
 	});
+}
+
+// 유저 정보 불러오기 
+function getUserInfo(){
+    $.ajax({
+        url:"http://localhost:3000/getUserAllInfoCopy",
+        type:"post",
+        data:{userSeq:sessionId.userSeq},
+        success:function(data){
+            $('.profile_name').text(data.nickname);
+            $('.profile_category span:eq(1)').text( makeComma(data.mileage));
+
+            if(data.profileName != '0') {
+                $('.fa-user-circle-o').hide();
+                $('.profile_img').css('border', '0px');
+                $('.profile_img').append($('<img src="http://localhost:3000/upload/'+data.profileName+'" style="width: 158px;height: 158px; object-fit:cover; border-radius: 70%;" />'));
+            }
+
+        },error:function(){
+            alert("getUserInfo error");
+        }
+
+    })
 }
 
 // 날짜 형식

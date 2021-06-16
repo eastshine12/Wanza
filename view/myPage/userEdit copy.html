@@ -352,6 +352,7 @@ function overlapBtn(){
 // 수정 완료 버튼
 $("#completeBtn").click(function(){
 
+
     if($("#overlapMsg").text()=="이미 사용중인 닉네임입니다."){
         alert("닉네임을 확인해주세요");
         return;
@@ -361,7 +362,7 @@ $("#completeBtn").click(function(){
 
 
         // 사진이 바뀌었다면
-        if($("#_uploadImg").attr("src").split("/").reverse()[0] != $("#imgValue").val() ){
+        if($("#_uploadImg").attr("src").split("/").reverse()[0] != $("#imgValue").val() && $("#_uploadImg").attr("src") != "../../assets/img/imgUpload.png"){
             $.ajax({
                 url:"http://localhost:3000/userEdit",
                 type:"post",
@@ -404,6 +405,7 @@ $("#completeBtn").click(function(){
     }else{
         return;
     }
+    
 })
 
 

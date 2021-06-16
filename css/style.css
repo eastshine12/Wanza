@@ -204,3 +204,52 @@ html, body{
     color: white;
   }
 
+
+
+/* 카카오문의 버튼 */
+#kakao-talk-channel-chat-button {
+    display: inline-block;
+    background-color: transparent;
+    width: 40px; height: 40px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 115px;
+    right: 104px;
+    transition: background-color .2s, 
+    opacity .2s, visibility .2s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+  /* f4744c */
+#kakao-talk-channel-chat-button::after {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.5em;
+    line-height: 35px;
+}
+#kakao-talk-channel-chat-button:hover {
+    cursor: pointer;
+    filter: grayscale(70%);
+    filter: brightness(80%);
+    border: none;
+    color: white;
+    text-decoration: none;
+}
+#kakao-talk-channel-chat-button:active {
+    background-color: #ffe4db;
+    border: none;
+    /* border-color: #ffe4db; */
+    color: #f4744c;
+}
+#kakao-talk-channel-chat-button.show {
+    opacity: 1;
+    visibility: visible;
+}
+#kakao-talk-channel-chat-button.change {
+    border-color: white;
+    color: white;
+}
+

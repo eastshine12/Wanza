@@ -189,7 +189,7 @@ $(document).ready(function() {
     // 탑 버튼
     var btn = $('#backToTop');
     let ftop;
-    $(document).ajaxComplete(function() {
+    $(window).on('load', function() {
         ftop = $('footer').offset().top;
     });
         
@@ -212,6 +212,25 @@ $(document).ready(function() {
     });
 
 
+
+    // 카카오문의 버튼
+    var kakaoBtn = $('#kakao-talk-channel-chat-button');
+
+    $(window).scroll(function() {
+        if ($(window).scrollTop() > 300) {
+            kakaoBtn.addClass('show');
+        }else{
+            kakaoBtn.removeClass('show');
+        }
+
+    });
+        
+    kakaoBtn.on('click', function(e) {
+        e.preventDefault();
+        $('html, body').scrollTop(0);
+    });
+
+
 });
 
 
@@ -228,3 +247,19 @@ function XSSCheck(str, level) {
     }
     return str;
 }
+
+
+window.kakaoAsyncInit = function() {
+    Kakao.Channel.createChatButton({
+      container: '#kakao-talk-channel-chat-button',
+    });
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://developers.kakao.com/sdk/js/kakao.channel.min.js';
+    fjs.parentNode.insertBefore(js, fjs);
+  })(document, 'script', 'kakao-js-sdk');
+
