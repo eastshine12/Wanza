@@ -38,12 +38,33 @@ SET ADDRESSNAME=#{addressName},ADDRESS=#{address},RECEIVEUSER=#{receiveUser},REC
 WHERE USERSEQ = #{userSeq}
 </update>
 
+<update id="noProfilename" parameterType="com.decolab.wanza.dto.UserDTO">
+UPDATE USERS
+SET USERNAME = #{userName}, NICKNAME = #{nickname}
+WHERE USERSEQ = #{userSeq}
+</update>
+
 
 <delete id="deleteAdd" parameterType="java.lang.Integer">
 DELETE FROM ADDRESS
 WHERE ADDRESSSEQ=#{addressSeq}
 
 </delete>
+
+<select id="getAddress" parameterType="com.decolab.wanza.dto.AddressDTO" resultType="com.decolab.wanza.dto.AddressDTO">
+SELECT ADDRESSSEQ, USERSEQ,ADDRESSNAME,ADDRESS,RECEIVEUSER,RECEIVEPHONE
+FROM ADDRESS
+WHERE ADDRESSSEQ=#{addressSeq}
+</select>
+
+<update id="updateDeli" parameterType="com.decolab.wanza.dto.AddressDTO">
+UPDATE ADDRESS
+SET ADDRESSNAME=#{addressName},ADDRESS=#{address},RECEIVEUSER=#{receiveUser},RECEIVEPHONE=#{receivePhone}
+WHERE ADDRESSSEQ = #{addressSeq}
+
+</update>
+
+
 
 
 </mapper>

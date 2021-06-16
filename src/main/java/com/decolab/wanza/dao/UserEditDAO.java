@@ -3,6 +3,7 @@ package com.decolab.wanza.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.decolab.wanza.dto.AddressDTO;
 import com.decolab.wanza.dto.UserDTO;
 
 @Mapper
@@ -20,5 +21,11 @@ public interface UserEditDAO {
 	public int userEdit2(UserDTO dto);
 	
 	public int deleteAdd(int addressSeq);
+	
+	public AddressDTO getAddress(AddressDTO dto);
+	
+	public int updateDeli(AddressDTO dto);
+	
+	public int noProfilename(UserDTO dto);
 
 }
