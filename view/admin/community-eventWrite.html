@@ -5,117 +5,139 @@
         <title>완벽한 자취생활, 완자 | 이벤트 상세 정보</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../css/style.css">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <!-- 써머노트 -->
         <link rel="stylesheet" href="../../css/summernote/summernote-lite.css">
         <link rel="stylesheet" href="../../css/summernote/font/summernote.eot">
         <!-- 써머노트 -->
     </head>
     <style>
-        #eventWriteBtn{
-            margin-left: 15px;
-            background: rgb(244, 116, 76);
-            color: rgb(255,255,255);
-            width: 100%;
-            height: 50px;
-            margin: 10px;
-        }
+
 
         input:read-only{
             background-color: #e6e6e6;
         }
+
+        .tab_btn{
+            width: 100%;
+            height: 50px;
+            margin: 10px;
+            margin-left: 15px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            background-color: #35ab6f;
+            box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+        }
+        .tab_btn:active{
+            background: radial-gradient(#35ab6f,#56c084);
+            transition: all .33s cubic-bezier(.685,.0473,.346,1)
+        }
+
     </style>
 
 
 
 <body>
-    <header include-html="../commons/header.html"></header>
-    <nav include-html="../commons/menuComm.html"></nav>
 
-    <div class="row" style="margin-top: 50px; margin-bottom: 100px;">
+<div class="container-fluid" style="height: 5vh;"></div>
+    <!-- 사이드바 메뉴 -->
+    <div include-html="sidebar.html"></div>
+    <!-- 메인화면 -->
+    <div class="main_panel">
+        <!-- 테이블박스 -->
+        <div class="table_wrap" id="table1">
+            <div class="row" style="margin-top: 50px; margin-bottom: 100px;">
+                <div class="col-xl-3"></div>
+                <div class="col-xl-6">
+                    
+                    <!-- 이벤트 기간 입력 -->
+                    <form id="eventForm">
+                        <div class="row" style="margin-bottom: 20px;">
+                            <h3 style="font-weight: bold;">이벤트 등록</h3>
+                        </div>
+                        <div class="row">
+                            <div class="form-group" style="width: 40%;" id="hideSeq">
+                                <input type="text" class="form-control" id="startDate" placeholder="이벤트 시작일을 입력해주세요 ex(2020/04/14)" name="eventStartDate">
+                            </div>
+                                <span>&ensp;~&ensp;</span>
+                            <div class="form-group" style="width: 40%;">
+                                <input type="text" class="form-control" id="endDate" placeholder="이벤트 종료일을 입력해주세요 ex(2020/04/15)" name="eventEndDate">               
+                            </div>
+                        </div>
+                        <!-- 이벤트 제목 입력 -->
+                        <div class="row">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="eventTitle" placeholder="이벤트 제목을 입력 해 주세요" style="width: 500px;" name="eventTitle">               
+                            </div>
+                            <span>&ensp;&ensp;</span>
+                            <!-- 이벤트 썸네일 -->
+                            <div style="margin-bottom: 10px;">
+                                <input type="file" name="eventFile1">
+                            </div>
+                        </div>
 
-        <div class="col-xl-3"></div>
+                        <!-- 이벤트 내용 사진 -->
+                        <div>
+                            <textarea id="eventFile" class="summernote" name="eventContent" style="width: 700px;"></textarea>
+                        </div>
+                        
+
+                        <!-- 관련상품 Radio Button -->
+                        <div class="row">
+                            <div style="margin-top: 10px;">
+                                <span style="margin-left: 12px;">관련 상품을 등록하시겠습니까 ?</span>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label" for="radio1">
+                                        <input type="radio" class="form-check-input" id="radioYes" name="optradio" value="yes">예                      
+                                    </label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <label class="form-check-label" for="radio2">
+                                        <input type="radio" class="form-check-input" id="radioNo" name="optradio" value="no" checked >아니오
+                                    </label>
+                                </div> 
+                            </div>
+                        </div>
+
+
+                    </form>
         
-        <div class="col-xl-6">
-
-            
-            <!-- 이벤트 기간 입력 -->
-            <form id="eventForm">
-                <div class="form-group" style="width: 40%;" id="hideSeq">
-                    <input type="text" class="form-control" id="startDate" placeholder="이벤트 시작일을 입력해주세요 ex(2020/04/14)" name="eventStartDate">
-                </div>
-                    <span>~</span>
-                <div class="form-group" style="width: 40%;">
-                    <input type="text" class="form-control" id="endDate" placeholder="이벤트 종료일을 입력해주세요 ex(2020/04/15)" name="eventEndDate">               
-                </div>
-           
-
-            <!-- 이벤트 제목 입력 -->
-            <div class="form-group">
-                <input type="text" class="form-control" id="eventTitle" placeholder="이벤트 제목을 입력 해 주세요" name="eventTitle">               
-            </div>
-            <!-- 이벤트 썸네일 -->
-           
-            <div style="margin-bottom: 10px;">
-                <input type="file" name="eventFile1">
-            </div>
-            
-            <!-- 이벤트 내용 사진 -->
-            <div>
-                <textarea id="eventFile" class="summernote" name="eventContent"></textarea>
-            </div>
-            <!-- 관련상품 Radio Button -->
-            <div style="margin-top: 10px;">
-                <span>관련 상품을 등록하시겠습니까 ?</span>
-                <div class="form-check-inline">
-                    <label class="form-check-label" for="radio1">
-                      <input type="radio" class="form-check-input" id="radioYes" name="optradio" value="yes">예                      
-                    </label>
-                </div>
-                <div class="form-check-inline">
-                    <label class="form-check-label" for="radio2">
-                      <input type="radio" class="form-check-input" id="radioNo" name="optradio" value="no" checked >아니오
-                    </label>
-                </div> 
-            </div>
-        </form>
-           
-
-            <!-- 상품 이름 검색 -->
-            <div id="productNameInput" class="form-group" style="margin-top: 10px;">
-                <input type="text" class="form-control" id="productName" placeholder="이름으로 검색해서 상품 찾아오기" onkeyup="if(window.event.keyCode==13){searchProduct()}" style="width: 50%;">               
-            </div>
-
-            <!-- 상품 list up -->
-            <div class="row" style="text-align: center;" id="_productListUp">  
-                                     
-            </div>
+                    <!-- 상품 이름 검색 -->
+                    <div id="productNameInput" class="form-group" style="margin-top: 10px;">
+                        <input type="text" class="form-control" id="productName" placeholder="이름으로 검색해서 상품 찾아오기" onkeyup="if(window.event.keyCode==13){searchProduct()}" style="width: 50%;">               
+                    </div>
         
-            
-
-             <!-- 글쓰기 완료 버튼 -->
-             <div class="row" style="margin-top: 50px;">
-                <button id="eventWriteBtn" class="btn" type="button" onclick="completeEvent()">이벤트 작성</button>
-            </div>
-
+                    <!-- 상품 list up -->
+                    <div class="row" style="text-align: center;" id="_productListUp">  
+                    </div>
+                
+                    
         
+                    <!-- 글쓰기 완료 버튼 -->
+                    <div class="row" style="margin-top: 50px;">
+                        <button id="eventWriteBtn" class="btn tab_btn" type="button" onclick="completeEvent()">이벤트 작성</button>
+                    </div>
+                </div>
+                <div class="col-xl-3"></div>
+            </div>
         </div>
-  
-        
-
-
-        <div class="col-xl-3"></div>
     </div>
+</div>
 
-    <footer include-html="../commons/footer.html"></footer>
+
 
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../js/includeHTML.js"></script>
     <script src="../../js/header.js"></script>
     <script src="../../js/slang.js"></script>
+    <script src="../../js/adminSide.js"></script>
     <!-- 써머노트 스크립트 시작 -->
     <script src="../../css/summernote/summernote-lite.js"></script>
     <script src="../../css/summernote/summernote-ko-KR.js"></script>
