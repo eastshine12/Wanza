@@ -131,8 +131,8 @@
           font-weight: 500;
         }   
         .question-detail-img{
-            width: 200px;
-            height: 200px;
+             width: 200px;
+            height: 200px; 
         }
         .col-xl-2 .question-detail-sidebar{
             position: sticky;
@@ -255,12 +255,13 @@
 
                 <div class="question-detail-footer" >
                     <div class="question-detail-body-footer-tag" >
-                        <ul class="questions-item-footer-tags keyword-list" >
+                    <!--    <ul class="questions-item-footer-tags keyword-list" >
                             <li class="keyword-item questions-item-footer-tags-tag" role="button">셀프인테리어</li>
                             <li class="keyword-item questions-item-footer-tags-tag" role="button">자취</li>
                             <li class="keyword-item questions-item-footer-tags-tag" role="button">돈낭비</li>
                             <li class="keyword-item questions-item-footer-tags-tag" role="button">존망</li>
                         </ul>
+                    -->    
                     </div>
                     <br>
                     <div class="question-detail-footer-metadata">
@@ -381,22 +382,22 @@
 
     <div class="col-xl-2" >
             <div class="question-detail-sidebar" >
-                <!--
+                
                 <div class="sidebar-header">
                     <div class="sidebar-header-writer">
                         <div class="row">
                             <div class="questions-writer-image" >
                                 <img class="questions-writer-image-image" src="" style="width: 50px; height: 50px; border-radius: 70%"
-                                onerror="this.src='../image/avatar.png'">--> <!--프로필사진, 에러시 프로필사진 -->
-                <!--            </div>
-                            <div class="questions-writer-nickname">--><!--유저닉네임-->
-                                <!--<div class="questions-writer-profile" ></div>--><!--유저프로필네임-->
-                            <!--</div>
+                                onerror="this.src='../image/avatar.png'"> <!--프로필사진, 에러시 프로필사진 -->
+                           </div>
+                            <div class="questions-writer-nickname"><!--유저닉네임-->
+                               <div class="questions-writer-profile"></div><!--유저프로필네임-->
+                            </div>
                             
                         </div>
                     </div>
                 </div>
-                <div class="sidebar-body" style="margin-top: 15px; margin-bottom: 15px; padding-top: 15px;">
+           <!-- <div class="sidebar-body" style="margin-top: 15px; margin-bottom: 15px; padding-top: 15px;">
                     <button class="share-button">공유하기</button>
                 </div>
                 <hr>
@@ -532,13 +533,13 @@ $(document).ready(function(){
             $('.question-detail-img').attr("src","http://localhost:3000/upload/"+list.questionFileName);
             $('.question-detail-content').append(list.questionContent);
             $('.questions-writer-nickname').text(list.nickName);
-            $('.questions-writer-profile').text(list.userName);
+            //$('.questions-writer-profile').text(list.userName);
             $('#questionSeq').val(list.questionSeq);
             $('.question-detail-footer-metadata-view-count-value').text(list.questionReadcount);
             //$('.questions-item-footer-date').text(qdate);
             $('.questions-item-footer-date').text(date3);
            // $('.question-detail-footer-date').attr("datetime", list.questionRegDate);
-            if(list.userName == '' || list.userName == 0 || list.userName == null){
+            if(isEmpty(list.userName) == true){
                 $('.questions-writer-profile').text("반갑습니다.");
             } else {
                 $('.questions-writer-profile').text(list.userName);
@@ -580,9 +581,12 @@ $(document).ready(function(){
                         //if(isEmpty(val.qcStep) == false || isEmpty(val.qcDepth) == false){
                         if(val.qcDepth==1){
                             var reply 
-                            = "<div class='comment-feed-item-reply'>"
+                            =  "<div class='comment-feed-item-reply'>"
+                                
                                 + "<a href='#' class='comment-feed-item-content-author-name'>"
+                                    
                                 + "<img class='comment-feed-item-content-author-image' src=' " 
+                                    
                                     + pfname
                                 + "' >"
                                 + "<span class='questioncommentwriter'>" + val.nickName + "</span>"
