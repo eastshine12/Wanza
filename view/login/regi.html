@@ -100,11 +100,12 @@
         <div class="row" style="margin-bottom: -20px;">
             <div class="col" style="padding-left: 15px;text-align: center;margin: 0px;margin-top: 11px;"><label style="font-family: 'Noto Sans KR', sans-serif;margin-right: 140px;margin-left: -145px;"><strong>이메일</strong></label>
                 <div style="text-align: center;margin: 0px;margin-bottom: 23px;"><input id="email1" type="text" style="width: 157px;height: 40px;margin-top: 0px;" placeholder=" 이메일"><span>@</span><select id="email2" style="width: 160px;height: 40px;" placeholder="선택해주세요">
-                        <option value="a.com" selected="">a.com</option>
+                        <!-- <option value="a.com" selected="">a.com</option> -->
                         <option value="naver.com">naver.com</option>
                         <option value="gmail.com">gmail.com</option>
                         <option value="daum.net">daum.net</option>
                     </select></div>
+                    <button type="button" id="check-btn" class="btn btn-lg" onclick="emailcheck()" style="margin-bottom: 20px;">이메일 중복확인</button>
             </div>
         </div>
 
@@ -336,7 +337,44 @@
     
 <script>
 
+  // 넘어온 값이 빈값인지 체크합니다. 
+    // !value 하면 생기는 논리적 오류를 제거하기 위해 
+    // 명시적으로 value == 사용 
+    // [], {} 도 빈값으로 처리 
+    var isEmpty = function(value){ 
+    if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
+        return true
+        } else { 
+        return false 
+        } 
+    }
 
+/* 이메일중복확인 */
+function emailcheck(){
+  alert('dddd');
+  let _email = $('#email1').val() +'@'+ $('#email2').val();
+
+  $.ajax({
+        url:"http://localhost:3000/checkEmail",
+        data:{email: _email},
+        type:"post",
+        success:function(email){
+          //alert("email check suc");
+          console.log(email);
+          if(isEmpty(email) == true){
+            alert('사용 가능한 이메일입니다.');
+          } else {
+            alert('이미 가입되어있는 이메일입니다.');
+            $('#email1').text('');
+          }
+          // let app=""
+          // app ="<input type='hidden' id='hiddenNum' value='"+numStr+"'>";
+          // $("#reqDiv").append(app);
+        }, error:function(email){
+          alert("email check fail");
+        }
+  })
+}
 
     
 
