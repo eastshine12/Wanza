@@ -104,6 +104,12 @@
     padding: 30px 10px;
     /* border-top: solid 3px #dbdbdb; */
 }
+.store_head>p{
+    font-size: 1.9em;
+    font-weight: 500;
+    min-width: 91px;
+    margin-right: 10px;
+}
 .store_head span{
     font-size: 2em;
     font-weight: 900;
@@ -419,36 +425,32 @@ $(document).ready(function() {
     const downCategory = getParameter("downCategory")
     const searchWord = getParameter("searchWord")
 
-    if(category=='' || category==null){
+    if((category=='' || category==null)&&searchWord==''){
         $('.top_slider, .store_main_head, .submenu_wrap').show();
         $('.top_slider').css('visibility','visible');
         getProductSortList(setPdata(0));
-        getProductSortCount(setPdata(3)); //페이징
         $('.store_head').hide();
-    }else{
+    }
+    else if(!(searchWord==''||searchWord==null)){
+        $('.store_head').prepend('<p>검색결과 : </p>');
+        $('.store_head>span').text(searchWord);
+        $('.store_head').show();
+        getProductSortCount(setPdata(3)); //페이징
+    }
+    else{
         $('.store_head span').text(category);
         setCategory(category);
-        //getProductSortList(setPdata(3));
         $('.store_head').show();
         getProductSortCount(setPdata(3)); //페이징
     }
     moveHotmenu('#today_hot') //인기상품 이동
     
     if(subCategory!='' && subCategory!=null){
-        $('.store_subcategory li').removeClass('active')
-        $('.store_subcategory>li').eq(subCategory).addClass('active')
-        //getProductSortList(setPdata(3)) //인기순:최근3일판매량
+        $('.store_subcategory li').removeClass('active');
+        $('.store_subcategory>li').eq(subCategory).addClass('active');
         getProductSortCount(setPdata(3));
     }
 
-    if(searchWord!=null){
-        // $('').val(searchWord);
-        // $('.store_subcategory li').removeClass('active')
-        // $('.store_subcategory>li').eq(subCategory).addClass('active')
-        // //getProductSortList(setPdata(3)) //인기순:최근3일판매량
-        // getProductSortCount(setPdata(3));
-    }
-    
     // 분류 클릭 링크를 통해 넘어온 경우
     if(downCategory!='' && downCategory!=null) {
         goCategory(downCategory);
@@ -469,21 +471,14 @@ $(document).ready(function() {
         $('.store_subcategory li').removeClass('active')
         console.log($('.store_subcategory li').eq(1).html())
         $(this).addClass('active')
-        //$(this).addClass('active').children().css('display','flex');
-        //getProductSortList(setPdata(3)) //인기순:최근3일판매량
         getProductSortCount(setPdata(3)); //페이징
     });
 
     $(document).on('click','.store_thirdcategory>li',function(e){ //소분류 뿌리기
-        $('.store_subcategory li').removeClass('active')
-        $('.store_thirdcategory>li').removeClass('active')
-        $(this).addClass('active').parent().parent().addClass('active')
-        //$('.store_thirdcategory>li').removeClass('active').parent().hide();
-        //$(this).addClass('active').parent().parent().addClass('active')
-        //$(this).parent().css('display','flex');
-        //$(this).parent().parent().addClass('active')
+        $('.store_subcategory li').removeClass('active');
+        $('.store_thirdcategory>li').removeClass('active');
+        $(this).addClass('active').parent().parent().addClass('active');
 
-        //getProductSortList(setPdata(3)) //인기순:최근3일판매량
         getProductSortCount(setPdata(3)); //페이징
         e.stopPropagation(); //다른 상 하위 요소 이벤트 막기
     });
@@ -492,8 +487,7 @@ $(document).ready(function() {
         let title_text = $(this).text();
         let title_val = $(this).val();
         $('.btn_pop').html(title_text+' <i class="fas fa-sort"></i>').val(title_val);
-        setSortBtn(title_text)
-        //getProductSortList(setPdata(3))
+        setSortBtn(title_text);
         getProductSortCount(setPdata(3)); //페이징
     });
 
@@ -537,7 +531,6 @@ function goCategory(downCategory) {
             return false;
         }
     });
-    
     
     $('.store_thirdcategory>li').each(function() {
         let text = $(this).text();
@@ -673,8 +666,8 @@ function loadPage(totalCount) {
 	console.log("페이지수:"+_totalPages);
 	
 	if(totalCount % pageSize > 0){
-		//_totalPages = Math.ceil(_totalPages);
-		_totalPages++;
+		_totalPages = Math.ceil(_totalPages);
+		//_totalPages++;
 	}
 	//$(".store_page").twbsPagination("destroy"); //초기화
 	$(".store_page").twbsPagination({
@@ -690,8 +683,7 @@ function loadPage(totalCount) {
 			nowPage = page;
 			console.log('nowPage : '+page);
             getProductSortList(setPdata(3));
-            $('html').scrollTop(0)
-            //$('html').scrollTop( $('#store_items').offset().top );
+            $('html').scrollTop(0);
 		}
 	});
     $(".store_page").twbsPagination("changeTotalPages",_totalPages,nowPage);
@@ -699,8 +691,11 @@ function loadPage(totalCount) {
 
 // 분류 데이터 가져와서 json형태로 만들기
 function setPdata(date){
-    let lc = $('.store_head span').text()
-    let mc='', sc='', pNum=0;
+    let lc='', mc='', sc='', pNum=0;
+    let searchWord = getParameter("searchWord")
+    if(searchWord==''){
+        lc = $('.store_head span').text()
+    }
     $('.store_subcategory>li').each(function(i){
         if($(this).hasClass('active')){
             let tmp = $(this).html().split('<')[0];
@@ -722,6 +717,7 @@ function setPdata(date){
     param += '"mediumCategory":"'+mc+'",';
     param += '"smallCategory":"'+sc+'",';
     param += '"recentPeriod":"'+date+'",';
+    param += '"productName":"'+searchWord+'",';
     param += '"'+sort.split('=')[0]+'":"'+sort.split('=')[1]+'",'
     param += '"startNum":'+ (pNum*9+1) +','
     param += '"endNum":'+ (pNum*9+9) +'}';

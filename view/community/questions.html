@@ -283,7 +283,7 @@ $(document).ready(function(){
   let seq = urlParams.seq;	// html 에서 html 이동할때 값 가져가는 그런 코드
   //검색어 파라미터로 받기
   let searchWord = decodeURIComponent(urlParams.searchWord)
-  if(searchWord!=null){
+  if(searchWord!=null && searchWord!='undefined'){
     $('#questions-header-form-search').val(searchWord);
     getQuestionCount(searchWord,0,0)
   }

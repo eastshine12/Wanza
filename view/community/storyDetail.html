@@ -59,9 +59,12 @@
             -ms-transform: scale(1);
             -o-transform: scale(1);
             transition: all 0.1s ease-in-out;
-            z-index:100;
+            /* z-index: 10; */
         }
 
+        #marker>img {
+            z-index: auto;
+        }
         #marker:hover {
             transform: scale(1.1);
             -webkit-transform: scale(1.1);
@@ -85,7 +88,7 @@
             padding-top: 15px;
             width: 300px;
             position: absolute;
-            z-index:500;
+            z-index:10;
             border-radius: 10px;
             box-shadow: 1px 1px 1px rgba(248, 139, 14, 0.418);
             right: -120px;
@@ -697,7 +700,7 @@
     getProductTag(seq);
     function getProductTag(cardSeq) {
         $.ajax({
-            url: "http://192.168.0.231:3000/getProductTag",
+            url: "http://localhost:3000/getProductTag",
             type: "get",
             data: {
                 "cardSeq": cardSeq
@@ -708,10 +711,10 @@
                 let itemList = "";
                 console.log(list);
                 $.each(list, function (i, val) {
-                    tag +=  '<div name="tags" style="position: absolute; ">'
+                    tag +=  '<div name="tags" style="position: absolute;">'
                         +        '<div id="marker" style="position: relative;  top: '+(val.locationY - 40)+'px;left: '+(val.locationX+33)+'px;">'
                         +            '<img src="../../assets/img/marker.png" style="width: 40px;">'
-                        +            '<div id="markerMessage" style="position: relative; z-index:200; >'
+                        +            '<div id="markerMessage">'
                         +                '<div class="row" >'
                         +                    '<div class="col">'
                         +                        '<img style="width: 80px;height: 80px;border-radius: 7px;margin-left: 10px; object-fit: cover;" src="http://192.168.0.231:3000/upload/' +val.productFileName+ '">'
