@@ -29,4 +29,7 @@ public class AdminSalesService{
 		return dao.pieChart(dto);
 	}
 
+	public List<AdminSalesDTO> salesCompare(AdminSalesDTO dto){
+		return dao.salesCompare(dto);
+	}
 }

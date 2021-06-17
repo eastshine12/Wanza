@@ -14,5 +14,6 @@ public interface AdminSalesDAO {
 	public List<AdminSalesDTO> graphList(AdminSalesDTO dto);
 	public List<AdminSalesDTO> mapList(AdminSalesDTO dto);
 	public List<AdminSalesDTO> pieChart(AdminSalesDTO dto);
+	public List<AdminSalesDTO> salesCompare(AdminSalesDTO dto);
 
 }

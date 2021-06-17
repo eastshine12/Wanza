@@ -8,26 +8,8 @@ public class AdminSalesDTO implements Serializable{
 	private int sType;	  // 검색타입(일간, 주간, 월간, 연간)
 	private int total;	  // 총 판매 금액
 	private String sDay;  // ㅇ
-	/*
-	// 지역 별 주문 건수
-	private int gyunggi;
-	private int seoul;
-	private int incheon;
-	private int chungnam;
-	private int chungbuk;
-	private int sejong;
-	private int daejeon;
-	private int jeonbuk;
-	private int jeonnam;
-	private int gwangju;
-	private int jeju;
-	private int gangwon;
-	private int gyeongbuk;
-	private int gyeongnam;
-	private int daegu;
-	private int ulsan;
-	private int busan;
-*/
+	private String compareDate;
+
 	private String category;
 	private int quanti;
 	
@@ -57,6 +39,18 @@ public AdminSalesDTO(String sDate, String eDate, int sType, int total, String sD
 		this.count = count;
 	}
 
+
+
+
+
+
+public AdminSalesDTO(String sDate, String eDate, String compareDate, String country) {
+	super();
+	this.sDate = sDate;
+	this.eDate = eDate;
+	this.compareDate = compareDate;
+	this.country = country;
+}
 
 
 
@@ -218,227 +212,30 @@ public AdminSalesDTO(String sDate, String eDate, int sType, int total, String sD
 	}
 
 
-/*
-	public int getGyunggi() {
-		return gyunggi;
+
+
+	public String getCompareDate() {
+		return compareDate;
 	}
 
 
 
-	public void setGyunggi(int gyunggi) {
-		this.gyunggi = gyunggi;
+
+	public void setCompareDate(String compareDate) {
+		this.compareDate = compareDate;
 	}
 
 
 
-	public int getSeoul() {
-		return seoul;
-	}
 
-
-
-	public void setSeoul(int seoul) {
-		this.seoul = seoul;
-	}
-
-
-
-	public int getIncheon() {
-		return incheon;
-	}
-
-
-
-	public void setIncheon(int incheon) {
-		this.incheon = incheon;
-	}
-
-
-
-	public int getChungnam() {
-		return chungnam;
-	}
-
-
-
-	public void setChungnam(int chungnam) {
-		this.chungnam = chungnam;
-	}
-
-
-
-	public int getChungbuk() {
-		return chungbuk;
-	}
-
-
-
-	public void setChungbuk(int chungbuk) {
-		this.chungbuk = chungbuk;
-	}
-
-
-
-	public int getSejong() {
-		return sejong;
-	}
-
-
-
-	public void setSejong(int sejong) {
-		this.sejong = sejong;
-	}
-
-
-
-	public int getDaejeon() {
-		return daejeon;
-	}
-
-
-
-	public void setDaejeon(int daejeon) {
-		this.daejeon = daejeon;
-	}
-
-
-
-	public int getJeonbuk() {
-		return jeonbuk;
-	}
-
-
-
-	public void setJeonbuk(int jeonbuk) {
-		this.jeonbuk = jeonbuk;
-	}
-
-
-
-	public int getJeonnam() {
-		return jeonnam;
-	}
-
-
-
-	public void setJeonnam(int jeonnam) {
-		this.jeonnam = jeonnam;
-	}
-
-
-
-	public int getGwangju() {
-		return gwangju;
-	}
-
-
-
-	public void setGwangju(int gwangju) {
-		this.gwangju = gwangju;
-	}
-
-
-
-	public int getJeju() {
-		return jeju;
-	}
-
-
-
-	public void setJeju(int jeju) {
-		this.jeju = jeju;
-	}
-
-
-
-	public int getGangwon() {
-		return gangwon;
-	}
-
-
-
-	public void setGangwon(int gangwon) {
-		this.gangwon = gangwon;
-	}
-
-
-
-	
-
-
-
-	public int getDaegu() {
-		return daegu;
-	}
-
-
-
-	public void setDaegu(int daegu) {
-		this.daegu = daegu;
-	}
-
-
-
-	public int getUlsan() {
-		return ulsan;
-	}
-
-
-
-	public void setUlsan(int ulsan) {
-		this.ulsan = ulsan;
-	}
-
-
-
-	public int getBusan() {
-		return busan;
-	}
-
-
-
-	public void setBusan(int busan) {
-		this.busan = busan;
-	}
-
-
-
-	public int getGyeongbuk() {
-		return gyeongbuk;
-	}
-
-
-
-	public void setGyeongbuk(int gyeongbuk) {
-		this.gyeongbuk = gyeongbuk;
-	}
-
-
-
-	public int getGyeongnam() {
-		return gyeongnam;
-	}
-
-
-
-	public void setGyeongnam(int gyeongnam) {
-		this.gyeongnam = gyeongnam;
-	}
-*/
-
-/*
 	@Override
-	
 	public String toString() {
 		return "AdminSalesDTO [sDate=" + sDate + ", eDate=" + eDate + ", sType=" + sType + ", total=" + total
-				+ ", sDay=" + sDay + ", gyunggi=" + gyunggi + ", seoul=" + seoul + ", incheon=" + incheon
-				+ ", chungnam=" + chungnam + ", chungbuk=" + chungbuk + ", sejong=" + sejong + ", daejeon=" + daejeon
-				+ ", jeonbuk=" + jeonbuk + ", jeonnam=" + jeonnam + ", gwangju=" + gwangju + ", jeju=" + jeju
-				+ ", gangwon=" + gangwon + ", gyeongbuk=" + gyeongbuk + ", gyeongnam=" + gyeongnam + ", daegu=" + daegu
-				+ ", ulsan=" + ulsan + ", busan=" + busan + "]";
+				+ ", sDay=" + sDay + ", compareDate=" + compareDate + ", category=" + category + ", quanti=" + quanti
+				+ ", country=" + country + ", count=" + count + "]";
 	}
 
-*/
+
 
 	
 	
