@@ -59,9 +59,9 @@
                     <!-- 이벤트 기간 입력 -->
                     <form id="eventForm">
                         <div class="row" style="margin-bottom: 20px;">
-                            <h3 style="font-weight: bold;">이벤트 등록</h3>
+                            <h3 style="font-weight: bold; margin-left: 20px;">이벤트 등록</h3>
                         </div>
-                        <div class="row">
+                        <div class="row" style="margin-left: 4px;">
                             <div class="form-group" style="width: 40%;" id="hideSeq">
                                 <input type="text" class="form-control" id="startDate" placeholder="이벤트 시작일을 입력해주세요 ex(2020/04/14)" name="eventStartDate">
                             </div>
@@ -71,12 +71,17 @@
                             </div>
                         </div>
                         <!-- 이벤트 제목 입력 -->
-                        <div class="row">
+                        <div class="row" style="margin-left: 4px;">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="eventTitle" placeholder="이벤트 제목을 입력 해 주세요" style="width: 500px;" name="eventTitle">               
                             </div>
                             <span>&ensp;&ensp;</span>
-                            <!-- 이벤트 썸네일 -->
+                           
+                        </div>
+                         <!-- 이벤트 썸네일 -->
+                         <div>
+                            <p style="font-weight: bold;">썸네일 사진을 등록 해 주세요</p>
+                            
                             <div style="margin-bottom: 10px;">
                                 <input type="file" name="eventFile1">
                             </div>
@@ -132,6 +137,7 @@
 
 
 
+
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../js/includeHTML.js"></script>
@@ -159,7 +165,7 @@
                         app+="<div class='card' style='width: 22%; margin: 1%; padding: 3px;'>"
                             +"<img class='card-img-top' src='http://localhost:3000/upload/"+val.productFileName+"' alt='Card image cap' width='110px' height='150px' style='object-fit: cover;'>"
                             +"<div class='card-img-top'>"
-                            +"<h5 class='card-title'>"+val.productName+"</h5>"                            
+                            +"<p class='card-title'>"+val.productName+"</p>"                            
                             +"<button class='btn btn-primary' onclick='addProduct("+val.productSeq+")'>product add</button>"
                             +"</div>"
                             +"</div>";                        
@@ -187,7 +193,7 @@
 			cache:false,
             success:function(str){
                 if(str=="suc"){
-                    location.href='event.html';
+                    location.href='../community/event.html';
                 }else{
                     alert("이벤트 등록실패");
                 }
