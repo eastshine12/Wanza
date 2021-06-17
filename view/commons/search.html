@@ -25,9 +25,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right: 50px;
+    padding-right: 20px;
 }
-
+.search_head span,
+.context_head span{
+    color: #f4744c;
+}
 
 #searchResult a:hover,
 #searchResult a{
@@ -36,7 +39,8 @@
 }
 .queAns_box{
     display: flex;
-    padding: 10px;
+    margin: 10px 0;
+    padding: 15px 0;
     border-bottom: solid 1.5px #b3b3b3;
     color: #424242;
     font-size: 0.9em;
@@ -57,10 +61,11 @@
 }
 .queAns_footer{
     margin: 10px 0 0 0;
+    font-size: 1em;
+    font-weight: 500;
 }
 .queAns_footer span{
     margin: 0 15px 0 0;
-    font-size: 1em;
     font-weight: 700;
 }
 
@@ -109,7 +114,7 @@
     <div class="search_store py-5 pl-4">
         <div class="context_head">
             <div><h4><strong>스토어 <span></span></strong></h4></div>
-            <div><a href="../store/mainStore.html?seq=">더보기 <i class="fas fa-caret-right"></i></a></div>
+            <div><a href="#none">더보기 <i class="fas fa-caret-right"></i></a></div>
         </div>
         <div class="row search_store_main my-5"></div>
     </div>
@@ -127,29 +132,7 @@
             <div><h4><strong>질문과 답변 <span></span></strong></h4></div>
             <div><a href="#none">더보기 <i class="fas fa-caret-right"></i></a></div>
         </div>
-        <div class="row search_question_main my-5">
-
-            <div class="queAns_box">
-                <div class="queAns_wrap">
-                    <a href="#none">
-                        <div class="queAns_title">셀프 인테리어 관련해서 질문있어요!!!</div>
-                        <div class="queAns_content">
-                            마당 있는 주택에서 남편, 세 마리의 강아지와 같이 살고 있어요.
-                            저는 미대를 나와서 오랫동안 입시 지도를 하다가 지금은 전원생활을 하며 여유로운 시간을 보내고 있습니다.
-                        </div>
-                    </a>
-                    <div class="queAns_footer">
-                        <span>작성자</span><span>작성일</span><span>댓글수</span><span>조회수</span>
-                    </div>
-                </div>
-                <div class="queAns_img_wrap">
-                    <a href="#none">
-                        <img src="http://localhost:3000/upload/1620888723828.jpg" alt="">
-                    </a>
-                </div>
-            </div>
-
-        </div>
+        <div class="search_question_main my-3 mx-0 px-3"></div>
     </div>
     
 </div>
@@ -185,7 +168,10 @@ function getTotalSearch(word) {
 
             let storeApp='', storyApp='', questionApp='';
             $(".search_store_main, search_story_main, search_question_main").html(''); //초기화
-
+            $(".search_store a").attr('href','../store/mainStore.html?searchWord='+word)
+            $(".search_story a").attr('href','../community/story.html?searchWord='+word)
+            $(".search_questions a").attr('href','../community/questions.html?searchWord='+word)
+            
             // 상품 검색 결과
             if (storeNum == 0) {
                 storeApp += '<div style="width: 100%;text-align: center;">'
@@ -232,7 +218,7 @@ function getTotalSearch(word) {
                     if(i>5){return false}
                     storyApp += '<div style="width: 320px; margin-left: 40px;">'
                             +   '<article article class="project_wrap" >'
-                            +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
+                            +    '<a href="../storyDetail.html?seq='+val.cardSeq+'"></a>'
                             +     '<div class="project_item">'
                             +      '<span></span>'
                             +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
@@ -251,8 +237,20 @@ function getTotalSearch(word) {
                             +  '<h3 style="font-size: 15px; margin-top: 10px;"><b>게시글이 없습니다.</b></h3>'
                             +  '</div>';
             } else {
+                console.log(map.question)
                 $.each(map.question, function (i, val) {
-
+                    questionApp += '<div class="queAns_box">'
+                                +  '<div class="queAns_wrap">'
+                                +  '<a href="../community/questionDetail.html?seq='+val.questionSeq+'">'
+                                +  '<div class="queAns_title">'+val.questionTitle+'</div>'
+                                +  '<div class="queAns_content">'+decodeHtmlEntity(val.questionContent)+'</div></a>'
+                                +  '<div class="queAns_footer">'
+                                +  '작성자<span> '+val.nickName+'</span>작성일<span> '+timeForToday(val.questionRegDate)+'</span>'
+                                +  '댓글수<span> '+val.comentCount+'</span>조회수<span> '+val.questionReadcount+'</span>'
+                                +  '</div></div><div class="queAns_img_wrap">'
+                                +  '<a href="../community/questionDetail.html?seq='+val.questionSeq+'">'
+                                +  '<img src="http://localhost:3000/upload/'+val.profileName+'" onerror="src=\'../../assets/img/완자에요.png\'">'
+                                +  '</a></div></div>';
                 });
             }
 
@@ -270,7 +268,7 @@ function setDisplySearch(word,storeCount,storyCount,questionCount) {
     $('.search_head span:last').html(storeCount+storyCount+questionCount);
     $('.search_store span').html(storeCount);
     $('.search_story span').html(storyCount);
-    $('.search_questions span').html(questionCount);
+    $('.search_questions span:eq(0)').html(questionCount);
 }
 
 // 금액 콤마 삽입 정규식
@@ -292,4 +290,36 @@ function getParameter(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+// 댓글 시간 나타내기
+function timeForToday(value) {
+    const today = new Date();
+    const timeValue = new Date(value);
+    
+    const betweenTime = Math.floor((today.getTime() - timeValue.getTime()) / 1000 / 60);
+    if (betweenTime < 1) return '방금 전';
+    if (betweenTime < 60) {
+        return `${betweenTime}분 전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+        return `${betweenTimeHour}시간 전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+        return `${betweenTimeDay}일 전`;
+    }
+
+    return `${Math.floor(betweenTimeDay / 365)}년 전`;
+}
+//엔티티코드 다시 돌려놓기
+function decodeHtmlEntity(str){ 
+  let textarea = document.createElement("textarea");  
+  textarea.innerHTML = str;
+  let result = textarea.value;
+  textarea.remove();
+  //textarea.parentNode.removeChild(textarea); 
+  return result;
+}
 </script>

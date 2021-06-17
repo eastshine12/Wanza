@@ -807,7 +807,7 @@ function getMyOrderList(jdata) {
                     app+= '<tr><td><a href="#none">'+val.productName+'</a></td><td>'
                     
                     let jdata = JSON.parse(val.selectOption);
-                    if(jdata != null) {
+                    if(jdata!=null){
                         for(let j=0; j<jdata.length; j++) {
                             app+= jdata[j].optionContent+' '; 
                         }
