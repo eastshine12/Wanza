@@ -174,7 +174,7 @@
 
 <insert id="addProductOption" parameterType="com.decolab.wanza.dto.ProductOptionDTO">
 	INSERT INTO PRODUCTION_OPTION
-	VALUES (#{productSeq}, #{optionSeq}, #{optionTitle}, #{optionContent}, #{optionPrice})
+	VALUES (SEQ_PRODUCT_OPTION.NEXTVAL, #{productSeq}, #{optionSeq}, #{optionTitle}, #{optionContent}, #{optionPrice})
 </insert>
 
 <select id="getRecentAddProductSeq" resultType="int">

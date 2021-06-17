@@ -72,5 +72,11 @@
 	WHERE PHONE=#{phone}
 </select>
 
+<update id="saveUserName" parameterType="com.decolab.wanza.dto.UserDTO">
+	UPDATE USERS
+	SET USERNAME = #{userName}
+	WHERE USERSEQ = #{userSeq}
+</update>
+
   
 </mapper>
