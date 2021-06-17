@@ -62,13 +62,13 @@ public class SearchController {
 		cDto.setCardTitle(word);
 		
 		QuestionDTO qDto = new QuestionDTO();
-		qDto.setQuestionTitle(word);
+		qDto.setSearchWord(word);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("store", pService.getSearchProduct(pDto));
 		map.put("story", cService.getSearchCard(cDto));
-		map.put("question", qService.getSearchQuestion(qDto));
+		map.put("question", qService.getQuestionList(qDto));
 		
 		return map;
 	}
