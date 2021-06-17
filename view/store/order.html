@@ -593,7 +593,7 @@ select::-ms-expand{
                             <div class="row order_content_wrap dlvy">
                                 <div class="order_subtitle">주소</div>
                                 <div class="order_content dlvy_address">
-                                    <label for="_dlvy_address1"><input type="text" id="_dlvy_address1" name="dlvy_address1" value=""></label>
+                                    <label for="_dlvy_address1"><input type="text" id="_dlvy_address1" name="dlvy_address1" value="" onclick="execDaumPostcode1()"></label>
                                     <label for="_dlvy_address2"><input type="text" id="_dlvy_address2" name="dlvy_address2" value=""></label>
                                 </div>
                             </div>
@@ -1499,6 +1499,17 @@ function execDaumPostcode() {
     }).open();
 };
 
+function execDaumPostcode1() {
+    new daum.Postcode({
+        oncomplete: function (data) {
+            var addr = data.address; // 최종 주소 변수
+            // 주소 정보를 해당 필드에 넣는다.
+            document.getElementById("_dlvy_address1").value = addr;
+        }
+    }).open();
+};
+
+_dlvy_address1
 
 
 // 요청사항 글자수 제한 카운트 (20자)
