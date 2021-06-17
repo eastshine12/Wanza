@@ -281,7 +281,9 @@ function getCartList() {
                         app += '<div class="cart_item_option" style="margin-bottom: 8px;">'
                             + '<div class="col"><span>' + optionJSON[j].optionTitle+ '</span><span> : '+optionJSON[j].optionContent+' (+ </span><span class="optionPrice_'+(i+1)+'" name="optionPrice_'+(i+1)+'_'+(j+1)+'">'+makeComma(optionJSON[j].optionPrice)+'</span>원)</div>'
                             // + '<div class="col-md-6"><button class="button opt_btn" onclick="optproduct()" style="padding:0px 5px;">옵션변경</button></div>'
-                            + '</div>'
+                            + '</div>';
+
+                        
                     }
                         
                     app += '</div>'
