@@ -284,7 +284,7 @@ $(document).ready(function(){
   //검색어 파라미터로 받기
   
   let searchWord = decodeURIComponent(urlParams.searchWord)
-  if(searchWord!=null && searchWord!="undefined"){
+  if(searchWord!=null && searchWord!='undefined'){
     $('#questions-header-form-search').val(searchWord);
     getQuestionCount(searchWord,0,0)
   }

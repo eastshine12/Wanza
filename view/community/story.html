@@ -150,7 +150,7 @@
     <nav include-html="../commons/menuComm.html"></nav>
 
     <div class="container mt-4">
-        <h1 style="font-size: 30px;"><strong>스토리</strong></h1>
+        <h1 class="story_head" style="font-size: 30px;"><strong>스토리</strong></h1>
 
         <div id="type_menu">
             <div class="row my-3 mx-1">
@@ -266,9 +266,11 @@
 <script>
 $(document).ready(function() {
     let tagHomeType = tagStyle = tagColor = 0;
+    let searchWord = '';
     tagHomeType = getParameter("tagHomeType");
     tagStyle = getParameter("tagStyle");
     tagColor = getParameter("tagColor");
+    searchWord = getParameter("searchWord");
 
     //파라미터 값 받아왔을때 정렬 세팅
     if(!(tagHomeType==0 && tagStyle==0 && tagColor==0)){
@@ -286,8 +288,14 @@ $(document).ready(function() {
             });
             $('.btn_pop:eq(3)').html(btnVal+' <i class="fas fa-sort"></i>').val('tagColor='+tagColor);
         }
+        console.log('123')
         getCardSortList(setJdata());
-    }else{
+    }
+    else if(searchWord!=''){
+        $('.story_head').prepend('<h5>검색결과 : '+searchWord+'</h5>');
+        getCardSortList(setJdata());
+    }
+    else{
         getCardList();
     }
 
@@ -330,11 +338,6 @@ $(document).ready(function() {
         }
         location.href = "storyWrite.html";
     })
-    //로그인한 계정 닉네임 가져오기
-    //let sessionId = JSON.parse();
-    //console.log(sessionId);
-
-
 
 });
 
@@ -376,7 +379,8 @@ function getCardList() {
 
 // 분류 데이터 가져와서 json형태로 만들기
 function setJdata(){
-    let param='{';
+    let searchWord = getParameter("searchWord");
+    let param='{"cardTitle":"'+searchWord+'",';
     $('button[class=btn_pop]').each(function(i){
         let a = $(this).val();
         param += '"';
