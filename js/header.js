@@ -174,8 +174,8 @@ $(document).ready(function() {
                 app2 +="<tr>"
                     +"<td id='closeSearch' colspan='2' style='text-align:center; cursor: pointer; color:#757575; font-size:13px' >닫기</td>"
                     +"</tr>" 
-                     +"</table>"
-                     +"</div>";
+                    +"</table>"
+                    +"</div>";
                 $("#hotIssue").after(app2);
                 //console.log(app)
                 
@@ -206,11 +206,21 @@ $(document).ready(function() {
 
     // 탑 버튼
     var btn = $('#backToTop');
-    let ftop;
+    let ftop = 0;
+
+
+    $(document).ajaxComplete(function() {
+        let top = $('footer').offset().top;
+        if(ftop != 0) ftop = top;
+    })
+
     $(window).on('load', function() {
-        ftop = $('footer').offset().top;
-    });
-        
+        let top = $('footer').offset().top;
+        if(top > ftop) ftop = top;
+    })
+
+    
+    
     $(window).scroll(function() {
         if ($(window).scrollTop() > 300) {
             btn.addClass('show');
