@@ -92,6 +92,13 @@
 	VALUES(SEQ_PRODUCT_REV.NEXTVAL, #{productSeq}, #{userSeq}, #{purchaseSeq}, #{productRevContent}, #{productRevFileName}, SYSDATE, 0, #{productRevRating})
 </insert>
 
+<!-- 상품 리뷰 Counting -->
+<select id="storeRevCount" parameterType="com.decolab.wanza.dto.ProductQuestionDTO" resultType="com.decolab.wanza.dto.ProductQuestionDTO">
+	SELECT NVL(COUNT(*), 0) 
+	FROM PRODUCTION_REVIEW
+	WHERE 1=1
+		AND PRODUCTSEQ = #{productSeq}
+</select>
 
 <!-- 리뷰 작성 포인트 (글만 50p. 사진 포함시 150p) -->
 <update id="addReviewPoint" parameterType="com.decolab.wanza.dto.ProductReviewDTO">
