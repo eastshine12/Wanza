@@ -378,6 +378,7 @@
         sessionId = '';
     };
 
+    let cardUserSeq = 0;
 
     let existLike = "";
 
@@ -386,6 +387,7 @@
         let tagColor = "";
         let tagHomeType = "";
         let tagStyle = "";
+        
 
         // 신고하기 버튼 클릭
         $("#goAdmin").click(function(){
@@ -495,6 +497,7 @@
                     tagColor = data.tagColor;
                     tagHomeType = data.tagHomeType;
                     tagStyle = data.tagStyle;
+                    cardUserSeq = data.userSeq;
                 },
                 error: function () {
                     alert('getCardDetail() error');
@@ -1015,8 +1018,8 @@
         
     }
 
+    // 게시글 삭제
     function deleteStory() {
-
 
         if(confirm("정말 삭제하시겠습니까?") == true) {
             $.ajax({
@@ -1024,7 +1027,7 @@
                 type: "post",
                 data: {
                     "cardSeq": seq,
-                    "userSeq": sessionId.userSeq
+                    "userSeq": cardUserSeq
                 },
                 success: function (data) {
                     if (data == "suc") {

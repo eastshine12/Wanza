@@ -205,7 +205,7 @@ body{
 
                 <div class="box_wrap">
                     <div class="box_head">
-                        <i class="fas fa-shipping-fast fa-2x"></i>
+                        <i class="fas fa-scroll fa-2x"></i>
                     </div>
                     <div class="box_main">
                         <div class="box_content">
@@ -220,7 +220,7 @@ body{
 
                 <div class="box_wrap">
                     <div class="box_head">
-                        <i class="far fa-thumbs-up fa-2x"></i>
+                        <i class="fas fa-shipping-fast fa-2x"></i>
                     </div>
                     <div class="box_main">
                         <div class="box_content">
@@ -260,7 +260,7 @@ body{
                     </div>
                     <div class="chart_content">
                         <div class="chart_texts">
-                            <span class="c_title">일별 판매량</span>
+                            <span class="c_title">일별 판매액</span>
                             <span class="c_text">전날 대비 12% 증가</span>
                         </div>
                         <div class="chart_footer">
@@ -275,8 +275,8 @@ body{
                     </div>
                     <div class="chart_content">
                         <div class="chart_texts">
-                            <span class="c_title">지역별 판매량</span>
-                            <span class="c_text">전날 대비 12% 증가</span>
+                            <span class="c_title" id="salesCompare">지역별 판매량</span>
+                            <span class="c_text" id="salesText"></span>
                         </div>
                         <div class="chart_footer">
                             <span name="term_week"></span>
@@ -311,6 +311,7 @@ body{
 <script>
 $(document).ready(function() {
 
+   
 });
 
 
@@ -608,6 +609,57 @@ chart.data = app;
             alert("piechart error");
         }
     })
+}
+salesCompare();
+function salesCompare(){
+
+let now = new Date();	// 현재 날짜 및 시간
+
+let year = now.getFullYear();	// 연도
+
+let month = now.getMonth()+1;	// 월
+
+let date = now.getDate();	// 일
+let yesterdate = now.getDate()-1;	// 일
+
+let today = year+"-"+month+"-"+date;
+let yesterday = year+"-"+month+"-"+yesterdate;
+
+
+
+    
+    $.ajax({
+        url:"http://localhost:3000/salesCompare",
+        data:{"sDate":yesterday, "eDate":today },
+        type:"post",
+        success:function(list){
+            //alert(JSON.stringify(list));
+            $.each(list,function(i,val){
+                $("#salesCompare").append("<input type='hidden' id='hiddenNum"+i+"' value='"+val.count+"'>");
+            })
+
+            let ySales = $("#hiddenNum0").val();    // 어제 판매 갯수
+            let tSales =$("#hiddenNum1").val();     // 오늘 판매 갯수
+            
+            let sales = tSales - ySales;
+
+
+            if(sales<0){
+                $("#salesText").css("color","blue");
+                $("#salesText").append(ySales+"건→"+tSales + "건 = 전날 대비 <b style='font-size:18px'>"+sales+"개 ↓</b> 감소");
+            }else{
+                $("#salesText").css("color","red");
+                $("#salesText").append(ySales+"건→"+tSales + "건 = 전날 대비 <b style='font-size:18px'>"+sales+"개 ↑</b> 증가");
+            }
+
+
+
+
+        },error:function(){
+            alert("error");
+        }
+    })
+
 }
 
 

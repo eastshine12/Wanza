@@ -10,158 +10,308 @@
         <link rel="stylesheet" type="text/css" href="../../css/style.css">
     </head>
     <style>
-    .my-hr3 {
-        border: 0;
-        height: 2px;
-        margin: 3px;
-
-        background: #ffc8b5;
-    }
-    body{
-        color: #ff0000;
+    * {
+        font-family: 'Noto Sans KR', sans-serif;
     }
 
- 
+    /* 항목 상자 */
+    #cart.cart_body{
+        padding: 40px 0;
+        margin: 0;
+        border-top: solid 0.8px;
+    }
+    .cart_item_chk{
+        display: inherit;
+        align-items: center;
+    }
+    .cart_item_chk input{
+        margin: 0 5px;
+        width: 18px; height: 18px;
+    }
+    /* 이미지 */
+    .cart_item_img img{
+        width: 120px; height: 120px;
+        border-radius: 30%;
+        margin: 0 30px;
+    }
+    /* 옵션 */
+    .cart_item_option{
+        display: flex;
+        align-items: center;
+    }
+    /* 수량 */
+    .cart_body_counting{
+        display: inherit;
+        align-items: center;
+    }
+    .cart_body_counting input{
+        width: 70px; height: 35px;
+        margin: 0 10px;
+        border: solid 0.5px #EAEAEC;
+        border-radius: 3px;
+        text-align: center;
+    }
+    /* 가격상자 */
+    .amount_box{
+        border-top: solid 0.8px;
+        border-bottom: solid 0.8px;
+        background-color: #EAEAEC;
+        margin: 0;
+        font-family: 'Nanum Gothic', sans-serif;
+    }
 
+    .w3_button {
+        width: 250px; height: 60px;
+        color: white;
+        background-color: coral;
+        border: none;
+        padding: 0;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 20px 0;
+        transition-duration: 0.1s;
+        border-radius: 8px;
+    }
     
+    .w3_button:hover {
+        background-color: white;
+        border: solid coral 1.5px;
+        border-radius: 8px;
+        color: coral;
+    }
+    
+    .w3-button-click{
+        background-color: coral;
+    }
 
-
-
-
+    hr {
+        background-color: black;
+    }
 
     </style>
+    
 <body>
     <header include-html="../commons/header.html"></header>
     <nav include-html="../commons/menuComm.html"></nav>
 
-<div class="row" style="margin-top: 100px; margin-bottom: 100px;">
-    <div class="col-xl-3"></div> 
+    <div class="container" style="margin-top: 100px; margin-bottom: 100px;">
+        <!-- <div class="col-xl-3"></div>  -->
 
-    <div class="col-xl-6">
-        <div>
-            <h1 align='center'><strong>결제 완료</strong></h1>
-            <br>
-            <h4 align='center' style="margin-bottom: 50px;">결제가 완료 되었습니다</h4>
-        </div>  
+        <div class="col">
+            <div>
+                <h1 align='center'><strong>결제 완료</strong></h1>
+                <br>
+                <h4 align='center' style="margin-bottom: 50px;">결제가 완료 되었습니다</h4>
+            </div>  
 
-        <div class='row'>
-            <h3 style="margin-left: 10px;"><strong>주문상품</strong></h3>
-        </div>
-        <hr class="my-hr3">
-
-        <div class='row' style="margin-top: 20px; margin-bottom: 20px; margin-left: 1px;">
-            <div class='col-xl-3' >
-                <img src="../../assets/img/KakaoTalk_20210506_154158314.jpg" width="180px" height="180px">
+            <div class='row'>
+                <h3 style="margin-left: 10px;"><strong>주문상품</strong></h3>
             </div>
 
-            <div class='col-xl-4' style="margin-top: 4%;">
-                <div >
-                    <table>
-                        <tr>
-                            <td style="font-size: 20px;">리샘가구</td>
-                        </tr>
-                        <tr>
-                            <td style="font-size: 25px;">OFFICY 서랍장 4.1단</td>
-                        </tr>
-                        <tr>
-                            <td style="color: #999797e8;">색상 월넛</td>
-                        </tr>
-                    </table>
+            <div style="margin-top: 20px; margin-bottom: 20px; margin-left: 1px;">
+                <div id="listOrder"></div>
+            </div>
+
+            <!-- 금액박스 -->
+            <div class="row amount_box">
+                    
+                <div class="cart-item-footer" style="background-color: #EAEAEC; margin: auto;padding-top: 25px;padding-bottom: 25px; text-align: right; " >
+                    <div class="cart-item-footer-body">
+                        <h5>상품금액 <span id="itemPrice">0</span>원 &nbsp; + &nbsp; 배송비 <span id="deliveryPrice">0</span>원 &nbsp; = &nbsp; <b style="font-size: 25px;">주문금액&nbsp;&nbsp;<span id="totalPrice">0</span>원</b></h5>
+                    </div>
                 </div>
+
             </div>
-            <div class='col-xl-2'  style="margin-top: 7.5%;">               
-                <p style="font-size: 25px;">3개</p>                           
+            
+            <div class='row' style="margin-top:100px;">
+                <h3 style="margin-left: 10px;"><strong>배송지</strong></h3>
             </div>
-            <div class='col-xl-3'  style="margin-top: 7.5%;">               
-                   <p style="font-size: 25px;">36,800원</p>              
+            <hr>
+            <div align='center' style="margin: 2%;">
+                <table style="color: rgb(46, 46, 46); border-spacing:0 10px; border-collapse: separate; ">
+                    <colgroup>
+                        <col width='100px'><col width='400px'>
+                    </colgroup>
+                    <tr>
+                        <th>배송지명</th>
+                        <td id="addressName"></td>
+                    </tr>
+                    <tr>
+                        <th>주소</th>
+                        <td id="address"></td>
+                    </tr>
+                    <tr>
+                        <th>받는분</th>
+                        <td id="receiveUser"></td>
+                    </tr>
+                    <tr>
+                        <th>연락처</th>
+                        <td id="receivePhone"></td>
+                    </tr>
+                    <tr>
+                        <th>요청사항</th>
+                        <td id="orderMessage"></td>
+                    </tr>
+                </table>
             </div>
-        </div>
-        <hr class="my-hr3">
-        <div style="height: 80px; background-color: #ffd8ca; margin-left: 4px; margin-right: 5px;" >
-            <p style="font-size: 15px; text-align: right; padding-top: 3%; padding-right: 5%;">상품 금액 38,900원 + 배송비 2,500원 = <strong style="font-size: 20px;">주문금액 41,400원</strong></p> 
-        </div>
-        <hr class="my-hr3">
-        <div class='row' style="margin-top:100px;">
-            <h3 style="margin-left: 10px;"><strong>배송지</strong></h3>
-        </div>
-        <hr class="my-hr3">
-        <div align='center' style="margin: 5%;">
-            <table style="color: rgb(46, 46, 46); border-spacing:0 10px; border-collapse: separate; ">
-                <colgroup>
-                    <col width='100px'><col width='400px'>
-                </colgroup>
-                <tr>
-                    <th>배송지명</th>
-                    <td>내집</td>
-                </tr>
-                <tr>
-                    <th>주소</th>
-                    <td>뭐 경기도 부천시 오정구 원종동 뭐 어쩌구 끝났네 이러쿵 저러쿵</td>
-                </tr>
-                <tr>
-                    <th>받는분</th>
-                    <td>매미킴</td>
-                </tr>
-                <tr>
-                    <th>연락처</th>
-                    <td>010-0070-0070</td>
-                </tr>
-                <tr>
-                    <th>요청사항</th>
-                    <td>집에 갓난아기가 있으니까 초인종 누르지마시고 현관 앞에 놔주시구요, 부재시 경비실에 맡겨주세요.
-                         아 그리고 놓고 가실 때 현관앞에 있는 재활용 쓰레기좀 버려주셈 </td>
-                </tr>
-            </table>
+
+            <hr>
+
+            <div align='center' style="margin-top: 30px;">
+                <input type="button" id="goHome" class="w3_button" value="홈으로 가기">
+            </div>
+            
         </div>
 
-        <hr class="my-hr3">
-
-        <div align='center' style="margin-top: 30px;">
-            <a href=# style="color: #f4744c;"><h5>홈으로 가기</h5></a>
-
-        </div>
-        
-
-
-
-
-
-
-
-
-
-
-
+        <!-- <div class="col-xl-3"></div> -->
     </div>
 
-
-
-
-
-    <div class="col-xl-3"></div>
-</div>
     <footer include-html="../commons/footer.html"></footer>
-    
+
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../js/includeHTML.js"></script>
+    <script src="../../js/header.js"></script>
+    <script src="../../js/slang.js"></script>
     <script>
-    orderAflist();
-    
-        function orderAflist(){
-            $.ajax({
-                url:"http://localhost:3000/orderAf",
-                type:"post",
-                data:data,
-                success:function(data){
-                    alert('orderAflist suc');
-                }, error:function(){
-                    alert('orderAflist fail');
-                }
+
+
+    //파라미터값 가져오도록 하는 함수
+    function getParameter(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+    const orderSeq = getParameter("seq");
+    if(orderSeq == "") {
+        alert('잘못된 접근입니다.');
+        history.back();
+    }
+
+    //로그인한 계정 닉네임 가져오기
+    let sessionId = JSON.parse(sessionStorage.getItem("login"));
+    if (sessionId == null) {
+        sessionId = '';
+    };
+    if(sessionId == '') {
+        alert('잘못된 접근입니다.');
+        history.back();
+    }
+
+
+    // 금액 콤마 삽입 정규식
+    function makeComma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    };
+
+    // 주문 정보 가져오기
+    $.ajax({
+        url: "http://192.168.0.231:3000/getOrderData",
+        type: "post",
+        data: {
+            orderSeq: orderSeq
+        },
+        success: function(list) {
+            console.log(list);
+            if(list.length == 0) {
+                alert('잘못된 접근입니다.');
+                history.back();
+                return;
+            }
+            if(list.length != 0 && list[0].userSeq != sessionId.userSeq) {
+                alert('잘못된 접근입니다.');
+                history.back();
+                return;
+            }
+
+            let app = "";
+            $('#itemPrice').text(makeComma(list[0].productAmount));
+            $('#deliveryPrice').text(makeComma(list[0].deliveryAmount));
+            $('#totalPrice').text(makeComma(list[0].totalAmount));
+
+            $.each(list, function (i, val) {
+
+                app += '<div class="row cart_body" id="cart" name="_cart">'
+                    + '<!-- 장바구니항목 시작 -->'
+                    + '<div class="col-xl-8 d-flex">'
+                    + '<div class="cart_item_img"><img src="http://192.168.0.231:3000/upload/' + val.productFileName + '"></div>'
+                    + '<div class="cart_item_title">'
+                    + '<h6>' + val.productMaker + '</h6>'
+                    + '<h3 style="margin-bottom: 15px;">' + val.productName + '</h3>';
+                
+                if(val.selectOption != null) {
+                    let optionJSON = JSON.parse(val.selectOption);
+                    for(let j=0; j<optionJSON.length; j++) {
+                        app += '<div class="cart_item_option" style="margin-bottom: 5px;">'
+                            + '<div class="col"><span>' + optionJSON[j].optionTitle+ '</span><span> : '+optionJSON[j].optionContent+' (+ </span><span class="optionPrice_'+(i+1)+'" name="optionPrice_'+(i+1)+'_'+(j+1)+'">';
+                        
+                        if(optionJSON[j].optionPrice != undefined) {
+                            app += makeComma(optionJSON[j].optionPrice);
+                        } else {
+                            app += 0;
+                        }
+                        app +='</span>원)</div>'
+                            + '</div>';
+                        
+                    }
+                };
+                    
+                app += '</div>'
+                    + '</div>'
+                    + '<!-- 장바구니항목 끝 -->'
+                    + '<!-- 가격 -->'
+                    + '<div class="col-xl-2" id="cart-body-middle-count" style=" display: flex;">'
+                    + '<div class="cart-body-counting" style="margin: auto; ">'
+                    + '<p id="itemPrice_'+(i+1)+'" style="margin: 0; font-size: 20px;"><b>' + makeComma(val.price) + '원</b></p>'
+                    + '</div>'
+                    + '</div>'
+                    + '<!-- 수량 -->'
+                    + '<div class="col-xl-2 d-flex">'
+                    + '<div class="cart_body_counting">'
+                    + '<input type="text" id="itemCount_'+(i+1)+'" value="' + val.quantity + '" size="2" readonly>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div><!-- row끝 -->';
             });
+            $('#listOrder').append(app);
+
+
+
+        },
+        error: function() {
+            alert('error');
         }
+    })
+
+    // 배송지 정보 가져오기
+    
+    $.ajax({
+        url: "http://192.168.0.231:3000/getOrderAddress",
+        type: "post",
+        data: {
+            orderSeq: orderSeq
+        },
+        success: function(data) {
+            console.log(data);
+            $('#addressName').text(data.addressName);
+            $('#address').text(data.address);
+            $('#receiveUser').text(data.receiveUser);
+            $('#receivePhone').text(data.receivePhone);
+            $('#orderMessage').text(data.orderMessage);
+
+
+        },
+        error: function() {
+
+        }
+    })
+    
+    $('#goHome').click(function() {
+        location.href = "mainStore.html";
+    });
     </script>
 </body>
-<script src="../../assets/js/jquery.min.js"></script>
-<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="../../js/includeHTML.js"></script>
-<script src="../../js/header.js"></script>
-<script src="../../js/slang.js"></script>
+
 </html>
