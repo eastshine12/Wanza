@@ -56,6 +56,7 @@
 		<if test='largeCategory neq null and largeCategory neq ""'>AND LARGECATEGORY=#{largeCategory}</if>
 		<if test='mediumCategory neq null and mediumCategory neq ""'>AND MEDIUMCATEGORY=#{mediumCategory}</if>
 		<if test='smallCategory neq null and smallCategory neq ""'>AND SMALLCATEGORY=#{smallCategory}</if>
+		<if test='productName neq "" and productName neq null' >AND PRODUCTNAME LIKE'%'||#{productName}||'%'</if>
 		<choose>
 			<when test="sort eq 1"> ORDER BY PRODUCTRATING DESC</when>
 			<when test="sort eq 2"> ORDER BY PRODUCTDATE DESC</when>
