@@ -267,7 +267,6 @@
 
 <script>
 $(document).ready(function(){
-  //getQuestionList('',0); //게시글 리스트
   getQuestionCount('',0,0)
   
   //로그인한 계정 닉네임 가져오기
@@ -280,8 +279,14 @@ $(document).ready(function(){
             obj[pairArray[0]] = pairArray[1];
             return obj;
         }, {});
-
+  
   let seq = urlParams.seq;	// html 에서 html 이동할때 값 가져가는 그런 코드
+  //검색어 파라미터로 받기
+  let searchWord = decodeURIComponent(urlParams.searchWord)
+  if(searchWord!=null){
+    $('#questions-header-form-search').val(searchWord);
+    getQuestionCount(searchWord,0,0)
+  }
 
   //검색
   $('#questions-header-form-search').on('propertychange change keyup paste input', function(k){
@@ -422,7 +427,7 @@ function getQuestionList(word,s,page){
                       + val.questionTitle
                       + "</h2>"
                       + "<span class='questions-content'>"
-                      + val.questionContent
+                      + decodeHtmlEntity(val.questionContent)
                       + "</span>"       
                       + "</div>"
                       + "</a>"
@@ -523,6 +528,15 @@ function loadPage(totalCount) {
     }
 }
 
+//엔티티코드 다시 돌려놓기
+function decodeHtmlEntity(str){ 
+  let textarea = document.createElement("textarea");  
+  textarea.innerHTML = str;
+  let result = textarea.value;
+  textarea.remove();
+  //textarea.parentNode.removeChild(textarea); 
+  return result;
+}
 </script>
 
 
