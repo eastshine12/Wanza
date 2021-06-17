@@ -55,6 +55,18 @@ public class ProductService {
 		return dao.addProductReview(dto);
 	}
 	
+	public int updateProductReview(ProductReviewDTO dto) {
+		return dao.updateProductReview(dto);
+	}
+	
+	public int deleteProductReview(ProductReviewDTO dto) {
+		return dao.deleteProductReview(dto);
+	}
+	
+	public int removeReviewPoint(ProductReviewDTO dto) {
+		return dao.removeReviewPoint(dto);
+	}
+	
 	public int updateRating(ProductReviewDTO dto) {
 		return dao.updateRating(dto);
 	}
@@ -73,6 +85,14 @@ public class ProductService {
 	
 	public int addProductQnA(ProductQuestionDTO dto) {
 		return dao.addProductQnA(dto);
+	}
+	
+	public int updateProductQnA(ProductQuestionDTO dto) {
+		return dao.updateProductQnA(dto);
+	}
+	
+	public int deleteProductQnA(ProductQuestionDTO dto) {
+		return dao.deleteProductQnA(dto);
 	}
 	
 	public ProductQuestionDTO purchaseStatus(ProductQuestionDTO dto) {

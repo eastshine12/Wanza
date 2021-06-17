@@ -109,6 +109,22 @@
 </update>
 
 
+<!-- 리뷰 삭제 포인트 차감 (글만 50p. 사진 포함시 150p) -->
+<update id="removeReviewPoint" parameterType="com.decolab.wanza.dto.ProductReviewDTO">
+	UPDATE USERS
+	SET MILEAGE=MILEAGE
+	<choose>
+		<when test="productRevFileName == null || productRevFileName == ''">
+			-50
+		</when>
+		<otherwise>
+			-150
+		</otherwise>
+	</choose>
+	WHERE USERSEQ=#{userSeq}
+</update>
+
+
 
 <!-- 리뷰 status 1로 변경 -->
 <update id="updateReviewStatus" parameterType="com.decolab.wanza.dto.ProductReviewDTO">
@@ -131,12 +147,14 @@
 
 <!-- 해당 상품의 모든 리뷰글 가져오기 -->
 <select id="getProductReviewList" parameterType="com.decolab.wanza.dto.ProductReviewDTO" resultType="com.decolab.wanza.dto.ProductReviewDTO">
-	SELECT PRODUCTREVCONTENT, PRODUCTREVFILENAME, PRODUCTREVDATE, PRODUCTREVRATING, NICKNAME
-	FROM (SELECT ROW_NUMBER()OVER(ORDER BY PRODUCTREVDATE DESC) AS RNUM, USERSEQ, PRODUCTREVCONTENT, PRODUCTREVFILENAME, PRODUCTREVDATE, PRODUCTREVRATING FROM PRODUCTION_REVIEW WHERE PRODUCTSEQ=#{productSeq} AND PRODUCTREVDEL=0) R, USERS U
+	SELECT PRODUCTREVSEQ, R.USERSEQ, PRODUCTREVCONTENT, PRODUCTREVFILENAME, PRODUCTREVDATE, PRODUCTREVRATING, NICKNAME
+	FROM (SELECT ROW_NUMBER()OVER(ORDER BY PRODUCTREVDATE DESC) AS RNUM, PRODUCTREVSEQ, USERSEQ, PRODUCTREVCONTENT, PRODUCTREVFILENAME, PRODUCTREVDATE, PRODUCTREVRATING FROM PRODUCTION_REVIEW 
+			WHERE PRODUCTSEQ=#{productSeq} AND PRODUCTREVDEL=0
+			<if test="ratingNum > 0">
+				AND PRODUCTREVRATING=#{ratingNum}
+			</if>
+			) R, USERS U
 	WHERE R.USERSEQ=U.USERSEQ AND RNUM&gt;=1+4*#{productRevPageNum} AND RNUM&lt;=4+4*#{productRevPageNum}
-	<if test="ratingNum > 0">
-		AND PRODUCTREVRATING=#{ratingNum}
-	</if>
 	ORDER BY PRODUCTREVDATE DESC
 </select>
 
@@ -154,7 +172,19 @@
 </select>
 
 
-<!-- 리뷰 삭제 -->
+<!-- 상품 리뷰 수정 -->
+<update id="updateProductReview" parameterType="com.decolab.wanza.dto.ProductReviewDTO">
+	UPDATE PRODUCTION_REVIEW
+	SET PRODUCTREVCONTENT=#{productRevContent}
+	WHERE PRODUCTREVSEQ=#{productRevSeq}
+</update>
+
+<!-- 상품 리뷰 삭제 -->
+<update id="deleteProductReview" parameterType="com.decolab.wanza.dto.ProductReviewDTO">
+	UPDATE PRODUCTION_REVIEW
+	SET PRODUCTREVDEL=1
+	WHERE PRODUCTREVSEQ=#{productRevSeq}
+</update>
 
 
 
@@ -164,6 +194,21 @@
 	INSERT INTO PRODUCTION_QUESTION (PRODUCTQNASEQ, PRODUCTSEQ, USERSEQ, PURCHASESEQ, PRODUCTQCONTENT, PRODUCTQNADATE, PRODUCTQNADEL)
 	VALUES(SEQ_PRODUCT_QNA.NEXTVAL, #{productSeq}, #{userSeq}, #{purchaseSeq}, #{productQContent}, SYSDATE, 0)
 </insert>
+
+
+<!-- 상품 문의글 수정 -->
+<update id="updateProductQnA" parameterType="com.decolab.wanza.dto.ProductQuestionDTO">
+	UPDATE PRODUCTION_QUESTION
+	SET PRODUCTQCONTENT=#{productQContent}
+	WHERE PRODUCTQNASEQ=#{productQnASeq}
+</update>
+
+<!-- 상품 문의글 삭제 -->
+<update id="deleteProductQnA" parameterType="com.decolab.wanza.dto.ProductQuestionDTO">
+	UPDATE PRODUCTION_QUESTION
+	SET PRODUCTQNADEL=1
+	WHERE PRODUCTQNASEQ=#{productQnASeq}
+</update>
 
 
 <!-- 문의글 작성 유저 구매한 상품인지 조회 -->
