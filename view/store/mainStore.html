@@ -417,13 +417,13 @@ $(document).ready(function() {
     const category = getParameter("category")
     const subCategory = getParameter("subCategory")
     const downCategory = getParameter("downCategory")
-    console.log(category)
-    console.log(subCategory)
+    const searchWord = getParameter("searchWord")
 
     if(category=='' || category==null){
         $('.top_slider, .store_main_head, .submenu_wrap').show();
         $('.top_slider').css('visibility','visible');
         getProductSortList(setPdata(0));
+        getProductSortCount(setPdata(3)); //페이징
         $('.store_head').hide();
     }else{
         $('.store_head span').text(category);
@@ -437,8 +437,16 @@ $(document).ready(function() {
     if(subCategory!='' && subCategory!=null){
         $('.store_subcategory li').removeClass('active')
         $('.store_subcategory>li').eq(subCategory).addClass('active')
-        getProductSortList(setPdata(3)) //인기순:최근3일판매량
+        //getProductSortList(setPdata(3)) //인기순:최근3일판매량
         getProductSortCount(setPdata(3));
+    }
+
+    if(searchWord!=null){
+        // $('').val(searchWord);
+        // $('.store_subcategory li').removeClass('active')
+        // $('.store_subcategory>li').eq(subCategory).addClass('active')
+        // //getProductSortList(setPdata(3)) //인기순:최근3일판매량
+        // getProductSortCount(setPdata(3));
     }
     
     // 분류 클릭 링크를 통해 넘어온 경우
@@ -462,7 +470,7 @@ $(document).ready(function() {
         console.log($('.store_subcategory li').eq(1).html())
         $(this).addClass('active')
         //$(this).addClass('active').children().css('display','flex');
-        getProductSortList(setPdata(3)) //인기순:최근3일판매량
+        //getProductSortList(setPdata(3)) //인기순:최근3일판매량
         getProductSortCount(setPdata(3)); //페이징
     });
 
@@ -475,7 +483,7 @@ $(document).ready(function() {
         //$(this).parent().css('display','flex');
         //$(this).parent().parent().addClass('active')
 
-        getProductSortList(setPdata(3)) //인기순:최근3일판매량
+        //getProductSortList(setPdata(3)) //인기순:최근3일판매량
         getProductSortCount(setPdata(3)); //페이징
         e.stopPropagation(); //다른 상 하위 요소 이벤트 막기
     });
@@ -485,7 +493,8 @@ $(document).ready(function() {
         let title_val = $(this).val();
         $('.btn_pop').html(title_text+' <i class="fas fa-sort"></i>').val(title_val);
         setSortBtn(title_text)
-        getProductSortList(setPdata(3))
+        //getProductSortList(setPdata(3))
+        getProductSortCount(setPdata(3)); //페이징
     });
 
 });
@@ -538,15 +547,9 @@ function goCategory(downCategory) {
             return false;
         }
     });
-    
-    
-    
-    getProductSortList(setPdata(3)) //인기순:최근3일판매량
+    //getProductSortList(setPdata(3)) //인기순:최근3일판매량
     getProductSortCount(setPdata(3)); //페이징
 }
-
-
-
 
 //카테고리 리스트 저장
 function setCategory(param) {

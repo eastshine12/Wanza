@@ -804,18 +804,18 @@ let direct = getParameter("directPayment");
 let optionTitleParam = "";
 let num = 1;
 let oppArr = new Array();
+let oppString = "";
 while(getParameter("optionTitle"+num) != "") {
-    let object = new Object();
-    object.opTitle = getParameter("optionTitle"+num);
-    object.opContent = getParameter("optionContent"+num);
-    oppArr.push(object);
+    if(getParameter("optionContent"+num) != "") {
+        let object = new Object();
+        object.opTitle = getParameter("optionTitle"+num);
+        oppString += getParameter("optionTitle"+num) + '///';
+        object.opContent = getParameter("optionContent"+num);
+        oppString += getParameter("optionContent"+num) + '///';
+        oppArr.push(object);
+    }
     num++;
 }
-
-
-$('#_productSeq').val(seq);
-//$('#_selectOption').val(JSON.stringify(oppArr));
-$('#_quantity').val(itemCount);
 
 
 //로그인한 계정 닉네임 가져오기
@@ -893,10 +893,17 @@ $(document).ready(function() {
 
     // 바로결제, 장바구니결제 마다 리스트 다르게 가져옴
     if(direct == "true" && seq != "" && itemCount != "") {
+        $('#_productSeq').val(seq);
+        $('#_selectOption').val(oppString);
+        $('#_quantity').val(itemCount);
         $('#_howPayment').val(0);
         directPayment();
+        
     } else if (direct == "false" && seq == "" && itemCount == "") {
         $('#_howPayment').val(1);
+        $('#_quantity').val(0);
+        $('#_productSeq').val(0);
+        $('#_price').val(0);
         getPaymentList();
     } else {
         alert('잘못된 접근입니다.');
@@ -1179,13 +1186,11 @@ $(document).ready(function() {
             alert('결제수단을 선택해주세요.')
         } else {
             console.log(jdata);
-            let optionStr = JSON.stringify(oppArr);
             
             $.ajax({
-                url: "http://192.168.0.231:3000/paymentAf",
+                url: "http://localhost:3000/paymentAf",
                 type: "post",
                 data: jdata,
-                //contentType: 'application/json',
                 success: function (data) {
                     console.log(data)
                     if (data == "suc") {

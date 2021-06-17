@@ -494,7 +494,10 @@ function lineGraph(){
         type:"post",
         data:{sDate:$(".s_date").val(),eDate:$(".e_date").val(),sType:$("#sele2").val()},
         success:function(list){
-
+                if(list==""){
+                    alert("해당 날짜의 데이터가 없습니다.");
+                    return;
+                }
                 let app = "[";
                 $.each(list,function(i,val){
                         
