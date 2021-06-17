@@ -450,6 +450,16 @@ public class UserController {
     	mailSender.send(mimeMessage);
 	
 	}
+	
+	
+	
+	@RequestMapping(value = "/saveUserName", method = {RequestMethod.GET,RequestMethod.POST})
+	public String saveUserName(UserDTO dto) {
+		System.out.println("UserController saveUserName() " + new Date() );
+		return service.saveUserName(dto)>0?"suc":"err";
+	}
+	
+	
 
 }
 

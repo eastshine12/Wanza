@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.decolab.wanza.dto.AddressDTO;
 import com.decolab.wanza.dto.CartDTO;
+import com.decolab.wanza.dto.MyPageDTO;
 import com.decolab.wanza.dto.OrderDTO;
 import com.decolab.wanza.dto.PaymentDTO;
 import com.decolab.wanza.service.OrderService;
@@ -125,7 +126,7 @@ public class OrderController {
 	
 	//결제버튼 클릭
 	@RequestMapping(value = "/paymentAf", method = {RequestMethod.GET,RequestMethod.POST})
-	public String paymentAf(PaymentDTO pDto, OrderDTO dto) {
+	public int paymentAf(PaymentDTO pDto, OrderDTO dto) {
 		System.out.println("OrderController paymentAf() " + new Date());
 		System.out.println(pDto.toString());
 		
@@ -182,12 +183,23 @@ public class OrderController {
 			};
 		}
 		
-		
-		return a+b>0?"suc":"err";
+		return orderSeq;
 	}
 	
 	
-	
-	
+	@RequestMapping(value = "/getOrderData", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<MyPageDTO> getOrderData(MyPageDTO dto) {
+		System.out.println("OrderController getOrderData() " + new Date());		
+		
+		return service.getOrderData(dto);
+	}
+	@RequestMapping(value = "getOrderAddress", method = {RequestMethod.GET,RequestMethod.POST})
+	public AddressDTO getOrderAddress(AddressDTO dto) {
+		System.out.println("OrderController getOrderAddress() " + new Date());	
+		AddressDTO d = service.getOrderAddress(dto);
+		d.setAddress(d.getAddress().replace("///", " "));
+		
+		return d;
+	}
 	
 }
