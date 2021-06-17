@@ -47,18 +47,18 @@
 
         <div class="col-xl-6">
 
-                <div class="row" style="margin-top: 50px; margin-bottom: 50px; margin-left: 1px; margin-right: 3px;">
-                    <div class="col-md-7">
-                        <a href="" id="imgHref"><img class="rProduct" src="" width="500px" height="300px" style="object-fit: fill; border-radius: 5px;" ></a>
+                <div class="row" style="margin-top: 30px; margin-bottom: 50px; margin-left: 30px; margin-right: 3px; background-color: #FFE5C1; border-radius: 5px; padding: 30px;">
+                    <div class="col-md-3">
+                        <a href="" id="imgHref"><img class="rProduct" src="" width="200px" height="200px" style="object-fit: cover; border-radius: 5px;" ></a>
                     </div>
-                    <div class="col-md-5" style="text-align: left;">
+                    <div class="col-md-9" style="text-align: left;">
                         <h5><strong>관련상품</strong></h5>
                         <div class="row">
                             <div class="col"
-                                style="font-family: 'Noto Sans KR', sans-serif;height: 128px;width: 250px;margin-top: 14px;border-bottom: 1px none rgb(99,99,99) ;" algin='center'>
-                                <h5 id="maker" style="font-size: 15px; color: rgb(104, 104, 104);"><!--제품회사이름-->얼라</h5>
-                                <a href="" style="color: black;" id="titleHref"><h1 id="title" style="font-size: 28px;"><!--제목-->상품이름</h1></a>
-                                <div>
+                                style="font-family: 'Noto Sans KR', sans-serif;height: 95px;width: 250px;margin-top: 14px;border-bottom: 1px none rgb(99,99,99) ;" algin='center'>
+                                <h5 id="maker" style="font-size: 15px; color: rgb(104, 104, 104); margin-top: 20px; " ><!--제품회사이름--></h5>
+                                <a href="" style="color: black;" id="titleHref"><h1 id="title" style="font-size: 28px; margin-top: 10px;"><!--제목--></h1></a>
+                                <div style="margin-top: 20px;">
                                     <span class="star-rating">
                                         <span id="starRating"></span>
                                     </span>
@@ -66,21 +66,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div style="border-bottom: 1px solid rgb(99,99,99);height: 70px;font-family: 'Noto Sans KR', sans-serif;text-align: left;">
-                                    <span style="font-size: 17px;width: auto;color: rgb(99,99,99);">
-                                        <span id="costPrice" style="text-decoration: line-through;"><!--정가--></span>
-                                        <span id="sellPrice" style="margin: 10px;font-size: 27px;margin-left: 17px;color: rgb(0,0,0);margin-top: 10px;padding: 0px;padding-top: 0px;">
-                                            <strong id="discountPrice"><!--판매가--></strong>원
-                                        </span>
-                                    </span>
-                                    <span style="margin: 10px;font-size: 24px;margin-left: 0px;color: rgb(244,116,76);margin-top: 10px;padding: 0px;padding-top: 0px;">
-                                    <strong id="discountRate"><!--할인율--></strong></span>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
              
@@ -105,17 +90,7 @@
 <script>
 $(document).ready(function(){
 
-     //할인 퍼센테이지 계산
-     function discountRate(price, discount) {
-        return Math.ceil(100- (discount/price*100));
-    };
-      // 금액 콤마 삽입 정규식
-      function makeComma(str) {
-
-        str = String(str);
-        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-    };
-
+   
 
     // event.html -> eventDetail 로 넘긴 parameter
     let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
@@ -157,18 +132,6 @@ $(document).ready(function(){
             $("#title").text(data.productName);
             $('#starRating').css('width', (data.productRating*20+2)+'%');           
             $("#rating").text(data.productRating);
-            if(data.productDiscount != 0){ // 할인상품이라면
-                $("#costPrice").text(data.productPrice);
-                $("#discountPrice").text(data.productDiscount);
-                $("#discountRate").text(discountRate(data.productPrice,data.productDiscount)+"%");               
-            }else{
-                $("#discountPrice").text(data.productPrice);
-            }
-
-            
-
-            
-          
 
 
 
