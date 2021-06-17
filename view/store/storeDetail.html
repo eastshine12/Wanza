@@ -407,6 +407,44 @@
             border: 0.5px solid #f4744c;
         }
 
+
+        /* 수정 버튼 */
+        .qna_update_btn{
+            width: 70px;
+            height: 40px;
+            float: none; 
+            margin:50px auto;
+            border-radius: 5px;
+            color: white;
+            border: none;
+            background-color: #f4744c;
+            font: 17px;
+        }
+        .qna_update_btn:hover{
+            color: #f4744c;
+            background-color: white;
+            border: 0.5px solid #f4744c;
+        }
+
+        /* 수정 버튼 */
+        .rev_update_btn{
+            width: 70px;
+            height: 40px;
+            float: none; 
+            margin:20px auto;
+            border-radius: 5px;
+            color: white;
+            border: none;
+            background-color: #f4744c;
+            font: 17px;
+        }
+        .rev_update_btn:hover{
+            color: #f4744c;
+            background-color: white;
+            border: 0.5px solid #f4744c;
+        }
+
+
         .breadcrumb-item {
             color: rgb(100,100,100); 
             cursor: pointer;
@@ -612,7 +650,7 @@
                         <span id="starRating"></span>
                     </span>
                     <span id="rating" style="font-size: 20px;margin-left: 14px;"><!--별점-->></span>
-                    <span style="margin-left: 20px;font-size: 14px;color: rgb(99,99,99);">후기 <span name="reviewCount"></span></span>
+                    <span style="margin-left: 20px;font-size: 14px;color: rgb(99,99,99);">후기 <span name="reviewCount">0</span></span>
                 </div>
             </div>
             <div class="row">
@@ -1400,11 +1438,12 @@
                 console.log(data);
 
                 // 구매한 물품이 아닌 경우 리뷰 못쓰게 막는다.
+                
                 if(data=="") {
                     alert('구매 후에 리뷰 작성이 가능합니다.');
                     return;
                 }
-
+                
                 let opValue = JSON.parse(data.selectOption);
                 $('#purchaseSeq').val(data.purchaseSeq);
                 $('#reviewProductSeq').val(productSeq);
@@ -1425,13 +1464,11 @@
     });
 
     // 리뷰 작성 완료 버튼
-    $('.review_write_btn').click(function() {
-
+    $(document).on('click', '.review_write_btn', function() {
         if(slangFilter($('#reviewContent').val())) {
             alert('비속어가 포함되어 있습니다.');
             return;
         }
-
         $.ajax({
             url: "http://192.168.0.231:3000/addProductReview",
             type: "post",
@@ -1442,22 +1479,18 @@
             cache:false,
             success: function (data) {
                 console.log(data)
-                if (data == "suc") {
-                    alert("리뷰가 성공적으로 작성되었습니다.");
-                    getProductDetail();
-                    getProductReviewList(0, 0);
-                    
-                } else {
-                    console.log('리뷰 작성 실패');
-                }
             },
             error: function () {
                 alert('addProductReview error');
-            },
-            complete: function() {
-                elements.removeClass('active');
             }
         });
+        elements.removeClass('active');
+        //getProductDetail();
+        //getProductReviewList(0, 0);
+        setTimeout(function() {
+            location.reload();
+        }, 150);
+        
     });
 
 
@@ -1517,7 +1550,7 @@
                 } else {
                     $.each(list, function (i, val) {
 
-                        app += '<div class="row" style="padding-top: 18px;padding-left: 0px;padding-bottom: 20px;border-bottom: 1px solid rgb(150,150,150) ;">'
+                        app += '<div class="row" style="padding-top: 18px;padding-left: 0px;padding-bottom: 5px;border-bottom: 1px solid rgb(150,150,150) ;">'
                             +        '<div class="col">'
                             +            '<div class="row">'
                             +                '<div class="col" style="font-family: \'Noto Sans KR\', sans-serif;"><span style="font-size: 19px; color:rgb(244,116,76);">';
@@ -1532,11 +1565,16 @@
 
                         app +=                   '</span><span style="margin-left: 15px;font-size: 15px;">'+val.nickname+'</span>'
                             +                    '<span>&ensp;·&ensp;</span>'
-                            +                    '<span style="font-size: 13px;">'+val.productRevDate.substring(0,10)+'</span>'
-                            +                '</div>'
+                            +                    '<span style="font-size: 13px;">'+val.productRevDate.substring(0,10)+'</span>';
+
+                        if (sessionId.userSeq == val.userSeq) {
+                            app += '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="javascript:reviewUpdate('+val.productRevSeq+')" style="font-size: 13px; color: #6e6e6e;">수정</a><span>&nbsp;&nbsp;</span><a href="javascript:reviewDelete('+val.productRevSeq+')" style="font-size: 13px; color: #fd3b3b;">삭제</a>';
+                        }
+
+                        app +=              '</div>'
                             +            '</div>'
                             +            '<div class="row">'
-                            +                '<div class="col" style="margin: 25px 0px;">'
+                            +                '<div id="revContent_'+val.productRevSeq+'" class="col" style="margin: 15px 0px;">'
                             +                    '<span style="font-size: 14px;">'+val.productRevContent+'</span>'
                             +                '</div>'
                             +            '</div>'
@@ -1676,6 +1714,78 @@
 
     };
 
+    // 리뷰글 수정
+    function reviewUpdate(seq) {
+        if(document.querySelector('#revContent_'+seq+' span') == null) {
+            return;    
+        }
+        let text = $('#revContent_'+seq).children().text();
+        $('#revContent_'+seq).children().remove();
+        $('#revContent_'+seq).append($('<div class="col-lg-11"><textarea id="revUpdateContent_'+seq+'" class="form-control" style="margin-top:20px; height: 120px; resize: none;">'
+                                        +text+'</textarea></div><div class="col-lg-2" style="float: right; margin-right: 80px;"><button seq="'+seq+'" class="rev_update_btn" type="button">수정</button></div>'));
+    }
+    $(document).on('click', '.rev_update_btn', function() {
+        let productRevSeq = $(this).attr('seq');
+        let updateContent = $('#revUpdateContent_'+productRevSeq).val();
+        if(updateContent.length > 80) {
+            alert('80자 이내로 작성해주세요.');
+            return;
+        } else if(updateContent.length == 0) {
+            alert('내용을 작성해주세요.');
+            return;
+        }
+
+        $.ajax({
+            url: "http://192.168.0.231:3000/updateProductReview",
+            type: "post",
+            data: {
+                productRevSeq:productRevSeq,
+                productRevContent:updateContent
+            },
+            success: function(data) { 
+                if(data == "suc") console.log('수정완료');
+                getProductReviewList(0, 0);
+                
+            },
+            error: function() {
+                alert('updateProductReview error');
+            }
+        })
+    });
+
+
+    // 리뷰글 삭제
+    function reviewDelete(seq) {
+
+        if(confirm("리뷰를 삭제하면 재구매 후에 작성 가능합니다. 그래도 삭제하시겠습니까?")) {
+            $.ajax({
+                url: "http://192.168.0.231:3000/deleteProductReview",
+                type: "post",
+                data: {
+                    productRevSeq:seq,
+                    userSeq:userSeq
+                },
+                success: function(data) { 
+                    if(data == "suc") console.log('삭제완료');
+                    getProductReviewList(0, 0);
+                    
+                },
+                error: function() {
+                    alert('deleteProductQnA error');
+                }
+            })
+            
+        } else {
+            return;
+        }
+
+    }
+
+
+
+
+
+
 
 
 
@@ -1702,6 +1812,12 @@
             return;
         }
 
+        if($('#qnaContent').val().length > 80) {
+            alert('80자 이내로 작성해주세요.');
+            return;
+        }
+
+
         $.ajax({
             url: "http://192.168.0.231:3000/addProductQnA",
             type: "post",
@@ -1713,8 +1829,8 @@
             success: function (data) {
                 console.log(data)
                 if (data == "suc") {
-                    alert("문의글이 작성되었습니다.");
-                    //getProductQnAList(0);
+                    console.log("문의글이 작성되었습니다.");
+                    getProductQnAList(0);
                     elements_qna.removeClass('active');
                 } else {
                     console.log('문의글 작성 실패');
@@ -1780,11 +1896,16 @@
                                 
                                 
                         app +=       '</span><span>&nbsp;'
-                            +                    '·&nbsp;&nbsp;</span><span style="font-size: 13px; color:gray;">'+timeForToday(val.productQnADate)+'</span></div>'
-                            +        '</div>'
+                            +                    '·&nbsp;&nbsp;</span><span style="font-size: 13px; color:gray;">'+timeForToday(val.productQnADate)+'</span>';
+                        
+                        if (sessionId.userSeq == val.userSeq) {
+                            app += '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><a href="javascript:questionUpdate('+val.productQnASeq+')" style="font-size: 13px; color: #6e6e6e;">수정</a><span>&nbsp;&nbsp;</span><a href="javascript:questionDelete('+val.productQnASeq+')" style="font-size: 13px; color: #fd3b3b;">삭제</a>';
+                        }
+
+                        app +=        '</div></div>'
                             +        '<div class="row" style="">'
                             +            '<div class="col">'
-                            +                '<div class="row">'
+                            +                '<div id="content_'+val.productQnASeq+'" class="row">'
                             +                    '<div class="col-lg-10"><span style="font-size: 15px;"><br>'+val.productQContent+'<br></span>'
                             +                    '</div>';
                         if(val.productAContent == null) {
@@ -1908,6 +2029,69 @@
         return `${Math.floor(betweenTimeDay / 365)}년 전`;
     }
 
+
+    // 문의글 수정
+    function questionUpdate(seq) {
+        if(document.querySelector('#content_'+seq+' span') == null) {
+            return;    
+        }
+        let text = $('#content_'+seq).children().text();
+        $('#content_'+seq).children().remove();
+        $('#content_'+seq).append($('<div class="col-lg-10"><textarea id="updateContent_'+seq+'" class="form-control" style="margin-top:20px; height: 120px; resize: none;">'
+                                        +text+'</textarea></div><div class="col-lg-2"><button seq="'+seq+'" class="qna_update_btn" type="button">수정</div>'));
+    }
+    $(document).on('click', '.qna_update_btn', function() {
+        let productQnASeq = $(this).attr('seq');
+        let updateContent = $('#updateContent_'+productQnASeq).val();
+        if(updateContent.length > 80) {
+            alert('80자 이내로 작성해주세요.');
+            return;
+        }
+
+        $.ajax({
+            url: "http://192.168.0.231:3000/updateProductQnA",
+            type: "post",
+            data: {
+                productQnASeq:productQnASeq,
+                productQContent:updateContent
+            },
+            success: function(data) { 
+                if(data == "suc") console.log('수정완료');
+                getProductQnAList(0);
+                
+            },
+            error: function() {
+                alert('updateProductQnA error');
+            }
+        })
+    });
+
+
+    // 문의글 삭제
+    function questionDelete(seq) {
+
+        if(confirm("해당 문의 글을 삭제하시겠습니까?")) {
+            $.ajax({
+                url: "http://192.168.0.231:3000/deleteProductQnA",
+                type: "post",
+                data: {
+                    productQnASeq:seq
+                },
+                success: function(data) { 
+                    if(data == "suc") console.log('삭제완료');
+                    getProductQnAList(0);
+                    
+                },
+                error: function() {
+                    alert('deleteProductQnA error');
+                }
+            })
+            
+        } else {
+            return;
+        }
+
+    }
 
     // 분류 카테고리 이동
     $(document).on('click', '.category', function() {

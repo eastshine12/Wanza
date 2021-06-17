@@ -124,7 +124,7 @@ body{
     position: relative;
     display: flex;
     align-items: center;
-    height: 280px;
+    height: 310px;
     width: 450px;
     margin: 20px 50px;
     padding: 20px;
@@ -175,7 +175,7 @@ body{
 /* Chart */
 .chartdiv {
     width: 100%;
-    height: 200px;
+    height: 300px;
 }
 
 </style>
@@ -235,7 +235,8 @@ body{
 
                 <div class="box_wrap">
                     <div class="box_head">
-                        <i class="fas fa-truck-loading fa-2x"></i>
+                        <i class="fas fa-user-plus fa-2x"></i>
+                        <!--  <i class="fas fa-truck-loading fa-2x"></i>-->
                     </div>
                     <div class="box_main">
                         <div class="box_content">
@@ -255,7 +256,7 @@ body{
                 
                 <div class="chart_wrap">
                     <div class="chart_main">
-                        <div class="chartdiv" id="graphChart"></div>
+                        <div class="chartdiv" id="graphChart" style="padding-top: 30px;"></div>
                     </div>
                     <div class="chart_content">
                         <div class="chart_texts">
@@ -302,6 +303,7 @@ body{
 <!-- Resources -->
 <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/dark.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
 <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
 
@@ -542,73 +544,63 @@ function barChart(){
     today.setMinutes(today.getMinutes()+59);
 
     $.ajax({
-        url:"http://localhost:3000/pieChart",
+        url:"http://localhost:3000/mapList",
         type:"post",
         data:{"sDate":getDateStr(lastWeek),"eDate":getDateStr(today)},
         success:function(list){
             let app="[";
             $.each(list,function(i,val){
+                if(val.country =="제주특별자치도"){
+                    val.country = "제주";
+                }
                 if(i == list.length-1){
-                    app += "{\"country\":\""+val.category+"\","+"\"visits\":"+val.quanti+"}]"; 
+                    app += "{\"network\":\""+val.country+"\","+"\"MAU\":"+val.count+"}]"; 
                 } else {
-                    app += "{\"country\":\""+val.category+"\","+"\"visits\":"+val.quanti+"},"; 
+                    app += "{\"network\":\""+val.country+"\","+"\"MAU\":"+val.count+"},"; 
                 }
             })                
+
                 app = JSON.parse(app);
                 am4core.ready(function() {
 
-                    // Themes begin
-                    am4core.useTheme(am4themes_animated);
-                    // Themes end
+                    am4core.useTheme(am4themes_dark);
+am4core.useTheme(am4themes_animated);
+// Themes end
 
-                    // Create chart instance
-                    var chart = am4core.create("barChart", am4charts.XYChart);
-                    chart.scrollbarX = new am4core.Scrollbar();
+var chart = am4core.create("barChart", am4charts.XYChart);
+chart.padding(40, 40, 40, 40);
 
-                    // Add data
-                    chart.data = app
+var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.dataFields.category = "network";
+categoryAxis.renderer.minGridDistance = 1;
+categoryAxis.renderer.inversed = true;
+categoryAxis.renderer.grid.template.disabled = true;
 
-                    // Create axes
-                    var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-                    categoryAxis.dataFields.category = "country";
-                    categoryAxis.renderer.grid.template.location = 0;
-                    categoryAxis.renderer.minGridDistance = 30;
-                    categoryAxis.renderer.labels.template.horizontalCenter = "right";
-                    categoryAxis.renderer.labels.template.verticalCenter = "middle";
-                    categoryAxis.renderer.labels.template.rotation = 270;
-                    categoryAxis.tooltip.disabled = true;
-                    categoryAxis.renderer.minHeight = 110;
+var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+valueAxis.min = 0;
 
-                    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-                    valueAxis.renderer.minWidth = 50;
+var series = chart.series.push(new am4charts.ColumnSeries());
+series.dataFields.categoryY = "network";
+series.dataFields.valueX = "MAU";
+series.tooltipText = "{valueX.value}"
+series.columns.template.strokeOpacity = 0;
+series.columns.template.column.cornerRadiusBottomRight = 5;
+series.columns.template.column.cornerRadiusTopRight = 5;
 
-                    // Create series
-                    var series = chart.series.push(new am4charts.ColumnSeries());
-                    series.sequencedInterpolation = true;
-                    series.dataFields.valueY = "visits";
-                    series.dataFields.categoryX = "country";
-                    series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
-                    series.columns.template.strokeWidth = 0;
+var labelBullet = series.bullets.push(new am4charts.LabelBullet())
+labelBullet.label.horizontalCenter = "left";
+labelBullet.label.dx = 10;
+labelBullet.label.text = "{values.valueX.workingValue.formatNumber('#.0as')}";
+labelBullet.locationX = 1;
 
-                    series.tooltip.pointerOrientation = "vertical";
+// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+series.columns.template.adapter.add("fill", function(fill, target){
+  return chart.colors.getIndex(target.dataItem.index);
+});
 
-                    series.columns.template.column.cornerRadiusTopLeft = 10;
-                    series.columns.template.column.cornerRadiusTopRight = 10;
-                    series.columns.template.column.fillOpacity = 0.8;
-
-                    // on hover, make corner radiuses bigger
-                    var hoverState = series.columns.template.column.states.create("hover");
-                    hoverState.properties.cornerRadiusTopLeft = 0;
-                    hoverState.properties.cornerRadiusTopRight = 0;
-                    hoverState.properties.fillOpacity = 1;
-
-
-                    series.columns.template.adapter.add("fill", function(fill, target) {
-                        return chart.colors.getIndex(target.dataItem.index);
-                    });
-
-                    // Cursor
-                    chart.cursor = new am4charts.XYCursor();
+categoryAxis.sortBySeries = series;
+chart.data = app;
 
                 }); // end am4core.ready()
             

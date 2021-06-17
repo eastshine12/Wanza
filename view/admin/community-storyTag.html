@@ -658,7 +658,7 @@ $(document).ready(function() {
         }   
     });
 
-    $('div[name=itemDetail]').hide();
+    
 
 });
 
@@ -818,22 +818,16 @@ function getStoryTagList(pageNum) {
                         +    '<div class="col" seq="'+(i+1)+'" id="userImg_'+seq+'" name="userImg">';
 
                         /* 태그 들어가는 부분 */
-
                     app+=        '<img width="600px" height="600px" style="width: 720px;height: 660px; object-fit: cover;" src="http://192.168.0.231:3000/upload/'+val.cardFileName+'">'
                         +    '</div>'
                         +'</div>'
-
-
-
                         +    '</div></td>'
                         +    '</tr>';
-
-
-
-
                 });
                 $("#storyTagList").append(app);
             }
+
+            $('div[name=itemDetail]').hide();
 
         },
         error: function () {

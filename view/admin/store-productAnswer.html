@@ -336,6 +336,21 @@ select::-ms-expand{
     transition: all .33s cubic-bezier(.685,.0473,.346,1)
 }
 
+.go_btn{
+    width: 80px;
+    height: 40px;
+    border: 1px solid #35ab6f;
+    margin-left: 10px;
+    border-radius: 4px;
+    color: #35ab6f;
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(156 39 176 / 40%);
+}
+.go_btn:active{
+    background: radial-gradient(#ffffff,#d7fce4);
+    transition: all .33s cubic-bezier(.685,.0473,.346,1)
+}
+
 /* 페이징 */
 .admin_page{
     min-height: 100px;
@@ -777,7 +792,10 @@ $(document).ready(function() {
                             +            '<div class="col""><textarea id="productAContent_'+val.productQnASeq+'" style="width: 700px;height: 400px;resize: none;">'+answer+'</textarea></div>'
                             +        '</div>'
                             +        '<div class="row" style="height: 170px;">'
-                            +            '<div class="col d-flex justify-content-center align-items-center"><button id="insertAnswerBtn_'+val.productQnASeq+'" seq="'+val.productQnASeq+'" name="insertAnswerBtn" class="tab_btn" type="button" style="width: 180px; height: 50px; font-size: 20px;">답변등록</button></div>'
+                            +            '<div class="col d-flex justify-content-center align-items-center">'
+                            +                 '<button id="insertAnswerBtn_'+val.productQnASeq+'" seq="'+val.productQnASeq+'" name="insertAnswerBtn" class="tab_btn" type="button" style="width: 180px; height: 50px; font-size: 20px;">답변등록</button>'
+                            +                 '<button id="goBtn_'+val.productQnASeq+'" seq="'+val.productSeq+'" name="goBtn" class="go_btn" type="button" style="width: 180px; height: 50px; font-size: 20px;">해당글로 이동</button>'
+                            +            '</div>'
                             +        '</div>'
                             +    '</div>'
 
@@ -861,6 +879,11 @@ $(document).ready(function() {
     });
 
 
+
+    $(document).on('click', 'button[name=goBtn]', function() {
+        let productSeq = $(this).attr('seq');
+        location.href = "http://localhost:8090/view/store/storeDetail.html?seq="+productSeq;
+    })
 
     $(document).on('click', 'button[name=insertAnswerBtn]', function() {
         let qnaNum = $(this).attr('seq');
