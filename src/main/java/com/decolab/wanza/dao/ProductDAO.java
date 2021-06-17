@@ -35,6 +35,12 @@ public interface ProductDAO {
 	
 	public int addProductReview(ProductReviewDTO dto);
 	
+	public int updateProductReview(ProductReviewDTO dto);
+	
+	public int deleteProductReview(ProductReviewDTO dto);
+	
+	public int removeReviewPoint(ProductReviewDTO dto);
+	
 	public int updateRating(ProductReviewDTO dto);
 	
 	public int updateReviewStatus(ProductReviewDTO dto);
@@ -44,6 +50,10 @@ public interface ProductDAO {
 	public List<ProductReviewDTO> getProductReviewCount(ProductReviewDTO dto);
 	
 	public int addProductQnA(ProductQuestionDTO dto);
+	
+	public int updateProductQnA(ProductQuestionDTO dto);
+	
+	public int deleteProductQnA(ProductQuestionDTO dto);
 	
 	public ProductQuestionDTO purchaseStatus(ProductQuestionDTO dto);
 	

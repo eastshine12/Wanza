@@ -121,11 +121,36 @@ public class ProductController {
 		return a+b+c+d>3?"suc":"err";
 	}
 	
+	
+	@RequestMapping(value = "/updateProductReview", method = {RequestMethod.GET,RequestMethod.POST})
+	public String updateProductReview(ProductReviewDTO dto) {
+		System.out.println("ProductController updateProductQnA() " + new Date());
+		System.out.println(dto.toString());
+		return service.updateProductReview(dto)>0?"suc":"err";
+	}
+	
+	@RequestMapping(value = "/deleteProductReview", method = {RequestMethod.GET,RequestMethod.POST})
+	public String deleteProductReview(ProductReviewDTO dto) {
+		System.out.println("ProductController deleteProductReview() " + new Date());
+		System.out.println(dto.toString());
+		
+		int a = service.deleteProductReview(dto);
+		int b = service.removeReviewPoint(dto);
+		
+		return a+b>0?"suc":"err";
+	}
+	
+	
 	@RequestMapping(value = "/getProductReviewList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<ProductReviewDTO> getProductReviewList(ProductReviewDTO dto) { 
 		System.out.println("ProductController getProductReviewList() " + new Date());
 		System.out.println(dto.toString());
-		return service.getProductReviewList(dto);
+		List<ProductReviewDTO> list = service.getProductReviewList(dto);
+		for (ProductReviewDTO d : list) {
+			System.out.println(d.toString());
+		}
+		
+		return list;
 	}
 	
 	@RequestMapping(value = "/getProductReviewCount", method = {RequestMethod.GET,RequestMethod.POST})
@@ -162,6 +187,22 @@ public class ProductController {
 		System.out.println(dto.toString());
 		return service.getProductQnACount(dto);
 	}
+	
+	
+	@RequestMapping(value = "/updateProductQnA", method = {RequestMethod.GET,RequestMethod.POST})
+	public String updateProductQnA(ProductQuestionDTO dto) {
+		System.out.println("ProductController updateProductQnA() " + new Date());
+		System.out.println(dto.toString());
+		return service.updateProductQnA(dto)>0?"suc":"err";
+	}
+	
+	@RequestMapping(value = "/deleteProductQnA", method = {RequestMethod.GET,RequestMethod.POST})
+	public String deleteProductQnA(ProductQuestionDTO dto) {
+		System.out.println("ProductController deleteProductQnA() " + new Date());
+		System.out.println(dto.toString());
+		return service.deleteProductQnA(dto)>0?"suc":"err";
+	}
+	
 	
 	
 	@RequestMapping(value = "/getHashTagList", method = {RequestMethod.GET,RequestMethod.POST})

@@ -147,9 +147,24 @@ public class OrderController {
 		//OrderSeq 가져오기
 		int orderSeq = service.getOrderSeq(dto);
 		
+		// 바로구매 결제 방법일 때
 		if(dto.getHowPayment() == 0) {
 			dto.setOrderSeq(orderSeq);
-			
+			String[] option = dto.getSelectOption().split("///");
+			if(option.length != 1) {
+				String selectOption = "[";				
+				for (int i = 0; i < option.length; i++) {
+					if(i % 2 == 0) {
+						selectOption += "{\"optionTitle\":\""+option[i]+"\",";
+					} else {
+						selectOption += "\"optionContent\":\""+option[i]+"\"},";
+					}
+				}
+				selectOption = selectOption.replaceFirst(".$", "]");
+				dto.setSelectOption(selectOption);				
+			}
+			service.addPurchase(dto);
+		// 장바구니 결제 방법일 때	
 		} else {
 			//cartstatus 1인 상품 리스트 가져오기			
 			List<CartDTO> cartList = service.getPaymentList(new CartDTO("CT-"+dto.getUserSeq()));
