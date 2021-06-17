@@ -1093,6 +1093,20 @@
         })
     })
 
+    // 상품 후기 숫자 카운팅
+    // var qccount;
+    // $.ajax({
+    // url:"http://localhost:3000/storeRevCount",
+    // type:"get",
+    // data:{productSeq:seq},
+    // async : false,
+    // success:function(data){
+    //     alert('storeRevCount 성공');
+    // }, error:function(data){
+    //     alert('storeRevCount 실패');
+    // }
+    // });
+
 
 
     // 상품 옵션 선택
@@ -1463,6 +1477,10 @@
         elements_qna.removeClass('active');
     });
 
+    function refresh(){
+        location.reload();
+    }
+
     // 리뷰 작성 완료 버튼
     $(document).on('click', '.review_write_btn', function() {
         if(slangFilter($('#reviewContent').val())) {
@@ -1479,6 +1497,15 @@
             cache:false,
             success: function (data) {
                 console.log(data)
+                if (data == "suc") {
+                    alert("리뷰가 성공적으로 작성되었습니다.");
+                    getProductDetail();
+                    getProductReviewList(0, 0);
+                    refresh();
+                    
+                } else {
+                    console.log('리뷰 작성 실패');
+                }
             },
             error: function () {
                 alert('addProductReview error');
@@ -1594,6 +1621,8 @@
             }
         });
     };
+
+
 
     // 리뷰 별점순 클릭
     function selectRating(num) {
@@ -1832,6 +1861,7 @@
                     console.log("문의글이 작성되었습니다.");
                     getProductQnAList(0);
                     elements_qna.removeClass('active');
+                    refresh();
                 } else {
                     console.log('문의글 작성 실패');
                 }
