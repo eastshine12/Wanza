@@ -100,6 +100,10 @@ public class OrderService {
 		return dao.getOrderData(dto);
 	}
 	
+	public List<MyPageDTO> getMyOrderDetail(MyPageDTO dto) {
+		return dao.getMyOrderDetail(dto);
+	}
+	
 	public AddressDTO getOrderAddress(AddressDTO dto) {
 		return dao.getOrderAddress(dto);
 	}

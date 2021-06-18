@@ -50,6 +50,8 @@ public interface OrderDAO {
 	
 	public List<MyPageDTO> getMyOrderList(MyPageDTO dto);//마이페이지 배송정보 리스트
 	
+	public List<MyPageDTO> getMyOrderDetail(MyPageDTO dto);//마이페이지 배송정보 상세리스트
+	
 	public List<MyPageDTO> getOrderData(MyPageDTO dto);
 	
 	public AddressDTO getOrderAddress(AddressDTO dto); 
