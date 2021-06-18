@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>완벽한 자취생활, 완자 - 로그인</title>
+    <link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon">
     <script src="../../js/includeHTML.js"></script>
     <!-- 네이버 로그인 API -->
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
@@ -340,7 +341,7 @@
 
 
     // 네이버 로그인 API
-    var naver_id_login = new naver_id_login("dSA9KIZOunKpoBfOJdB9", "http://localhost:8090/collback.html");
+    var naver_id_login = new naver_id_login("dSA9KIZOunKpoBfOJdB9", "http://localhost:8090/view/collback.html");
     var state = naver_id_login.getUniqState();
     naver_id_login.setButton("green", 3, 70);
     naver_id_login.setDomain("http://localhost:8090/index.html");

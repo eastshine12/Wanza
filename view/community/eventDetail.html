@@ -47,11 +47,11 @@
 
         <div class="col-xl-6">
 
-                <div class="row" style="margin-top: 30px; margin-bottom: 50px; margin-left: 30px; margin-right: 3px; background-color: #FFE5C1; border-radius: 5px; padding: 30px;">
+                <div class="row" style="margin-top: 10px; margin-bottom: 50px; margin-left: 30px; margin-right: 3px;padding: 10px;"id="relatedProduct">
                     <div class="col-md-3">
                         <a href="" id="imgHref"><img class="rProduct" src="" width="200px" height="200px" style="object-fit: cover; border-radius: 5px;" ></a>
                     </div>
-                    <div class="col-md-9" style="text-align: left;">
+                    <div class="col-md-9" style="text-align: left;" >
                         <h5><strong>관련상품</strong></h5>
                         <div class="row">
                             <div class="col"
@@ -125,14 +125,18 @@ $(document).ready(function(){
         type:"post",
         data:{productSeq:urlParams.productSeq},
         success:function(data){
-            $("#titleHref").attr("href","../store/storeDetail.html?seq="+data.productSeq);
-            $(".rProduct").attr("src","http://localhost:3000/upload/"+data.productFileName)
-            $("#imgHref").attr("href","../store/storeDetail.html?seq="+data.productSeq);
-            $("#maker").text(data.productMaker);
-            $("#title").text(data.productName);
-            $('#starRating').css('width', (data.productRating*20+2)+'%');           
-            $("#rating").text(data.productRating);
+            if(data.productSeq==0 || data.productSeq==undefined){
+                $("#relatedProduct").children().remove();
 
+            }else{           
+                $("#titleHref").attr("href","../store/storeDetail.html?seq="+data.productSeq);
+                $(".rProduct").attr("src","http://localhost:3000/upload/"+data.productFileName)
+                $("#imgHref").attr("href","../store/storeDetail.html?seq="+data.productSeq);
+                $("#maker").text(data.productMaker);
+                $("#title").text(data.productName);
+                $('#starRating').css('width', (data.productRating*20+2)+'%');           
+                $("#rating").text(data.productRating);
+            }
 
 
         },
