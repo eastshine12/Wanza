@@ -555,6 +555,11 @@ function barChart(){
                 if(val.country =="제주특별자치도"){
                     val.country = "제주";
                 }
+                if(val.country =="세종특별자치시"){
+                    val.country = "세종";
+                }
+
+
                 if(i == list.length-1){
                     app += "{\"network\":\""+val.country+"\","+"\"MAU\":"+val.count+"}]"; 
                 } else {
@@ -651,13 +656,12 @@ let yesterday = year+"-"+month+"-"+yesterdate;
             }
             let sales = tSales - ySales;
 
-
             if(sales<0){
-                $("#salesText").css("color","blue");
-                $("#salesText").append(ySales+"건→"+tSales + "건 = 전날 대비 <b style='font-size:18px'>"+sales+"개 ↓</b> 감소");
+
+                $("#salesText").append("전날 대비 <b style='font-size:18px; color:blue'>"+sales+"개 ↓</b> 감소");
             }else{
-                $("#salesText").css("color","red");
-                $("#salesText").append(ySales+"건→"+tSales + "건 = 전날 대비 <b style='font-size:18px'>"+sales+"개 ↑</b> 증가");
+
+                $("#salesText").append("전날 대비 <b style='font-size:18px; color:red'>"+sales+"개 ↑</b> 증가");
             }
 
 
@@ -691,7 +695,7 @@ function salesPrice(){
         type:"post",
         data:{"sDate":yesterday, "eDate":today },
         success:function(list){
-            alert(JSON.stringify(list));
+            //alert(JSON.stringify(list));
             $.each(list,function(i,val){
                 $("#salesPrice").append("<input type='hidden' id='hiddenPrice"+i+"' value='"+val.count+"'>");
             })
@@ -710,11 +714,11 @@ function salesPrice(){
 
 
             if(salesPrice<0){
-                $("#salesPriceText").css("color","blue");
-                $("#salesPriceText").append(makeComma(ySalesPrice)+"원→"+makeComma(tSalesPrice) + "원 = 전날 대비 <b style='font-size:18px'>"+makeComma(salesPrice)+"원 ↓</b> 감소");
+
+                $("#salesPriceText").append("전날 대비 <b style='font-size:18px; color:blue'>"+makeComma(salesPrice)+"원 ↓</b> 감소");
             }else{
-                $("#salesPriceText").css("color","red");
-                $("#salesPriceText").append(makeComma(ySalesPrice)+"원→"+makeComma(tSalesPrice) + "원 = 전날 대비 <b style='font-size:18px'>"+makeComma(salesPrice)+"원 ↑</b> 증가");
+
+                $("#salesPriceText").append("전날 대비 <b style='font-size:18px; color:red'>"+makeComma(salesPrice)+"원 ↑</b> 증가");
             }
 
 
