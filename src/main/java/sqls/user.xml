@@ -20,6 +20,18 @@
 	WHERE EMAIL=#{email}
 </select>
 
+<select id="phoneCheck" parameterType="com.decolab.wanza.dto.UserDTO" resultType="int">
+SELECT NVL(COUNT(*), 0)
+FROM USERS
+WHERE PHONE=#{phone}
+</select>
+
+<select id="nicknameCheck" parameterType="com.decolab.wanza.dto.UserDTO" resultType="int">
+SELECT NVL(COUNT(*), 0)
+FROM USERS
+WHERE NICKNAME=#{nickname}
+</select>
+
 <insert id="addUser" parameterType="com.decolab.wanza.dto.UserDTO">
 	INSERT INTO USERS(USERSEQ, EMAIL, PWD, USERNAME, NICKNAME, PROFILENAME, PHONE, AUTH, USERDATE, MILEAGE, DEFAULTADDRESS)
 	VALUES(SEQ_USER.NEXTVAL, #{email}, #{pwd}, 0, #{nickname}, 0, #{phone}, 0, SYSDATE, 40000, 0)

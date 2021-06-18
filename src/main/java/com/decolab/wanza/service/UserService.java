@@ -61,6 +61,14 @@ public class UserService {
 		return dao.checkEmail(mail);
 	}
 	
+	public int phoneCheck(UserDTO dto) {
+		return dao.phoneCheck(dto);
+	}
+	
+	public int nicknameCheck(UserDTO dto) {
+		return dao.nicknameCheck(dto);
+	}
+	
 	public void certifiedPhoneNumber(String phoneNumber, String cerNum) {
 		String api_key = "NCS2YEWZ5WIVTPDC";
 		String api_secret = "DHVIBSMPZNXBJHUSWPCGLXIFEVPXPPHA";
