@@ -43,5 +43,14 @@ public class AdminSalesController {
 		System.out.println("AdminSalesController salesCompare() " + new Date());
 		return service.salesCompare(dto);
 	}
+	
+	@RequestMapping(value = "/salesPrice", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<AdminSalesDTO> salesPrice(AdminSalesDTO dto){
+		System.out.println(dto.toString());
+		System.out.println("AdminSalesController salesPrice() " + new Date());
+		return service.salesPrice(dto);
+	}
+	
+	
 
 }

@@ -32,4 +32,7 @@ public class AdminSalesService{
 	public List<AdminSalesDTO> salesCompare(AdminSalesDTO dto){
 		return dao.salesCompare(dto);
 	}
+	public List<AdminSalesDTO> salesPrice(AdminSalesDTO dto){
+		return dao.salesPrice(dto);
+	}
 }
