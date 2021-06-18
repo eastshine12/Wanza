@@ -92,7 +92,7 @@
         let year = today.getFullYear(); // 년도
         let month = today.getMonth() + 1;  // 월
         let date = today.getDate();  // 날짜
-        let today2 = year+"/"+month+"/"+date; // 현재 날짜
+        today = year+"/"+month+"/"+date; // 현재 날짜
 
     $.ajax({
         url:"http://localhost:3000/getEventList",
@@ -107,11 +107,18 @@
                     +"</a>"                   
                     +"</div>"
                     +"<div>";
-                    // 현재 날짜보다 이벤트종료일이 크다면    
-                    if(new Date(val.eventEndDate) > new Date(today2) == true){
-                    app+="<p style='float: left;' class='eprogress'>진행중</p>";
-                    }else{
-                    app += "<p style='float: left;' class='eprogress2'>종료</p>";                    
+                    
+                    
+
+                    // 현재 날짜보다 이벤트종료일이 크다면
+                    if(new Date(val.eventEndDate) > new Date(today) == true && new Date(val.eventStartDate) < new Date(today) == true){
+                        app+="<p style='float: left;' class='eprogress'>진행중</p>";
+                    }
+                    else if(new Date(val.eventStartDate) > new Date(today) == true){
+                        app+="<p style='float: left; color:blue' class='eprogress'>진행 예정</p>";
+                    }
+                    else{
+                        app +="<p style='float: left;' class='eprogress2'>종료</p>";                    
                     }                    
                     app+="<p style='float: right;' class='eventdate'>"+val.eventStartDate+" ~ "+ val.eventEndDate+"</p>"
                     +"</div>"
