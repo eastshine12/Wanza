@@ -289,7 +289,7 @@ body{
 
 
         </div>
- 
+
     </div>
 
 </div>
@@ -312,7 +312,7 @@ body{
 <script>
 $(document).ready(function() {
 
-   
+
 });
 
 
@@ -691,7 +691,7 @@ function salesPrice(){
         type:"post",
         data:{"sDate":yesterday, "eDate":today },
         success:function(list){
-            alert(JSON.stringify(list));
+            //alert(JSON.stringify(list));
             $.each(list,function(i,val){
                 $("#salesPrice").append("<input type='hidden' id='hiddenPrice"+i+"' value='"+val.count+"'>");
             })
