@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,7 +60,7 @@ public class EventController {
 			e.printStackTrace();
 			return "file upload fail";
 		}
-
+		dto.setEventContent(StringEscapeUtils.unescapeHtml(dto.getEventContent()));
 		 return service.eventWrite(dto)>0?"suc":"err";
 	}
 	
