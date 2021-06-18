@@ -12,6 +12,10 @@
 
     <style>
 
+    .story_head{
+        font-size: 30px;
+        line-height: 1.7;
+    }
     /* 스토리 sort 메뉴 */
     .pop_wrap{
         margin: 0;
@@ -150,7 +154,7 @@
     <nav include-html="../commons/menuComm.html"></nav>
 
     <div class="container mt-4">
-        <h1 class="story_head" style="font-size: 30px;"><strong>스토리</strong></h1>
+        <h1 class="story_head"><strong>스토리</strong></h1>
 
         <div id="type_menu">
             <div class="row my-3 mx-1">
@@ -288,11 +292,10 @@ $(document).ready(function() {
             });
             $('.btn_pop:eq(3)').html(btnVal+' <i class="fas fa-sort"></i>').val('tagColor='+tagColor);
         }
-        console.log('123')
         getCardSortList(setJdata());
     }
     else if(searchWord!=''){
-        $('.story_head').prepend('<h5>검색결과 : '+searchWord+'</h5>');
+        $('.story_head').append('<h6>검색결과 : '+searchWord+'</h6>');
         getCardSortList(setJdata());
     }
     else{
