@@ -20,11 +20,25 @@
     font-family: 'Nanum Gothic', sans-serif;
     color: #212529;
 }
-#order_detail .title{
+#order_detail .od_title{
     margin: 30px 10px;
     font-size: 26pt;
     font-weight: bold;
     text-align: center;
+}
+#order_detail .od_return{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: #f4744c;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+#order_detail .od_return>div{
+    cursor: pointer;
+}
+#order_detail .od_return i{
+    margin: 0 7px;
 }
 
 /* 주문정보 */
@@ -56,6 +70,7 @@
     display: flex;
     padding: 20px 10px;
     border-top: solid 1px #d1d1d1;
+    align-items: center;
 }
 .img_wrap{
     position: relative;
@@ -75,20 +90,25 @@
     width: 80%;
 }
 .order_d1{
-    /* margin: 0 100px 0 0; */
+    margin: 0 30px 0 0;
     min-width: 450px;
-    font-size: 1em;
+    font-size: 0.9em;
 }
 .c_title{
     display: flex;
     align-items: center;
+    /* height: 30px */
 }
 .p_title{
     font-size: 1.5em;
     font-weight: 700;
+    line-height: 1.2;
+    margin: 10px 0;
+    min-height: 50px;
 }
-.order_d1 div{
-    height: 33.33%
+.o_title{
+    display: flex;
+    flex-direction: column;
 }
 .order_d2{
     display: flex;
@@ -102,7 +122,7 @@
 }
 
 .order_footer{
-    margin: 0 20px 50px;
+    margin: 0 20px 100px;
     height: 30px;
     background-color: #f1f1f1;
 }
@@ -110,32 +130,48 @@
 
 /* 결제정보 */
 .pay_info{
-    margin: 20px;
+    margin: 20px 20px 120px;
     font-size: 1.25em;
     font-weight: 600;
 }
 .pay_content{
-    height: 100px;
+    display: flex;
     margin: 15px 5px 50px;
     border-top: solid 1px #d1d1d1;
     border-bottom: solid 1px #d1d1d1;
 }
-
-
-
-
-
-
-
-
-
-
-
+.pay_d1{
+    width: 40%;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+.pay_d2{
+    margin: 0 0 0 40px;
+    width: 40%;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+.pay_d1 div{
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.pay_d1 div span:first-of-type,
+.pay_d2 div span:first-of-type{
+    font-weight: 600;
+}
+.pay_d2 div{
+    margin: 20px;
+    display: flex;
+}
+.pay_d2 span{
+    margin: 0 20px;
+}
 
 
 /* 배송지정보 */
 .dlvy_info{
-    margin: 20px;
+    margin: 20px 20px 120px;
     font-size: 1.25em;
     font-weight: 600;
 }
@@ -163,46 +199,20 @@
     <nav include-html="../commons/menuComm.html"></nav>
 
 <div class="container" id="order_detail">
-    <div class="title"><span>주문 상세정보</span></div>
-
+    <div class="od_title"><span>주문 상세정보</span></div>
+    <div class="od_return"><div><i class="fas fa-undo-alt"></i><span>돌아가기</span></div></div>
     <div class="order_info">
         <span>주문정보</span>
 
         <div class="order_wrap">
             <div class="order_content_head">
-                <span>주문번호 : 61</span> <span>주문날짜 : 2021-06-10</span>
+                <!-- 주문번호 들어가는 곳-->
             </div>
 
-            <div class="order_product">
-                <div class="img_wrap">
-                    <a href="#none">
-                        <img src="http://localhost:3000/upload/product1.jpg" alt="">
-                    </a>
-                </div>
-                <div class="order_box">
-                    <div class="order_d1">
-                        <div class="c_title"><a href="#none">원스플레이스</a></div>
-                        <div class="p_title"><a href="#none">디저트 스툴 보조 의자</a></div>
-                        <div>컬러 : 그린</div>
-                    </div>
-                    <div class="order_d2"><div>32,000원</div><div>1개</div></div>
-                </div>
+            <div class="order_products">
+                <!-- 주문상품 들어가는 곳-->
             </div>
-            <div class="order_product">
-                <div class="img_wrap">
-                    <a href="#none">
-                        <img src="http://localhost:3000/upload/product1.jpg" alt="">
-                    </a>
-                </div>
-                <div class="order_box">
-                    <div class="order_d1">
-                        <div class="c_title"><a href="#none">원스플레이스</a></div>
-                        <div class="p_title"><a href="#none">디저트 스툴 보조 의자</a></div>
-                        <div>컬러 : 그린</div>
-                    </div>
-                    <div class="order_d2"><div>32,000원</div><div>1개</div></div>
-                </div>
-            </div>
+
         </div>  <!-- 상세주문 끝 -->
 
         <div class="order_footer"></div>
@@ -211,14 +221,18 @@
     <div class="pay_info">
         <span>결제정보</span>
         <div class="pay_content">
-            상품금액
-            배송비
-            사용포인트
-            결제금액
-            결제방법
-            주문자
-            연락처
-            이메일
+            <div class="pay_d1">
+                <div><span>상품금액</span><span>72,000 원</span></div>
+                <div><span>배송비</span><span>2,500 원</span></div>
+                <div><span>사용포인트</span><span>2,500 P</span></div>
+                <div><span>결제금액</span><span>74,500 원</span></div>
+                <div><span>결제방법</span><span>카드</span></div>
+            </div>
+            <div class="pay_d2">
+                <div><span>주문자</span><span>홍길동</span></div>
+                <div><span>연락처</span><span>01012345678</span></div>
+                <div><span>이메일</span><span>hhh@hhh.com</span></div>
+            </div>
             
         </div>
     </div> <!-- 결제정보 끝 -->
@@ -234,7 +248,6 @@
                 <tr><td>주소</td><td>서울 지역구 무슨동 번지 건물이름</td></tr>
                 <tr><td>요청사항</td><td>요청해주세요</td></tr>
             </table>
-
         </div>
     </div> <!-- 배송지정보 끝 -->
 
@@ -250,7 +263,137 @@
 <script src="../../js/slang.js"></script>
 
 <script>
+const orderSeq = getParameter("seq");
+$(document).ready(function() {
+    
+    $('.od_return div').click(function(){ //이전페이지로 돌아가기
+        history.back();
+    });
+    let b = $('.dlvy_content td').eq(1).text();
+    console.log(b)
+    getMyOrderDetail();
+    getOrderAddress();
+});
 
+//주문상세 가져오기
+function getMyOrderDetail() {
+	$.ajax({
+		url:"http://localhost:3000/getMyOrderDetail",
+		type:"post",
+		data:{orderSeq:orderSeq},
+		success:function(data){
+            console.log(data);
+            let orderData = data[0];
+            let head = '<span>주문번호 : '+orderData.orderSeq+'</span><span>주문날짜 : '
+                     +  makeDate(orderData.orderDate)+'</span>'
+            $('.order_content_head').html(head)
+
+            let app = '';
+            $.each(data, function (i, val) {
+                app += '<div class="order_product">'
+
+                    +  '<div class="img_wrap">'
+                    +  '<a href="../store/storeDetail.html?seq='+val.productSeq+'">'
+                    +  '<img src="http://localhost:3000/upload/'+val.productFileName+'" alt="">'
+                    +  '</a></div>'
+
+                    +  '<div class="order_box"><div class="order_d1">'
+                    +  '<div class="c_title"><a href="../store/storeDetail.html?seq='+val.productSeq+'">'
+                    +  val.productMaker+'</a></div>'
+                    +  '<div class="p_title"><a href="../store/storeDetail.html?seq='+val.productSeq+'">'
+                    +  val.productName+'</a></div><div>'
+
+                    let jdata = JSON.parse(val.selectOption);
+                    if(jdata!=null){
+                        for(let j=0; j<jdata.length; j++) {
+                            app+= '<div>'+jdata[j].optionTitle+' : '+jdata[j].optionContent+'</div>';
+                        }
+                    }
+
+                app += '</div></div>'
+                    +  '<div class="order_d2"><div>'+makeComma(val.productAmount)+'원</div><div>'+val.quantity+'개</div></div>'
+                    +  '</div></div>'
+            });
+            $('.order_products').html(app)
+
+            $('.pay_d1 span').eq(1).text(makeComma(orderData.productAmount)+' 원');
+            $('.pay_d1 span').eq(3).text(makeComma(orderData.deliveryAmount)+' 원');
+            $('.pay_d1 span').eq(5).text(makeComma(orderData.useMileage)+' P');
+            $('.pay_d1 span').eq(7).text(makeComma(orderData.totalAmount)+' 원');
+            let at = orderData.amountType
+            if(at=='card'){ at = '카드' }
+            else if(at=='phone'){ at = '모바일' }
+            else if(at=='trans'){ at = '현금' }
+            $('.pay_d1 span').eq(9).text(at);
+            
+            if(orderData.userName==null){
+                $('.pay_d2 span').eq(1).text(orderData.nickname);
+            }else{
+                $('.pay_d2 span').eq(1).text(orderData.userName);
+            }
+            $('.pay_d2 span').eq(3).text(orderData.phone);
+            $('.pay_d2 span').eq(5).text(orderData.email);
+        },
+		error:function(){ console.log('error'); }
+	});
+}
+
+//배송지 정보 가져오기
+function getOrderAddress() {
+	$.ajax({
+		url:"http://localhost:3000/getOrderAddress",
+		type:"post",
+		data:{orderSeq:orderSeq},
+		success:function(data){
+            console.log(data);
+            $('.dlvy_content td').eq(1).text(data.addressName);
+            $('.dlvy_content td').eq(3).text(data.receiveUser);
+            $('.dlvy_content td').eq(5).text(data.receivePhone);
+            $('.dlvy_content td').eq(7).text(data.address);
+            $('.dlvy_content td').eq(9).text(data.orderMessage);
+        },
+		error:function(){ console.log('error'); }
+	});
+}
+
+// 날짜 형식
+function makeDate(str) {
+    return String(str.substr(0,10).replaceAll('-','.'))
+};
+
+// 금액 콤마 삽입 정규식
+function makeComma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+};
+
+//파라미터값 가져오도록 하는 함수
+function getParameter(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 </script>
 
 </html>
+
+                <!-- <div class="order_product">
+                    <div class="img_wrap">
+                        <a href="#none">
+                            <img src="http://localhost:3000/upload/product1.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="order_box">
+                        <div class="order_d1">
+                            <div class="c_title"><a href="#none">원스플레이스</a></div>
+                            <div class="p_title"><a href="#none">프라제르 아쿠아텍스 4인소파fd 스툴무료증정df 2colors</a></div>
+                            <div class="o_title">
+                                <span>색상선택 : 스카이블루 4인+스툴</span>
+                                <span>색상 : 빨강</span>
+                            </div>
+                            
+                        </div>
+                        <div class="order_d2"><div>32,000원</div><div>1개</div></div>
+                    </div>
+                </div> -->
