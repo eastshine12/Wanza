@@ -64,8 +64,6 @@ public class EventController {
 		 return service.eventWrite(dto)>0?"suc":"err";
 	}
 	
-	
-	
 	@RequestMapping(value = "/getEventList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<EventDTO> getEventList(EventDTO dto){
 		System.out.println("EventController getEventList() " + new Date());
@@ -78,6 +76,5 @@ public class EventController {
 		
 		return service.eventDetail(dto);		
 	}
-	
 	
 }
