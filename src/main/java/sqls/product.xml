@@ -39,7 +39,7 @@
 <select id="getSearchProduct" parameterType="com.decolab.wanza.dto.ProductDTO" resultType="com.decolab.wanza.dto.ProductDTO">
 	SELECT PRODUCTSEQ, PRODUCTNAME, PRODUCTCONTENT, PRODUCTPRICE, PRODUCTDISCOUNT, PRODUCTMAKER, PRODUCTFILENAME, PRODUCTRATING
 	FROM PRODUCTIONS
-	WHERE PRODUCTNAME LIKE'%'||#{productName}||'%'
+	WHERE PRODUCTNAME LIKE'%'||#{productName}||'%' AND PRODUCTDEL=0
 </select>
 
 <!-- 상품글 리스트 분류하여 가져오기 -->

@@ -60,14 +60,9 @@ public class EventController {
 			e.printStackTrace();
 			return "file upload fail";
 		}
-		
 		dto.setEventContent(StringEscapeUtils.unescapeHtml(dto.getEventContent()));
-		
-
-		return service.eventWrite(dto)>0?"suc":"err";
+		 return service.eventWrite(dto)>0?"suc":"err";
 	}
-	
-	
 	
 	@RequestMapping(value = "/getEventList", method = {RequestMethod.GET,RequestMethod.POST})
 	public List<EventDTO> getEventList(EventDTO dto){
@@ -81,6 +76,5 @@ public class EventController {
 		
 		return service.eventDetail(dto);		
 	}
-	
 	
 }
