@@ -143,7 +143,7 @@
 <select id="getProductTag" parameterType="com.decolab.wanza.dto.admin.AdminStoryTagDTO" resultType="com.decolab.wanza.dto.admin.AdminStoryTagDTO">
 	SELECT CARDSEQ, CC.PRODUCTSEQ, LOCATIONX, LOCATIONY, P.PRODUCTNAME, P.PRODUCTPRICE, P.PRODUCTFILENAME
 	FROM CARD_COORDINATES CC, PRODUCTIONS P
-	WHERE CC.PRODUCTSEQ=P.PRODUCTSEQ AND CARDSEQ=#{cardSeq}
+	WHERE CC.PRODUCTSEQ=P.PRODUCTSEQ AND CARDSEQ=#{cardSeq} ORDER BY LOCATIONY DESC
 </select>
 
 <delete id="deleteTag" parameterType="com.decolab.wanza.dto.admin.AdminStoryTagDTO">
@@ -174,7 +174,7 @@
 
 <insert id="addProductOption" parameterType="com.decolab.wanza.dto.ProductOptionDTO">
 	INSERT INTO PRODUCTION_OPTION
-	VALUES (#{productSeq}, #{optionSeq}, #{optionTitle}, #{optionContent}, #{optionPrice})
+	VALUES (SEQ_PRODUCT_OPTION.NEXTVAL, #{productSeq}, #{optionSeq}, #{optionTitle}, #{optionContent}, #{optionPrice})
 </insert>
 
 <select id="getRecentAddProductSeq" resultType="int">

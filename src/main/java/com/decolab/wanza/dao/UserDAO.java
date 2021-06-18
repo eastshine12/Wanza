@@ -27,6 +27,6 @@ public interface UserDAO {
 	
 	public String checkEmail(String mail);
 
-	
+	public int saveUserName(UserDTO dto);
 	
 }

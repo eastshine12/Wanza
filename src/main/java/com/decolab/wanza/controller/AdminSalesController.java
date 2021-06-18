@@ -37,5 +37,11 @@ public class AdminSalesController {
 		return service.pieChart(dto);
 		
 	}
+	@RequestMapping(value = "/salesCompare", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<AdminSalesDTO> salesCompare(AdminSalesDTO dto){
+		System.out.println(dto.toString());
+		System.out.println("AdminSalesController salesCompare() " + new Date());
+		return service.salesCompare(dto);
+	}
 
 }
