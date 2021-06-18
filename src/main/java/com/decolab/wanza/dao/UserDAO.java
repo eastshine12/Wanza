@@ -26,6 +26,10 @@ public interface UserDAO {
 	public UserDTO getUserEmail(UserDTO dto);
 	
 	public String checkEmail(String mail);
+	
+	public int phoneCheck(UserDTO dto);
+	
+	public int nicknameCheck(UserDTO dto);
 
 	public int saveUserName(UserDTO dto);
 	

@@ -136,8 +136,9 @@ public class ProductController {
 		
 		int a = service.deleteProductReview(dto);
 		int b = service.removeReviewPoint(dto);
+		int c = service.updateRating(dto);
 		
-		return a+b>0?"suc":"err";
+		return a+b+c>1?"suc":"err";
 	}
 	
 	
