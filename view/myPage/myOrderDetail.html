@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>완벽한 자취생활, 완자</title>
+
+<link rel="shortcut icon" href="../../assets/img/wanza-Icon.ico" type="image/x-icon"> <!-- 브라우저 탭 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- 폰트어썸아이콘 -->
+<link rel="stylesheet" type="text/css" href="../../css/style.css"> <!-- 공통-->
+
+<style>
+#order_detail a:hover,
+#order_detail a{
+    color: #424242;
+    text-decoration: none;
+}
+
+/* 제목 */
+#order_detail{
+    font-family: 'Nanum Gothic', sans-serif;
+    color: #212529;
+}
+#order_detail .title{
+    margin: 30px 10px;
+    font-size: 26pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 주문정보 */
+.order_info{
+    margin: 20px;
+    font-size: 1.25em;
+    font-weight: 600;
+}
+/* 주문 내역 */
+.order_wrap{
+    margin: 10px 0 0;
+    padding: 5px 20px 0px;
+    /* background-color: #f1f1f1; */
+    border-radius: 4px;
+    color: #424242;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.8em;
+}
+.order_content_head{
+    margin: 5px 0 12px;
+    padding: 0 0 0 5px;
+}
+.order_content_head span{
+    margin: 0 30px 0 0;
+}
+
+.order_product{
+    display: flex;
+    padding: 20px 10px;
+    border-top: solid 1px #d1d1d1;
+}
+.img_wrap{
+    position: relative;
+    margin: 0 20px 0 0;
+    height: 160px; width: 160px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.img_wrap img{
+    height: 100%;
+    /* width: 100%; */
+    margin: 0;
+}
+.order_box{
+    padding: 0 10px 5px;
+    display: flex;
+    width: 80%;
+}
+.order_d1{
+    /* margin: 0 100px 0 0; */
+    min-width: 450px;
+    font-size: 1em;
+}
+.c_title{
+    display: flex;
+    align-items: center;
+}
+.p_title{
+    font-size: 1.5em;
+    font-weight: 700;
+}
+.order_d1 div{
+    height: 33.33%
+}
+.order_d2{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1em;
+}
+.order_d2 div{
+    width: 50%;
+}
+
+.order_footer{
+    margin: 0 20px 50px;
+    height: 30px;
+    background-color: #f1f1f1;
+}
+
+
+/* 결제정보 */
+.pay_info{
+    margin: 20px;
+    font-size: 1.25em;
+    font-weight: 600;
+}
+.pay_content{
+    height: 100px;
+    margin: 15px 5px 50px;
+    border-top: solid 1px #d1d1d1;
+    border-bottom: solid 1px #d1d1d1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 배송지정보 */
+.dlvy_info{
+    margin: 20px;
+    font-size: 1.25em;
+    font-weight: 600;
+}
+.dlvy_content{
+    width: 100%;
+    min-width: 500px;
+    margin: 15px 5px 100px;
+    padding: 10px;
+    border-top: solid 1px #d1d1d1;
+    border-bottom: solid 1px #d1d1d1;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+.dlvy_content tr{
+    height: 40px;
+}
+.dlvy_content table td:first-of-type{
+    font-weight: 600;
+}
+
+</style>
+</head>
+<body>
+    <header include-html="../commons/header.html"></header>
+    <nav include-html="../commons/menuComm.html"></nav>
+
+<div class="container" id="order_detail">
+    <div class="title"><span>주문 상세정보</span></div>
+
+    <div class="order_info">
+        <span>주문정보</span>
+
+        <div class="order_wrap">
+            <div class="order_content_head">
+                <span>주문번호 : 61</span> <span>주문날짜 : 2021-06-10</span>
+            </div>
+
+            <div class="order_product">
+                <div class="img_wrap">
+                    <a href="#none">
+                        <img src="http://localhost:3000/upload/product1.jpg" alt="">
+                    </a>
+                </div>
+                <div class="order_box">
+                    <div class="order_d1">
+                        <div class="c_title"><a href="#none">원스플레이스</a></div>
+                        <div class="p_title"><a href="#none">디저트 스툴 보조 의자</a></div>
+                        <div>컬러 : 그린</div>
+                    </div>
+                    <div class="order_d2"><div>32,000원</div><div>1개</div></div>
+                </div>
+            </div>
+            <div class="order_product">
+                <div class="img_wrap">
+                    <a href="#none">
+                        <img src="http://localhost:3000/upload/product1.jpg" alt="">
+                    </a>
+                </div>
+                <div class="order_box">
+                    <div class="order_d1">
+                        <div class="c_title"><a href="#none">원스플레이스</a></div>
+                        <div class="p_title"><a href="#none">디저트 스툴 보조 의자</a></div>
+                        <div>컬러 : 그린</div>
+                    </div>
+                    <div class="order_d2"><div>32,000원</div><div>1개</div></div>
+                </div>
+            </div>
+        </div>  <!-- 상세주문 끝 -->
+
+        <div class="order_footer"></div>
+    </div> <!-- 주문정보 끝 -->
+
+    <div class="pay_info">
+        <span>결제정보</span>
+        <div class="pay_content">
+            상품금액
+            배송비
+            사용포인트
+            결제금액
+            결제방법
+            주문자
+            연락처
+            이메일
+            
+        </div>
+    </div> <!-- 결제정보 끝 -->
+
+    <div class="dlvy_info">
+        <span>배송지정보</span>
+        <div class="dlvy_content">
+            <table>
+                <col width="150"><col width="500">
+                <tr><td>배송지명</td><td>회사</td></tr>
+                <tr><td>받는분</td><td>일이삼</td></tr>
+                <tr><td>연락처</td><td>01012345678</td></tr>
+                <tr><td>주소</td><td>서울 지역구 무슨동 번지 건물이름</td></tr>
+                <tr><td>요청사항</td><td>요청해주세요</td></tr>
+            </table>
+
+        </div>
+    </div> <!-- 배송지정보 끝 -->
+
+</div>
+
+    <footer include-html="../commons/footer.html"></footer>
+</body>
+
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../js/includeHTML.js"></script>
+<script src="../../js/header.js"></script>
+<script src="../../js/slang.js"></script>
+
+<script>
+
+</script>
+
+</html>
