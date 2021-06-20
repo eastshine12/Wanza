@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../../css/question.css">
     <link rel="stylesheet" type="text/css" href="../../css/question-detail.css">
     <link rel="stylesheet" type="text/css" href="../../css/question-comment.css">
@@ -72,13 +73,14 @@
       border-radius: 15px;
       color: white;
     }
-
+    
     #body,#body p, #body b,#body h1, #body h2, #body h3, #body h5,#body h6, #body li{
       font-family: 'Nanum Gothic', sans-serif;
       font-weight: 500;
         /* font-weight: bold; */
     }
-
+    #nav li, #footer h3, #footer p, #footer li{font-family: 'Noto Sans KR', sans-serif;}
+    #footer h3{font-weight: 700;}
     .questions-item{
     color: black; 
     width: 800px; 
@@ -167,7 +169,7 @@
 
 <body id="body" style="font-family: 'Nanum Gothic', sans-serif;">
     <header include-html="../commons/header.html"></header>
-    <nav include-html="../commons/menuComm.html"></nav>
+    <nav id="nav" include-html="../commons/menuComm.html"></nav>
 
     <div id="questions-index-page" style="font-family: 'Noto Sans KR', sans-serif">
         <div id="questions-header">
@@ -252,8 +254,7 @@
 
     </div>
 
-    <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
-    <footer include-html="../commons/footer.html"></footer>
+    <footer id="footer" include-html="../commons/footer.html"></footer>
 
 </body>
 

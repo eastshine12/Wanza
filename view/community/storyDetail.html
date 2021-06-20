@@ -152,6 +152,54 @@
         .far{
             color: #424242;
         }
+
+        /* 좋아요 버튼 */
+        #likeBtn:focus{box-shadow: none;}
+        #likeBtn{
+            /* margin: 20em 0 0 20em; */
+            width: 150px;
+            height: 45px;
+            background: transparent;
+            border: solid 1px rgb(200,200,200);
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+        #likeBtn div{
+            position: relative;
+            display: inline;
+        }
+        #likeBtn i{color: red;}
+        #likeBtn.active i{animation: animateHeart .3s;}
+        svg{
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            left: -20px;
+            top: -20px;
+        }
+        #likeBtn.active .grp1{
+            opacity: 1;
+            transition: .1s all;
+        }
+        #likeBtn.active #oval1 {transform:scale(0) translate(  0px,  30px);transition:.9s transform;}
+        #likeBtn.active #oval2 {transform:scale(0) translate( 10px, -50px);transition:.9s transform;}
+        #likeBtn.active #oval3 {transform:scale(0) translate( 30px, -15px);transition:.9s transform;}
+        #likeBtn.active #oval4 {transform:scale(0) translate( 60px, -15px);transition:.9s transform;}
+        #likeBtn.active #oval5 {transform:scale(0) translate( 30px,   0px);transition:.9s transform;}
+        #likeBtn.active #oval6 {transform:scale(0) translate( 60px,  10px);transition:.9s transform;}
+        #likeBtn.active #oval7 {transform:scale(0) translate( 30px,  15px);transition:.9s transform;}
+        #likeBtn.active #oval8 {transform:scale(0) translate( 40px,  50px);transition:.9s transform;}
+        #likeBtn.active #oval9 {transform:scale(0) translate(-10px,  20px);transition:.9s transform;}
+        #likeBtn.active #oval10{transform:scale(0) translate(-60px,  30px);transition:.9s transform;}
+        #likeBtn.active #oval11{transform:scale(0) translate(-30px,   0px);transition:.9s transform;}
+        #likeBtn.active #oval12{transform:scale(0) translate(-60px,  -5px);transition:.9s transform;}
+        #likeBtn.active #oval13{transform:scale(0) translate(-30px, -15px);transition:.9s transform;}
+        #likeBtn.active #oval14{transform:scale(0) translate(-55px, -30px);transition:.9s transform;}
+        @keyframes animateHeart{
+            0%{transform:scale(.2);}
+            40%{transform:scale(1.5);}
+            100%{transform:scale(1);}
+        }
     </style>
 </head>
 
@@ -185,7 +233,7 @@
                     <div class="col"><span id="cardContent"></span></div>
                 </div>
                 <div class="row" style="margin-top: 7px;margin-bottom: 15px;">
-                    <div class="col"><button id="likeBtn" class="btn" type="button" style="width: 150px;height: 45px;background: rgb(244, 116, 76);color: rgb(255,255,255);"></button></div>
+                    <div class="col"><button id="likeBtn" class="btn" type="button"></button></div>
                 </div>
                 <div class="row">
                     <div class="col" style="margin-bottom: -10px;"><p style="font-size: 14px; color:#9e9e9e;"><span id="nickName" style="color: rgb(244, 116, 76);font-weight: bold;"></span> 님의 다른 인테리어 사진</p></div>
@@ -544,7 +592,17 @@
                 async: false,
                 success: function (likeCount) {
                     console.log(likeCount);
-                    $('#likeBtn').html('<i class="fa fa-heart" style="color: var(--light);"></i> &nbsp; ' + likeCount);
+                    let heart = '<div><i class="far fa-heart"></i>'
+                            + '<svg id="heart-svg" viewBox="-19 -17 100 100" xmlns="http://www.w3.org/2000/svg"><g id="Group">'
+                            + '<g class="grp1" opacity="0" transform="translate(24 0)"><circle id="oval1" fill="#9FC7FA" cx="2.5" cy="3" r="5"/><circle id="oval2" fill="#9FC7FA" cx="7.5" cy="2" r="5"/></g>'
+                            + '<g class="grp1" opacity="0" transform="translate(44 6)"><circle id="oval3" fill="#CC8EF5" cx="5" cy="6" r="5"/><circle id="oval4" fill="#CC8EF5" cx="2" cy="2" r="5"/></g>'
+                            + '<g class="grp1" opacity="0" transform="translate(52 28)"><circle id="oval5" fill="#9CD8C3" cx="2" cy="7" r="5"/><circle id="oval6" fill="#8CE8C3" cx="4" cy="2" r="5"/></g>'
+                            + '<g class="grp1" opacity="0" transform="translate(35 50)"><circle id="oval7" fill="#F48EA7" cx="6" cy="5" r="5"/><circle id="oval8" fill="#F48EA7" cx="2" cy="2" r="5"/></g>'
+                            + '<g class="grp1" opacity="0" transform="translate(14 50)"><circle id="oval9" fill="#91D2FA" cx="6" cy="5" r="5"/><circle id="oval10" fill="#91D2FA" cx="2" cy="2" r="5"/></g>'
+                            + '<g class="grp1" opacity="0" transform="translate(0 28)"><circle id="oval11" fill="#CC8EF5" cx="2" cy="7" r="5"/><circle id="oval12" fill="#91D2FA" cx="3" cy="2" r="5"/></g>'
+                            + '<g class="grp1" opacity="0" transform="translate(7 6)"><circle id="oval13" fill="#9CD8C3" cx="2" cy="6" r="5"/><circle id="oval14" fill="#8CE8C3" cx="5" cy="2" r="5"/></g>'
+                            + '</g></svg></div>'
+                    $('#likeBtn').html(heart + '&nbsp; ' + likeCount);
                 },
                 error: function () {
                     alert('getCardLikeCount() error');
@@ -568,7 +626,8 @@
                     console.log(data);
                     existLike = data;
                     if (data == "exist") {
-                        $('#likeBtn i').attr('style', "color: red; font-size: 18px;");
+                        // $('#likeBtn i').attr('style', "color: red; font-size: 18px;");
+                        $('#likeBtn i').toggleClass('fa').toggleClass('far');
                     }
                     else {
 
@@ -580,18 +639,14 @@
             });
         };
 
-
- 
-
-
         // 좋아요 버튼 클릭
         $('#likeBtn').click(function() {
-
             if(sessionId.userSeq == undefined) {
                 alert('로그인 후에 가능합니다.');
                 return;
             }
-
+            
+            $(this).toggleClass('active');
             // 좋아요가 눌려있지 않았다면 좋아요 +1
             if (existLike != "exist") {
                 $.ajax({

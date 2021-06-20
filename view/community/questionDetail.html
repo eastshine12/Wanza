@@ -125,7 +125,8 @@
           font-weight: 500;
             /* font-weight: bold; */
         }
-
+        #nav li, #footer h3, #footer p, #footer li{font-family: 'Noto Sans KR', sans-serif;}
+        #footer h3{font-weight: 700;}
         .question-detail-container{
           font-family: 'Nanum Gothic', sans-serif;
           font-weight: 500;
@@ -233,7 +234,7 @@
 <body id="body">
     
     <header include-html="../commons/header.html"></header>
-    <nav include-html="../commons/menuComm.html"></nav>
+    <nav id="nav" include-html="../commons/menuComm.html"></nav>
 
     <div class="row">
 
@@ -413,7 +414,7 @@
     
     </div>  
 
-    <footer include-html="../commons/footer.html"></footer>
+    <footer id="footer" include-html="../commons/footer.html"></footer>
 
 </body>
 
