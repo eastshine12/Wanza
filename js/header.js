@@ -1,11 +1,6 @@
 
 includeHTML();
 
-// 상단 배너 X 클릭 삭제
-$(document).on('click', '#closeBanner', function() {
-    $('#_card').hide();
-})
-
 // 로고 클릭 -> 메인화면 이동
 $(document).on('click', '#_logo', function () {
     location.href = '../../index.html';
@@ -291,3 +286,25 @@ window.kakaoAsyncInit = function() {
     fjs.parentNode.insertBefore(js, fjs);
   })(document, 'script', 'kakao-js-sdk');
 
+//쿠키 저장하기
+let setCookie = function(name, value, exp) {
+    let date = new Date();
+    date.setTime(date.getTime() + exp*24*60*60*1000);
+    document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+};
+//쿠키 가져오기
+let getCookie = function(name) {
+    let value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return value? value[2] : null;
+};
+
+// 상단 배너 X 클릭 삭제
+$(document).on('click', '#closeBanner', function() {
+    $('#_card').hide();
+    setCookie('banner',1,0.069);
+})
+//let ban = '';
+let ban = getCookie('banner');
+if(ban==1){
+    $('#_card').hide();
+}
