@@ -464,7 +464,7 @@ $(document).ready(function(){
 >>>>>>> da72243e44846aafec10a7314fe3009712ee486a
 =======
     
-    if(sessionId==null){
+    if(sessionId==null || sessionId.auth =="3"){
         $("#_replyinput").attr("src","http://localhost:3000/upload/wanza.png");
     }else{
         $("#_replyinput").attr("src","http://localhost:3000/upload/"+sessionId.profileName);
