@@ -250,10 +250,7 @@ $('.e_date').datepicker({
         if($("#startDate").val()=="" || $("#endDate").val()==""){
             alert("날짜를 확인해주세요");
         }
-        /* 유효성 검사 수정 */
-        else if(dd){
-
-        }
+    
         var form = $('#eventForm').serialize();
 
          $.ajax({

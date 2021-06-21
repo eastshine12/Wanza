@@ -111,7 +111,7 @@
                     
 
                     // 현재 날짜보다 이벤트종료일이 크다면
-                    if(new Date(val.eventEndDate) > new Date(today) == true && new Date(val.eventStartDate) < new Date(today) == true){
+                    if(new Date(val.eventEndDate) >= new Date(today) == true && new Date(val.eventStartDate) <= new Date(today) == true){
                         app+="<p style='float: left;' class='eprogress'>진행중</p>";
                     }
                     else if(new Date(val.eventStartDate) > new Date(today) == true){
