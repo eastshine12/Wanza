@@ -129,7 +129,7 @@ body{
     margin: 20px 50px;
     padding: 20px;
     border-radius: 5px;
-    background-color: #dee2e6f7;
+    background-color: white;
     justify-content: center;
     z-index: 2;
     color: white;
@@ -178,7 +178,6 @@ body{
     height: 300px;
     z-index: 10000;
 }
-
 </style>
 
 </head>
@@ -206,7 +205,7 @@ body{
 
                 <div class="box_wrap">
                     <div class="box_head">
-                        <i class="fas fa-scroll fa-2x"></i>
+                        &nbsp;&nbsp;<i class="fas fa-file-signature fa-2x"></i>
                     </div>
                     <div class="box_main">
                         <div class="box_content">
@@ -646,8 +645,8 @@ let yesterday = year+"-"+month+"-"+yesterdate;
                 $("#salesCompare").append("<input type='hidden' id='hiddenNum"+i+"' value='"+val.count+"'>");
             })
 
-            let ySales = $("#hiddenNum0").val();    // 어제 판매 갯수
-            let tSales =$("#hiddenNum1").val();     // 오늘 판매 갯수
+            let tSales = $("#hiddenNum0").val();    // 어제 판매 갯수
+            let ySales =$("#hiddenNum1").val();     // 오늘 판매 갯수
             if(tSales==undefined){
                 tSales=0;
             }
@@ -700,8 +699,8 @@ function salesPrice(){
                 $("#salesPrice").append("<input type='hidden' id='hiddenPrice"+i+"' value='"+val.count+"'>");
             })
 
-            let ySalesPrice = $("#hiddenPrice0").val();    // 어제 판매 갯수
-            let tSalesPrice =$("#hiddenPrice1").val();     // 오늘 판매 갯수
+            let tSalesPrice = $("#hiddenPrice0").val();    // 오늘 판매 갯수
+            let ySalesPrice =$("#hiddenPrice1").val();     // 어제 판매 갯수
 
             if(tSalesPrice==undefined){
                 tSalesPrice=0;
