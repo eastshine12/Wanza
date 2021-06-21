@@ -438,13 +438,17 @@ $(document).ready(function(){
 
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
     console.log(sessionId);
+
     
-    if(sessionId==null || sessionId.auth =="3"){
+    if(sessionId==null){
         $("#_replyinput").attr("src","http://localhost:3000/upload/wanza.png");
-    }else{
+        }else{
         $("#_replyinput").attr("src","http://localhost:3000/upload/"+sessionId.profileName);
     }
 
+
+
+    //$("#_replyinput").attr("src","http://localhost:3000/upload/"+sessionId.profileName)
     //글 삭제하기
 
     //조회수 증가시키기

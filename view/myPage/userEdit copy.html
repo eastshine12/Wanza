@@ -241,10 +241,10 @@ select {
                             <!-- 배송지 삭제 -->
                             <div class="tab-pane" id="dlvy_delete">
                               <table class="table" id="deleTb">
-                                  <colgroup>
+                                <colgroup>
                                     <col width=120px><col width=480px><col>
                                 </colgroup>
-                                <tr>
+                                <tr id="deleTbtr">
                                     <th>배송지명</th><th>주소</th><th></th>                                   
                                 </tr>                              
                               </table>
@@ -459,6 +459,35 @@ function updateDeli(){
     }
 }
 
+ // 배송지 리스트
+ addressList();
+    function addressList(){
+        $.ajax({
+            url:"http://localhost:3000/getAddressList",
+            type:"post",
+            data:{"userSeq":sessionId.userSeq},
+            success:function(list){
+
+                let app ="";
+                let app2 = "<select onchange='selectChange()' id='_selected'><option disabled selected>-- 배송지 선택 --</option>"
+                $.each(list,function(i,val){
+                    let address = val.address;
+                    let splitadd = address.split("///");
+                app += '<tr class="listTr">'
+                    +'<td>'+val.addressName+'</td><td>'+splitadd[0]+" "+splitadd[1]+'</td><td><a onclick="deleteDeli('+val.addressSeq+')" style="cursor:pointer;"><i class="fas fa-times"></i></a></td>'
+                    +'</tr>';
+                app2 += '<option value="'+val.addressSeq+'">'+val.addressName+'</option>';                   
+                });
+                app2 += '</select>';
+                $(".selectbox").append(app2);
+                $("#deleTbtr").after(app);
+
+            },error:function(){
+                alert("addressList error");
+            }
+
+        })
+    }
 
 
 
@@ -472,6 +501,8 @@ function deleteDeli(addressSeq){
             type:"post",
             data:{"addressSeq":addressSeq},
             success:function(){
+                $(".listTr").remove();
+                $(".selectbox").children().remove();
                 addressList();
             },error:function(){
                 alert("delete error");
@@ -483,6 +514,12 @@ function deleteDeli(addressSeq){
 // 배송지 등록
 function insertDele(){
     if(confirm("배송지를 등록하시겠습니까?")==true){
+
+        if($("#receiveAddress").val()==""|| $("#address1").val()=="" || $("#address2").val()==""){
+            alert("배송지 명과 주소는 필수사항입니다.");
+            return;
+        }
+
         $.ajax({
 
             url:"http://localhost:3000/addAddress",
@@ -495,11 +532,15 @@ function insertDele(){
                 },
             success:function(){
                 alert("등록이 완료되었습니다.");
+              
                 $("#receiveName").val("");
                 $("#receiveAddress").val("");
                 $("#address1").val("");
                 $("#address2").val("");
                 $("#phone").val("");
+                $(".selectbox").children().remove();
+                $(".listTr").remove();
+                addressList();
             },error:function(){
                 alert("insert error");
             }
@@ -545,36 +586,7 @@ $(document).ready(function(){
             }
         })
     }
-    // 배송지 리스트
-    addressList();
-    function addressList(){
-        $.ajax({
-            url:"http://localhost:3000/getAddressList",
-            type:"post",
-            data:{"userSeq":sessionId.userSeq},
-            success:function(list){
-                //$("#deleTb").children().remove();
-                let app ="";
-                let app2 = "<select onchange='selectChange()' id='_selected'><option disabled selected>-- 배송지 선택 --</option>"
-                $.each(list,function(i,val){
-                    let address = val.address;
-                    let splitadd = address.split("///");
-                app += '<tr>'
-                    +'<td>'+val.addressName+'</td><td>'+splitadd[0]+" "+splitadd[1]+'</td><td><a onclick="deleteDeli('+val.addressSeq+')" style="cursor:pointer;"><i class="fas fa-times"></i></a></td>'
-                    +'</tr>';
-                app2 += '<option value="'+val.addressSeq+'">'+val.addressName+'</option>';                   
-                });
-                app2 += '</select>';
-                $(".selectbox").append(app2);
-                $("#deleTb").append(app);
-
-            },error:function(){
-                alert("addressList error");
-            }
-
-        })
-    }
-
+   
 
 
 

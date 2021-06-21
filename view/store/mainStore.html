@@ -735,30 +735,32 @@ function getHashTagList() {
 		type:"get",
 		success:function(list){ 
             console.log(list); 
-            //중복 x 랜덤 6개 번호 생성
+            //중복 x 랜덤 6개 생성
             let tagNumArr = new Array;
-            let sameNum;
+            let tagArr = new Array;
+            let sameTag = false;
             let i = 0;
             while (i < 6) {
                 let n = Math.floor(Math.random()*list.length);
-                for(let j = 0; j < tagNumArr.length; j++) {
-                    if(n === tagNumArr[j]) {
-                        sameNum = true;
+                for(let j = 0; j < tagArr.length; j++) {
+                    if(tagArr[j] == list[n].hashTagName) {
+                        sameTag = true;
                         break;
-                    } else {
-                        sameNum = false;
+                    }
+                    else {
+                        sameTag = false;
                     }
                 }
-                if(!sameNum) {
-                    tagNumArr.push(n);
+                if(!sameTag) {
+                    tagArr.push(list[n].hashTagName);
                     i++;
                 }
             }
-            console.log(tagNumArr);
+            console.log(tagArr);
 
             for(let i = 0; i < 6; i++) {
-                $('#hashTag_'+(i+1)).text('# '+list[tagNumArr[i]].hashTagName);
-                $('#hashTag_'+(i+1)).attr('hashTag', list[tagNumArr[i]].hashTagName);
+                $('#hashTag_'+(i+1)).text('# '+tagArr[i]);
+                $('#hashTag_'+(i+1)).attr('hashTag', tagArr[i]);
             }
 
         },
