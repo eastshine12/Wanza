@@ -401,8 +401,10 @@ function getQuestionList(word,s,page){
           $.each(list, function(i, val){
             
             let pfname = val.profileName;
-            if(isEmpty(pfname) == false ){
+            if(isEmpty(pfname) == true ){
               pfname = '../image/avatar.png';
+            } else {
+              pfname = val.profileName;
             }
             let qfname = val.questionFileName;
 

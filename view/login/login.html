@@ -248,8 +248,7 @@
                 dataType: 'text',
                 success:function(email){
                     alert("kakao ajax 성공");
-                    Kakao.Auth.login()
-                    
+
                     //console.log(session.setattribute(getItem("login")));
                     klogin(email);
                     //location.href = "../community/mainCommunity.html"
@@ -278,15 +277,14 @@
                     },
             //async : false,
             success: function (data) {
-                if(data.email != null && data.email != '') {
+                alert('klogin success');
+                if(isEmpty(data.email) == false) {
                     sessionStorage.setItem("login", JSON.stringify(data));
                     location.href = "../../index.html";
                     alert(sessionStorage.setItem("login", JSON.stringify(data)));
-                    
                 } else {
                     alert('klogin fail');
                 }
-                
             },
             error: function () {
                 alert('ajax error');

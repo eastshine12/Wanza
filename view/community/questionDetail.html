@@ -438,39 +438,17 @@ $(document).ready(function(){
 
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
     console.log(sessionId);
-<<<<<<< HEAD
 
-<<<<<<< HEAD
     
     if(sessionId==null){
         $("#_replyinput").attr("src","http://localhost:3000/upload/wanza.png");
         }else{
-=======
-    if(sessionId==null){
-        $("#_replyinput").attr("src","http://localhost:3000/upload/");
-    }else{
->>>>>>> da72243e44846aafec10a7314fe3009712ee486a
         $("#_replyinput").attr("src","http://localhost:3000/upload/"+sessionId.profileName);
     }
 
 
 
-<<<<<<< HEAD
     //$("#_replyinput").attr("src","http://localhost:3000/upload/"+sessionId.profileName)
-=======
-
-
-    
->>>>>>> da72243e44846aafec10a7314fe3009712ee486a
-=======
-    
-    if(sessionId==null || sessionId.auth =="3"){
-        $("#_replyinput").attr("src","http://localhost:3000/upload/wanza.png");
-    }else{
-        $("#_replyinput").attr("src","http://localhost:3000/upload/"+sessionId.profileName);
-    }
-
->>>>>>> 26f7fe4704e3175cb68f07466d4f6e8773c130bc
     //글 삭제하기
 
     //조회수 증가시키기
