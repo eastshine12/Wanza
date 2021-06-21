@@ -125,7 +125,8 @@
           font-weight: 500;
             /* font-weight: bold; */
         }
-
+        #nav li, #footer h3, #footer p, #footer li{font-family: 'Noto Sans KR', sans-serif;}
+        #footer h3{font-weight: 700;}
         .question-detail-container{
           font-family: 'Nanum Gothic', sans-serif;
           font-weight: 500;
@@ -233,7 +234,7 @@
 <body id="body">
     
     <header include-html="../commons/header.html"></header>
-    <nav include-html="../commons/menuComm.html"></nav>
+    <nav id="nav" include-html="../commons/menuComm.html"></nav>
 
     <div class="row">
 
@@ -413,7 +414,7 @@
     
     </div>  
 
-    <footer include-html="../commons/footer.html"></footer>
+    <footer id="footer" include-html="../commons/footer.html"></footer>
 
 </body>
 
@@ -438,16 +439,28 @@ $(document).ready(function(){
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
     console.log(sessionId);
 
+<<<<<<< HEAD
     
     if(sessionId==null){
         $("#_replyinput").attr("src","http://localhost:3000/upload/wanza.png");
         }else{
+=======
+    if(sessionId==null){
+        $("#_replyinput").attr("src","http://localhost:3000/upload/");
+    }else{
+>>>>>>> da72243e44846aafec10a7314fe3009712ee486a
         $("#_replyinput").attr("src","http://localhost:3000/upload/"+sessionId.profileName);
     }
 
 
 
+<<<<<<< HEAD
     //$("#_replyinput").attr("src","http://localhost:3000/upload/"+sessionId.profileName)
+=======
+
+
+    
+>>>>>>> da72243e44846aafec10a7314fe3009712ee486a
     //글 삭제하기
 
     //조회수 증가시키기

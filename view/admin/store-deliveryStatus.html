@@ -318,6 +318,18 @@ select::-ms-expand{
     display: none;
 }
 
+/* 테이블 */
+.tab_status label{
+    margin: 0;
+}
+.tab_status select{
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+.tab_status option{ 
+    padding: 0 10px;
+}
 .table td{
     vertical-align: middle;
     word-break:break-all;
@@ -406,38 +418,40 @@ select::-ms-expand{
         <!-- 검색화면 -->
         <div class="search_wrap">
             <form id="search_form">
-            <div class="search_box">
-                <!-- 날짜 -->
-                <div class="search_date">
-                    <div class="move_input">
-                        <label>시작일</label>
-                        <input type="text" class="datepicker s_date" name="startDate">
+                <div class="search_box">
+                    <!-- 날짜 -->
+                    <div class="search_date">
+                        <div class="move_input">
+                            <label>시작일</label>
+                            <input type="text" class="datepicker s_date" name="startDate">
+                        </div>
+                        <div class="move_input">
+                            <label>종료일</label>
+                            <input type="text" class="datepicker e_date" name="endDate">
+                        </div>
                     </div>
-                    <div class="move_input">
-                        <label>종료일</label>
-                        <input type="text" class="datepicker e_date" name="endDate">
+
+                    <!-- 카테고리 -->
+                    <div class="select_category">
+                        <label class="move_label">검색종류</label>
+                        <label for="sele2"><select name="sort" id="sele2">
+                            <option value="0"></option>
+                            <option value="1">주문번호</option>
+                            <option value="2">제품명</option>
+                            <option value="3">배송지역</option>
+                            <option value="4">주문자</option>
+                            <option value="5">전화번호</option>
+                        </select><i class="fas fa-sort-down"></i></label>
+                    </div>
+
+                    <input type="hidden" name="orderStatus" class="hidden_os">
+
+                    <!-- 검색 -->
+                    <div class="search">
+                        <input type="text" placeholder="검색..." name="word">
+                        <button type="button" class="search_btn"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
-
-                <!-- 카테고리 -->
-                <div class="select_category">
-                    <label class="move_label">검색종류</label>
-                    <label for="sele2"><select name="sort" id="sele2">
-                        <option value="0"></option>
-                        <option value="1">주문번호</option>
-                        <option value="2">제품명</option>
-                        <option value="3">배송지역</option>
-                        <option value="4">주문자</option>
-                        <option value="5">전화번호</option>
-                    </select><i class="fas fa-sort-down"></i></label>
-                </div>
-
-                <!-- 검색 -->
-                <div class="search">
-                    <input type="text" placeholder="검색..." name="word">
-                    <button type="button" class="search_btn"><i class="fas fa-search"></i></button>
-                </div>
-            </div>
             </form>
         </div>
         
@@ -468,13 +482,30 @@ select::-ms-expand{
 
             <table class="table table-hover text-center">
                 <colgroup>
-                    <col width="56"><col width="100"><col width="86"><col width="96">
+                    <col width="56"><col width="100"><col width="100"><col width="96">
                     <col width="auto"><col width="56"><col width="86"><col width="80">
                     <col width="160"><col width="110"><col width="105"><col width="86">
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>체크</th><th>주문번호</th><th>주문상태</th><th>주문일시</th>
+                        <th>체크</th><th>주문번호</th>
+                        <th class="tab_status">
+                            <label for="sele3">
+                                <select name="dly_status2" id="sele3">
+                                    <option value="-1">주문상태</option>
+                                    <option value="0">배송준비</option>
+                                    <option value="1">배송중</option>
+                                    <option value="2">배송완료</option>
+                                    <option value="3">결제대기</option>
+                                    <option value="4">결제완료</option>
+                                    <option value="5">환불대기</option>
+                                    <option value="6">환불완료</option>
+                                    <option value="7">판매완료</option>
+                                </select>
+                                <i class="fas fa-sort-down"></i>
+                            </label>
+                        </th>
+                        <th>주문일시</th>
                         <th>제품명</th><th>수량</th><th>배송지역</th><th>주문자</th>
                         <th>전화번호</th><th>금액</th><th>사용포인트</th><th>결제수단</th>
                     </tr>
@@ -527,7 +558,14 @@ $(document).ready(function() {
             });
         }
     });
-
+    
+    //배송현황별로 정렬
+    $('#sele3').change( function() {
+        $('.hidden_os').val($(this).val())
+        //<if test='orderStatus neq null and orderStatus neq ""'>AND ORDERSTATUS=#{orderStatus}</if>
+        //getDeliveryStatusCount(getFormData());
+    });
+	
     $('.move_input input').focus( function() { // 날짜 선택시 글씨 이동 이벤트
         $(this).parent().addClass('active')
     });

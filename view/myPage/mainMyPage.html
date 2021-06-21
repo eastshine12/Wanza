@@ -449,7 +449,6 @@
                 <div class="tab-pane fade show active" id="my_story">
                     
                     <div class="storys_content my-5 ml-5">
-                        <!-- <span>나의 이야기</span> -->
 
                         <a href="#none"><div class="story_blank">
                             당신의 소중한 집을 사진과 글로 자랑해주세요.
@@ -596,7 +595,7 @@
                                     <div>
                                         <span>주문번호 : 61</span> <span>주문날짜 : 2021-06-10</span>
                                     </div>
-                                    <div><a href="#none">더보기 <i class="fas fa-caret-right"></i></a></div>
+                                    <div><a href="myOrderDetail.html?seq=1">더보기 <i class="fas fa-caret-right"></i></a></div>
                                 </div>
                                 <div class="order_product">
 
@@ -662,27 +661,6 @@ $(document).ready(function() {
         else{                 a=1 }
         setCookie('nav',a,0.069)
     });
-
-    //유저정보입력
-
-
-
-
-
-
-
-
-
-    /*
-    $('.profile_name').text(sessionId.nickname);
-    $('.profile_category span:eq(1)').text(makeComma(sessionId.mileage));
-    if(sessionId.profileName != '0') {
-        $('.fa-user-circle-o').hide();
-        $('.profile_img').css('border', '0px');
-        $('.profile_img').append($('<img src="http://192.168.0.231:3000/upload/'+sessionId.profileName+'" style="width: 158px;height: 158px; object-fit:cover; border-radius: 70%;" />'));
-    }
-    */
-
 
     // 배송현황 클릭
     $('.order_count_wrap').click(function(){
@@ -797,7 +775,7 @@ function getMyOrderList(jdata) {
                         if(i>0){app+= '</div>';}
                         app+= '<div class="order_wrap"><div class="order_content_head">'
                         app+= '<div><span>주문번호 : '+val.orderSeq+'</span><span>주문날짜 : '+makeDate(val.orderDate)+'</span></div>'
-                        app+= '<div><a href="../store/storeDetail.html?seq='+val.productSeq+'">더보기 <i class="fas fa-caret-right"></i></a></div></div>'
+                        app+= '<div><a href="myOrderDetail.html?seq='+val.orderSeq+'">더보기 <i class="fas fa-caret-right"></i></a></div></div>'
                     }
                     //상품시작
                     app+= '<div class="order_product"><div class="img_wrap">'
@@ -920,13 +898,3 @@ let deleteCookie = function(name) {
 </script>
 
 </html>
-
-<!-- 
-SELECT Q.QUESTIONSEQ,Q.USERSEQ,QCOUNT,QUESTIONTITLE,QUESTIONCONTENT,QUESTIONREADCOUNT,QUESTIONREGDATE,QUESTIONFILENAME,QUESTIONDEL
-FROM QUESTION Q,
-(SELECT QUESTIONSEQ, COUNT(*) QCOUNT FROM Q_COMMENT WHERE QCDEL=0 GROUP BY QUESTIONSEQ ORDER BY QUESTIONSEQ) C
-WHERE QUESTIONDEL=0
-AND Q.QUESTIONSEQ=C.QUESTIONSEQ(+)
-AND USERSEQ=2
-ORDER BY QUESTIONSEQ
- -->
