@@ -404,7 +404,7 @@ function getQuestionList(word,s,page){
             if(isEmpty(pfname) == true ){
               pfname = '../image/avatar.png';
             } else {
-              pfname = val.profileName;
+              pfname = 'http://localhost:3000/upload/' + val.profileName;
             }
             let qfname = val.questionFileName;
 
