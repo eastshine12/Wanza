@@ -42,4 +42,12 @@ public class MyPageController {
 		System.out.println(dto.toString());
 		return cardService.getMyStoryList(dto);
 	}
+	
+	@RequestMapping(value = "/getMyOrderDetail", method = {RequestMethod.GET,RequestMethod.POST})
+	public List<MyPageDTO> getMyOrderDetail(MyPageDTO dto) {
+		System.out.println("MyPageController getMyOrderDetail() " + new Date());
+		System.out.println(dto.toString());
+		return orderService.getMyOrderDetail(dto);
+	}
+	
 }

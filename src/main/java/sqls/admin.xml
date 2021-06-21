@@ -20,6 +20,7 @@
 	<if test='startDate neq null and startDate neq "" and endDate neq null and endDate neq ""'>
 		AND (ORDERDATE BETWEEN #{startDate} AND TO_DATE(#{endDate})+0.99999)
 	</if>
+	<if test='orderStatus neq null and orderStatus neq "-1"'>AND ORDERSTATUS=#{orderStatus}</if>
 	<if test='word neq null and word neq ""'>
 		<choose>
 			<when test="sort eq 1"> AND O.ORDERSEQ LIKE'%'||#{word}||'%'</when>

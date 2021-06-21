@@ -15,6 +15,14 @@ public class MyPageDTO implements Serializable {
 	private Date orderDate;
 	private int orderStatusCount; //배송현황 갯수
 	
+	private int useMileage;
+	private String amountType;
+	private String orderMessage;
+	private String email;
+	private String userName;
+	private String nickname;
+	private String phone;
+	
 	private int productSeq;
 	private String selectOption;
 	private int quantity;
@@ -33,9 +41,10 @@ public class MyPageDTO implements Serializable {
 	}
 
 	public MyPageDTO(int orderSeq, int userSeq, int orderStatus, int productAmount, int deliveryAmount, int totalAmount,
-			Date orderDate, int orderStatusCount, int productSeq, String selectOption, int quantity, int price,
-			int reviewStatus, String productName, String productMaker, String productFileName, int productDell,
-			int searchPeriod) {
+			Date orderDate, int orderStatusCount, int useMileage, String amountType, String orderMessage, String email,
+			String userName, String nickname, String phone, int productSeq, String selectOption, int quantity,
+			int price, int reviewStatus, String productName, String productMaker, String productFileName,
+			int productDell, int searchPeriod) {
 		this.orderSeq = orderSeq;
 		this.userSeq = userSeq;
 		this.orderStatus = orderStatus;
@@ -44,6 +53,13 @@ public class MyPageDTO implements Serializable {
 		this.totalAmount = totalAmount;
 		this.orderDate = orderDate;
 		this.orderStatusCount = orderStatusCount;
+		this.useMileage = useMileage;
+		this.amountType = amountType;
+		this.orderMessage = orderMessage;
+		this.email = email;
+		this.userName = userName;
+		this.nickname = nickname;
+		this.phone = phone;
 		this.productSeq = productSeq;
 		this.selectOption = selectOption;
 		this.quantity = quantity;
@@ -118,6 +134,62 @@ public class MyPageDTO implements Serializable {
 
 	public void setOrderStatusCount(int orderStatusCount) {
 		this.orderStatusCount = orderStatusCount;
+	}
+
+	public int getUseMileage() {
+		return useMileage;
+	}
+
+	public void setUseMileage(int useMileage) {
+		this.useMileage = useMileage;
+	}
+
+	public String getAmountType() {
+		return amountType;
+	}
+
+	public void setAmountType(String amountType) {
+		this.amountType = amountType;
+	}
+
+	public String getOrderMessage() {
+		return orderMessage;
+	}
+
+	public void setOrderMessage(String orderMessage) {
+		this.orderMessage = orderMessage;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public int getProductSeq() {
@@ -204,7 +276,9 @@ public class MyPageDTO implements Serializable {
 	public String toString() {
 		return "MyPageDTO [orderSeq=" + orderSeq + ", userSeq=" + userSeq + ", orderStatus=" + orderStatus
 				+ ", productAmount=" + productAmount + ", deliveryAmount=" + deliveryAmount + ", totalAmount="
-				+ totalAmount + ", orderDate=" + orderDate + ", orderStatusCount=" + orderStatusCount + ", productSeq="
+				+ totalAmount + ", orderDate=" + orderDate + ", orderStatusCount=" + orderStatusCount + ", useMileage="
+				+ useMileage + ", amountType=" + amountType + ", orderMessage=" + orderMessage + ", email=" + email
+				+ ", userName=" + userName + ", nickname=" + nickname + ", phone=" + phone + ", productSeq="
 				+ productSeq + ", selectOption=" + selectOption + ", quantity=" + quantity + ", price=" + price
 				+ ", reviewStatus=" + reviewStatus + ", productName=" + productName + ", productMaker=" + productMaker
 				+ ", productFileName=" + productFileName + ", productDell=" + productDell + ", searchPeriod="
