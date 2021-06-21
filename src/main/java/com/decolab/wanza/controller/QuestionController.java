@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,26 +65,27 @@ public class QuestionController {
 		System.out.println("QuestionController questionWrite()" + new Date());
 		System.out.println(dto.toString());
 		
-				// 파일 경로 /src/main/webapp/upload 폴더가 없으면 만들어야함!!!
-				String uploadPath = req.getServletContext().getRealPath("/upload");
-				//String uploadPath = "d:\\tmp"; 
-				
-				String filename = uploadFile.getOriginalFilename();
-				String newFilename = NewFileName.getNewFileName(filename);
-				String filepath = uploadPath + File.separator + newFilename;
-				
-				System.out.println("filepath: " + filepath);
-				dto.setQuestionFileName(newFilename);
-				
-				try {
-					BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
-					os.write(uploadFile.getBytes());
-					os.close();
-				} catch (Exception e) {
-					e.printStackTrace();
-					return "file upload fail";
+			// 파일 경로 /src/main/webapp/upload 폴더가 없으면 만들어야함!!!
+			String uploadPath = req.getServletContext().getRealPath("/upload");
+			//String uploadPath = "d:\\tmp"; 
+			
+			String filename = uploadFile.getOriginalFilename();
+			String newFilename = NewFileName.getNewFileName(filename);
+			String filepath = uploadPath + File.separator + newFilename;
+			
+			System.out.println("filepath: " + filepath);
+			dto.setQuestionFileName(newFilename);
+			
+			try {
+				BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+				os.write(uploadFile.getBytes());
+				os.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "file upload fail";
 				}
 //		return service.questionWrite(dto)>0?"yes":"no";
+		dto.setQuestionContent(StringEscapeUtils.unescapeHtml(dto.getQuestionContent()));
 
 		service.questionWrite(dto);
 		return "ss";

@@ -460,6 +460,20 @@ public class UserController {
 	}
 	
 	
+	@RequestMapping(value = "/phoneCheck", method = {RequestMethod.GET,RequestMethod.POST})
+	public int phoneCheck(UserDTO dto) {
+		System.out.println("UserController phoneCheck() " + new Date() );
+		return service.phoneCheck(dto);
+	}
+	
+	
+	@RequestMapping(value = "/nicknameCheck", method = {RequestMethod.GET,RequestMethod.POST})
+	public int nicknameCheck(UserDTO dto) {
+		System.out.println("UserController nicknameCheck() " + new Date() );
+		return service.nicknameCheck(dto);
+	}
+	
+	
 
 }
 
