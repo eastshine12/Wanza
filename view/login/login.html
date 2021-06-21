@@ -293,8 +293,8 @@
     
     $(document).on("click", "#kakao-btn", function(){
         $("#kakao-btn").on('click', function(){
-        alert('로긴카카오 클릭됨');
-         location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/login/login.html&response_type=code"
+            alert('로긴카카오 클릭됨');
+            location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/login/login.html&response_type=code"
         })
     })
 
@@ -312,29 +312,11 @@
     let sessionId = JSON.parse(sessionStorage.getItem("login"));
     console.log(sessionId);
     */    
-   
-    
-  
-    
-        
-        
+
         /*
         location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/login/login.html&response_type=code"
 */
         
-       
-        
-    
- 
-
-    function getCookie(name) {
-        const value = "; " + document.cookie;
-        const parts = value.split("; " + name + "=");
-        if (parts.length === 2) return parts.pop().split(";").shift();
-    }
-    
-   
-
 
 
     // 네이버 로그인 API
