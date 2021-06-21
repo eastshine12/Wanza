@@ -124,17 +124,14 @@ public class UserController {
 	public UserDTO klogin(UserDTO dto, HttpSession session) {
 		System.out.println("UserController klogin() " + new Date() );
 		System.out.println("klogin() dto " + dto.toString());
-			
 		String email = dto.getEmail();
 		System.out.println("email:" + email);
 		//String nickname = dto.getNickname();
-
 		if (email != null) {
 	        session.setAttribute("login", dto);
 	        // session.setAttribute("access_Token", accesstoken);
 	    }
 		UserDTO a = service.klogin(dto);
-		
 		return a;
 	}
 	
