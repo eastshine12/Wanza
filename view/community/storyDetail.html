@@ -702,53 +702,51 @@
         });
 
 
-    // 비슷한 인테리어 글 가져오기
-    getSimilarCardList();
-    function getSimilarCardList() {
-        $.ajax({
-            url: "http://192.168.0.231:3000/getSimilarCardList",
-            type: "get",
-            data: {
-                "cardSeq": seq,
-                "tagColor": tagColor,
-                "tagHomeType": tagHomeType,
-                "tagStyle": tagStyle
-            },
-            success: function (list) {
-                console.log(list);
+        // 비슷한 인테리어 글 가져오기
+        getSimilarCardList();
+        function getSimilarCardList() {
+            $.ajax({
+                url: "http://192.168.0.231:3000/getSimilarCardList",
+                type: "get",
+                data: {
+                    "cardSeq": seq,
+                    "tagColor": tagColor,
+                    "tagHomeType": tagHomeType,
+                    "tagStyle": tagStyle
+                },
+                success: function (list) {
+                    console.log(list);
 
-                let app = ""
-                if (Object.keys(list).length == 0) {
-                    app += '<div style="width: 320px; margin-right: 50px;">'
-                        + '<h3 style="font-size: 15px; margin-top: 10px;"> 비슷한 인테리어 글이 없어요 :(</h3>'
-                        + "</div>";
-                    $("#similarCardList").append(app);
-                } else {
-                    $.each(list, function (i, val) {
-
+                    let app = ""
+                    if (Object.keys(list).length == 0) {
                         app += '<div style="width: 320px; margin-right: 50px;">'
-                            +   '<article article class="project_wrap" >'
-                            +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
-                            +     '<div class="project_item" style="padding-bottom: 66.66667%;">'
-                            +      '<span></span>'
-                            +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
-                            +     '</div>'
-                            +   '</article>'
-                            +  '</div >'
+                            + '<h3 style="font-size: 15px; margin-top: 10px;"> 비슷한 인테리어 글이 없어요 :(</h3>'
+                            + "</div>";
+                        $("#similarCardList").append(app);
+                    } else {
+                        $.each(list, function (i, val) {
 
-                    });
-                    $("#similarCardList").append(app);
+                            app += '<div style="width: 320px; margin-right: 50px;">'
+                                +   '<article article class="project_wrap" >'
+                                +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
+                                +     '<div class="project_item" style="padding-bottom: 66.66667%;">'
+                                +      '<span></span>'
+                                +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                                +     '</div>'
+                                +   '</article>'
+                                +  '</div >'
+
+                        });
+                        $("#similarCardList").append(app);
+                    }
+                    
+                },
+                error: function () {
+                    alert('getSimilarCardList() error');
                 }
-
-                
-            },
-            error: function () {
-                alert('getSimilarCardList() error');
-            }
-        });
-    };
+            });
+        };
         
-
 
     });
 
@@ -864,6 +862,12 @@
                 alert('비속어가 포함되어 있습니다.');
                 return;
             }
+
+            if($('#reviewContent').val()=="") {
+                alert('내용을 입력해주세요.');
+                return;
+            }
+
 
             $.ajax({
                 url: "http://192.168.0.231:3000/cardReviewWrite",
