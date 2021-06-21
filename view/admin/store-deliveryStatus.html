@@ -444,7 +444,7 @@ select::-ms-expand{
                         </select><i class="fas fa-sort-down"></i></label>
                     </div>
 
-                    <input type="hidden" name="orderStatus" class="hidden_os">
+                    <input type="hidden" name="orderStatus" class="hidden_os" value="-1">
 
                     <!-- 검색 -->
                     <div class="search">
@@ -563,7 +563,7 @@ $(document).ready(function() {
     $('#sele3').change( function() {
         $('.hidden_os').val($(this).val())
         //<if test='orderStatus neq null and orderStatus neq ""'>AND ORDERSTATUS=#{orderStatus}</if>
-        //getDeliveryStatusCount(getFormData());
+        getDeliveryStatusCount(getFormData());
     });
 	
     $('.move_input input').focus( function() { // 날짜 선택시 글씨 이동 이벤트
