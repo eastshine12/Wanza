@@ -270,6 +270,7 @@
 $(document).ready(function(){
   getQuestionCount('',0,0)
   
+  
   //로그인한 계정 닉네임 가져오기
   let sessionId = JSON.parse(sessionStorage.getItem("login"));
   console.log(sessionId);
@@ -283,9 +284,8 @@ $(document).ready(function(){
   
   let seq = urlParams.seq;	// html 에서 html 이동할때 값 가져가는 그런 코드
   //검색어 파라미터로 받기
-  
   let searchWord = decodeURIComponent(urlParams.searchWord)
-  if(searchWord!=null && searchWord!='undefined'){
+  if(searchWord!=null){
     $('#questions-header-form-search').val(searchWord);
     getQuestionCount(searchWord,0,0)
   }
@@ -415,11 +415,25 @@ function getQuestionList(word,s,page){
               unname == '알수없는 회원입니다.';
             }
 
+            var log = sessionStorage.getItem("login");
+            var link;
+
+            // if(log == null) {
+            //     alert('로그인해주세요');
+            //     location.href="../login/login.html";
+            // }else{
+            //     link = "<a class='questions-item-link' href="
+            //           + "'questionDetail.html?seq="
+            //           + val.questionSeq
+            //           + "'>"   
+            // }
+
             let app = "<div class='questions-item' >"
                       + "<a class='questions-item-link' href="
                       + "'questionDetail.html?seq="
                       + val.questionSeq
                       + "'>"
+                      // + link
                       + "<div class='questions-block'>"
                       + "<div class='questions-head-img'>"
                       + "<img class='questions-head-image' src='http://localhost:3000/upload/"+qfname+"' >" 

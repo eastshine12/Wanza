@@ -248,6 +248,8 @@
                 dataType: 'text',
                 success:function(email){
                     alert("kakao ajax 성공");
+                    Kakao.Auth.login()
+                    
                     //console.log(session.setattribute(getItem("login")));
                     klogin(email);
                     //location.href = "../community/mainCommunity.html"
@@ -280,6 +282,7 @@
                     sessionStorage.setItem("login", JSON.stringify(data));
                     location.href = "../../index.html";
                     alert(sessionStorage.setItem("login", JSON.stringify(data)));
+                    
                 } else {
                     alert('klogin fail');
                 }
