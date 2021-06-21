@@ -297,7 +297,10 @@ let getCookie = function(name) {
     let value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return value? value[2] : null;
 };
-
+//쿠키 삭제하기
+let deleteCookie = function(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
+}
 // 상단 배너 X 클릭 삭제
 $(document).on('click', '#closeBanner', function() {
     $('#_card').hide();
