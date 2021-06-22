@@ -141,7 +141,6 @@
         , U.NICKNAME
         , U.AUTH
         , U.PROFILENAME
-        
 		FROM QUESTION Q, USERS U, Q_COMMENT QC
 		WHERE 1=1 
 		AND Q.USERSEQ = U.USERSEQ 
