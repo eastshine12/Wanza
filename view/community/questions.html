@@ -401,7 +401,7 @@ function getQuestionList(word,s,page){
           $.each(list, function(i, val){
             
             let pfname = val.profileName;
-            if(isEmpty(pfname) == true ){
+            if(isEmpty(pfname) == true || pfname == 0 ){
               pfname = '../image/avatar.png';
             } else {
               pfname = 'http://192.168.0.231:3000/upload/' + val.profileName;
