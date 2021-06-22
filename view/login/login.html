@@ -301,26 +301,12 @@
         });
     }
     
-    
-
-
-/*
-    let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
-            return paramPair.split(/=(.+)?/).slice(0, 2);
-        }).reduce(function(obj, pairArray) {
-            obj[pairArray[0]] = pairArray[1];
-            return obj;
-        }, {});
-
-    let seq = urlParams.seq;	// html 에서 html 이동할때 값 가져가는 그런 코드
-
-    let sessionId = JSON.parse(sessionStorage.getItem("login"));
-    console.log(sessionId);
-    */    
-
-        /*
-        location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/login/login.html&response_type=code"
-*/
+    $(document).on("click", "#kakao-btn", function(){
+        $("#kakao-btn").on('click', function(){
+            //alert('로긴카카오 클릭됨');
+            location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://192.168.0.231:8090/view/login/login.html&response_type=code"
+        })
+    })
 
     // 네이버 로그인 API
     var naver_id_login = new naver_id_login("dSA9KIZOunKpoBfOJdB9", "http://192.168.0.231:8090/view/collback.html");
@@ -330,11 +316,6 @@
     naver_id_login.setState(state);
     naver_id_login.setPopup();
     naver_id_login.init_naver_id_login();
-
-
-
-
-
 
 </script>
 

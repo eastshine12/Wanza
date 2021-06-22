@@ -868,6 +868,12 @@
                 return;
             }
 
+            if($('#reviewContent').val().length > 30) {
+                alert('30자 이내로 작성해주세요.');
+                return;
+            }
+
+
 
             $.ajax({
                 url: "http://192.168.0.231:3000/cardReviewWrite",

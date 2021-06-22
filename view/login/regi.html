@@ -509,9 +509,10 @@ function emailcheck(){
             else {
                 $("#phoneCheck").html('');
             }
+
+            if($('#phone').val() == "") $("#phoneCheck").html('');
         })
     });
-
         
     /* 비밀번호 2번 맞게 썼는지 확인 */
     $(function () {
@@ -530,13 +531,16 @@ function emailcheck(){
         })
     });
 
+    
     // 휴대폰 요청 버튼 클릭시
     $(document).on('click','#reqBtn',function(){
       let filter = /(\d{3}).*(\d{3}).*(\d{4})/;
 
       if (!filter.test($('#phone').val())) {
-          return;
+        return;
       }
+
+
       // 휴대폰 번호 '-' 없애고 중복 비교
       let _phone = $('#phone').val().replace(/-/gi, "");
 
@@ -558,6 +562,9 @@ function emailcheck(){
       if(exist == 1) {
         alert('이미 가입된 번호 입니다.');
         return;
+      } else {
+        $("#reqNum").removeAttr("disabled");
+        alert('인증번호를 발송했습니다. 하단에 입력해주세요.');
       }
       
       // 인증 문자 보내기
