@@ -337,7 +337,7 @@ function overlapBtn(){
         alert("이미 사용하고 계신 닉네임 입니다.");
     }else{
         $.ajax({
-            url:"http://localhost:3000/overlapNickname",
+            url:"http://192.168.0.231:3000/overlapNickname",
             type:"post",
             data:{nickname:$("#nickname").val()},
             success:function(str){
@@ -368,7 +368,7 @@ $("#completeBtn").click(function(){
         // 사진이 바뀌었다면
         if($("#_uploadImg").attr("src").split("/").reverse()[0] != $("#imgValue").val() && $("#_uploadImg").attr("src") != "../../assets/img/imgUpload.png"){
             $.ajax({
-                url:"http://localhost:3000/userEdit",
+                url:"http://192.168.0.231:3000/userEdit",
                 type:"post",
                 data: new FormData($('#userEdit')[0]),
                 enctype:"multipart/form-data",
@@ -387,7 +387,7 @@ $("#completeBtn").click(function(){
         }else{
             
             $.ajax({
-                url:"http://localhost:3000/noProfile",
+                url:"http://192.168.0.231:3000/noProfile",
                 type:"post",
                 data:{"nickname":$("#nickname").val(),
                         "userSeq":sessionId.userSeq,
@@ -418,7 +418,7 @@ function selectChange(){
     $("#updatedelibtn").removeAttr("disabled");
 
     $.ajax({
-        url:"http://localhost:3000/getAddress",
+        url:"http://192.168.0.231:3000/getAddress",
         type:"post",
         data:{"addressSeq":$("#_selected option:selected").val() },
         success:function(data){
@@ -441,7 +441,7 @@ function updateDeli(){
 
     if(confirm("배송지를 수정하시겠습니까?")==true){
        $.ajax({
-           url:"http://localhost:3000/updateDeli",
+           url:"http://192.168.0.231:3000/updateDeli",
            type:"post",
            data:{"addressSeq":$("#_selected option:selected").val(),
                 "addressName":$("#_selected option:selected").text(),
@@ -463,7 +463,7 @@ function updateDeli(){
  addressList();
     function addressList(){
         $.ajax({
-            url:"http://localhost:3000/getAddressList",
+            url:"http://192.168.0.231:3000/getAddressList",
             type:"post",
             data:{"userSeq":sessionId.userSeq},
             success:function(list){
@@ -497,7 +497,7 @@ function updateDeli(){
 function deleteDeli(addressSeq){
     if(confirm("해당 배송지를 삭제하시겠습니까?")==true){
         $.ajax({
-            url:"http://localhost:3000/deleteAdd",
+            url:"http://192.168.0.231:3000/deleteAdd",
             type:"post",
             data:{"addressSeq":addressSeq},
             success:function(){
@@ -522,7 +522,7 @@ function insertDele(){
 
         $.ajax({
 
-            url:"http://localhost:3000/addAddress",
+            url:"http://192.168.0.231:3000/addAddress",
             type:"post",
             data:{"userSeq":sessionId.userSeq, 
                   "receiveUser": $("#receiveName").val(),
@@ -562,7 +562,7 @@ $(document).ready(function(){
     userInfo();
     function userInfo(){
         $.ajax({
-            url:"http://localhost:3000/getUserAllInfoCopy",
+            url:"http://192.168.0.231:3000/getUserAllInfoCopy",
             type:"post",
             data:{"userSeq":sessionId.userSeq},
             success:function(data){
@@ -573,7 +573,7 @@ $(document).ready(function(){
                 $("#hiddenNickname").val(data.nickname);
 
                 if(data.profileName != "0"){
-                    $('#_uploadImg').attr("src", "http://localhost:3000/upload/"+data.profileName);
+                    $('#_uploadImg').attr("src", "http://192.168.0.231:3000/upload/"+data.profileName);
                     $("#imgValue").val(data.profileName);
                 }
 

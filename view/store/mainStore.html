@@ -592,7 +592,7 @@ function setCategory(param) {
 // '인기 상품' 리스트
 function getProductSortList(jdata) {
     $.ajax({
-        url: "http://localhost:3000/getProductSortList",
+        url: "http://192.168.0.231:3000/getProductSortList",
         type: "post",
         data: jdata,
         success: function (list) {
@@ -616,7 +616,7 @@ function getProductSortList(jdata) {
                     app +=  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
                         +  '<div class="project2_item">'
                         +  '<span></span>'
-                        +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
+                        +  '<img src="http://192.168.0.231:3000/upload/' + val.productFileName + '" alt="">'
                         +  '</div>'
                         +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">';
                             
@@ -650,7 +650,7 @@ function getProductSortList(jdata) {
 //글의 총 수를 구하는 함수
 function getProductSortCount(jdata) {
 	$.ajax({
-		url:"http://localhost:3000/getProductSortCount",
+		url:"http://192.168.0.231:3000/getProductSortCount",
 		type:"get",
 		data:jdata,
 		success:function(count){ console.log(count); loadPage(count); },
@@ -731,7 +731,7 @@ getHashTagList();
 function getHashTagList() {
 
     $.ajax({
-		url:"http://localhost:3000/getHashTagList",
+		url:"http://192.168.0.231:3000/getHashTagList",
 		type:"get",
 		success:function(list){ 
             console.log(list); 

@@ -418,7 +418,7 @@ function emailcheck(){
 
 
   $.ajax({
-        url:"http://localhost:3000/checkEmail",
+        url:"http://192.168.0.231:3000/checkEmail",
         data:{email: _email},
         type:"post",
         success:function(email){
@@ -544,7 +544,7 @@ function emailcheck(){
 
       // 중복 체크
       $.ajax({
-        url:"http://localhost:3000/phoneCheck",
+        url:"http://192.168.0.231:3000/phoneCheck",
         data:{phone:_phone},
         type:"post",
         async: false,
@@ -562,7 +562,7 @@ function emailcheck(){
       
       // 인증 문자 보내기
       $.ajax({
-        url:"http://localhost:3000/loginsendSms",
+        url:"http://192.168.0.231:3000/loginsendSms",
         data:{phone:$("#phone").val()},
         type:"post",
         success:function(numStr){
@@ -623,7 +623,7 @@ function emailcheck(){
 
         // 닉네임 중복 체크
         $.ajax({
-          url:"http://localhost:3000/nicknameCheck",
+          url:"http://192.168.0.231:3000/nicknameCheck",
           data:{nickname:_nickname},
           type:"post",
           async: false,

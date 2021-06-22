@@ -157,7 +157,7 @@ $(document).ready(function() {
 // 검색 리스트 출력
 function getTotalSearch(word) {
     $.ajax({
-        url: "http://localhost:3000/getTotalSearch",
+        url: "http://192.168.0.231:3000/getTotalSearch",
         type: "post",
         data: {searchWord:word},
         success: function (map) {
@@ -185,7 +185,7 @@ function getTotalSearch(word) {
                             +  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
                             +  '<div class="project2_item">'
                             +  '<span></span>'
-                            +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">'
+                            +  '<img src="http://192.168.0.231:3000/upload/' + val.productFileName + '" alt="">'
                             +  '</div>'
                             +  '<div class="row" style="margin:0px 40px; margin-top: 15px;margin-bottom: 10px;"><h3 style="font-family: \'Noto Sans KR\'; font-size: 17px; height: 32px;float: none; margin:0 auto;">';
                             
@@ -221,7 +221,7 @@ function getTotalSearch(word) {
                             +    '<a href="../storyDetail.html?seq='+val.cardSeq+'"></a>'
                             +     '<div class="project_item">'
                             +      '<span></span>'
-                            +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                            +      '<img src="http://192.168.0.231:3000/upload/'+val.cardFileName+'" alt="">'
                             +     '</div>'
                             +     '<h3 style="font-family: \'Noto Sans KR\'; font-size: 16px; margin-top: 15px; height: 32px;"><b>'+val.cardTitle+'</b></h3>'
                             +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.nickName+'</b></span>'
@@ -249,7 +249,7 @@ function getTotalSearch(word) {
                                 +  '댓글수<span> '+val.comentCount+'</span>조회수<span> '+val.questionReadcount+'</span>'
                                 +  '</div></div><div class="queAns_img_wrap">'
                                 +  '<a href="../community/questionDetail.html?seq='+val.questionSeq+'">'
-                                +  '<img src="http://localhost:3000/upload/'+val.profileName+'" onerror="src=\'../../assets/img/완자에요.png\'">'
+                                +  '<img src="http://192.168.0.231:3000/upload/'+val.profileName+'" onerror="src=\'../../assets/img/완자에요.png\'">'
                                 +  '</a></div></div>';
                 });
             }
