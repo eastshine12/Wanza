@@ -145,7 +145,7 @@
 
 
         $.ajax({
-            url: "http://localhost:3000/login",
+            url: "http://192.168.0.231:3000/login",
             type: "post",
             data: {
                 email: email,
@@ -241,7 +241,7 @@
             //alert("고카카오작동함?");
             //alert(code);
             $.ajax({
-                url: "http://localhost:3000/kakaologin",
+                url: "http://192.168.0.231:3000/kakaologin",
                 type: "post",
                 data: {"code" : code},
                 async: false,
@@ -269,7 +269,7 @@
     var nickname;
 
         $.ajax({
-            url: "http://localhost:3000/klogin",
+            url: "http://192.168.0.231:3000/klogin",
             type: "post",
             data: {
                 email: email
@@ -295,7 +295,7 @@
     $(document).on("click", "#kakao-btn", function(){
         $("#kakao-btn").on('click', function(){
             alert('로긴카카오 클릭됨');
-            location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://localhost:8090/view/login/login.html&response_type=code"
+            location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://192.168.0.231:8090/view/login/login.html&response_type=code"
         })
     })
 
@@ -319,10 +319,10 @@
 */
 
     // 네이버 로그인 API
-    var naver_id_login = new naver_id_login("dSA9KIZOunKpoBfOJdB9", "http://localhost:8090/view/collback.html");
+    var naver_id_login = new naver_id_login("dSA9KIZOunKpoBfOJdB9", "http://192.168.0.231:8090/view/collback.html");
     var state = naver_id_login.getUniqState();
     naver_id_login.setButton("green", 3, 70);
-    naver_id_login.setDomain("http://localhost:8090/index.html");
+    naver_id_login.setDomain("http://192.168.0.231:8090/index.html");
     naver_id_login.setState(state);
     naver_id_login.setPopup();
     naver_id_login.init_naver_id_login();

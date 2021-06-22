@@ -47,7 +47,7 @@ $(document).on('click', '#search-icon', function () {
 });
 function setSearchWrite(searchVal){
     $.ajax({
-        url:"http://localhost:3000/searchWrite",
+        url:"http://192.168.0.231:3000/searchWrite",
         type:"get",
         data:{searchWord:String(searchVal)},
         success:function(data) {

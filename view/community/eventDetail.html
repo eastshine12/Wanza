@@ -105,7 +105,7 @@ $(document).ready(function(){
 
 
     $.ajax({
-        url:"http://localhost:3000/eventDetail",
+        url:"http://192.168.0.231:3000/eventDetail",
         type:"post",
         data:{eventSeq:urlParams.eventSeq},
         success:function(list){
@@ -121,7 +121,7 @@ $(document).ready(function(){
     })
     // 관련 상품 보여주기
     $.ajax({
-        url:"http://localhost:3000/getProductDetail",
+        url:"http://192.168.0.231:3000/getProductDetail",
         type:"post",
         data:{productSeq:urlParams.productSeq},
         success:function(data){
@@ -130,7 +130,7 @@ $(document).ready(function(){
 
             }else{           
                 $("#titleHref").attr("href","../store/storeDetail.html?seq="+data.productSeq);
-                $(".rProduct").attr("src","http://localhost:3000/upload/"+data.productFileName)
+                $(".rProduct").attr("src","http://192.168.0.231:3000/upload/"+data.productFileName)
                 $("#imgHref").attr("href","../store/storeDetail.html?seq="+data.productSeq);
                 $("#maker").text(data.productMaker);
                 $("#title").text(data.productName);

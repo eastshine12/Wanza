@@ -95,7 +95,7 @@
         today = year+"/"+month+"/"+date; // 현재 날짜
 
     $.ajax({
-        url:"http://localhost:3000/getEventList",
+        url:"http://192.168.0.231:3000/getEventList",
         type:"get",
         success:function(list){          
             app = "";
@@ -103,7 +103,7 @@
                 app += "<div class='boxbox'>"
                     +"<div class='hoverimg'>"                        
                     +"<a href='./eventDetail.html?eventSeq="+val.eventSeq+"&productSeq="+val.productSeq+"'>"    
-                    +"<img class='profile' src='http://localhost:3000/upload/"+val.eventFilename+"'>"
+                    +"<img class='profile' src='http://192.168.0.231:3000/upload/"+val.eventFilename+"'>"
                     +"</a>"                   
                     +"</div>"
                     +"<div>";

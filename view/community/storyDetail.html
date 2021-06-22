@@ -462,7 +462,7 @@
             alert("신고가 접수 되었습니다.");
 
             $.ajax({
-                url:"http://localhost:3000/report",
+                url:"http://192.168.0.231:3000/report",
                 type:"post",
                 data:{
                     "reportseq":seq,                                //게시글 번호  
@@ -483,7 +483,7 @@
         // 다른 사진 리스트
         function otherPictures(){
             $.ajax({
-                url:"http://localhost:3000/otherPictures",
+                url:"http://192.168.0.231:3000/otherPictures",
                 type:"post",
                 data:{
                     "userSeq":$("#otherSeq").val(),
@@ -496,7 +496,7 @@
                         +'<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
                         +'<div class="project_item">'
                         +'<span></span>'
-                        +'<img src="http://localhost:3000/upload/'+val.cardFileName+'" style="margin: 3px;object-fit:cover; width:230px" >'
+                        +'<img src="http://192.168.0.231:3000/upload/'+val.cardFileName+'" style="margin: 3px;object-fit:cover; width:230px" >'
                         +'</div>'
                         +'</article>'
                         +'</div>';                       
@@ -731,7 +731,7 @@
                                 +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
                                 +     '<div class="project_item" style="padding-bottom: 66.66667%;">'
                                 +      '<span></span>'
-                                +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                                +      '<img src="http://192.168.0.231:3000/upload/'+val.cardFileName+'" alt="">'
                                 +     '</div>'
                                 +   '</article>'
                                 +  '</div >'
@@ -761,7 +761,7 @@
     getProductTag(seq);
     function getProductTag(cardSeq) {
         $.ajax({
-            url: "http://localhost:3000/getProductTag",
+            url: "http://192.168.0.231:3000/getProductTag",
             type: "get",
             data: {
                 "cardSeq": cardSeq
@@ -806,7 +806,7 @@
                             +'<a href="../store/storeDetail.html?seq='+val.productSeq+'"></a>'
                             +'<div class="project_item">'
                                 +'<span></span>'
-                                +'<img src="http://localhost:3000/upload/'+val.productFileName+'">'
+                                +'<img src="http://192.168.0.231:3000/upload/'+val.productFileName+'">'
                             +'</div>'
                         +'</article>'
                         +'</div>';

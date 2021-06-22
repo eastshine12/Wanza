@@ -219,7 +219,7 @@ $('.e_date').datepicker({
         app ="";
         $("#_productListUp").children().remove();
         $.ajax({
-            url:"http://localhost:3000/getSearchProduct",
+            url:"http://192.168.0.231:3000/getSearchProduct",
             type:"get",
             data:{productName:$("#productName").val()},
             success:function(list){
@@ -229,7 +229,7 @@ $('.e_date').datepicker({
                 }else{
                     $.each(list,function(i,val){
                         app+="<div class='card' style='width: 22%; margin: 1%; padding: 3px;'>"
-                            +"<img class='card-img-top' src='http://localhost:3000/upload/"+val.productFileName+"' alt='Card image cap' width='110px' height='150px' style='object-fit: cover;'>"
+                            +"<img class='card-img-top' src='http://192.168.0.231:3000/upload/"+val.productFileName+"' alt='Card image cap' width='110px' height='150px' style='object-fit: cover;'>"
                             +"<div class='card-img-top'>"
                             +"<p class='card-title'>"+val.productName+"</p>"                            
                             +"<button class='btn btn-primary' onclick='addProduct("+val.productSeq+")'>product add</button>"
@@ -254,7 +254,7 @@ $('.e_date').datepicker({
         var form = $('#eventForm').serialize();
 
          $.ajax({
-            url:"http://localhost:3000/eventWrite",
+            url:"http://192.168.0.231:3000/eventWrite",
             type:'post',           
             data:new FormData($('#eventForm')[0]),
             enctype:"multipart/form-data",
@@ -294,7 +294,7 @@ $('.e_date').datepicker({
         }else{
             isDisabled = true; 
             $.ajax({
-                url:"http://localhost:3000/getProductDetail",
+                url:"http://192.168.0.231:3000/getProductDetail",
                 type:'post',
                 data:{productSeq:seq},
                 success:function(dto){   

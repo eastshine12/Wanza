@@ -111,7 +111,7 @@ input[type=text] {
         $("#requestBtn").click(function(){
             
             $.ajax({
-            url:"http://localhost:3000/sendSms",
+            url:"http://192.168.0.231:3000/sendSms",
             data:{phone:$("#userNumber").val()},
             type:"post",
             success:function(numStr){
@@ -131,7 +131,7 @@ input[type=text] {
 
         if($("#requestNum").val()==$("#hiddenNum").val()){
             $.ajax({
-                url:"http://localhost:3000/findId",
+                url:"http://192.168.0.231:3000/findId",
                 data:{phone:$("#userNumber").val()},
                 type:"post",
                 success:function(data){

@@ -113,7 +113,7 @@ $(document).ready(function(){
     $("#findPw").click(function(){
         alert("메일이 발송되었습니다.");
         $.ajax({
-            url:"http://localhost:3000/sendMail",
+            url:"http://192.168.0.231:3000/sendMail",
             data:{email:$("#userEmail").val()},
             type:"get",
             success:function(){
