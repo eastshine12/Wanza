@@ -225,11 +225,20 @@
             results = regex.exec(location.search);
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
+
+    $(document).on("click", "#kakao-btn", function(){
+        $("#kakao-btn").on('click', function(){
+            //alert('로긴카카오 클릭됨');
+            location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://192.168.0.231:8090/view/login/login.html&response_type=code"
+
+        })
+    })
+
     let code = getParameter("code");
-    //alert(code); 코드는 잘 가져옴
+    
     
     if(isEmpty(code) == false){
-        Gokakao(code);
+        Gokakao(code); 
         console.log("if code값 있음");
     } else {
         console.log("if code값XXXX");
@@ -239,7 +248,7 @@
     function Gokakao(code){
         if (isEmpty(code) == false){
             //alert("고카카오작동함?");
-            //alert(code);
+            alert(code);
             $.ajax({
                 url: "http://192.168.0.231:3000/kakaologin",
                 type: "post",
@@ -249,7 +258,7 @@
                 success:function(email){
                     alert("kakao ajax 성공");
 
-                    //console.log(session.setattribute(getItem("login")));
+                    console.log(session.setattribute(getItem("login")));
                     klogin(email);
                     //location.href = "../community/mainCommunity.html"
                 }, error:function(code){
@@ -277,11 +286,11 @@
                     },
             //async : false,
             success: function (data) {
-                alert('klogin success');
+                //alert('klogin success');
                 if(isEmpty(data.email) == false) {
                     sessionStorage.setItem("login", JSON.stringify(data));
                     location.href = "../../index.html";
-                    alert(sessionStorage.setItem("login", JSON.stringify(data)));
+                    //alert(sessionStorage.setItem("login", JSON.stringify(data)));
                 } else {
                     alert('klogin fail');
                 }
@@ -292,12 +301,7 @@
         });
     }
     
-    $(document).on("click", "#kakao-btn", function(){
-        $("#kakao-btn").on('click', function(){
-            alert('로긴카카오 클릭됨');
-            location.href = "https://kauth.kakao.com/oauth/authorize?client_id=e55eb67c927feac9076da403729a23f8&redirect_uri=http://192.168.0.231:8090/view/login/login.html&response_type=code"
-        })
-    })
+    
 
 
 /*
