@@ -69,4 +69,8 @@ public class QuestionService {
 		boolean b = dao.questionCommentAnswerStep(dto);
 		return b;
 	}
+	
+	public int deleteQuestion(QuestionDTO dto) {
+		return dao.deleteQuestion(dto);
+	}
 }

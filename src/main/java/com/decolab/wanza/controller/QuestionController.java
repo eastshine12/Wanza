@@ -135,6 +135,12 @@ public class QuestionController {
 		return service.questionCommentdel(dto);
 	}
 	
+	@RequestMapping(value = "/deleteQuestion", method = {RequestMethod.GET, RequestMethod.POST} )
+	public void deleteQuestion(QuestionDTO dto) {
+		System.out.println("QuestionController deleteQuestion()" + new Date());
+		service.deleteQuestion(dto);
+	}
+	
 	@RequestMapping(value = "/questionCommentAnswer", method = {RequestMethod.GET, RequestMethod.POST} )
 	public String questionCommentAnswer(QuestionCommentDTO dto) {
 		System.out.println("QuestionController questionCommentAnswer()" + new Date());

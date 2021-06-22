@@ -34,6 +34,8 @@ public interface QuestionDAO {
 	
 	public int questionCommentAnswer(QuestionCommentDTO dto);
 	
+	public int deleteQuestion(QuestionDTO dto);
+	
 	public boolean questionCommentAnswerStep(QuestionCommentDTO dto);
 	
 	public List<QuestionDTO> waitForComment(QuestionCommentDTO dto);

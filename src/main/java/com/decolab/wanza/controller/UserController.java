@@ -200,7 +200,7 @@ public class UserController {
 				"		감사합니다."																																															+ 
 				"	</p>"																																																	+ 
 				"	<a style=\"color: #fff; text-decoration: none; text-align: center;\""																																	+
-				"	href=\"http://localhost:8090/view/login/newPw.html?userSeq="+info.getUserSeq()+"\">"														+ 
+				"	href=\"http://192.168.0.231:8090/view/login/newPw.html?userSeq="+info.getUserSeq()+"\">"														+ 
 				"		<p"																																																	+
 				"			style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #f38766; line-height: 45px; vertical-align: middle; font-size: 16px;\">"							+ 
 				"			비밀번호 재설정</p>"																																														+ 
@@ -292,7 +292,7 @@ public class UserController {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=e55eb67c927feac9076da403729a23f8");
-            sb.append("&redirect_uri=http://localhost:8090/view/login/login.html");
+            sb.append("&redirect_uri=http://192.168.0.231:8090/view/login/login.html");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();
@@ -428,7 +428,7 @@ public class UserController {
 				"		아래 <b style=\"color: #f38766\">'신고 확인'</b> 버튼을 클릭하여 신고를 확인해주세요<br />"																													+ 
 				"	</p>"																																																	+ 
 				"	<a style=\"color: #fff; text-decoration: none; text-align: center;\""																																	+
-				"	href=\"http://localhost:8090/view/community/storyDetail.html?seq="+reportseq+"#"+nickname+"\">"														+ 
+				"	href=\"http://192.168.0.231:8090/view/community/storyDetail.html?seq="+reportseq+"#"+nickname+"\">"														+ 
 				"		<p"																																																	+
 				"			style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #f38766; line-height: 45px; vertical-align: middle; font-size: 16px;\">"							+ 
 				"			신고 확인</p>"																																														+ 
