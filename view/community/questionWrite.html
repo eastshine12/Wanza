@@ -231,11 +231,11 @@
           contentType:false,
           cache:false,
           success:function(list){
-            alert('ajax성공');
+            console.log('작성 성공');
             //alert(list);
             location.href="http://192.168.0.231:8090/view/community/questions.html";
           }, error:function(list){
-            alert('ajax실패');
+            alert('작성 실패');
           }
         })
       //alert('안됨');

@@ -109,50 +109,45 @@ input[type=text] {
     $(document).ready(function(){
 
         $("#requestBtn").click(function(){
+
             
             $.ajax({
-            url:"http://192.168.0.231:3000/sendSms",
-            data:{phone:$("#userNumber").val()},
-            type:"post",
-            success:function(numStr){
-                alert("인증번호가 발송되었습니다.");
-                $("#requestNum").removeAttr("disabled");
-                let app = "";
-                app = "<input type='hidden' id='hiddenNum' value='"+numStr+"'>";
-                $(".container").append(app);
-             
-            },error:function(){
-                alert("입력하신 전화번호로 가입하신 이메일이 없습니다.");
-            }
-        })
-    })
-
-    $("#findId").click(function(){
-
-        if($("#requestNum").val()==$("#hiddenNum").val()){
-            $.ajax({
-                url:"http://192.168.0.231:3000/findId",
+                url:"http://192.168.0.231:3000/sendSms",
                 data:{phone:$("#userNumber").val()},
                 type:"post",
-                success:function(data){
-                    location.href="../login/showId.html?email=" +data.email;
+                success:function(numStr){
+                    alert("인증번호가 발송되었습니다.");
+                    $("#requestNum").removeAttr("disabled");
+                    $('#userNumber').attr('readonly', 'readonly');
+                    let app = "";
+                    app = "<input type='hidden' id='hiddenNum' value='"+numStr+"'>";
+                    $(".container").append(app);
+                
                 },error:function(){
-                    
+                    alert("입력하신 전화번호로 가입하신 이메일이 없습니다.");
                 }
             })
-        }else{
-            alert("인증번호가 다릅니다.");
-        }
-    })
+            
+        })
 
+        $("#findId").click(function(){
 
+            if($("#requestNum").val()==$("#hiddenNum").val()){
+                $.ajax({
+                    url:"http://192.168.0.231:3000/findId",
+                    data:{phone:$("#userNumber").val()},
+                    type:"post",
+                    success:function(data){
+                        location.href="../login/showId.html?email=" +data.email;
+                    },error:function(){
+                        
+                    }
+                })
+            }else{
+                alert("인증번호가 다릅니다.");
+            }
+        })
 
-
-
-
-
-
-       
     })
 
     

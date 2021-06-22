@@ -132,8 +132,7 @@
           font-weight: 500;
         }   
         .question-detail-img{
-             width: 600px;
-            height: 400px;
+            width: 500px;
             object-fit: cover;
         }
         .col-xl-2 .question-detail-sidebar{
@@ -220,11 +219,22 @@
         }
         .comment-feed-item-reply{
             position: relative;
-            margin: 10px 0;
+            margin-left: 42px;
+            margin-top: 15px;
         }
         .comment-feed-item-reply img{
             top: -5px;
         }
+        .replyBtn {
+            color: coral;
+            background: none;
+            border: none;
+            font-weight: bold;
+            margin-left: -45px;
+        }
+
+
+
     </style>
 
 
@@ -279,6 +289,9 @@
                         </span>
                         <span style="color: gainsboro">
                             <a class="question-detail-footer-metadata-report-link" href="">신고</a>
+                        </span>
+                        <span id="deleteQuestion">
+                            <a class="question-detail-footer-metadata-report-link" href="javascript:deleteQuestion()" style="color: red;">삭제</a>
                         </span>
                     </div>
                 </div>
@@ -425,6 +438,11 @@
 <script src="../../js/slang.js"></script>
 
 <script>
+
+$('#deleteQuestion').hide();
+
+let questionSeq;
+
 $(document).ready(function(){
     
     let urlParams = location.search.split(/[?&]/).slice(1).map(function(paramPair) {
@@ -534,6 +552,7 @@ $(document).ready(function(){
         url:"http://192.168.0.231:3000/questionDetail",
         type:'post',
         data:{questionSeq:seq},
+        async: false,
         success:function(list){
             console.log(list)
             var qdate = list.questionRegDate;
@@ -551,7 +570,11 @@ $(document).ready(function(){
                 <img src="" class="question-detail-img">
             </div>
             */
+            if(sessionId.userSeq == list.userSeq) {
+                $('#deleteQuestion').show();
+            }
 
+            questionSeq = list.questionSeq;
 
             $('.question-detail-title').text(list.questionTitle);
             
@@ -563,6 +586,7 @@ $(document).ready(function(){
             //$('.questions-item-footer-date').text(qdate);
             $('.questions-item-footer-date').text(date3);
            // $('.question-detail-footer-date').attr("datetime", list.questionRegDate);
+            $('.questions-writer-image-image').attr('src', 'http://192.168.0.231:3000/upload/'+list.profileName);
             if(isEmpty(list.userName) == true){
                 $('.questions-writer-profile').text("반갑습니다.");
             } else {
@@ -634,7 +658,7 @@ $(document).ready(function(){
                                                 +pfname
                                                 + "' >"
                                                 + "<span class='questioncommentwriter'>" + val.nickName + "</span>"
-                                            + "</a>"
+                                            + "</a><span>&ensp;</span>"
                                             + "<span>"
                                             + val.qcContent
                                             + "</span>"
@@ -727,8 +751,8 @@ $(document).ready(function(){
             let ripple  
                     = "<form class='comment-reply'>"
                         + "<div class='comment-reply-content-form'>"
-                            + "<div class='comment-reply-content-input'>"    
-                                + "<input class='comment-reply-input' name='qcContent' id='questionCommentreply' style='outline: none;' placeholder='@" + $('.questioncommentwriter').val() + "' type='text'>"
+                            + "<div class='row' style='margin-top: 10px;'>"    
+                                + "<input class='form-control' name='qcContent' id='questionCommentreply' style='width: 400px;' placeholder='@" + $('.questioncommentwriter').val() + "' type='text'>"
                             //+ "</div>"
                             //+ "<div>"
                                 + "<input type='hidden' name='qcFileName' value='123'>"
@@ -738,7 +762,7 @@ $(document).ready(function(){
                                 + "<input type='hidden' name='qcRef' value='" + $('.qcRef').val() + "'>"
                                 + "<input type='hidden' name='qcStep' value='" + $('.qcStep').val() + "'>"
                                 + "<input type='hidden' name='qcDepth' value='" + $('.qcDepth').val() + "'>"
-                                + "<button class='comment-reply-form-submit' type='button' id='qcbtn'>등록</button>"    
+                                + "<button class='replyBtn' type='button' id='qcbtn'>등록</button>"    
                             + "</div>"
                         + "</div>"
                     + "</form>"
@@ -791,10 +815,10 @@ $(document).ready(function(){
             type:"get",
             data : {qcSeq:commentseq},
             success:function(){
-                alert('questionCommentdel ajax성공');
+                console.log('questionCommentdel ajax성공');
                 rejax();
             }, error:function(){
-                alert('questionCommentdel ajax실패');
+                console.log('questionCommentdel ajax실패');
             }
         });
     }
@@ -806,7 +830,28 @@ $(document).ready(function(){
     }
 
 
-   
+
+    //질문 글 삭제
+    function deleteQuestion() {
+        
+        if(confirm('게시글을 삭제하시겠습니까?')) {
+            $.ajax({
+                url:"http://192.168.0.231:3000/deleteQuestion",
+                type:"get",
+                data : {questionSeq:questionSeq},
+                success:function(){
+                    alert('삭제가 완료되었습니다.');
+                    location.href = "questions.html";
+                }, error:function(){
+                    console.log('deleteQuestion error');
+                }
+            });
+        } else {
+            return;
+        }
+    }
+
+
 
 </script>
 
