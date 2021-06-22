@@ -117,7 +117,7 @@
                     
                 <div class="cart-item-footer" style="background-color: #EAEAEC; margin: auto;padding-top: 25px;padding-bottom: 25px; text-align: right; " >
                     <div class="cart-item-footer-body">
-                        <h5>상품금액 <span id="itemPrice">0</span>원 &nbsp; + &nbsp; 배송비 <span id="deliveryPrice">0</span>원 &nbsp; = &nbsp; <b style="font-size: 25px;">주문금액&nbsp;&nbsp;<span id="totalPrice">0</span>원</b></h5>
+                        <h5>상품금액 <span id="itemPrice">0</span>원 &nbsp; + &nbsp; 배송비 <span id="deliveryPrice">0</span>원 &nbsp;-&nbsp; 포인트 <span id="mileagePrice">0</span>원 &nbsp; = &nbsp; <b style="font-size: 25px;">주문금액&nbsp;&nbsp;<span id="totalPrice">0</span>원</b></h5>
                     </div>
                 </div>
 
@@ -230,6 +230,7 @@
             $('#itemPrice').text(makeComma(list[0].productAmount));
             $('#deliveryPrice').text(makeComma(list[0].deliveryAmount));
             $('#totalPrice').text(makeComma(list[0].totalAmount));
+            $('#mileagePrice').text(makeComma(list[0].useMileage));
 
             $.each(list, function (i, val) {
 
