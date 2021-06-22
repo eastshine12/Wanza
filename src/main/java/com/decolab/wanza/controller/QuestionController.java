@@ -110,6 +110,7 @@ public class QuestionController {
 	@RequestMapping(value = "/questionComment", method = {RequestMethod.GET, RequestMethod.POST} )
 	public String questionComment(QuestionCommentDTO dto, HttpServletRequest req) {
 		System.out.println("QuestionController questionComment()" + new Date());
+		System.out.println(dto);
 		
 		int a = service.questionComment(dto);
 		System.out.println(a);

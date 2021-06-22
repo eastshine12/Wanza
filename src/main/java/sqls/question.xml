@@ -41,7 +41,7 @@
 		SELECT Q.QUESTIONSEQ, Q.QUESTIONTITLE, Q.QUESTIONCONTENT, QUESTIONREADCOUNT, QUESTIONREGDATE, QUESTIONFILENAME, QUESTIONDEL,
 	       	   Q.USERSEQ, USERNAME, NICKNAME, PROFILENAME, AUTH, COMENTDATE, NVL(COMENTCOUNT,0) COMENTCOUNT, ROW_NUMBER()OVER(ORDER BY QUESTIONREGDATE DESC) RNUM
 		FROM QUESTION Q, USERS U,
-			 (SELECT QUESTIONSEQ, MAX(QCREGDATE)COMENTDATE,COUNT(*)COMENTCOUNT FROM Q_COMMENT WHERE QCDEL=0 GROUP BY QUESTIONSEQ) C
+			 (SELECT QUESTIONSEQ, MAX(QCREGDATE)COMENTDATE,COUNT(*)COMENTCOUNT FROM QUESTION_COMMENT WHERE QCDEL=0 GROUP BY QUESTIONSEQ) C
 		WHERE Q.USERSEQ=U.USERSEQ AND QUESTIONDEL=0 AND Q.QUESTIONSEQ=C.QUESTIONSEQ(+)
 		<if test='searchWord neq "" and searchWord neq null' >
 			  AND (QUESTIONTITLE LIKE'%'||#{searchWord}||'%' OR QUESTIONCONTENT LIKE'%'||#{searchWord}||'%')
@@ -59,7 +59,7 @@
 	<select id="getQuestionCount" parameterType="com.decolab.wanza.dto.QuestionDTO" resultType="int">
 		SELECT COUNT(Q.QUESTIONSEQ)
 		FROM QUESTION Q,
-			 (SELECT QUESTIONSEQ, MAX(QCREGDATE)COMENTDATE,COUNT(*)COMENTCOUNT FROM Q_COMMENT WHERE QCDEL=0 GROUP BY QUESTIONSEQ) C
+			 (SELECT QUESTIONSEQ, MAX(QCREGDATE)COMENTDATE,COUNT(*)COMENTCOUNT FROM QUESTION_COMMENT WHERE QCDEL=0 GROUP BY QUESTIONSEQ) C
 		WHERE QUESTIONDEL=0 AND Q.QUESTIONSEQ=C.QUESTIONSEQ(+)
 		<if test='searchWord neq "" and searchWord neq null' >
 		        AND (QUESTIONTITLE LIKE'%'||#{searchWord}||'%' OR QUESTIONCONTENT LIKE'%'||#{searchWord}||'%')
@@ -116,7 +116,7 @@
         , U.NICKNAME
         , U.AUTH
         , U.PROFILENAME
-		FROM Q_COMMENT Q, USERS U
+		FROM QUESTION_COMMENT Q, USERS U
 		WHERE 1=1 
 		AND Q.USERSEQ = U.USERSEQ 
 		AND Q.QCDEL = 0
@@ -141,8 +141,7 @@
         , U.NICKNAME
         , U.AUTH
         , U.PROFILENAME
-        
-		FROM QUESTION Q, USERS U, Q_COMMENT QC
+		FROM QUESTION Q, USERS U, QUESTION_COMMENT QC
 		WHERE 1=1 
 		AND Q.USERSEQ = U.USERSEQ 
 		AND Q.QUESTIONSEQ = QC.QUESTIONSEQ
@@ -153,7 +152,7 @@
 	
 	<!-- 질문과답변 댓글쓰기 -->
 	<insert id="questionComment" parameterType="com.decolab.wanza.dto.QuestionCommentDTO">
-		INSERT INTO Q_COMMENT
+		INSERT INTO QUESTION_COMMENT
 		VALUES(
 		#{questionSeq}
 		, #{userSeq}
@@ -162,14 +161,14 @@
 		, SYSDATE
 		, #{qcFileName}
 		, 0
-		, (SELECT NVL(MAX(QCREF)+1, 0) FROM Q_COMMENT)
+		, (SELECT NVL(MAX(QCREF)+1, 0) FROM QUESTION_COMMENT)
 		, 0
 		, 0)
 	</insert>
 	
 	<!-- 질문과답변 댓글삭제 -->
 	<update id="questionCommentdel" parameterType="com.decolab.wanza.dto.QuestionCommentDTO">
-		UPDATE Q_COMMENT
+		UPDATE QUESTION_COMMENT
 		SET QCDEL = 1
 		WHERE QCSEQ = #{qcSeq}
 	</update>
@@ -177,7 +176,7 @@
 	<!-- 질문과답변 댓글숫자 세기 -->
 	<select id="questionCommentCount" parameterType="com.decolab.wanza.dto.QuestionCommentDTO" resultType="int">
 		SELECT NVL(COUNT(*), 0) 
-		FROM Q_COMMENT
+		FROM QUESTION_COMMENT
 		WHERE  1=1
 		AND QUESTIONSEQ = #{questionSeq} AND QCDEL = 0
 	</select>
@@ -185,7 +184,7 @@
 	<!-- 질문과답변 댓글에 답글 -->
 	<!-- 질문과답변 댓글에 답글달기 -->
 	<insert id="questionCommentAnswer" parameterType="com.decolab.wanza.dto.QuestionCommentDTO">
-		INSERT INTO Q_COMMENT
+		INSERT INTO QUESTION_COMMENT
 		VALUES(
 		#{questionSeq}
 		, #{userSeq}
@@ -194,18 +193,18 @@
 		, SYSDATE
 		, #{qcFileName}
 		, 0
-		, (SELECT QCREF FROM Q_COMMENT WHERE QCSEQ=#{qcSeq})
-		, (SELECT QCSTEP FROM Q_COMMENT WHERE QCSEQ=#{qcSeq}) + 1
-		, (SELECT QCDEPTH FROM Q_COMMENT WHERE QCSEQ=#{qcSeq}) + 1
+		, NVL((SELECT QCREF FROM QUESTION_COMMENT WHERE QCSEQ=#{qcSeq}),0)
+		, NVL((SELECT QCSTEP FROM QUESTION_COMMENT WHERE QCSEQ=#{qcSeq}) + 1,0)
+		, NVL((SELECT QCDEPTH FROM QUESTION_COMMENT WHERE QCSEQ=#{qcSeq}) + 1,0)
 		)
 	</insert>
 	
 	<!-- 질문과답변 댓글에 답글달면서 부모글 번호조정 -->
 	<update id="questionCommentAnswerStep" parameterType="com.decolab.wanza.dto.QuestionCommentDTO">
-		UPDATE Q_COMMENT
+		UPDATE QUESTION_COMMENT
 		SET QCSTEP = QCSTEP + 1
-		WHERE QCREF = (SELECT QCREF FROM Q_COMMENT WHERE QCSEQ=#{qcSeq})
-		AND QCSTEP >= (SELECT QCSTEP FROM Q_COMMENT WHERE QCSEQ=#{qcSeq}) 
+		WHERE QCREF = (SELECT QCREF FROM QUESTION_COMMENT WHERE QCSEQ=#{qcSeq})
+		AND QCSTEP >= (SELECT QCSTEP FROM QUESTION_COMMENT WHERE QCSEQ=#{qcSeq}) 
 	</update>
 		
 	<!-- 질문과답변 조회수 -->
