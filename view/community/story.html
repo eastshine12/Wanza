@@ -348,7 +348,7 @@ $(document).ready(function() {
 // '인기 인테리어 사진' 리스트
 function getCardList() {
     $.ajax({
-        url: "http://localhost:3000/getCardList",
+        url: "http://192.168.0.231:3000/getCardList",
         type: "get",
         success: function (list) {
             console.log(list);
@@ -365,7 +365,7 @@ function getCardList() {
                             +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
                             +     '<div class="project_item">'
                             +      '<span></span>'
-                            +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                            +      '<img src="http://192.168.0.231:3000/upload/'+val.cardFileName+'" alt="">'
                             +     '</div>'
                             +     '<h3 style="font-family: \'Noto Sans KR\'; font-size: 16px; margin-top: 15px; height: 32px;"><b>'+val.cardTitle+'</b></h3>'
                             +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.nickName+'</b></span>'
@@ -399,7 +399,7 @@ function setJdata(){
 
 function getCardSortList(data) {
     $.ajax({
-        url: "http://localhost:3000/getCardSortList",
+        url: "http://192.168.0.231:3000/getCardSortList",
         type: "get",
         data: data,
         success: function (list) {
@@ -418,7 +418,7 @@ function getCardSortList(data) {
                             +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
                             +     '<div class="project_item">'
                             +      '<span></span>'
-                            +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                            +      '<img src="http://192.168.0.231:3000/upload/'+val.cardFileName+'" alt="">'
                             +     '</div>'
                             +     '<h3 style="font-family: \'Noto Sans KR\'; font-size: 16px; margin-top: 15px; height: 32px;"><b>'+val.cardTitle+'</b></h3>'
                             +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.nickName+'</b></span>'

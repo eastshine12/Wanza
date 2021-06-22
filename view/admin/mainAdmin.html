@@ -328,7 +328,7 @@ function getWeekDeliveryCount() {
     let today = new Date();
 
     $.ajax({
-        url: "http://localhost:3000/getDeliveryStatusList",
+        url: "http://192.168.0.231:3000/getDeliveryStatusList",
         type: "post",
         data: {
             "startDate": getDateStr(lastWeek),
@@ -360,7 +360,7 @@ getDeliveryCount();
 function getDeliveryCount() {
 
     $.ajax({
-        url: "http://localhost:3000/getDeliveryStatusList",
+        url: "http://192.168.0.231:3000/getDeliveryStatusList",
         type: "post",
         success: function (list) {
             console.log(list);
@@ -464,7 +464,7 @@ function lineGraph(){
     today.setMinutes(today.getMinutes()+59);
     
     $.ajax({
-        url:"http://localhost:3000/graphList",
+        url:"http://192.168.0.231:3000/graphList",
         type:"post",
         data:{"sDate":getDateStr(lastWeek),"eDate":getDateStr(today)},
         success:function(list){
@@ -545,7 +545,7 @@ function barChart(){
     today.setMinutes(today.getMinutes()+59);
 
     $.ajax({
-        url:"http://localhost:3000/mapList",
+        url:"http://192.168.0.231:3000/mapList",
         type:"post",
         data:{"sDate":getDateStr(lastWeek),"eDate":getDateStr(today)},
         success:function(list){
@@ -636,7 +636,7 @@ let yesterday = year+"-"+month+"-"+yesterdate;
 
     
     $.ajax({
-        url:"http://localhost:3000/salesCompare",
+        url:"http://192.168.0.231:3000/salesCompare",
         data:{"sDate":yesterday, "eDate":today },
         type:"post",
         success:function(list){
@@ -690,7 +690,7 @@ function salesPrice(){
 
 
     $.ajax({
-        url:"http://localhost:3000/salesPrice",
+        url:"http://192.168.0.231:3000/salesPrice",
         type:"post",
         data:{"sDate":yesterday, "eDate":today },
         success:function(list){

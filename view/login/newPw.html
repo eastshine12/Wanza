@@ -113,7 +113,7 @@ $(document).ready(function(){
         //alert("정상!");
 
             $.ajax({
-                url:"http://localhost:3000/newPwd",
+                url:"http://192.168.0.231:3000/newPwd",
                 data:{userSeq : urlParams.userSeq, pwd:$("#inputPwd2").val()},
                 type:"post",
                 success:function(data){

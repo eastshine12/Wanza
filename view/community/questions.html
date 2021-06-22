@@ -384,7 +384,7 @@ function filterfunc() {
 
 function getQuestionList(word,s,page){
     $.ajax({
-      url:"http://localhost:3000/getQuestionList",
+      url:"http://192.168.0.231:3000/getQuestionList",
       type: "post",
       data: {searchWord:word, sort:s, startPage:page},
       success:function(list){
@@ -404,7 +404,7 @@ function getQuestionList(word,s,page){
             if(isEmpty(pfname) == true ){
               pfname = '../image/avatar.png';
             } else {
-              pfname = 'http://localhost:3000/upload/' + val.profileName;
+              pfname = 'http://192.168.0.231:3000/upload/' + val.profileName;
             }
             let qfname = val.questionFileName;
 
@@ -438,7 +438,7 @@ function getQuestionList(word,s,page){
                       // + link
                       + "<div class='questions-block'>"
                       + "<div class='questions-head-img'>"
-                      + "<img class='questions-head-image' src='http://localhost:3000/upload/"+qfname+"' >" 
+                      + "<img class='questions-head-image' src='http://192.168.0.231:3000/upload/"+qfname+"' >" 
                       + "</div>"
                       + "<div class='questions-head'>"
                       + "<h2 class='questions-title'>"
@@ -502,7 +502,7 @@ function getQuestionList(word,s,page){
 //글의 총 수를 구하는 함수
 function getQuestionCount(word,s,page) {
 	$.ajax({
-		url:"http://localhost:3000/getQuestionCount",
+		url:"http://192.168.0.231:3000/getQuestionCount",
 		type:"get",
 		data:{searchWord:word, sort:s, startPage:page},
 		success:function(count){ loadPage(count); },

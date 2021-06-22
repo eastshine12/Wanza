@@ -238,7 +238,7 @@
                 <article article class="project2_wrap" >
                     <a href="../store/storeDetail.html?seq=1"></a>
                         <div class="project2_item">
-                            <span></span><img src="http://localhost:3000/upload/" alt="">
+                            <span></span><img src="http://192.168.0.231:3000/upload/" alt="">
                             
                             <div class="ribbon-wrapper">
                                 <div class="ribbon">1</div>
@@ -335,7 +335,7 @@
     getProductList();
     function getProductList() {
         $.ajax({
-            url: "http://localhost:3000/getProductSortList", //getProductSortList getProductList
+            url: "http://192.168.0.231:3000/getProductSortList", //getProductSortList getProductList
             type: "get",
             data:{recentPeriod:3,startNum:1,endNum:9},
             success: function (list) {
@@ -358,7 +358,7 @@
                         app +=  '<a href="../store/storeDetail.html?seq=' + val.productSeq + '"></a>'
                             +  '<div class="project2_item">'
                             +  '<span></span>'
-                            +  '<img src="http://localhost:3000/upload/' + val.productFileName + '" alt="">';
+                            +  '<img src="http://192.168.0.231:3000/upload/' + val.productFileName + '" alt="">';
 
                         if(i==0) {
                             app += '<div class="ribbon-wrapper"><div class="ribbon">1</div></div>'
@@ -400,7 +400,7 @@
     getCardList();
     function getCardList() {
         $.ajax({
-            url: "http://localhost:3000/getCardSortList",
+            url: "http://192.168.0.231:3000/getCardSortList",
             type: "get",
             data: {sort:3,cardDel:12},
             success: function (list) {
@@ -417,17 +417,17 @@
                         if(i == 0) {
                             $('#carousel_rank1_title').text(val.cardTitle);
                             $('#carousel_rank1_nickname').text(val.nickName);
-                            $('#carousel_rank1_img').attr('src', 'http://localhost:3000/upload/'+val.cardFileName);
+                            $('#carousel_rank1_img').attr('src', 'http://192.168.0.231:3000/upload/'+val.cardFileName);
                             $('#carousel_rank1_btn').attr('onclick', 'location.href = "/view/community/storyDetail.html?seq='+val.cardSeq+'"');
                         } else if(i == 1) {
                             $('#carousel_rank2_title').text(val.cardTitle);
                             $('#carousel_rank2_nickname').text(val.nickName);
-                            $('#carousel_rank2_img').attr('src', 'http://localhost:3000/upload/'+val.cardFileName);
+                            $('#carousel_rank2_img').attr('src', 'http://192.168.0.231:3000/upload/'+val.cardFileName);
                             $('#carousel_rank2_btn').attr('onclick', 'location.href = "/view/community/storyDetail.html?seq='+val.cardSeq+'"');
                         } else if(i == 2) {
                             $('#carousel_rank3_title').text(val.cardTitle);
                             $('#carousel_rank3_nickname').text(val.nickName);
-                            $('#carousel_rank3_img').attr('src', 'http://localhost:3000/upload/'+val.cardFileName);
+                            $('#carousel_rank3_img').attr('src', 'http://192.168.0.231:3000/upload/'+val.cardFileName);
                             $('#carousel_rank3_btn').attr('onclick', 'location.href = "/view/community/storyDetail.html?seq='+val.cardSeq+'"');
                         };
 
@@ -436,7 +436,7 @@
                             +    '<a href="./storyDetail.html?seq='+val.cardSeq+'"></a>'
                             +     '<div class="project_item">'
                             +      '<span></span>'
-                            +      '<img src="http://localhost:3000/upload/'+val.cardFileName+'" alt="">'
+                            +      '<img src="http://192.168.0.231:3000/upload/'+val.cardFileName+'" alt="">'
                             +     '</div>'
                             +     '<h3 style="font-family: \'Noto Sans KR\'; font-size: 16px; margin-top: 15px; height: 32px;"><b>'+val.cardTitle+'</b></h3>'
                             +     '<span style="font-family: \'Noto Sans KR\';font-size: 13px;"><b>'+val.nickName+'</b></span>'

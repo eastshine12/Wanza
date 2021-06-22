@@ -223,7 +223,7 @@
       // var form1 = JSON.parse(form);
       // alert(form1);
         $.ajax({
-          url: 'http://localhost:3000/questionWrite',
+          url: 'http://192.168.0.231:3000/questionWrite',
           type: 'post',
           data : new FormData($('#question-form')[0]),
           enctype:"multipart/form-data",
@@ -233,7 +233,7 @@
           success:function(list){
             alert('ajax성공');
             //alert(list);
-            location.href="http://localhost:8090/view/community/questions.html";
+            location.href="http://192.168.0.231:8090/view/community/questions.html";
           }, error:function(list){
             alert('ajax실패');
           }
@@ -289,7 +289,7 @@
 
     /*
     $.ajax({
-			url:"http://localhost:3000/member",
+			url:"http://192.168.0.231:3000/member",
 			type:"get",
 			dataType:"json",
 			success:function(data){
@@ -310,7 +310,7 @@
     //   $.ajax({
     //     data : data,
     //     type : "post",
-    //     url : "http://localhost:3000/questionWrite",
+    //     url : "http://192.168.0.231:3000/questionWrite",
     //     enctype : 'multipart/form-data',
     //     processData : false,
     //     contentType : false,

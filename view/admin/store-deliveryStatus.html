@@ -547,7 +547,7 @@ $(document).ready(function() {
         let status = $('#sele1 option:selected').val()
         if(status>-1){
             $.ajax({
-                url: "http://localhost:3000/changeDeliveryStatus",
+                url: "http://192.168.0.231:3000/changeDeliveryStatus",
                 type: "get",
                 data: {orderSeq:jdata,orderStatus:status},
                 success: function(msg) { 
@@ -649,7 +649,7 @@ function autoCheck() {
 // 배송현황 리스트
 function getDeliveryList(fdata) {
     $.ajax({
-        url: "http://localhost:3000/getDeliveryStatusList",
+        url: "http://192.168.0.231:3000/getDeliveryStatusList",
         type: "post",
         data: fdata,
         success: function (list) {
@@ -691,7 +691,7 @@ function getDeliveryList(fdata) {
 //글의 총 수를 구하는 함수
 function getDeliveryStatusCount(jdata) {
 	$.ajax({
-		url:"http://localhost:3000/getDeliveryStatusCount",
+		url:"http://192.168.0.231:3000/getDeliveryStatusCount",
 		type:"get",
 		data:jdata,
 		success:function(count){ loadPage(count);console.log(count); },

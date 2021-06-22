@@ -278,7 +278,7 @@ $(document).ready(function() {
 //주문상세 가져오기
 function getMyOrderDetail() {
 	$.ajax({
-		url:"http://localhost:3000/getMyOrderDetail",
+		url:"http://192.168.0.231:3000/getMyOrderDetail",
 		type:"post",
 		data:{orderSeq:orderSeq},
 		success:function(data){
@@ -294,7 +294,7 @@ function getMyOrderDetail() {
 
                     +  '<div class="img_wrap">'
                     +  '<a href="../store/storeDetail.html?seq='+val.productSeq+'">'
-                    +  '<img src="http://localhost:3000/upload/'+val.productFileName+'" alt="">'
+                    +  '<img src="http://192.168.0.231:3000/upload/'+val.productFileName+'" alt="">'
                     +  '</a></div>'
 
                     +  '<div class="order_box"><div class="order_d1">'
@@ -341,7 +341,7 @@ function getMyOrderDetail() {
 //배송지 정보 가져오기
 function getOrderAddress() {
 	$.ajax({
-		url:"http://localhost:3000/getOrderAddress",
+		url:"http://192.168.0.231:3000/getOrderAddress",
 		type:"post",
 		data:{orderSeq:orderSeq},
 		success:function(data){
@@ -381,7 +381,7 @@ function getParameter(name) {
                 <!-- <div class="order_product">
                     <div class="img_wrap">
                         <a href="#none">
-                            <img src="http://localhost:3000/upload/product1.jpg" alt="">
+                            <img src="http://192.168.0.231:3000/upload/product1.jpg" alt="">
                         </a>
                     </div>
                     <div class="order_box">
