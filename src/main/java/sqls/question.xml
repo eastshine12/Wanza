@@ -214,6 +214,16 @@
 		WHERE QUESTIONSEQ = #{questionSeq}
 	</insert>
 	
+	<update id="deleteQuestion" parameterType="com.decolab.wanza.dto.QuestionDTO">
+		UPDATE QUESTION
+		SET QUESTIONDEL=1
+		WHERE QUESTIONSEQ = #{questionSeq}
+	</update>
+	
+	
+	
+	
+	
 </mapper>
 
 
