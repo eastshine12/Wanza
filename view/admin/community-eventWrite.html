@@ -119,7 +119,7 @@
                             <p style="font-weight: bold;">썸네일 사진을 등록 해 주세요</p>
                             
                             <div style="margin-bottom: 10px;">
-                                <input type="file" name="eventFile1">
+                                <input type="file" name="eventFile1" id="thumbNail">
                             </div>
                         </div>
 
@@ -249,7 +249,24 @@ $('.e_date').datepicker({
     function completeEvent(){
         if($("#startDate").val()=="" || $("#endDate").val()==""){
             alert("날짜를 확인해주세요");
+            return;
         }
+
+        if($("#eventTitle").val()==""){
+            alert("이벤트 제목을 입력해주세요.");
+            return;
+        }
+
+        if($("#thumbNail").val()==""){
+            alert("썸네일 사진을 등록해주세요.");
+            return;
+        }
+
+        if($("#eventFile").val()==""){
+            alert("이벤트 내용을 등록해주세요.");
+            return;
+        }
+
     
         var form = $('#eventForm').serialize();
 
