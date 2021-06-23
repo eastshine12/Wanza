@@ -144,7 +144,7 @@ select {
                     </div>
                 </form>
 
-                    <div class="mb-5">
+                    <div style="border: 1px solid rgb(201, 201, 201); padding: 17px; border-radius: 5px;">
                         <!-- 탭 -->
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
@@ -236,7 +236,9 @@ select {
                                     <input type="text" id="address1" class="form-control border" name="address" style="float: left; margin-bottom: 10px;" onclick="execDaumPostcode()" placeholder="주소를 입력해주세요" readonly>                     
                                     <input type="text" id="address2" class="form-control border" name="address" placeholder="상세주소">
                                 </div>
-                                <button type="button" style="float: right;background-color:#f18260; border-color: #f18260;" class="btn btn-primary" onclick="insertDele()">등록</button>
+                                <div class="form-group" style="margin-bottom: 53px;">   
+                                    <button type="button" style="float: right;background-color:#f18260; border-color: #f18260;" class="btn btn-primary" onclick="insertDele()">등록</button>
+                                </div>
                             </div>
                             <!-- 배송지 삭제 -->
                             <div class="tab-pane" id="dlvy_delete">
@@ -250,8 +252,8 @@ select {
                               </table>
                             </div>
                         </div> <!--탭 컨탠츠 끝-->
-                        <button type="button" class="btn btn-primary form-control" id="completeBtn" style="margin-top: 30px; background-color:#f18260; border-color: #f18260;">수정 완료</button>
                     </div>
+                    <button type="button" class="btn btn-primary form-control" id="completeBtn" style="margin-top: 30px; background-color:#f18260; border-color: #f18260; height: 50px; font-size: 20px;">수정 완료</button>
                     
                 
                     
